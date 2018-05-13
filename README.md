@@ -4,14 +4,14 @@
 
 /**
  ******************************************************************************
- * Project Name		: DE-020717
- * Date 		: 02.07.2017.
- * Hardware IDE		: Altium Designer 16.0.5
- * Firmware IDE		: KEIL uVision 5.25.0.0
- * Target Device	: STM32F746ZET  (LQFP-144, 512 Kbytes Flash, 216 MHz)
+ * Project Name         : DE-020717
+ * Date                 : 02.07.2017.
+ * Hardware IDE         : Altium Designer 16.0.5
+ * Firmware IDE         : KEIL uVision 5.25.0.0
+ * Target Device        : STM32F746ZET  (LQFP-144, 512 Kbytes Flash, 216 MHz)
  ******************************************************************************
  * 
- * Feature 		: Hardware 	
+ * Feature              : Hardware 	
  * ----------------------------------------------------------------------------
  *	
  *	1 OneWire Serial Port For Connection On Room Control Bus Or Digital Sensors
@@ -26,7 +26,7 @@
  *
  * ----------------------------------------------------------------------------
  *	
- *			: Firmware
+ *                      : Firmware
  * ----------------------------------------------------------------------------
  *	
  *	Room Temperature Set, Ambient Temperature Monitoring, Fancoil Fan Speed
