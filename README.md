@@ -23,6 +23,9 @@
  *	2,4GHz Radio Transciever 1Mbps For Wireless Connection To Control Network
  *	Battery Connector For RTC Backup 
  *	5Vdc Or 12Vdc Power Supply
+ *	"DE-060418" Or "DE-130418" Is Used As Fancoil Interface
+ *	"DE-200216" Or "DE-290817" Is Used As Room Controller 
+ *	"Red Dragon 429 Demo Board" Is Used As Hotel Controller
  *
  * ----------------------------------------------------------------------------
  *	
