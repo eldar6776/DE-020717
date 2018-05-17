@@ -14,8 +14,8 @@
  * Feature		: Hardware 	
  * ----------------------------------------------------------------------------
  *	
- *	1 OneWire Serial Port For Connection On Room Control Bus Or Digital Sensors
- *	1 RS485 Serial Port For Connection On Hotel Control Bus
+ *	1 OneWire Serial Port For Connection With Room Control Bus Or Digital Sensors
+ *	1 RS485 Serial Port For Connection With Hotel Control Bus
  *	6 Digital Otputs 0,5A 50V For Fancoil Control
  *	2 High Speed Digital Inputs Sensing Mains Phase Zero Crossing And Fan RPM
  *	3 Analog Inputs For Temperature And Light Sensing
