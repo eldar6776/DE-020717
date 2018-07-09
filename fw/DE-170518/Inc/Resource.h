@@ -46,6 +46,9 @@ extern GUI_CONST_STORAGE GUI_FONT GUI_Font32SL_AA4;
 //
 // 	Image
 //
+extern GUI_CONST_STORAGE GUI_BITMAP bmmaid_call_assert;
+extern GUI_CONST_STORAGE GUI_BITMAP bmdo_not_disturb_assert;
+extern GUI_CONST_STORAGE GUI_BITMAP bmreset_sos_assert;
 extern GUI_CONST_STORAGE GUI_BITMAP bmbckgnd_thermostat;
 //extern GUI_CONST_STORAGE GUI_BITMAP bmbckgnd_forecast;
 //extern GUI_CONST_STORAGE GUI_BITMAP bmtopbar;
@@ -57,6 +60,16 @@ extern GUI_CONST_STORAGE GUI_BITMAP bmknob;
 //extern GUI_CONST_STORAGE GUI_BITMAP bmhome_icon;
 //extern GUI_CONST_STORAGE GUI_BITMAP bmweather_icon;
 //extern GUI_CONST_STORAGE GUI_BITMAP bmson_with_cloud;
+extern GUI_CONST_STORAGE GUI_BITMAP bmnumber_0;
+extern GUI_CONST_STORAGE GUI_BITMAP bmnumber_1;
+extern GUI_CONST_STORAGE GUI_BITMAP bmnumber_2;
+extern GUI_CONST_STORAGE GUI_BITMAP bmnumber_3;
+extern GUI_CONST_STORAGE GUI_BITMAP bmnumber_4;
+extern GUI_CONST_STORAGE GUI_BITMAP bmnumber_5;
+extern GUI_CONST_STORAGE GUI_BITMAP bmnumber_6;
+extern GUI_CONST_STORAGE GUI_BITMAP bmnumber_7;
+extern GUI_CONST_STORAGE GUI_BITMAP bmnumber_8;
+extern GUI_CONST_STORAGE GUI_BITMAP bmnumber_9;
 //
 //	Animation
 //

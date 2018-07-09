@@ -658,6 +658,71 @@
               <FileType>1</FileType>
               <FilePath>..\Src\Display\door_bell_animation.c</FilePath>
             </File>
+            <File>
+              <FileName>do_not_disturb_assert.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Src\Display\do_not_disturb_assert.c</FilePath>
+            </File>
+            <File>
+              <FileName>maid_call_assert.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Src\Display\maid_call_assert.c</FilePath>
+            </File>
+            <File>
+              <FileName>number_0.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Src\Display\number_0.c</FilePath>
+            </File>
+            <File>
+              <FileName>number_1.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Src\Display\number_1.c</FilePath>
+            </File>
+            <File>
+              <FileName>number_2.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Src\Display\number_2.c</FilePath>
+            </File>
+            <File>
+              <FileName>number_3.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Src\Display\number_3.c</FilePath>
+            </File>
+            <File>
+              <FileName>number_4.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Src\Display\number_4.c</FilePath>
+            </File>
+            <File>
+              <FileName>number_5.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Src\Display\number_5.c</FilePath>
+            </File>
+            <File>
+              <FileName>number_6.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Src\Display\number_6.c</FilePath>
+            </File>
+            <File>
+              <FileName>number_7.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Src\Display\number_7.c</FilePath>
+            </File>
+            <File>
+              <FileName>number_8.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Src\Display\number_8.c</FilePath>
+            </File>
+            <File>
+              <FileName>number_9.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Src\Display\number_9.c</FilePath>
+            </File>
+            <File>
+              <FileName>reset_sos_assert.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Src\Display\reset_sos_assert.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
