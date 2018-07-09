@@ -1,0 +1,52 @@
+﻿Field=#~Integer~#~50|Field=Comment~String~Comment~100|Field=Description~String~Description~100|Field=Designator~String~Designator~100|Field=Footprint~String~Footprint~100|Field=LibRef~String~LibRef~100|Field=Quantity~Integer~Quantity~100|ReportField=Currency~<none>|ReportField=ProductionQuantity~1|ReportField=ProjectFileName~DE-020717.PrjPcb|ReportField=ProjectFullPath~F:\SkyDrive\OtvoreniProjekti\HotelSaplast\hw\DE-020717\DE-020717.PrjPcb|ReportField=Title~Bill of Materials For Project [DE-020717.PrjPcb] (No PCB Document Selected)|ReportField=TotalQuantity~178|ReportField=ReportTime~17:37:45|ReportField=ReportDate~7.6.2018.|ReportField=ReportDateTime~7.6.2018. 17:37:45|ReportField=OutputName~Bill of Materials|ReportField=OutputType~BOM_PartType|ReportField=GeneratorName~BOM|ReportField=GeneratorDescription~Bill of Materials|ReportField=VariantName~None|ReportField=Address1~Topal Osman Paše 18|ReportField=Address2~71000 Sarajevo|ReportField=Address3~Federacija BiH|ReportField=Address4~Bosna i Hercegovina|ReportField=Application_BuildNumber~|ReportField=ApprovedBy~|ReportField=Author~eldar6776@hotmail.com|ReportField=CheckedBy~|ReportField=CompanyName~|ReportField=CurrentDate~7.6.2018.|ReportField=CurrentTime~17:37:34|ReportField=Date~|ReportField=DocumentFullPathAndName~F:\SkyDrive\OtvoreniProjekti\HotelSaplast\hw\DE-020717\DE-020717_1.SchDoc|ReportField=DocumentName~DE-020717_1.SchDoc|ReportField=DocumentNumber~DE-020717|ReportField=DrawnBy~Dedic Eldar|ReportField=Engineer~|ReportField=ImagePath~|ReportField=ModifiedDate~7.6.2018.|ReportField=Organization~I-MEDIA GROUP d.o.o.|ReportField=ProjectName~DE-020717.PrjPcb|ReportField=Revision~001|ReportField=Rule~|ReportField=SheetNumber~|ReportField=SheetTotal~|ReportField=Time~|ReportField=Title~CuC & SDRAM &  ANIN & DIO|ReportField=DataSourceFileName~DE-020717.PrjPcb|ReportField=DataSourceFullPath~F:\SkyDrive\OtvoreniProjekti\HotelSaplast\hw\DE-020717\DE-020717.PrjPcb|ReportField=PCBConfigurationName~Default Configuration|ReportField=Item~|ReportField=ItemRevision~|ReportField=ItemAndRevision~|ReportField=ItemRevisionBase~|ReportField=ItemRevisionLevel1~|ReportField=ItemRevisionLevel2~|ReportField=ItemRevisionLevel1AndBase~|ReportField=ItemRevisionLevel2AndLevel1~
+1|100nF|Ceramic Chip Capacitor - Standard|C1, C2, C3, C4, C5, C6, C7, C8, C12, C13, C14, C15, C16, C17, C19, C20, C21, C22, C23, C24, C25, C26, C27, C28, C30, C31, C32, C33, C34, C36, C37, C38, C39, C40, C41, C42, C44, C45, C46, C48, C49, C50, C51, C53, C55, C56, C66, C68, C71, C72, C74, C75, C79, C80, C82, C88, C89, C91, C92|0603|C0603|59
+2|4u7|Ceramic Chip Capacitor - Standard|C9, C10, C35, C54, C57, C70, C73, C81|0805|C0805|8
+3|20pF|Ceramic Chip Capacitor - Standard|C11, C18|0603|C0603|2
+4|4,7pF|Ceramic Chip Capacitor - Standard|C29, C43|0603|C0603|2
+5|100pF|Ceramic Chip Capacitor - Standard|C47, C52|0603|C0603|2
+6|1uF|Ceramic Chip Capacitor - Standard|C67|0603|C0603|1
+7|22uF/16V|Tantamount Commercial, Surface Mount Solid Tantalum Chip Capacitor: 15uF, 20% Tolerance, 4 WVDC @ +85°C, Surge = 5.2V|C83, C84|3528|293D156X0004B2|2
+8|47uF/10V|Tantamount Commercial, Surface Mount Solid Tantalum Chip Capacitor: 15uF, 20% Tolerance, 4 WVDC @ +85°C, Surge = 5.2V|C85, C86|3528|293D156X0004B2|2
+9|100uF|Tantamount Commercial, Surface Mount Solid Tantalum Chip Capacitor: 15uF, 20% Tolerance, 4 WVDC @ +85°C, Surge = 5.2V|C87|3528|293D156X0004B2|1
+10|10uF|Ceramic Chip Capacitor - Standard|C90, C93, C94|0805|C0805|3
+11|HSMH-C190|Surface Mount Chip LED, Red|D1|1.6X0.8X0.8A|HSMH-C190|1
+12|STPS1L40M|Schottky Barrier Diode, 2-Pin SOD-123, Pb-Free, Tape and Reel|D2|ONSC-SOD-123-2-425-04_V|SMMSD301T1G|1
+13|BLM15AG121|Inductor|L1, L2, L3, L5, L7, L8, L9, L10|0603|Inductor_SMD|8
+14|74404024047|WE-LQS SMD Power Inductor, L=4.7 µH|L4|WE-LQS 252012|74404024047|1
+15|3VBAT|Header, 2-Pin|P1|HDR1X2|Header 2|1
+16|AMBIENT_LIGHT|Header, 2-Pin|P2|HDR1X2|Header 2|1
+17|AMBIENT_TEMPERATURE|Header, 2-Pin|P3|HDR1X2|Header 2|1
+18|TOUCH_SCREEN|10 pin PFC connector bottom|P4|10 pin PFC|TS_Connector|1
+19|nRF24L01|Header, 4-Pin, Dual row|P7|HDR2X4|Header 4X2|1
+20|480x272 RGB TFT LCD AML043056B0-40|40 pin pfc connector bottom|P8|40 pin FPC|TFT LCD Connector|1
+21|ST-Link Debbuger|Header, 3-Pin|P9|HDR1X3|Header 3|1
+22|EXPAND|Header, 5-Pin, Dual row|P10|HDR2X5|Header 5X2|1
+23|FANCOIL_INTERFACE|Header, 8-Pin|P11|HDR1X8|Header 8|1
+24|POWER_&_COM|Header, 8-Pin|P12|HDR1X8|Header 8|1
+25|2N7002|N-channel Enhancement Mode Vertical D-MOSFET|Q1, Q2, Q3, Q4|SOT23_N|BSS123|4
+26|10K|Thick Film Chip Resistor, 1 Ohm to 2.2M Ohm Range, 5% Tolerance, 0402 Size, 0.063 W|R1, R2, R3, R4, R5, R6, R7, R8, R9, R10, R11, R14, R15, R16, R17, R18, R19, R20|2-0402|ERJ2GE|18
+27|10K|Rectangular Thick Film Chip Resistor, 10 Ohm to 330k Ohm Range, 0.1% and 0.5% Tolerance, 0603 Size, 0.063 W|R12, R13, R22, R28, R39, R60, R61|ERA-0603|ERA3Y|7
+28|2K7|Rectangular Thick Film Chip Resistor, 10 Ohm to 330k Ohm Range, 0.1% and 0.5% Tolerance, 0603 Size, 0.063 W|R21, R23, R25, R26|ERA-0603|ERA3Y|4
+29|0R|Rectangular Thick Film Chip Resistor, 10 Ohm to 330k Ohm Range, 0.1% and 0.5% Tolerance, 0603 Size, 0.063 W, Rectangular Thick Film Chip Resistor, 10 Ohm to 330k Ohm Range, 0.1% and 0.5% Tolerance, 0603 Size, 0.063 W, Rectangular Thick Film Chip Resistor, 10 Ohm to 330k Ohm Range, 0.1% and 0.5% Tolerance, 0603 Size, 0.063 W, Rectangular Thick Film Chip Resistor, 10 Ohm to 330k Ohm Range, 0.1% and 0.5% Tolerance, 0603 Size, 0.063 W, Rectangular Thick Film Chip Resistor, 10 Ohm to 330k Ohm Range, 0.1% and 0.5% Tolerance, 0603 Size, 0.063 W, Metal Film Thermosensitive Chip Resistor, 0.56 Ohm to 10k Ohm Range, 5% Tolerance, 0603 Size, 0.063 W|R24, R27, R34, R36, R37, R48|ERA-0603|ERA3Y, ERA3Y, ERA3Y, ERA3Y, ERA3Y, ERAV|6
+30|560R|Rectangular Thick Film Chip Resistor, 10 Ohm to 330k Ohm Range, 0.1% and 0.5% Tolerance, 0603 Size, 0.063 W|R29, R41|ERA-0603|ERA3Y|2
+31|1K|Rectangular Thick Film Chip Resistor, 10 Ohm to 330k Ohm Range, 0.1% and 0.5% Tolerance, 0603 Size, 0.063 W|R30, R42, R43|ERA-0603|ERA3Y|3
+32|330R|Rectangular Thick Film Chip Resistor, 10 Ohm to 330k Ohm Range, 0.1% and 0.5% Tolerance, 0603 Size, 0.063 W|R31|ERA-0603|ERA3Y|1
+33|NF|Rectangular Thick Film Chip Resistor, 10 Ohm to 330k Ohm Range, 0.1% and 0.5% Tolerance, 0603 Size, 0.063 W|R32, R33, R38|ERA-0603|ERA3Y|3
+34|220R|Rectangular Thick Film Chip Resistor, 10 Ohm to 330k Ohm Range, 0.1% and 0.5% Tolerance, 0603 Size, 0.063 W|R35, R44|ERA-0603|ERA3Y|2
+35|2K2|Rectangular Thick Film Chip Resistor, 10 Ohm to 330k Ohm Range, 0.1% and 0.5% Tolerance, 0603 Size, 0.063 W, Metal Film Thermosensitive Chip Resistor, 0.56 Ohm to 10k Ohm Range, 5% Tolerance, 0603 Size, 0.063 W, Metal Film Thermosensitive Chip Resistor, 0.56 Ohm to 10k Ohm Range, 5% Tolerance, 0603 Size, 0.063 W, Metal Film Thermosensitive Chip Resistor, 0.56 Ohm to 10k Ohm Range, 5% Tolerance, 0603 Size, 0.063 W, Metal Film Thermosensitive Chip Resistor, 0.56 Ohm to 10k Ohm Range, 5% Tolerance, 0603 Size, 0.063 W, Metal Film Thermosensitive Chip Resistor, 0.56 Ohm to 10k Ohm Range, 5% Tolerance, 0603 Size, 0.063 W, Rectangular Thick Film Chip Resistor, 10 Ohm to 330k Ohm Range, 0.1% and 0.5% Tolerance, 0603 Size, 0.063 W|R40, R51, R52, R53, R54, R55, R59|ERA-0603|ERA3Y, ERAV, ERAV, ERAV, ERAV, ERAV, ERA3Y|7
+36|100K|Metal Film Thermosensitive Chip Resistor, 0.56 Ohm to 10k Ohm Range, 5% Tolerance, 0603 Size, 0.063 W|R45|ERA-0603|ERAV|1
+37|4K7|Metal Film Thermosensitive Chip Resistor, 0.56 Ohm to 10k Ohm Range, 5% Tolerance, 0603 Size, 0.063 W, Rectangular Thick Film Chip Resistor, 10 Ohm to 330k Ohm Range, 0.1% and 0.5% Tolerance, 0603 Size, 0.063 W|R46, R58|ERA-0603|ERAV, ERA3Y|2
+38|10R|Metal Film Thermosensitive Chip Resistor, 0.56 Ohm to 10k Ohm Range, 5% Tolerance, 0805 Size, 0.1 W|R47|ERA-0805|ERAS|1
+39|1K2|Rectangular Thick Film Chip Resistor, 10 Ohm to 330k Ohm Range, 0.1% and 0.5% Tolerance, 0603 Size, 0.063 W|R57|ERA-0603|ERA3Y|1
+40|STM32F746ZET|STM32F746ZET ARM Cortex M7 microcontroller|U1|LQFP-144_20X20mm|STM32F74XZXT|1
+41|MT48LC4M32B2P-6A|128Mb PC133 SDR SDRAM, 4Mb x 32, 6ns, 3.3V, 0 to 70 degC, 86-Pin TSOP, Pb-Free|U2|MICT-P-86_N|MT48LC4M32B2P-6A|1
+42|MC74VHC1GT14DFT1|Schmitt-Trigger Inverter / Logic Level Shifter with LSTTL-Compatible Inputs|U3, U5|419A-01_N|MC74VHC1GT14DFT1|2
+43|ULN2003A|Seven Darlington Array|U4|SO16_N|ULN2003D|1
+44|STLD40DPUR|White Led Power Supply For Large Display Backlight, 8-Pin VFDFPN, Tape and Reel|U6|QFN8_V|STLD40DPUR|1
+45|MAX485CSA|Low-Power, Slew-Rate-Limited RS-485/RS-422 Transceiver|U8|NSO8_N|MAX485CSA|1
+46|M24128RMN1|128 K Serial I˛C Bus EEPROM|U9|SOP8_N|M24128RMN1|1
+47|N25Q128A13ESE40E|128 Mb (x1/x2/x4) Serial NOR Flash Memory with Multi I/O, 108 MHz, 2.7 to 3.6 V, 8-pin SO8 Wide (SE), Tray|U10|MICT-SE-8_N|N25Q128A13ESE40E|1
+48|DC/DC BUCK|Positive Voltage Regulator, 5V, 3-Pin TO-220|U11|TO220|L7805CV|1
+49|REG1117-3.3|800mA and 1A Low Dropout Positive Regulator 2.85V, 3.3V, 5V, and Adjustable|U12|ZZ311|REG1117-3.3|1
+50|ECS-110-S-5P|Crystal Oscillator|Y1|CSM-7|ECS-110-S-5P|1
+51|RTC|Crystal Oscillator|Y2|R38|XTAL|1

@@ -1,0 +1,18 @@
+--cpu Cortex-M7.fp.sp
+".\stm32f769i-eval\dev_inf.o"
+".\stm32f769i-eval\loader_src.o"
+".\stm32f769i-eval\stm32f7xx_hal_msp.o"
+".\stm32f769i-eval\stm32f7xx_hal.o"
+".\stm32f769i-eval\stm32f7xx_hal_cortex.o"
+".\stm32f769i-eval\stm32f7xx_hal_dma.o"
+".\stm32f769i-eval\stm32f7xx_hal_gpio.o"
+".\stm32f769i-eval\stm32f7xx_hal_pwr.o"
+".\stm32f769i-eval\stm32f7xx_hal_pwr_ex.o"
+".\stm32f769i-eval\stm32f7xx_hal_qspi.o"
+".\stm32f769i-eval\stm32f7xx_hal_rcc.o"
+".\stm32f769i-eval\stm32f7xx_hal_rcc_ex.o"
+".\stm32f769i-eval\system_stm32f7xx.o"
+--library_type=microlib --strict --scatter ".\Target.sct"
+--diag_suppress=L6244 --summary_stderr --info summarysizes --map --load_addr_map_info --symbols
+--info sizes --info totals --info unused --info veneers
+--list "C:\Users\eldar\OneDrive\Documents\W25Q64.map" -o .\STM32F769I-EVAL\W25Q64.axf

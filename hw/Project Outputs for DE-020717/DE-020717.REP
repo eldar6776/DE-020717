@@ -1,0 +1,448 @@
+*************************************************************
+FileName = DE-020717.GBR
+AutoAperture = True
+*************************************************************
+Generating : Top Layer
+      File : DE-020717.GTL
+
+    Adding Layer      : Top Layer
+
+    Adding Layer      : Multi-Layer
+
+
+Used DCodes :
+    D10
+    D11
+    D12
+    D13
+    D14
+    D15
+    D16
+    D17
+    D18
+    D19
+    D20
+    D21
+    D22
+    D23
+    D24
+    D25
+    D26
+    D27
+    D28
+    D29
+    D30
+    D31
+    D32
+    D33
+    D34
+    D35
+    D36
+    D37
+    D38
+    D39
+    D40
+    D41
+*************************************************************
+
+*************************************************************
+Generating : Power
+      File : DE-020717.G1
+
+    Adding Layer      : Power
+
+    Adding Layer      : Multi-Layer
+
+
+Used DCodes :
+    D21
+    D27
+    D29
+    D39
+    D41
+    D42
+*************************************************************
+
+*************************************************************
+Generating : Ground
+      File : DE-020717.G2
+
+    Adding Layer      : Ground
+
+    Adding Layer      : Multi-Layer
+
+
+Used DCodes :
+    D20
+    D21
+    D27
+    D35
+    D37
+    D39
+    D41
+*************************************************************
+
+*************************************************************
+Generating : Bottom Layer
+      File : DE-020717.GBL
+
+    Adding Layer      : Bottom Layer
+
+    Adding Layer      : Multi-Layer
+
+
+Used DCodes :
+    D10
+    D11
+    D18
+    D20
+    D21
+    D23
+    D24
+    D25
+    D27
+    D28
+    D29
+    D35
+    D36
+    D37
+    D38
+    D39
+    D40
+    D41
+    D43
+    D44
+    D45
+    D46
+    D47
+    D48
+    D49
+    D50
+    D51
+    D52
+    D53
+    D54
+    D55
+    D56
+*************************************************************
+
+*************************************************************
+Generating : Bottom Pad Master
+      File : DE-020717.GPB
+
+    Adding Layer      : Bottom Layer
+
+    Adding Layer      : Multi-Layer
+
+
+Used DCodes :
+    D10
+    D11
+    D18
+    D20
+    D21
+    D23
+    D24
+    D25
+    D35
+    D36
+    D37
+    D38
+    D39
+    D40
+    D43
+    D44
+    D45
+    D46
+    D47
+    D48
+    D49
+    D50
+    D51
+    D52
+    D53
+    D54
+*************************************************************
+
+*************************************************************
+Generating : Top Pad Master
+      File : DE-020717.GPT
+
+    Adding Layer      : Top Layer
+
+    Adding Layer      : Multi-Layer
+
+
+Used DCodes :
+    D10
+    D11
+    D12
+    D13
+    D14
+    D15
+    D16
+    D17
+    D18
+    D19
+    D20
+    D21
+    D22
+    D23
+    D24
+    D25
+    D26
+    D35
+    D36
+    D37
+    D38
+    D39
+    D40
+*************************************************************
+
+*************************************************************
+Generating : Top Overlay
+      File : DE-020717.GTO
+
+    Adding Layer      : Top Overlay
+
+
+Used DCodes :
+    D27
+    D57
+    D58
+    D59
+    D60
+*************************************************************
+
+*************************************************************
+Generating : Top Paste
+      File : DE-020717.GTP
+
+    Adding Layer      : Top Paste
+
+    Adding Layer      : Top Layer
+
+    Adding Layer      : Multi-Layer
+
+
+Used DCodes :
+    D10
+    D11
+    D12
+    D13
+    D14
+    D15
+    D16
+    D17
+    D18
+    D19
+    D20
+    D21
+    D22
+    D23
+    D24
+    D25
+    D26
+*************************************************************
+
+*************************************************************
+Generating : Top Solder
+      File : DE-020717.GTS
+
+    Adding Layer      : Top Solder
+
+    Adding Layer      : Top Layer
+
+    Adding Layer      : Multi-Layer
+
+
+Used DCodes :
+    D10
+    D11
+    D12
+    D13
+    D14
+    D15
+    D16
+    D17
+    D18
+    D19
+    D20
+    D21
+    D22
+    D23
+    D24
+    D25
+    D26
+    D35
+    D36
+    D37
+    D38
+    D39
+    D40
+    D41
+*************************************************************
+
+*************************************************************
+Generating : Bottom Solder
+      File : DE-020717.GBS
+
+    Adding Layer      : Bottom Solder
+
+    Adding Layer      : Bottom Layer
+
+    Adding Layer      : Multi-Layer
+
+
+Used DCodes :
+    D10
+    D11
+    D18
+    D20
+    D21
+    D23
+    D24
+    D25
+    D35
+    D36
+    D37
+    D38
+    D39
+    D40
+    D41
+    D43
+    D44
+    D45
+    D46
+    D47
+    D48
+    D49
+    D50
+    D51
+    D52
+    D53
+    D54
+*************************************************************
+
+*************************************************************
+Generating : Bottom Paste
+      File : DE-020717.GBP
+
+    Adding Layer      : Bottom Paste
+
+    Adding Layer      : Bottom Layer
+
+    Adding Layer      : Multi-Layer
+
+
+Used DCodes :
+    D10
+    D11
+    D18
+    D23
+    D24
+    D25
+    D43
+    D44
+    D45
+    D46
+    D47
+    D48
+    D49
+    D50
+    D51
+    D52
+    D53
+    D54
+*************************************************************
+
+*************************************************************
+Generating : Bottom Overlay
+      File : DE-020717.GBO
+
+    Adding Layer      : Bottom Overlay
+
+
+Used DCodes :
+    D27
+    D57
+    D58
+    D59
+    D60
+    D61
+    D62
+*************************************************************
+
+*************************************************************
+Generating : Keep-Out Layer
+      File : DE-020717.GKO
+
+    Adding Layer      : Keep-Out Layer
+
+
+Used DCodes :
+*************************************************************
+
+*************************************************************
+Generating : Mechanical 1
+      File : DE-020717.GM1
+
+    Adding Layer      : Mechanical 1
+
+
+Used DCodes :
+    D61
+*************************************************************
+
+*************************************************************
+Generating : Mechanical 13
+      File : DE-020717.GM13
+
+    Adding Layer      : Mechanical 13
+
+
+Used DCodes :
+    D61
+    D63
+*************************************************************
+
+*************************************************************
+Generating : Mechanical 15
+      File : DE-020717.GM15
+
+    Adding Layer      : Mechanical 15
+
+
+Used DCodes :
+    D61
+    D62
+    D64
+*************************************************************
+
+*************************************************************
+Generating : Drill Drawing
+      File : DE-020717.GD1
+
+    Adding Drill Pair : Bottom Layer-Top Layer
+
+    Adding Layer      : Drill Drawing
+
+
+Used DCodes :
+    D65
+    D66
+*************************************************************
+
+*************************************************************
+Generating : Drill Guide
+      File : DE-020717.GG1
+
+    Adding Drill Pair : Bottom Layer-Top Layer
+
+    Adding Layer      : Drill Guide
+
+
+Used DCodes :
+    D65
+*************************************************************
+

@@ -1,0 +1,4185 @@
+	.text
+	.syntax unified
+	.eabi_attribute	67, "2.09"	@ Tag_conformance
+	.cpu	cortex-m7
+	.eabi_attribute	6, 13	@ Tag_CPU_arch
+	.eabi_attribute	7, 77	@ Tag_CPU_arch_profile
+	.eabi_attribute	8, 0	@ Tag_ARM_ISA_use
+	.eabi_attribute	9, 2	@ Tag_THUMB_ISA_use
+	.fpu	fpv5-sp-d16
+	.eabi_attribute	27, 1	@ Tag_ABI_HardFP_use
+	.eabi_attribute	36, 1	@ Tag_FP_HP_extension
+	.eabi_attribute	34, 1	@ Tag_CPU_unaligned_access
+	.eabi_attribute	17, 1	@ Tag_ABI_PCS_GOT_use
+	.eabi_attribute	20, 2	@ Tag_ABI_FP_denormal
+	.eabi_attribute	21, 0	@ Tag_ABI_FP_exceptions
+	.eabi_attribute	23, 1	@ Tag_ABI_FP_number_model
+	.eabi_attribute	24, 1	@ Tag_ABI_align_needed
+	.eabi_attribute	25, 1	@ Tag_ABI_align_preserved
+	.eabi_attribute	28, 1	@ Tag_ABI_VFP_args
+	.eabi_attribute	38, 1	@ Tag_ABI_FP_16bit_format
+	.eabi_attribute	18, 2	@ Tag_ABI_PCS_wchar_t
+	.eabi_attribute	26, 1	@ Tag_ABI_enum_size
+	.eabi_attribute	14, 0	@ Tag_ABI_PCS_R9_use
+	.file	"stm32f7xx_hal_adc_ex.c"
+	.file	1 "../Drivers/STM32F7xx_HAL_Driver/Inc" "stm32f7xx_hal_def.h"
+	.file	2 "../Drivers/STM32F7xx_HAL_Driver/Inc" "stm32f7xx_hal_dma.h"
+	.file	3 "../Drivers/CMSIS/Device/ST/STM32F7xx/Include" "stm32f7xx.h"
+	.file	4 "C:\\Keil\\ARM\\ARMCLANG\\Bin\\..\\include" "stdint.h"
+	.file	5 "../Drivers/CMSIS/Device/ST/STM32F7xx/Include" "stm32f746xx.h"
+	.file	6 "../Drivers/STM32F7xx_HAL_Driver/Inc" "stm32f7xx_hal_adc.h"
+	.section	.text.HAL_ADCEx_InjectedStart,"ax",%progbits
+	.hidden	HAL_ADCEx_InjectedStart @ -- Begin function HAL_ADCEx_InjectedStart
+	.globl	HAL_ADCEx_InjectedStart
+	.p2align	2
+	.type	HAL_ADCEx_InjectedStart,%function
+	.code	16                      @ @HAL_ADCEx_InjectedStart
+	.thumb_func
+HAL_ADCEx_InjectedStart:
+.Lfunc_begin0:
+	.file	7 "../Drivers/STM32F7xx_HAL_Driver/Src" "stm32f7xx_hal_adc_ex.c"
+	.loc	7 176 0                 @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:176:0
+	.fnstart
+	.cfi_sections .debug_frame
+	.cfi_startproc
+@ %bb.0:
+	.save	{r4, lr}
+	.pad	#4
+	push	{r3, r4, lr}
+	.cfi_def_cfa_offset 12
+	.cfi_offset lr, -4
+	.cfi_offset r4, -8
+	@DEBUG_VALUE: HAL_ADCEx_InjectedStart:hadc <- $r0
+	movs	r1, #0
+.Ltmp0:
+	@DEBUG_VALUE: HAL_ADCEx_InjectedStart:counter <- 0
+	@DEBUG_VALUE: HAL_ADCEx_InjectedStart:hadc <- $r0
+	.loc	7 177 17 prologue_end   @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:177:17
+	str	r1, [sp]
+.Ltmp1:
+	@DEBUG_VALUE: HAL_ADCEx_InjectedStart:tmp2 <- 0
+	@DEBUG_VALUE: HAL_ADCEx_InjectedStart:tmp1 <- 0
+	.loc	7 181 3                 @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:181:3
+	ldrb.w	r1, [r0, #60]
+.Ltmp2:
+	.loc	7 181 3 is_stmt 0       @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:181:3
+	cmp	r1, #1
+	bne	.LBB0_2
+.Ltmp3:
+@ %bb.1:
+	@DEBUG_VALUE: HAL_ADCEx_InjectedStart:hadc <- $r0
+	.loc	7 0 3                   @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:0:3
+	movs	r0, #2
+.Ltmp4:
+	b	.LBB0_12
+.LBB0_2:
+.Ltmp5:
+	@DEBUG_VALUE: HAL_ADCEx_InjectedStart:hadc <- $r0
+	movs	r1, #1
+.Ltmp6:
+	.loc	7 181 3                 @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:181:3
+	strb.w	r1, [r0, #60]
+.Ltmp7:
+	.loc	7 187 13 is_stmt 1      @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:187:13
+	ldr	r1, [r0]
+	.loc	7 187 23 is_stmt 0      @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:187:23
+	ldr	r2, [r1, #8]
+.Ltmp8:
+	.loc	7 187 6                 @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:187:6
+	tst.w	r2, #1
+	bne	.LBB0_6
+.Ltmp9:
+@ %bb.3:
+	@DEBUG_VALUE: HAL_ADCEx_InjectedStart:hadc <- $r0
+	.loc	7 190 5 is_stmt 1       @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:190:5
+	ldr	r2, [r1, #8]
+	.loc	7 194 53                @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:194:53
+	ldr	r3, __arm_cp.0_1
+	.loc	7 190 5                 @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:190:5
+	orr	r2, r2, #1
+	str	r2, [r1, #8]
+	.loc	7 194 37                @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:194:37
+	ldr	r2, __arm_cp.0_0
+	ldr	r2, [r2]
+	.loc	7 194 53 is_stmt 0      @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:194:53
+	udiv	r2, r2, r3
+	.loc	7 194 34                @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:194:34
+	add.w	r2, r2, r2, lsl #1
+	b	.LBB0_5
+.Ltmp10:
+.LBB0_4:                                @   in Loop: Header=BB0_5 Depth=1
+	@DEBUG_VALUE: HAL_ADCEx_InjectedStart:counter <- $r2
+	@DEBUG_VALUE: HAL_ADCEx_InjectedStart:hadc <- $r0
+	.loc	7 197 14 is_stmt 1      @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:197:14
+	ldr	r2, [sp]
+.Ltmp11:
+	@DEBUG_VALUE: HAL_ADCEx_InjectedStart:counter <- $r2
+	subs	r2, #1
+.Ltmp12:
+.LBB0_5:                                @ =>This Inner Loop Header: Depth=1
+	@DEBUG_VALUE: HAL_ADCEx_InjectedStart:hadc <- $r0
+	@DEBUG_VALUE: HAL_ADCEx_InjectedStart:counter <- $r2
+	.loc	7 0 14 is_stmt 0        @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:0:14
+	str	r2, [sp]
+	.loc	7 195 11 is_stmt 1      @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:195:11
+	ldr	r2, [sp]
+.Ltmp13:
+	@DEBUG_VALUE: HAL_ADCEx_InjectedStart:counter <- $r2
+	.loc	7 195 5 is_stmt 0       @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:195:5
+	cmp	r2, #0
+	bne	.LBB0_4
+.Ltmp14:
+.LBB0_6:
+	@DEBUG_VALUE: HAL_ADCEx_InjectedStart:hadc <- $r0
+	.loc	7 202 6 is_stmt 1       @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:202:6
+	ldr	r2, [r1, #8]
+.Ltmp15:
+	.loc	7 202 6 is_stmt 0       @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:202:6
+	tst.w	r2, #1
+	beq	.LBB0_11
+.Ltmp16:
+@ %bb.7:
+	@DEBUG_VALUE: HAL_ADCEx_InjectedStart:hadc <- $r0
+	.loc	7 207 5 is_stmt 1       @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:207:5
+	ldr	r2, [r0, #64]
+	movw	r3, #12289
+	ldr	r4, __arm_cp.0_2
+	bics	r2, r3
+	orr	r2, r2, #4096
+	str	r2, [r0, #64]
+.Ltmp17:
+	.loc	7 215 9                 @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:215:9
+	ldr	r2, [r0, #64]
+.Ltmp18:
+	.loc	7 215 9 is_stmt 0       @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:215:9
+	tst.w	r2, #256
+.Ltmp19:
+	.loc	7 218 7 is_stmt 1       @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:218:7
+	itt	eq
+	moveq	r2, #0
+	streq	r2, [r0, #68]
+	movs	r2, #0
+.Ltmp20:
+	.loc	7 224 5                 @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:224:5
+	strb.w	r2, [r0, #60]
+.Ltmp21:
+	.loc	7 228 5                 @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:228:5
+	mvn	r0, #4
+.Ltmp22:
+	str	r0, [r1]
+.Ltmp23:
+	.loc	7 231 8                 @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:231:8
+	ldr.w	r0, [r4, #772]
+	ldr	r2, [r1, #8]
+	ldr	r3, [r1, #4]
+	and	r2, r2, #3145728
+	and	r3, r3, #1024
+.Ltmp24:
+	.loc	7 231 8 is_stmt 0       @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:231:8
+	tst.w	r0, #31
+	beq	.LBB0_9
+@ %bb.8:
+.Ltmp25:
+	.loc	7 245 35 is_stmt 1      @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:245:35
+	cmp	r1, r4
+	mov.w	r0, #0
+	it	eq
+	orrseq.w	r2, r2, r3
+	bne	.LBB0_12
+	b	.LBB0_10
+.Ltmp26:
+.LBB0_9:
+	.loc	7 235 15                @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:235:15
+	orrs.w	r0, r3, r2
+	bne	.LBB0_11
+.Ltmp27:
+.LBB0_10:
+	.loc	7 0 15 is_stmt 0        @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:0:15
+	ldr	r0, [r1, #8]
+	orr	r0, r0, #4194304
+	str	r0, [r1, #8]
+.LBB0_11:
+	movs	r0, #0
+.LBB0_12:
+	.loc	7 255 1 is_stmt 1       @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:255:1
+	uxtb	r0, r0
+	add	sp, #4
+	pop	{r4, pc}
+.Ltmp28:
+	.p2align	2
+@ %bb.13:
+	.loc	7 0 1 is_stmt 0         @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:0:1
+__arm_cp.0_0:
+	.long	SystemCoreClock
+.Lcpi_end0:
+	.size	__arm_cp.0_0, .Lcpi_end0-__arm_cp.0_0
+__arm_cp.0_1:
+	.long	1000000                 @ 0xf4240
+.Lcpi_end1:
+	.size	__arm_cp.0_1, .Lcpi_end1-__arm_cp.0_1
+__arm_cp.0_2:
+	.long	1073815552              @ 0x40012000
+.Lcpi_end2:
+	.size	__arm_cp.0_2, .Lcpi_end2-__arm_cp.0_2
+.Lfunc_end0:
+	.size	HAL_ADCEx_InjectedStart, .Lfunc_end0-HAL_ADCEx_InjectedStart
+	.cfi_endproc
+	.cantunwind
+	.fnend
+                                        @ -- End function
+	.section	.text.HAL_ADCEx_InjectedStart_IT,"ax",%progbits
+	.hidden	HAL_ADCEx_InjectedStart_IT @ -- Begin function HAL_ADCEx_InjectedStart_IT
+	.globl	HAL_ADCEx_InjectedStart_IT
+	.p2align	2
+	.type	HAL_ADCEx_InjectedStart_IT,%function
+	.code	16                      @ @HAL_ADCEx_InjectedStart_IT
+	.thumb_func
+HAL_ADCEx_InjectedStart_IT:
+.Lfunc_begin1:
+	.loc	7 265 0 is_stmt 1       @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:265:0
+	.fnstart
+	.cfi_startproc
+@ %bb.0:
+	.save	{r4, lr}
+	.pad	#4
+	push	{r3, r4, lr}
+	.cfi_def_cfa_offset 12
+	.cfi_offset lr, -4
+	.cfi_offset r4, -8
+	@DEBUG_VALUE: HAL_ADCEx_InjectedStart_IT:hadc <- $r0
+	movs	r1, #0
+.Ltmp29:
+	@DEBUG_VALUE: HAL_ADCEx_InjectedStart_IT:counter <- 0
+	@DEBUG_VALUE: HAL_ADCEx_InjectedStart_IT:hadc <- $r0
+	.loc	7 266 17 prologue_end   @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:266:17
+	str	r1, [sp]
+.Ltmp30:
+	@DEBUG_VALUE: HAL_ADCEx_InjectedStart_IT:tmp2 <- 0
+	@DEBUG_VALUE: HAL_ADCEx_InjectedStart_IT:tmp1 <- 0
+	.loc	7 270 3                 @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:270:3
+	ldrb.w	r1, [r0, #60]
+.Ltmp31:
+	.loc	7 270 3 is_stmt 0       @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:270:3
+	cmp	r1, #1
+	bne	.LBB1_2
+.Ltmp32:
+@ %bb.1:
+	@DEBUG_VALUE: HAL_ADCEx_InjectedStart_IT:hadc <- $r0
+	.loc	7 0 3                   @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:0:3
+	movs	r0, #2
+.Ltmp33:
+	b	.LBB1_12
+.LBB1_2:
+.Ltmp34:
+	@DEBUG_VALUE: HAL_ADCEx_InjectedStart_IT:hadc <- $r0
+	movs	r1, #1
+.Ltmp35:
+	.loc	7 270 3                 @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:270:3
+	strb.w	r1, [r0, #60]
+.Ltmp36:
+	.loc	7 276 13 is_stmt 1      @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:276:13
+	ldr	r1, [r0]
+	.loc	7 276 23 is_stmt 0      @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:276:23
+	ldr	r2, [r1, #8]
+.Ltmp37:
+	.loc	7 276 6                 @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:276:6
+	tst.w	r2, #1
+	bne	.LBB1_6
+.Ltmp38:
+@ %bb.3:
+	@DEBUG_VALUE: HAL_ADCEx_InjectedStart_IT:hadc <- $r0
+	.loc	7 279 5 is_stmt 1       @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:279:5
+	ldr	r2, [r1, #8]
+	.loc	7 283 53                @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:283:53
+	ldr	r3, __arm_cp.1_1
+	.loc	7 279 5                 @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:279:5
+	orr	r2, r2, #1
+	str	r2, [r1, #8]
+	.loc	7 283 37                @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:283:37
+	ldr	r2, __arm_cp.1_0
+	ldr	r2, [r2]
+	.loc	7 283 53 is_stmt 0      @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:283:53
+	udiv	r2, r2, r3
+	.loc	7 283 34                @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:283:34
+	add.w	r2, r2, r2, lsl #1
+	b	.LBB1_5
+.Ltmp39:
+.LBB1_4:                                @   in Loop: Header=BB1_5 Depth=1
+	@DEBUG_VALUE: HAL_ADCEx_InjectedStart_IT:counter <- $r2
+	@DEBUG_VALUE: HAL_ADCEx_InjectedStart_IT:hadc <- $r0
+	.loc	7 286 14 is_stmt 1      @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:286:14
+	ldr	r2, [sp]
+.Ltmp40:
+	@DEBUG_VALUE: HAL_ADCEx_InjectedStart_IT:counter <- $r2
+	subs	r2, #1
+.Ltmp41:
+.LBB1_5:                                @ =>This Inner Loop Header: Depth=1
+	@DEBUG_VALUE: HAL_ADCEx_InjectedStart_IT:hadc <- $r0
+	@DEBUG_VALUE: HAL_ADCEx_InjectedStart_IT:counter <- $r2
+	.loc	7 0 14 is_stmt 0        @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:0:14
+	str	r2, [sp]
+	.loc	7 284 11 is_stmt 1      @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:284:11
+	ldr	r2, [sp]
+.Ltmp42:
+	@DEBUG_VALUE: HAL_ADCEx_InjectedStart_IT:counter <- $r2
+	.loc	7 284 5 is_stmt 0       @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:284:5
+	cmp	r2, #0
+	bne	.LBB1_4
+.Ltmp43:
+.LBB1_6:
+	@DEBUG_VALUE: HAL_ADCEx_InjectedStart_IT:hadc <- $r0
+	.loc	7 291 6 is_stmt 1       @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:291:6
+	ldr	r2, [r1, #8]
+.Ltmp44:
+	.loc	7 291 6 is_stmt 0       @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:291:6
+	tst.w	r2, #1
+	beq	.LBB1_11
+.Ltmp45:
+@ %bb.7:
+	@DEBUG_VALUE: HAL_ADCEx_InjectedStart_IT:hadc <- $r0
+	.loc	7 296 5 is_stmt 1       @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:296:5
+	ldr	r2, [r0, #64]
+	movw	r3, #12289
+	ldr	r4, __arm_cp.1_2
+	bics	r2, r3
+	orr	r2, r2, #4096
+	str	r2, [r0, #64]
+.Ltmp46:
+	.loc	7 304 9                 @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:304:9
+	ldr	r2, [r0, #64]
+.Ltmp47:
+	.loc	7 304 9 is_stmt 0       @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:304:9
+	tst.w	r2, #256
+.Ltmp48:
+	.loc	7 307 7 is_stmt 1       @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:307:7
+	itt	eq
+	moveq	r2, #0
+	streq	r2, [r0, #68]
+	movs	r2, #0
+.Ltmp49:
+	.loc	7 313 5                 @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:313:5
+	strb.w	r2, [r0, #60]
+.Ltmp50:
+	.loc	7 317 5                 @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:317:5
+	mvn	r0, #4
+.Ltmp51:
+	str	r0, [r1]
+	.loc	7 320 5                 @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:320:5
+	ldr	r0, [r1, #4]
+	orr	r0, r0, #128
+	str	r0, [r1, #4]
+.Ltmp52:
+	.loc	7 323 8                 @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:323:8
+	ldr.w	r0, [r4, #772]
+	ldr	r2, [r1, #8]
+	ldr	r3, [r1, #4]
+	and	r2, r2, #3145728
+	and	r3, r3, #1024
+.Ltmp53:
+	.loc	7 323 8 is_stmt 0       @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:323:8
+	tst.w	r0, #31
+	beq	.LBB1_9
+@ %bb.8:
+.Ltmp54:
+	.loc	7 337 35 is_stmt 1      @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:337:35
+	cmp	r1, r4
+	mov.w	r0, #0
+	it	eq
+	orrseq.w	r2, r2, r3
+	bne	.LBB1_12
+	b	.LBB1_10
+.Ltmp55:
+.LBB1_9:
+	.loc	7 327 15                @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:327:15
+	orrs.w	r0, r3, r2
+	bne	.LBB1_11
+.Ltmp56:
+.LBB1_10:
+	.loc	7 0 15 is_stmt 0        @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:0:15
+	ldr	r0, [r1, #8]
+	orr	r0, r0, #4194304
+	str	r0, [r1, #8]
+.LBB1_11:
+	movs	r0, #0
+.LBB1_12:
+	.loc	7 347 1 is_stmt 1       @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:347:1
+	uxtb	r0, r0
+	add	sp, #4
+	pop	{r4, pc}
+.Ltmp57:
+	.p2align	2
+@ %bb.13:
+	.loc	7 0 1 is_stmt 0         @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:0:1
+__arm_cp.1_0:
+	.long	SystemCoreClock
+.Lcpi_end3:
+	.size	__arm_cp.1_0, .Lcpi_end3-__arm_cp.1_0
+__arm_cp.1_1:
+	.long	1000000                 @ 0xf4240
+.Lcpi_end4:
+	.size	__arm_cp.1_1, .Lcpi_end4-__arm_cp.1_1
+__arm_cp.1_2:
+	.long	1073815552              @ 0x40012000
+.Lcpi_end5:
+	.size	__arm_cp.1_2, .Lcpi_end5-__arm_cp.1_2
+.Lfunc_end1:
+	.size	HAL_ADCEx_InjectedStart_IT, .Lfunc_end1-HAL_ADCEx_InjectedStart_IT
+	.cfi_endproc
+	.cantunwind
+	.fnend
+                                        @ -- End function
+	.section	.text.HAL_ADCEx_InjectedStop,"ax",%progbits
+	.hidden	HAL_ADCEx_InjectedStop  @ -- Begin function HAL_ADCEx_InjectedStop
+	.globl	HAL_ADCEx_InjectedStop
+	.p2align	1
+	.type	HAL_ADCEx_InjectedStop,%function
+	.code	16                      @ @HAL_ADCEx_InjectedStop
+	.thumb_func
+HAL_ADCEx_InjectedStop:
+.Lfunc_begin2:
+	.loc	7 362 0 is_stmt 1       @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:362:0
+	.fnstart
+	.cfi_startproc
+@ %bb.0:
+	@DEBUG_VALUE: HAL_ADCEx_InjectedStop:hadc <- $r0
+	@DEBUG_VALUE: HAL_ADCEx_InjectedStop:hadc <- $r0
+	@DEBUG_VALUE: HAL_ADCEx_InjectedStop:tmp_hal_status <- 0
+	.loc	7 369 3 prologue_end    @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:369:3
+	ldrb.w	r1, [r0, #60]
+.Ltmp58:
+	.loc	7 369 3 is_stmt 0       @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:369:3
+	cmp	r1, #1
+	bne	.LBB2_2
+@ %bb.1:
+	@DEBUG_VALUE: HAL_ADCEx_InjectedStop:hadc <- $r0
+	.loc	7 0 3                   @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:0:3
+	movs	r1, #2
+	b	.LBB2_9
+.LBB2_2:
+	@DEBUG_VALUE: HAL_ADCEx_InjectedStop:hadc <- $r0
+	movs	r1, #1
+.Ltmp59:
+	.loc	7 369 3                 @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:369:3
+	strb.w	r1, [r0, #60]
+.Ltmp60:
+	.loc	7 377 14 is_stmt 1      @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:377:14
+	ldr	r1, [r0, #64]
+	.loc	7 377 57 is_stmt 0      @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:377:57
+	tst.w	r1, #256
+	bne	.LBB2_6
+@ %bb.3:
+	@DEBUG_VALUE: HAL_ADCEx_InjectedStop:hadc <- $r0
+	.loc	7 378 6 is_stmt 1       @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:378:6
+	ldr	r1, [r0]
+	ldr	r2, [r1, #4]
+.Ltmp61:
+	.loc	7 377 6                 @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:377:6
+	tst.w	r2, #1024
+	bne	.LBB2_6
+@ %bb.4:
+	@DEBUG_VALUE: HAL_ADCEx_InjectedStop:hadc <- $r0
+.Ltmp62:
+	.loc	7 382 5                 @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:382:5
+	ldr	r2, [r1, #8]
+	bic	r2, r2, #1
+	str	r2, [r1, #8]
+.Ltmp63:
+	.loc	7 385 8                 @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:385:8
+	ldr	r1, [r1, #8]
+.Ltmp64:
+	.loc	7 385 8 is_stmt 0       @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:385:8
+	tst.w	r1, #1
+	bne	.LBB2_10
+@ %bb.5:
+	@DEBUG_VALUE: HAL_ADCEx_InjectedStop:hadc <- $r0
+.Ltmp65:
+	.loc	7 388 7 is_stmt 1       @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:388:7
+	ldr	r1, [r0, #64]
+	movw	r2, #4353
+	bics	r1, r2
+	orr	r2, r1, #1
+	movs	r1, #0
+	b	.LBB2_7
+.Ltmp66:
+.LBB2_6:
+	@DEBUG_VALUE: HAL_ADCEx_InjectedStop:hadc <- $r0
+	.loc	7 396 5                 @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:396:5
+	ldr	r1, [r0, #64]
+	orr	r2, r1, #32
+	movs	r1, #1
+.Ltmp67:
+	@DEBUG_VALUE: HAL_ADCEx_InjectedStop:tmp_hal_status <- 1
+.LBB2_7:
+	@DEBUG_VALUE: HAL_ADCEx_InjectedStop:hadc <- $r0
+	.loc	7 0 5 is_stmt 0         @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:0:5
+	str	r2, [r0, #64]
+.LBB2_8:
+	@DEBUG_VALUE: HAL_ADCEx_InjectedStop:hadc <- $r0
+.Ltmp68:
+	.loc	7 402 3 is_stmt 1       @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:402:3
+	movs	r2, #0
+	strb.w	r2, [r0, #60]
+.Ltmp69:
+.LBB2_9:
+	@DEBUG_VALUE: HAL_ADCEx_InjectedStop:hadc <- $r0
+	.loc	7 406 1                 @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:406:1
+	uxtb	r0, r1
+	bx	lr
+.Ltmp70:
+.LBB2_10:
+	@DEBUG_VALUE: HAL_ADCEx_InjectedStop:hadc <- $r0
+	.loc	7 0 1 is_stmt 0         @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:0:1
+	movs	r1, #0
+	b	.LBB2_8
+.Lfunc_end2:
+	.size	HAL_ADCEx_InjectedStop, .Lfunc_end2-HAL_ADCEx_InjectedStop
+	.cfi_endproc
+	.cantunwind
+	.fnend
+                                        @ -- End function
+	.section	.text.HAL_ADCEx_InjectedPollForConversion,"ax",%progbits
+	.hidden	HAL_ADCEx_InjectedPollForConversion @ -- Begin function HAL_ADCEx_InjectedPollForConversion
+	.globl	HAL_ADCEx_InjectedPollForConversion
+	.p2align	1
+	.type	HAL_ADCEx_InjectedPollForConversion,%function
+	.code	16                      @ @HAL_ADCEx_InjectedPollForConversion
+	.thumb_func
+HAL_ADCEx_InjectedPollForConversion:
+.Lfunc_begin3:
+	.loc	7 416 0 is_stmt 1       @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:416:0
+	.fnstart
+	.cfi_startproc
+@ %bb.0:
+	.save	{r4, r5, r6, r7, lr}
+	.pad	#4
+	push	{r3, r4, r5, r6, r7, lr}
+	.cfi_def_cfa_offset 24
+	.cfi_offset lr, -4
+	.cfi_offset r7, -8
+	.cfi_offset r6, -12
+	.cfi_offset r5, -16
+	.cfi_offset r4, -20
+	@DEBUG_VALUE: HAL_ADCEx_InjectedPollForConversion:hadc <- $r0
+	@DEBUG_VALUE: HAL_ADCEx_InjectedPollForConversion:Timeout <- $r1
+	mov	r5, r1
+	mov	r4, r0
+.Ltmp71:
+	@DEBUG_VALUE: HAL_ADCEx_InjectedPollForConversion:tickstart <- 0
+	@DEBUG_VALUE: HAL_ADCEx_InjectedPollForConversion:Timeout <- $r5
+	@DEBUG_VALUE: HAL_ADCEx_InjectedPollForConversion:hadc <- $r4
+	.loc	7 420 15 prologue_end   @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:420:15
+	bl	HAL_GetTick
+	mov	r6, r0
+.Ltmp72:
+	@DEBUG_VALUE: HAL_ADCEx_InjectedPollForConversion:tickstart <- $r6
+	.loc	7 0 15 is_stmt 0        @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:0:15
+	adds	r7, r5, #1
+.Ltmp73:
+.LBB3_1:                                @ =>This Inner Loop Header: Depth=1
+	@DEBUG_VALUE: HAL_ADCEx_InjectedPollForConversion:tickstart <- $r6
+	@DEBUG_VALUE: HAL_ADCEx_InjectedPollForConversion:hadc <- $r4
+	@DEBUG_VALUE: HAL_ADCEx_InjectedPollForConversion:Timeout <- $r5
+	.loc	7 423 11 is_stmt 1      @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:423:11
+	ldr	r0, [r4]
+	ldr	r1, [r0]
+	.loc	7 423 3 is_stmt 0       @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:423:3
+	tst.w	r1, #4
+	bne	.LBB3_6
+.Ltmp74:
+@ %bb.2:                                @   in Loop: Header=BB3_1 Depth=1
+	@DEBUG_VALUE: HAL_ADCEx_InjectedPollForConversion:tickstart <- $r6
+	@DEBUG_VALUE: HAL_ADCEx_InjectedPollForConversion:hadc <- $r4
+	@DEBUG_VALUE: HAL_ADCEx_InjectedPollForConversion:Timeout <- $r5
+	.loc	7 426 8 is_stmt 1       @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:426:8
+	cmp	r7, #0
+	beq	.LBB3_1
+.Ltmp75:
+@ %bb.3:                                @   in Loop: Header=BB3_1 Depth=1
+	@DEBUG_VALUE: HAL_ADCEx_InjectedPollForConversion:tickstart <- $r6
+	@DEBUG_VALUE: HAL_ADCEx_InjectedPollForConversion:hadc <- $r4
+	@DEBUG_VALUE: HAL_ADCEx_InjectedPollForConversion:Timeout <- $r5
+	cbz	r5, .LBB3_5
+.Ltmp76:
+@ %bb.4:                                @   in Loop: Header=BB3_1 Depth=1
+	@DEBUG_VALUE: HAL_ADCEx_InjectedPollForConversion:tickstart <- $r6
+	@DEBUG_VALUE: HAL_ADCEx_InjectedPollForConversion:hadc <- $r4
+	@DEBUG_VALUE: HAL_ADCEx_InjectedPollForConversion:Timeout <- $r5
+	.loc	7 428 28                @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:428:28
+	bl	HAL_GetTick
+	.loc	7 428 42 is_stmt 0      @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:428:42
+	subs	r0, r0, r6
+.Ltmp77:
+	.loc	7 428 10                @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:428:10
+	cmp	r0, r5
+	bls	.LBB3_1
+.Ltmp78:
+.LBB3_5:
+	@DEBUG_VALUE: HAL_ADCEx_InjectedPollForConversion:tickstart <- $r6
+	@DEBUG_VALUE: HAL_ADCEx_InjectedPollForConversion:hadc <- $r4
+	@DEBUG_VALUE: HAL_ADCEx_InjectedPollForConversion:Timeout <- $r5
+	.loc	7 432 9 is_stmt 1       @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:432:9
+	movs	r0, #0
+	strb.w	r0, [r4, #60]
+.Ltmp79:
+	.loc	7 430 20                @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:430:20
+	movs	r0, #4
+	str	r0, [r4, #64]
+	movs	r0, #3
+	b	.LBB3_10
+.Ltmp80:
+.LBB3_6:
+	@DEBUG_VALUE: HAL_ADCEx_InjectedPollForConversion:tickstart <- $r6
+	@DEBUG_VALUE: HAL_ADCEx_InjectedPollForConversion:hadc <- $r4
+	@DEBUG_VALUE: HAL_ADCEx_InjectedPollForConversion:Timeout <- $r5
+	.loc	7 439 3                 @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:439:3
+	mvn	r1, #12
+	str	r1, [r0]
+	.loc	7 442 3                 @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:442:3
+	ldr	r1, [r4, #64]
+	orr	r1, r1, #8192
+	str	r1, [r4, #64]
+.Ltmp81:
+	.loc	7 450 6                 @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:450:6
+	ldr	r1, [r0, #8]
+	.loc	7 450 62 is_stmt 0      @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:450:62
+	tst.w	r1, #3145728
+	bne	.LBB3_9
+.Ltmp82:
+@ %bb.7:
+	@DEBUG_VALUE: HAL_ADCEx_InjectedPollForConversion:tickstart <- $r6
+	@DEBUG_VALUE: HAL_ADCEx_InjectedPollForConversion:hadc <- $r4
+	@DEBUG_VALUE: HAL_ADCEx_InjectedPollForConversion:Timeout <- $r5
+	.loc	7 451 7 is_stmt 1       @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:451:7
+	ldr	r1, [r0, #56]
+	.loc	7 451 58 is_stmt 0      @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:451:58
+	tst.w	r1, #3145728
+	.loc	7 452 7 is_stmt 1       @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:452:7
+	itt	ne
+	ldrne	r1, [r0, #8]
+	.loc	7 452 62 is_stmt 0      @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:452:62
+	tstne.w	r1, #1024
+	bne	.LBB3_9
+.Ltmp83:
+@ %bb.8:
+	@DEBUG_VALUE: HAL_ADCEx_InjectedPollForConversion:tickstart <- $r6
+	@DEBUG_VALUE: HAL_ADCEx_InjectedPollForConversion:hadc <- $r4
+	@DEBUG_VALUE: HAL_ADCEx_InjectedPollForConversion:Timeout <- $r5
+	.loc	7 453 7 is_stmt 1       @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:453:7
+	ldr	r1, [r0, #4]
+	.loc	7 453 58 is_stmt 0      @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:453:58
+	tst.w	r1, #1024
+	.loc	7 454 8 is_stmt 1       @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:454:8
+	itt	eq
+	ldreq	r0, [r0, #8]
+	.loc	7 454 50 is_stmt 0      @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:454:50
+	tsteq.w	r0, #805306368
+	beq	.LBB3_11
+.Ltmp84:
+.LBB3_9:
+	@DEBUG_VALUE: HAL_ADCEx_InjectedPollForConversion:tickstart <- $r6
+	@DEBUG_VALUE: HAL_ADCEx_InjectedPollForConversion:hadc <- $r4
+	@DEBUG_VALUE: HAL_ADCEx_InjectedPollForConversion:Timeout <- $r5
+	.loc	7 0 50                  @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:0:50
+	movs	r0, #0
+.Ltmp85:
+.LBB3_10:
+	@DEBUG_VALUE: HAL_ADCEx_InjectedPollForConversion:tickstart <- $r6
+	@DEBUG_VALUE: HAL_ADCEx_InjectedPollForConversion:hadc <- $r4
+	@DEBUG_VALUE: HAL_ADCEx_InjectedPollForConversion:Timeout <- $r5
+	.loc	7 468 1 is_stmt 1       @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:468:1
+	uxtb	r0, r0
+	add	sp, #4
+	pop	{r4, r5, r6, r7, pc}
+.Ltmp86:
+.LBB3_11:
+	@DEBUG_VALUE: HAL_ADCEx_InjectedPollForConversion:tickstart <- $r6
+	@DEBUG_VALUE: HAL_ADCEx_InjectedPollForConversion:hadc <- $r4
+	@DEBUG_VALUE: HAL_ADCEx_InjectedPollForConversion:Timeout <- $r5
+	.loc	7 455 19                @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:455:19
+	ldr	r0, [r4, #24]
+.Ltmp87:
+	.loc	7 450 6                 @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:450:6
+	cmp	r0, #0
+	bne	.LBB3_9
+.Ltmp88:
+@ %bb.12:
+	@DEBUG_VALUE: HAL_ADCEx_InjectedPollForConversion:tickstart <- $r6
+	@DEBUG_VALUE: HAL_ADCEx_InjectedPollForConversion:hadc <- $r4
+	@DEBUG_VALUE: HAL_ADCEx_InjectedPollForConversion:Timeout <- $r5
+	.loc	7 458 5                 @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:458:5
+	ldr	r0, [r4, #64]
+	bic	r0, r0, #4096
+	str	r0, [r4, #64]
+.Ltmp89:
+	.loc	7 460 9                 @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:460:9
+	ldr	r0, [r4, #64]
+.Ltmp90:
+	.loc	7 460 9 is_stmt 0       @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:460:9
+	tst.w	r0, #256
+.Ltmp91:
+	.loc	7 462 7 is_stmt 1       @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:462:7
+	ittt	eq
+	ldreq	r0, [r4, #64]
+	orreq	r0, r0, #1
+	streq	r0, [r4, #64]
+	b	.LBB3_9
+.Ltmp92:
+.Lfunc_end3:
+	.size	HAL_ADCEx_InjectedPollForConversion, .Lfunc_end3-HAL_ADCEx_InjectedPollForConversion
+	.cfi_endproc
+	.cantunwind
+	.fnend
+                                        @ -- End function
+	.section	.text.HAL_ADCEx_InjectedStop_IT,"ax",%progbits
+	.hidden	HAL_ADCEx_InjectedStop_IT @ -- Begin function HAL_ADCEx_InjectedStop_IT
+	.globl	HAL_ADCEx_InjectedStop_IT
+	.p2align	1
+	.type	HAL_ADCEx_InjectedStop_IT,%function
+	.code	16                      @ @HAL_ADCEx_InjectedStop_IT
+	.thumb_func
+HAL_ADCEx_InjectedStop_IT:
+.Lfunc_begin4:
+	.loc	7 483 0                 @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:483:0
+	.fnstart
+	.cfi_startproc
+@ %bb.0:
+	@DEBUG_VALUE: HAL_ADCEx_InjectedStop_IT:hadc <- $r0
+	@DEBUG_VALUE: HAL_ADCEx_InjectedStop_IT:hadc <- $r0
+	@DEBUG_VALUE: HAL_ADCEx_InjectedStop_IT:tmp_hal_status <- 0
+	.loc	7 490 3 prologue_end    @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:490:3
+	ldrb.w	r1, [r0, #60]
+.Ltmp93:
+	.loc	7 490 3 is_stmt 0       @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:490:3
+	cmp	r1, #1
+	bne	.LBB4_2
+@ %bb.1:
+	@DEBUG_VALUE: HAL_ADCEx_InjectedStop_IT:hadc <- $r0
+	.loc	7 0 3                   @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:0:3
+	movs	r1, #2
+	b	.LBB4_9
+.LBB4_2:
+	@DEBUG_VALUE: HAL_ADCEx_InjectedStop_IT:hadc <- $r0
+	movs	r1, #1
+.Ltmp94:
+	.loc	7 490 3                 @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:490:3
+	strb.w	r1, [r0, #60]
+.Ltmp95:
+	.loc	7 498 14 is_stmt 1      @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:498:14
+	ldr	r1, [r0, #64]
+	.loc	7 498 57 is_stmt 0      @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:498:57
+	tst.w	r1, #256
+	bne	.LBB4_6
+@ %bb.3:
+	@DEBUG_VALUE: HAL_ADCEx_InjectedStop_IT:hadc <- $r0
+	.loc	7 499 6 is_stmt 1       @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:499:6
+	ldr	r1, [r0]
+	ldr	r2, [r1, #4]
+.Ltmp96:
+	.loc	7 498 6                 @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:498:6
+	tst.w	r2, #1024
+	bne	.LBB4_6
+@ %bb.4:
+	@DEBUG_VALUE: HAL_ADCEx_InjectedStop_IT:hadc <- $r0
+.Ltmp97:
+	.loc	7 503 5                 @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:503:5
+	ldr	r2, [r1, #8]
+	bic	r2, r2, #1
+	str	r2, [r1, #8]
+.Ltmp98:
+	.loc	7 506 8                 @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:506:8
+	ldr	r2, [r1, #8]
+.Ltmp99:
+	.loc	7 506 8 is_stmt 0       @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:506:8
+	tst.w	r2, #1
+	bne	.LBB4_10
+@ %bb.5:
+	@DEBUG_VALUE: HAL_ADCEx_InjectedStop_IT:hadc <- $r0
+.Ltmp100:
+	.loc	7 509 7 is_stmt 1       @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:509:7
+	ldr	r2, [r1, #4]
+	bic	r2, r2, #128
+	str	r2, [r1, #4]
+	.loc	7 512 7                 @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:512:7
+	movw	r2, #4353
+	ldr	r1, [r0, #64]
+	bics	r1, r2
+	orr	r2, r1, #1
+	movs	r1, #0
+	b	.LBB4_7
+.Ltmp101:
+.LBB4_6:
+	@DEBUG_VALUE: HAL_ADCEx_InjectedStop_IT:hadc <- $r0
+	.loc	7 520 5                 @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:520:5
+	ldr	r1, [r0, #64]
+	orr	r2, r1, #32
+	movs	r1, #1
+.Ltmp102:
+	@DEBUG_VALUE: HAL_ADCEx_InjectedStop_IT:tmp_hal_status <- 1
+.LBB4_7:
+	@DEBUG_VALUE: HAL_ADCEx_InjectedStop_IT:hadc <- $r0
+	.loc	7 0 5 is_stmt 0         @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:0:5
+	str	r2, [r0, #64]
+.LBB4_8:
+	@DEBUG_VALUE: HAL_ADCEx_InjectedStop_IT:hadc <- $r0
+.Ltmp103:
+	.loc	7 526 3 is_stmt 1       @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:526:3
+	movs	r2, #0
+	strb.w	r2, [r0, #60]
+.Ltmp104:
+.LBB4_9:
+	@DEBUG_VALUE: HAL_ADCEx_InjectedStop_IT:hadc <- $r0
+	.loc	7 530 1                 @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:530:1
+	uxtb	r0, r1
+	bx	lr
+.Ltmp105:
+.LBB4_10:
+	@DEBUG_VALUE: HAL_ADCEx_InjectedStop_IT:hadc <- $r0
+	.loc	7 0 1 is_stmt 0         @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:0:1
+	movs	r1, #0
+	b	.LBB4_8
+.Lfunc_end4:
+	.size	HAL_ADCEx_InjectedStop_IT, .Lfunc_end4-HAL_ADCEx_InjectedStop_IT
+	.cfi_endproc
+	.cantunwind
+	.fnend
+                                        @ -- End function
+	.section	.text.HAL_ADCEx_InjectedGetValue,"ax",%progbits
+	.hidden	HAL_ADCEx_InjectedGetValue @ -- Begin function HAL_ADCEx_InjectedGetValue
+	.globl	HAL_ADCEx_InjectedGetValue
+	.p2align	2
+	.type	HAL_ADCEx_InjectedGetValue,%function
+	.code	16                      @ @HAL_ADCEx_InjectedGetValue
+	.thumb_func
+HAL_ADCEx_InjectedGetValue:
+.Lfunc_begin5:
+	.loc	7 545 0 is_stmt 1       @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:545:0
+	.fnstart
+	.cfi_startproc
+@ %bb.0:
+	.pad	#4
+	sub	sp, #4
+	.cfi_def_cfa_offset 4
+	@DEBUG_VALUE: HAL_ADCEx_InjectedGetValue:hadc <- $r0
+	@DEBUG_VALUE: HAL_ADCEx_InjectedGetValue:InjectedRank <- $r1
+	movs	r2, #0
+.Ltmp106:
+	@DEBUG_VALUE: HAL_ADCEx_InjectedGetValue:tmp <- 0
+	@DEBUG_VALUE: HAL_ADCEx_InjectedGetValue:InjectedRank <- $r1
+	@DEBUG_VALUE: HAL_ADCEx_InjectedGetValue:hadc <- $r0
+	.loc	7 556 3 prologue_end    @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:556:3
+	subs	r1, #1
+.Ltmp107:
+	.loc	7 546 17                @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:546:17
+	str	r2, [sp]
+	.loc	7 553 3                 @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:553:3
+	mvn	r2, #4
+	.loc	7 556 3                 @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:556:3
+	cmp	r1, #3
+	.loc	7 553 3                 @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:553:3
+	ldr	r0, [r0]
+.Ltmp108:
+	str	r2, [r0]
+	.loc	7 556 3                 @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:556:3
+	bhi	.LBB5_8
+@ %bb.1:
+	.loc	7 0 3 is_stmt 0         @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:0:3
+.LCPI5_0:
+	tbb	[pc, r1]
+@ %bb.2:
+.LJTI5_0:
+	.byte	(.LBB5_3-(.LCPI5_0+4))/2
+	.byte	(.LBB5_4-(.LCPI5_0+4))/2
+	.byte	(.LBB5_5-(.LCPI5_0+4))/2
+	.byte	(.LBB5_6-(.LCPI5_0+4))/2
+	.p2align	1
+.LBB5_3:
+.Ltmp109:
+	.loc	7 575 30 is_stmt 1      @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:575:30
+	ldr	r0, [r0, #60]
+	b	.LBB5_7
+.Ltmp110:
+.LBB5_4:
+	.loc	7 570 30                @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:570:30
+	ldr	r0, [r0, #64]
+	b	.LBB5_7
+.Ltmp111:
+.LBB5_5:
+	.loc	7 565 30                @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:565:30
+	ldr	r0, [r0, #68]
+	b	.LBB5_7
+.Ltmp112:
+.LBB5_6:
+	.loc	7 560 30                @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:560:30
+	ldr	r0, [r0, #72]
+.Ltmp113:
+.LBB5_7:
+	@DEBUG_VALUE: HAL_ADCEx_InjectedGetValue:tmp <- $r0
+	.loc	7 0 30 is_stmt 0        @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:0:30
+	str	r0, [sp]
+.Ltmp114:
+.LBB5_8:
+	.loc	7 581 10 is_stmt 1      @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:581:10
+	ldr	r0, [sp]
+.Ltmp115:
+	@DEBUG_VALUE: HAL_ADCEx_InjectedGetValue:tmp <- $r0
+	.loc	7 581 3 is_stmt 0       @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:581:3
+	add	sp, #4
+	bx	lr
+.Ltmp116:
+.Lfunc_end5:
+	.size	HAL_ADCEx_InjectedGetValue, .Lfunc_end5-HAL_ADCEx_InjectedGetValue
+	.cfi_endproc
+	.cantunwind
+	.fnend
+                                        @ -- End function
+	.section	.text.HAL_ADCEx_MultiModeStart_DMA,"ax",%progbits
+	.hidden	HAL_ADCEx_MultiModeStart_DMA @ -- Begin function HAL_ADCEx_MultiModeStart_DMA
+	.globl	HAL_ADCEx_MultiModeStart_DMA
+	.p2align	2
+	.type	HAL_ADCEx_MultiModeStart_DMA,%function
+	.code	16                      @ @HAL_ADCEx_MultiModeStart_DMA
+	.thumb_func
+HAL_ADCEx_MultiModeStart_DMA:
+.Lfunc_begin6:
+	.loc	7 596 0 is_stmt 1       @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:596:0
+	.fnstart
+	.cfi_startproc
+@ %bb.0:
+	.save	{r4, r5, r6, r7, lr}
+	.pad	#4
+	push	{r3, r4, r5, r6, r7, lr}
+	.cfi_def_cfa_offset 24
+	.cfi_offset lr, -4
+	.cfi_offset r7, -8
+	.cfi_offset r6, -12
+	.cfi_offset r5, -16
+	.cfi_offset r4, -20
+	@DEBUG_VALUE: HAL_ADCEx_MultiModeStart_DMA:hadc <- $r0
+	@DEBUG_VALUE: HAL_ADCEx_MultiModeStart_DMA:pData <- $r1
+	@DEBUG_VALUE: HAL_ADCEx_MultiModeStart_DMA:Length <- $r2
+	mov	r4, r0
+	movs	r0, #0
+.Ltmp117:
+	@DEBUG_VALUE: HAL_ADCEx_MultiModeStart_DMA:counter <- 0
+	@DEBUG_VALUE: HAL_ADCEx_MultiModeStart_DMA:Length <- $lr
+	@DEBUG_VALUE: HAL_ADCEx_MultiModeStart_DMA:pData <- $r7
+	@DEBUG_VALUE: HAL_ADCEx_MultiModeStart_DMA:hadc <- $r4
+	mov	lr, r2
+.Ltmp118:
+	mov	r7, r1
+.Ltmp119:
+	.loc	7 597 17 prologue_end   @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:597:17
+	str	r0, [sp]
+.Ltmp120:
+	.loc	7 605 3                 @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:605:3
+	ldrb.w	r0, [r4, #60]
+.Ltmp121:
+	.loc	7 605 3 is_stmt 0       @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:605:3
+	cmp	r0, #1
+	bne	.LBB6_2
+.Ltmp122:
+@ %bb.1:
+	@DEBUG_VALUE: HAL_ADCEx_MultiModeStart_DMA:hadc <- $r4
+	.loc	7 0 3                   @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:0:3
+	movs	r5, #2
+	b	.LBB6_10
+.Ltmp123:
+.LBB6_2:
+	@DEBUG_VALUE: HAL_ADCEx_MultiModeStart_DMA:hadc <- $r4
+	movs	r0, #1
+.Ltmp124:
+	.loc	7 605 3                 @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:605:3
+	strb.w	r0, [r4, #60]
+.Ltmp125:
+	.loc	7 609 13 is_stmt 1      @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:609:13
+	ldr	r1, [r4]
+	.loc	7 609 23 is_stmt 0      @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:609:23
+	ldr	r0, [r1, #8]
+.Ltmp126:
+	.loc	7 609 6                 @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:609:6
+	tst.w	r0, #1
+	bne	.LBB6_6
+.Ltmp127:
+@ %bb.3:
+	@DEBUG_VALUE: HAL_ADCEx_MultiModeStart_DMA:hadc <- $r4
+	.loc	7 612 5 is_stmt 1       @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:612:5
+	ldr	r0, [r1, #8]
+	.loc	7 616 53                @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:616:53
+	ldr	r5, __arm_cp.6_1
+	.loc	7 612 5                 @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:612:5
+	orr	r0, r0, #1
+	str	r0, [r1, #8]
+	.loc	7 616 37                @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:616:37
+	ldr	r0, __arm_cp.6_0
+	ldr	r0, [r0]
+	.loc	7 616 53 is_stmt 0      @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:616:53
+	udiv	r0, r0, r5
+	.loc	7 616 34                @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:616:34
+	add.w	r0, r0, r0, lsl #1
+	b	.LBB6_5
+.Ltmp128:
+.LBB6_4:                                @   in Loop: Header=BB6_5 Depth=1
+	@DEBUG_VALUE: HAL_ADCEx_MultiModeStart_DMA:counter <- $r0
+	@DEBUG_VALUE: HAL_ADCEx_MultiModeStart_DMA:hadc <- $r4
+	.loc	7 619 14 is_stmt 1      @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:619:14
+	ldr	r0, [sp]
+.Ltmp129:
+	@DEBUG_VALUE: HAL_ADCEx_MultiModeStart_DMA:counter <- $r0
+	subs	r0, #1
+.Ltmp130:
+.LBB6_5:                                @ =>This Inner Loop Header: Depth=1
+	@DEBUG_VALUE: HAL_ADCEx_MultiModeStart_DMA:hadc <- $r4
+	@DEBUG_VALUE: HAL_ADCEx_MultiModeStart_DMA:counter <- $r0
+	.loc	7 0 14 is_stmt 0        @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:0:14
+	str	r0, [sp]
+	.loc	7 617 11 is_stmt 1      @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:617:11
+	ldr	r0, [sp]
+.Ltmp131:
+	@DEBUG_VALUE: HAL_ADCEx_MultiModeStart_DMA:counter <- $r0
+	.loc	7 617 5 is_stmt 0       @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:617:5
+	cmp	r0, #0
+	bne	.LBB6_4
+.Ltmp132:
+.LBB6_6:
+	@DEBUG_VALUE: HAL_ADCEx_MultiModeStart_DMA:hadc <- $r4
+	.loc	7 624 6 is_stmt 1       @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:624:6
+	ldr	r0, [r1, #8]
+.Ltmp133:
+	.loc	7 624 6 is_stmt 0       @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:624:6
+	tst.w	r0, #1
+	beq	.LBB6_9
+.Ltmp134:
+@ %bb.7:
+	@DEBUG_VALUE: HAL_ADCEx_MultiModeStart_DMA:hadc <- $r4
+	.loc	7 629 5 is_stmt 1       @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:629:5
+	ldr	r0, [r4, #64]
+	movw	r5, #1793
+	.loc	7 661 44                @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:661:44
+	ldr.w	r12, __arm_cp.6_2
+	.loc	7 658 40                @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:658:40
+	ldr	r3, __arm_cp.6_3
+	.loc	7 629 5                 @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:629:5
+	bics	r0, r5
+	orr	r0, r0, #256
+	str	r0, [r4, #64]
+.Ltmp135:
+	.loc	7 635 9                 @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:635:9
+	ldr	r0, [r1, #4]
+.Ltmp136:
+	.loc	7 635 9 is_stmt 0       @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:635:9
+	tst.w	r0, #1024
+.Ltmp137:
+	.loc	7 637 7 is_stmt 1       @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:637:7
+	itttt	ne
+	ldrne	r0, [r4, #64]
+	movne	r5, #1
+	bfine	r0, r5, #12, #2
+	strne	r0, [r4, #64]
+.Ltmp138:
+	.loc	7 641 9                 @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:641:9
+	ldr	r0, [r4, #64]
+	movs	r5, #0
+.Ltmp139:
+	.loc	7 641 9 is_stmt 0       @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:641:9
+	tst.w	r0, #4096
+	mov.w	r0, #0
+.Ltmp140:
+	.loc	7 644 7 is_stmt 1       @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:644:7
+	itt	ne
+	ldrne	r0, [r4, #68]
+	bicne	r0, r0, #6
+.Ltmp141:
+	.loc	7 655 5                 @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:655:5
+	strb.w	r5, [r4, #60]
+	str	r0, [r4, #68]
+.Ltmp142:
+	.loc	7 658 11                @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:658:11
+	ldr	r0, [r4, #56]
+	.loc	7 658 40 is_stmt 0      @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:658:40
+	strd	r3, r12, [r0, #60]
+	.loc	7 664 41 is_stmt 1      @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:664:41
+	ldr	r3, __arm_cp.6_4
+	str	r3, [r0, #76]
+	.loc	7 671 5                 @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:671:5
+	mvn	r3, #2
+	str	r3, [r1]
+	.loc	7 674 5                 @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:674:5
+	ldr	r3, [r1, #4]
+	orr	r3, r3, #67108864
+	str	r3, [r1, #4]
+	ldr	r1, __arm_cp.6_5
+.Ltmp143:
+	.loc	7 676 20                @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:676:20
+	ldr	r3, [r4, #48]
+	ldr	r2, [r1]
+.Ltmp144:
+	.loc	7 676 9 is_stmt 0       @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:676:9
+	cmp	r3, #0
+	.loc	7 688 5 is_stmt 1       @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:688:5
+	mov	r3, lr
+.Ltmp145:
+	.loc	7 679 16                @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:679:16
+	orr	r6, r2, #8192
+.Ltmp146:
+	.loc	7 676 9                 @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:676:9
+	it	eq
+	biceq	r6, r2, #8192
+	.loc	7 688 5                 @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:688:5
+	mov	r2, r7
+	stm	r1!, {r6}
+	bl	HAL_DMA_Start_IT
+.Ltmp147:
+	.loc	7 691 15                @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:691:15
+	ldr	r0, [r4]
+	.loc	7 691 25 is_stmt 0      @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:691:25
+	ldr	r1, [r0, #8]
+.Ltmp148:
+	.loc	7 691 8                 @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:691:8
+	tst.w	r1, #805306368
+	bne	.LBB6_10
+.Ltmp149:
+@ %bb.8:
+	@DEBUG_VALUE: HAL_ADCEx_MultiModeStart_DMA:hadc <- $r4
+	.loc	7 694 27 is_stmt 1      @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:694:27
+	ldr	r1, [r0, #8]
+	orr	r1, r1, #1073741824
+	str	r1, [r0, #8]
+.Ltmp150:
+.LBB6_9:
+	@DEBUG_VALUE: HAL_ADCEx_MultiModeStart_DMA:hadc <- $r4
+	.loc	7 0 27 is_stmt 0        @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:0:27
+	movs	r5, #0
+.Ltmp151:
+.LBB6_10:
+	@DEBUG_VALUE: HAL_ADCEx_MultiModeStart_DMA:hadc <- $r4
+	.loc	7 700 1 is_stmt 1       @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:700:1
+	uxtb	r0, r5
+	add	sp, #4
+	pop	{r4, r5, r6, r7, pc}
+.Ltmp152:
+	.p2align	2
+@ %bb.11:
+	.loc	7 0 1 is_stmt 0         @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:0:1
+__arm_cp.6_0:
+	.long	SystemCoreClock
+.Lcpi_end6:
+	.size	__arm_cp.6_0, .Lcpi_end6-__arm_cp.6_0
+__arm_cp.6_1:
+	.long	1000000                 @ 0xf4240
+.Lcpi_end7:
+	.size	__arm_cp.6_1, .Lcpi_end7-__arm_cp.6_1
+__arm_cp.6_2:
+	.long	ADC_MultiModeDMAHalfConvCplt
+.Lcpi_end8:
+	.size	__arm_cp.6_2, .Lcpi_end8-__arm_cp.6_2
+__arm_cp.6_3:
+	.long	ADC_MultiModeDMAConvCplt
+.Lcpi_end9:
+	.size	__arm_cp.6_3, .Lcpi_end9-__arm_cp.6_3
+__arm_cp.6_4:
+	.long	ADC_MultiModeDMAError
+.Lcpi_end10:
+	.size	__arm_cp.6_4, .Lcpi_end10-__arm_cp.6_4
+__arm_cp.6_5:
+	.long	1073816324              @ 0x40012304
+.Lcpi_end11:
+	.size	__arm_cp.6_5, .Lcpi_end11-__arm_cp.6_5
+.Lfunc_end6:
+	.size	HAL_ADCEx_MultiModeStart_DMA, .Lfunc_end6-HAL_ADCEx_MultiModeStart_DMA
+	.cfi_endproc
+	.cantunwind
+	.fnend
+                                        @ -- End function
+	.section	.text.ADC_MultiModeDMAConvCplt,"ax",%progbits
+	.p2align	1               @ -- Begin function ADC_MultiModeDMAConvCplt
+	.type	ADC_MultiModeDMAConvCplt,%function
+	.code	16                      @ @ADC_MultiModeDMAConvCplt
+	.thumb_func
+ADC_MultiModeDMAConvCplt:
+.Lfunc_begin7:
+	.loc	7 980 0 is_stmt 1       @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:980:0
+	.fnstart
+	.cfi_startproc
+@ %bb.0:
+	@DEBUG_VALUE: ADC_MultiModeDMAConvCplt:hdma <- $r0
+	mov	r1, r0
+.Ltmp153:
+	@DEBUG_VALUE: ADC_MultiModeDMAConvCplt:hdma <- $r1
+	.loc	7 982 80 prologue_end   @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:982:80
+	ldr	r0, [r0, #56]
+.Ltmp154:
+	@DEBUG_VALUE: ADC_MultiModeDMAConvCplt:hadc <- $r0
+	.loc	7 985 7                 @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:985:7
+	ldr	r2, [r0, #64]
+.Ltmp155:
+	.loc	7 985 7 is_stmt 0       @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:985:7
+	tst.w	r2, #80
+	beq	.LBB7_2
+.Ltmp156:
+@ %bb.1:
+	@DEBUG_VALUE: ADC_MultiModeDMAConvCplt:hadc <- $r0
+	@DEBUG_VALUE: ADC_MultiModeDMAConvCplt:hdma <- $r1
+	.loc	7 1022 11 is_stmt 1     @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:1022:11
+	ldr	r0, [r0, #56]
+.Ltmp157:
+	.loc	7 1022 23 is_stmt 0     @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:1022:23
+	ldr	r2, [r0, #76]
+	.loc	7 1022 5                @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:1022:5
+	mov	r0, r1
+	bx	r2
+.Ltmp158:
+.LBB7_2:
+	@DEBUG_VALUE: ADC_MultiModeDMAConvCplt:hadc <- $r0
+	@DEBUG_VALUE: ADC_MultiModeDMAConvCplt:hdma <- $r1
+	.loc	7 996 8 is_stmt 1       @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:996:8
+	ldr	r1, [r0]
+.Ltmp159:
+	.loc	7 988 5                 @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:988:5
+	ldr	r2, [r0, #64]
+	orr	r2, r2, #512
+	str	r2, [r0, #64]
+.Ltmp160:
+	.loc	7 996 8                 @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:996:8
+	ldr	r2, [r1, #8]
+	.loc	7 996 62 is_stmt 0      @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:996:62
+	tst.w	r2, #805306368
+	bne	.LBB7_5
+.Ltmp161:
+@ %bb.3:
+	@DEBUG_VALUE: ADC_MultiModeDMAConvCplt:hadc <- $r0
+	.loc	7 997 20 is_stmt 1      @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:997:20
+	ldr	r2, [r0, #24]
+	.loc	7 997 62 is_stmt 0      @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:997:62
+	cmp	r2, #0
+.Ltmp162:
+	.loc	7 1017 5 is_stmt 1      @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:1017:5
+	it	ne
+	bne	HAL_ADC_ConvCpltCallback
+.Ltmp163:
+	.loc	7 998 9                 @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:998:9
+	ldr	r2, [r1, #44]
+	.loc	7 998 58 is_stmt 0      @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:998:58
+	tst.w	r2, #15728640
+	.loc	7 999 9 is_stmt 1       @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:999:9
+	itt	ne
+	ldrne	r2, [r1, #8]
+.Ltmp164:
+	.loc	7 996 8                 @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:996:8
+	tstne.w	r2, #1024
+	bne	.LBB7_5
+.Ltmp165:
+@ %bb.4:
+	@DEBUG_VALUE: ADC_MultiModeDMAConvCplt:hadc <- $r0
+	.loc	7 1005 7                @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:1005:7
+	ldr	r2, [r1, #4]
+	bic	r2, r2, #32
+	str	r2, [r1, #4]
+	.loc	7 1008 7                @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:1008:7
+	ldr	r1, [r0, #64]
+	bic	r1, r1, #256
+	str	r1, [r0, #64]
+.Ltmp166:
+	.loc	7 1010 11               @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:1010:11
+	ldr	r1, [r0, #64]
+.Ltmp167:
+	.loc	7 1010 11 is_stmt 0     @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:1010:11
+	tst.w	r1, #4096
+.Ltmp168:
+	.loc	7 1012 9 is_stmt 1      @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:1012:9
+	ittt	eq
+	ldreq	r1, [r0, #64]
+	orreq	r1, r1, #1
+	streq	r1, [r0, #64]
+.Ltmp169:
+.LBB7_5:
+	@DEBUG_VALUE: ADC_MultiModeDMAConvCplt:hadc <- $r0
+	.loc	7 1017 5                @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:1017:5
+	b	HAL_ADC_ConvCpltCallback
+.Ltmp170:
+.Lfunc_end7:
+	.size	ADC_MultiModeDMAConvCplt, .Lfunc_end7-ADC_MultiModeDMAConvCplt
+	.cfi_endproc
+	.cantunwind
+	.fnend
+                                        @ -- End function
+	.section	.text.ADC_MultiModeDMAHalfConvCplt,"ax",%progbits
+	.p2align	1               @ -- Begin function ADC_MultiModeDMAHalfConvCplt
+	.type	ADC_MultiModeDMAHalfConvCplt,%function
+	.code	16                      @ @ADC_MultiModeDMAHalfConvCplt
+	.thumb_func
+ADC_MultiModeDMAHalfConvCplt:
+.Lfunc_begin8:
+	.loc	7 1033 0                @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:1033:0
+	.fnstart
+	.cfi_startproc
+@ %bb.0:
+	@DEBUG_VALUE: ADC_MultiModeDMAHalfConvCplt:hdma <- $r0
+	@DEBUG_VALUE: ADC_MultiModeDMAHalfConvCplt:hdma <- $r0
+	.loc	7 1034 82 prologue_end  @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:1034:82
+	ldr	r0, [r0, #56]
+.Ltmp171:
+	@DEBUG_VALUE: ADC_MultiModeDMAHalfConvCplt:hadc <- $r0
+	.loc	7 1036 5                @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:1036:5
+	b	HAL_ADC_ConvHalfCpltCallback
+.Ltmp172:
+.Lfunc_end8:
+	.size	ADC_MultiModeDMAHalfConvCplt, .Lfunc_end8-ADC_MultiModeDMAHalfConvCplt
+	.cfi_endproc
+	.cantunwind
+	.fnend
+                                        @ -- End function
+	.section	.text.ADC_MultiModeDMAError,"ax",%progbits
+	.p2align	1               @ -- Begin function ADC_MultiModeDMAError
+	.type	ADC_MultiModeDMAError,%function
+	.code	16                      @ @ADC_MultiModeDMAError
+	.thumb_func
+ADC_MultiModeDMAError:
+.Lfunc_begin9:
+	.loc	7 1046 0                @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:1046:0
+	.fnstart
+	.cfi_startproc
+@ %bb.0:
+	@DEBUG_VALUE: ADC_MultiModeDMAError:hdma <- $r0
+	@DEBUG_VALUE: ADC_MultiModeDMAError:hdma <- $r0
+	.loc	7 1047 82 prologue_end  @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:1047:82
+	ldr	r0, [r0, #56]
+.Ltmp173:
+	@DEBUG_VALUE: ADC_MultiModeDMAError:hadc <- $r0
+	.loc	7 0 82 is_stmt 0        @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:0:82
+	movs	r1, #64
+	.loc	7 1048 16 is_stmt 1     @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:1048:16
+	str	r1, [r0, #64]
+	.loc	7 1050 21               @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:1050:21
+	ldr	r1, [r0, #68]
+	orr	r1, r1, #4
+	str	r1, [r0, #68]
+	.loc	7 1051 5                @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:1051:5
+	b	HAL_ADC_ErrorCallback
+.Ltmp174:
+.Lfunc_end9:
+	.size	ADC_MultiModeDMAError, .Lfunc_end9-ADC_MultiModeDMAError
+	.cfi_endproc
+	.cantunwind
+	.fnend
+                                        @ -- End function
+	.section	.text.HAL_ADCEx_MultiModeStop_DMA,"ax",%progbits
+	.hidden	HAL_ADCEx_MultiModeStop_DMA @ -- Begin function HAL_ADCEx_MultiModeStop_DMA
+	.globl	HAL_ADCEx_MultiModeStop_DMA
+	.p2align	2
+	.type	HAL_ADCEx_MultiModeStop_DMA,%function
+	.code	16                      @ @HAL_ADCEx_MultiModeStop_DMA
+	.thumb_func
+HAL_ADCEx_MultiModeStop_DMA:
+.Lfunc_begin10:
+	.loc	7 709 0                 @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:709:0
+	.fnstart
+	.cfi_startproc
+@ %bb.0:
+	.save	{r4, r5, r7, lr}
+	push	{r4, r5, r7, lr}
+	.cfi_def_cfa_offset 16
+	.cfi_offset lr, -4
+	.cfi_offset r7, -8
+	.cfi_offset r5, -12
+	.cfi_offset r4, -16
+	@DEBUG_VALUE: HAL_ADCEx_MultiModeStop_DMA:hadc <- $r0
+	mov	r4, r0
+.Ltmp175:
+	@DEBUG_VALUE: HAL_ADCEx_MultiModeStop_DMA:tmp_hal_status <- 0
+	@DEBUG_VALUE: HAL_ADCEx_MultiModeStop_DMA:hadc <- $r4
+	.loc	7 716 3 prologue_end    @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:716:3
+	ldrb.w	r0, [r0, #60]
+.Ltmp176:
+	.loc	7 716 3 is_stmt 0       @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:716:3
+	cmp	r0, #1
+	itt	eq
+	moveq	r0, #2
+.Ltmp177:
+	.loc	7 746 1 is_stmt 1       @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:746:1
+	popeq	{r4, r5, r7, pc}
+.Ltmp178:
+	.loc	7 0 1 is_stmt 0         @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:0:1
+	movs	r0, #1
+	movs	r5, #0
+.Ltmp179:
+	.loc	7 716 3 is_stmt 1       @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:716:3
+	strb.w	r0, [r4, #60]
+.Ltmp180:
+	.loc	7 720 3                 @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:720:3
+	ldr	r0, [r4]
+	ldr	r1, [r0, #8]
+	bic	r1, r1, #1
+	str	r1, [r0, #8]
+.Ltmp181:
+	.loc	7 723 6                 @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:723:6
+	ldr	r0, [r0, #8]
+.Ltmp182:
+	.loc	7 723 6 is_stmt 0       @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:723:6
+	tst.w	r0, #1
+	mov.w	r0, #0
+	bne	.LBB10_2
+@ %bb.1:
+.Ltmp183:
+	.loc	7 726 14 is_stmt 1      @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:726:14
+	ldr	r0, __arm_cp.10_0
+	ldr	r1, [r0]
+	bic	r1, r1, #8192
+	str	r1, [r0]
+	.loc	7 730 42                @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:730:42
+	ldr	r0, [r4, #56]
+	.loc	7 730 22 is_stmt 0      @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:730:22
+	bl	HAL_DMA_Abort
+	.loc	7 733 5 is_stmt 1       @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:733:5
+	ldr	r1, [r4]
+	ldr	r2, [r1, #4]
+	bic	r2, r2, #67108864
+	str	r2, [r1, #4]
+	.loc	7 736 5                 @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:736:5
+	movw	r2, #4353
+	ldr	r1, [r4, #64]
+	bics	r1, r2
+	orr	r1, r1, #1
+	str	r1, [r4, #64]
+.Ltmp184:
+.LBB10_2:
+	.loc	7 742 3                 @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:742:3
+	strb.w	r5, [r4, #60]
+.Ltmp185:
+	.loc	7 746 1                 @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:746:1
+	pop	{r4, r5, r7, pc}
+.Ltmp186:
+	.p2align	2
+@ %bb.3:
+	.loc	7 0 1 is_stmt 0         @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:0:1
+__arm_cp.10_0:
+	.long	1073816324              @ 0x40012304
+.Lcpi_end12:
+	.size	__arm_cp.10_0, .Lcpi_end12-__arm_cp.10_0
+.Lfunc_end10:
+	.size	HAL_ADCEx_MultiModeStop_DMA, .Lfunc_end10-HAL_ADCEx_MultiModeStop_DMA
+	.cfi_endproc
+	.cantunwind
+	.fnend
+                                        @ -- End function
+	.section	.text.HAL_ADCEx_MultiModeGetValue,"ax",%progbits
+	.hidden	HAL_ADCEx_MultiModeGetValue @ -- Begin function HAL_ADCEx_MultiModeGetValue
+	.globl	HAL_ADCEx_MultiModeGetValue
+	.p2align	2
+	.type	HAL_ADCEx_MultiModeGetValue,%function
+	.code	16                      @ @HAL_ADCEx_MultiModeGetValue
+	.thumb_func
+HAL_ADCEx_MultiModeGetValue:
+.Lfunc_begin11:
+	.loc	7 756 0 is_stmt 1       @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:756:0
+	.fnstart
+	.cfi_startproc
+@ %bb.0:
+	@DEBUG_VALUE: HAL_ADCEx_MultiModeGetValue:hadc <- $r0
+	.loc	7 758 15 prologue_end   @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:758:15
+	ldr	r0, __arm_cp.11_0
+.Ltmp187:
+	ldr	r0, [r0]
+	.loc	7 758 3 is_stmt 0       @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:758:3
+	bx	lr
+.Ltmp188:
+	.p2align	2
+@ %bb.1:
+	.loc	7 0 3                   @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:0:3
+__arm_cp.11_0:
+	.long	1073816328              @ 0x40012308
+.Lcpi_end13:
+	.size	__arm_cp.11_0, .Lcpi_end13-__arm_cp.11_0
+.Lfunc_end11:
+	.size	HAL_ADCEx_MultiModeGetValue, .Lfunc_end11-HAL_ADCEx_MultiModeGetValue
+	.cfi_endproc
+	.cantunwind
+	.fnend
+                                        @ -- End function
+	.section	.text.HAL_ADCEx_InjectedConvCpltCallback,"ax",%progbits
+	.hidden	HAL_ADCEx_InjectedConvCpltCallback @ -- Begin function HAL_ADCEx_InjectedConvCpltCallback
+	.weak	HAL_ADCEx_InjectedConvCpltCallback
+	.p2align	1
+	.type	HAL_ADCEx_InjectedConvCpltCallback,%function
+	.code	16                      @ @HAL_ADCEx_InjectedConvCpltCallback
+	.thumb_func
+HAL_ADCEx_InjectedConvCpltCallback:
+.Lfunc_begin12:
+	.loc	7 768 0 is_stmt 1       @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:768:0
+	.fnstart
+	.cfi_startproc
+@ %bb.0:
+	@DEBUG_VALUE: HAL_ADCEx_InjectedConvCpltCallback:hadc <- $r0
+	.loc	7 774 1 prologue_end    @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:774:1
+	bx	lr
+.Ltmp189:
+.Lfunc_end12:
+	.size	HAL_ADCEx_InjectedConvCpltCallback, .Lfunc_end12-HAL_ADCEx_InjectedConvCpltCallback
+	.cfi_endproc
+	.cantunwind
+	.fnend
+                                        @ -- End function
+	.section	.text.HAL_ADCEx_InjectedConfigChannel,"ax",%progbits
+	.hidden	HAL_ADCEx_InjectedConfigChannel @ -- Begin function HAL_ADCEx_InjectedConfigChannel
+	.globl	HAL_ADCEx_InjectedConfigChannel
+	.p2align	2
+	.type	HAL_ADCEx_InjectedConfigChannel,%function
+	.code	16                      @ @HAL_ADCEx_InjectedConfigChannel
+	.thumb_func
+HAL_ADCEx_InjectedConfigChannel:
+.Lfunc_begin13:
+	.loc	7 785 0                 @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:785:0
+	.fnstart
+	.cfi_startproc
+@ %bb.0:
+	@DEBUG_VALUE: HAL_ADCEx_InjectedConfigChannel:hadc <- $r0
+	@DEBUG_VALUE: HAL_ADCEx_InjectedConfigChannel:hadc <- $r0
+	@DEBUG_VALUE: HAL_ADCEx_InjectedConfigChannel:sConfigInjected <- $r1
+	@DEBUG_VALUE: HAL_ADCEx_InjectedConfigChannel:sConfigInjected <- $r1
+	.loc	7 811 3 prologue_end    @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:811:3
+	ldrb.w	r2, [r0, #60]
+.Ltmp190:
+	.loc	7 811 3 is_stmt 0       @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:811:3
+	cmp	r2, #1
+	bne	.LBB13_2
+.Ltmp191:
+@ %bb.1:
+	@DEBUG_VALUE: HAL_ADCEx_InjectedConfigChannel:sConfigInjected <- $r1
+	@DEBUG_VALUE: HAL_ADCEx_InjectedConfigChannel:hadc <- $r0
+	.loc	7 0 3                   @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:0:3
+	movs	r1, #2
+.Ltmp192:
+	b	.LBB13_20
+.LBB13_2:
+.Ltmp193:
+	@DEBUG_VALUE: HAL_ADCEx_InjectedConfigChannel:sConfigInjected <- $r1
+	@DEBUG_VALUE: HAL_ADCEx_InjectedConfigChannel:hadc <- $r0
+	.save	{r4, r5, r6, lr}
+	push	{r4, r5, r6, lr}
+	.cfi_def_cfa_offset 16
+	.cfi_offset lr, -4
+	.cfi_offset r6, -8
+	.cfi_offset r5, -12
+	.cfi_offset r4, -16
+	movs	r2, #1
+.Ltmp194:
+	.loc	7 811 3                 @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:811:3
+	strb.w	r2, [r0, #60]
+.Ltmp195:
+	.loc	7 814 24 is_stmt 1      @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:814:24
+	ldr.w	r12, [r1]
+	uxth.w	lr, r12
+.Ltmp196:
+	.loc	7 814 7 is_stmt 0       @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:814:7
+	cmp.w	r12, #10
+	lsl.w	r2, lr, #1
+	uxtah	r2, r2, r12
+	blo	.LBB13_4
+.Ltmp197:
+@ %bb.3:
+	@DEBUG_VALUE: HAL_ADCEx_InjectedConfigChannel:sConfigInjected <- $r1
+	@DEBUG_VALUE: HAL_ADCEx_InjectedConfigChannel:hadc <- $r0
+	.loc	7 817 11 is_stmt 1      @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:817:11
+	ldr	r3, [r0]
+	.loc	7 817 31 is_stmt 0      @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:817:31
+	subs	r2, #30
+	.loc	7 817 21                @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:817:21
+	add.w	r4, r3, #12
+	b	.LBB13_5
+.Ltmp198:
+.LBB13_4:
+	@DEBUG_VALUE: HAL_ADCEx_InjectedConfigChannel:sConfigInjected <- $r1
+	@DEBUG_VALUE: HAL_ADCEx_InjectedConfigChannel:hadc <- $r0
+	.loc	7 825 11 is_stmt 1      @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:825:11
+	ldr	r3, [r0]
+	.loc	7 825 21 is_stmt 0      @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:825:21
+	add.w	r4, r3, #16
+.Ltmp199:
+.LBB13_5:
+	@DEBUG_VALUE: HAL_ADCEx_InjectedConfigChannel:sConfigInjected <- $r1
+	@DEBUG_VALUE: HAL_ADCEx_InjectedConfigChannel:hadc <- $r0
+	.loc	7 0 21                  @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:0:21
+	ldr	r6, [r4]
+	movs	r5, #7
+	lsls	r5, r2
+	bic.w	r5, r6, r5
+	str	r5, [r4]
+	ldr	r5, [r1, #8]
+	lsl.w	r2, r5, r2
+	ldr	r5, [r4]
+	orrs	r2, r5
+	str	r2, [r4]
+	.loc	7 833 28 is_stmt 1      @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:833:28
+	ldr	r4, __arm_cp.13_0
+	.loc	7 832 24                @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:832:24
+	ldr	r2, [r3, #56]
+	bic	r2, r2, #3145728
+	str	r2, [r3, #56]
+	.loc	7 833 28                @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:833:28
+	ldr	r2, [r1, #16]
+	.loc	7 833 24 is_stmt 0      @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:833:24
+	ldr	r5, [r3, #56]
+	.loc	7 833 28                @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:833:28
+	add.w	r4, r4, r2, lsl #20
+	.loc	7 838 28 is_stmt 1      @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:838:28
+	rsb.w	r2, r2, #3
+	.loc	7 833 24                @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:833:24
+	orrs	r4, r5
+	str	r4, [r3, #56]
+	.loc	7 838 28                @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:838:28
+	ldr	r5, [r1, #4]
+	.loc	7 838 24 is_stmt 0      @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:838:24
+	ldr	r6, [r3, #56]
+	.loc	7 838 28                @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:838:28
+	add	r2, r5
+	uxtb	r4, r2
+	lsls	r4, r4, #2
+	uxtab	r2, r4, r2
+	movs	r4, #31
+	lsls	r4, r2
+	.loc	7 841 27 is_stmt 1      @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:841:27
+	lsl.w	r2, lr, r2
+	.loc	7 838 24                @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:838:24
+	bic.w	r4, r6, r4
+	str	r4, [r3, #56]
+	.loc	7 841 24                @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:841:24
+	ldr	r6, [r3, #56]
+	orrs	r2, r6
+.Ltmp200:
+	.loc	7 848 45                @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:848:45
+	ldr	r6, __arm_cp.13_1
+.Ltmp201:
+	.loc	7 841 24                @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:841:24
+	str	r2, [r3, #56]
+.Ltmp202:
+	.loc	7 848 23                @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:848:23
+	ldr	r4, [r1, #28]
+	ldr	r2, [r3, #8]
+	bic	r2, r2, #983040
+.Ltmp203:
+	.loc	7 848 6 is_stmt 0       @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:848:6
+	cmp	r4, r6
+	str	r2, [r3, #8]
+	ldr	r2, [r3, #8]
+	bne	.LBB13_7
+.Ltmp204:
+@ %bb.6:
+	@DEBUG_VALUE: HAL_ADCEx_InjectedConfigChannel:sConfigInjected <- $r1
+	@DEBUG_VALUE: HAL_ADCEx_InjectedConfigChannel:hadc <- $r0
+	.loc	7 862 25 is_stmt 1      @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:862:25
+	bic	r4, r2, #3145728
+	b	.LBB13_8
+.Ltmp205:
+.LBB13_7:
+	@DEBUG_VALUE: HAL_ADCEx_InjectedConfigChannel:sConfigInjected <- $r1
+	@DEBUG_VALUE: HAL_ADCEx_InjectedConfigChannel:hadc <- $r0
+	.loc	7 852 25                @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:852:25
+	orrs	r2, r4
+	str	r2, [r3, #8]
+	.loc	7 855 25                @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:855:25
+	ldr	r2, [r3, #8]
+	bic	r2, r2, #3145728
+	str	r2, [r3, #8]
+	.loc	7 856 45                @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:856:45
+	ldr	r2, [r1, #32]
+	.loc	7 856 25 is_stmt 0      @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:856:25
+	ldr	r6, [r3, #8]
+	orr.w	r4, r6, r2
+.Ltmp206:
+.LBB13_8:
+	@DEBUG_VALUE: HAL_ADCEx_InjectedConfigChannel:sConfigInjected <- $r1
+	@DEBUG_VALUE: HAL_ADCEx_InjectedConfigChannel:hadc <- $r0
+	.loc	7 0 25                  @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:0:25
+	str	r4, [r3, #8]
+.Ltmp207:
+	.loc	7 865 24 is_stmt 1      @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:865:24
+	ldr	r2, [r1, #24]
+	ldr	r6, [r3, #4]
+.Ltmp208:
+	.loc	7 868 25                @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:868:25
+	orr	r4, r6, #1024
+.Ltmp209:
+	.loc	7 865 7                 @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:865:7
+	cmp	r2, #0
+	it	eq
+	biceq	r4, r6, #1024
+	str	r4, [r3, #4]
+.Ltmp210:
+	.loc	7 876 24                @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:876:24
+	ldr	r2, [r1, #20]
+	ldr	r6, [r3, #4]
+.Ltmp211:
+	.loc	7 879 25                @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:879:25
+	orr	r4, r6, #4096
+.Ltmp212:
+	.loc	7 876 7                 @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:876:7
+	cmp	r2, #0
+	it	eq
+	biceq	r4, r6, #4096
+	.loc	7 887 3                 @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:887:3
+	cmp	r5, #3
+	str	r4, [r3, #4]
+	beq	.LBB13_12
+.Ltmp213:
+@ %bb.9:
+	@DEBUG_VALUE: HAL_ADCEx_InjectedConfigChannel:sConfigInjected <- $r1
+	@DEBUG_VALUE: HAL_ADCEx_InjectedConfigChannel:hadc <- $r0
+	cmp	r5, #2
+	beq	.LBB13_11
+.Ltmp214:
+@ %bb.10:
+	@DEBUG_VALUE: HAL_ADCEx_InjectedConfigChannel:sConfigInjected <- $r1
+	@DEBUG_VALUE: HAL_ADCEx_InjectedConfigChannel:hadc <- $r0
+	cmp	r5, #1
+.Ltmp215:
+	.loc	7 906 23                @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:906:23
+	ite	ne
+	addne.w	r2, r3, #32
+	.loc	7 891 23                @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:891:23
+	addeq.w	r2, r3, #20
+	b	.LBB13_13
+.Ltmp216:
+.LBB13_11:
+	@DEBUG_VALUE: HAL_ADCEx_InjectedConfigChannel:sConfigInjected <- $r1
+	@DEBUG_VALUE: HAL_ADCEx_InjectedConfigChannel:hadc <- $r0
+	.loc	7 896 23                @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:896:23
+	add.w	r2, r3, #24
+	b	.LBB13_13
+.Ltmp217:
+.LBB13_12:
+	@DEBUG_VALUE: HAL_ADCEx_InjectedConfigChannel:sConfigInjected <- $r1
+	@DEBUG_VALUE: HAL_ADCEx_InjectedConfigChannel:hadc <- $r0
+	.loc	7 901 23                @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:901:23
+	add.w	r2, r3, #28
+.Ltmp218:
+.LBB13_13:
+	@DEBUG_VALUE: HAL_ADCEx_InjectedConfigChannel:sConfigInjected <- $r1
+	@DEBUG_VALUE: HAL_ADCEx_InjectedConfigChannel:hadc <- $r0
+	.loc	7 0 23 is_stmt 0        @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:0:23
+	ldr	r6, [r2]
+	movw	r5, #4095
+	bics	r6, r5
+	str	r6, [r2]
+	ldr	r1, [r1, #12]
+.Ltmp219:
+	ldr	r6, [r2]
+	orrs	r1, r6
+	str	r1, [r2]
+	ldr	r1, __arm_cp.13_2
+.Ltmp220:
+	.loc	7 912 23 is_stmt 1      @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:912:23
+	sub.w	r2, r1, #772
+	.loc	7 912 32 is_stmt 0      @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:912:32
+	cmp	r3, r2
+	pop.w	{r4, r5, r6, lr}
+	bne	.LBB13_19
+.Ltmp221:
+@ %bb.14:
+	@DEBUG_VALUE: HAL_ADCEx_InjectedConfigChannel:hadc <- $r0
+	.loc	7 912 7                 @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:912:7
+	cmp.w	r12, #17
+	itt	ne
+	ldrne	r2, __arm_cp.13_3
+	cmpne	r12, r2
+	bne	.LBB13_16
+@ %bb.15:
+	@DEBUG_VALUE: HAL_ADCEx_InjectedConfigChannel:hadc <- $r0
+.Ltmp222:
+	.loc	7 922 14 is_stmt 1      @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:922:14
+	ldr	r2, [r1]
+	orr	r2, r2, #8388608
+	b	.LBB13_18
+.Ltmp223:
+.LBB13_16:
+	@DEBUG_VALUE: HAL_ADCEx_InjectedConfigChannel:hadc <- $r0
+	.loc	7 912 7                 @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:912:7
+	cmp.w	r12, #18
+	bne	.LBB13_19
+@ %bb.17:
+	@DEBUG_VALUE: HAL_ADCEx_InjectedConfigChannel:hadc <- $r0
+.Ltmp224:
+	.loc	7 915 14                @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:915:14
+	ldr	r2, [r1]
+	orr	r2, r2, #4194304
+.Ltmp225:
+.LBB13_18:
+	@DEBUG_VALUE: HAL_ADCEx_InjectedConfigChannel:hadc <- $r0
+	.loc	7 0 14 is_stmt 0        @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:0:14
+	str	r2, [r1]
+.LBB13_19:
+	@DEBUG_VALUE: HAL_ADCEx_InjectedConfigChannel:hadc <- $r0
+	movs	r1, #0
+.Ltmp226:
+	.loc	7 926 3 is_stmt 1       @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:926:3
+	strb.w	r1, [r0, #60]
+.Ltmp227:
+.LBB13_20:
+	@DEBUG_VALUE: HAL_ADCEx_InjectedConfigChannel:hadc <- $r0
+	.loc	7 930 1                 @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:930:1
+	uxtb	r0, r1
+	bx	lr
+.Ltmp228:
+	.p2align	2
+@ %bb.21:
+	.loc	7 0 1 is_stmt 0         @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:0:1
+__arm_cp.13_0:
+	.long	4293918720              @ 0xfff00000
+.Lcpi_end14:
+	.size	__arm_cp.13_0, .Lcpi_end14-__arm_cp.13_0
+__arm_cp.13_1:
+	.long	983041                  @ 0xf0001
+.Lcpi_end15:
+	.size	__arm_cp.13_1, .Lcpi_end15-__arm_cp.13_1
+__arm_cp.13_2:
+	.long	1073816324              @ 0x40012304
+.Lcpi_end16:
+	.size	__arm_cp.13_2, .Lcpi_end16-__arm_cp.13_2
+__arm_cp.13_3:
+	.long	268435474               @ 0x10000012
+.Lcpi_end17:
+	.size	__arm_cp.13_3, .Lcpi_end17-__arm_cp.13_3
+.Lfunc_end13:
+	.size	HAL_ADCEx_InjectedConfigChannel, .Lfunc_end13-HAL_ADCEx_InjectedConfigChannel
+	.cfi_endproc
+	.cantunwind
+	.fnend
+                                        @ -- End function
+	.section	.text.HAL_ADCEx_MultiModeConfigChannel,"ax",%progbits
+	.hidden	HAL_ADCEx_MultiModeConfigChannel @ -- Begin function HAL_ADCEx_MultiModeConfigChannel
+	.globl	HAL_ADCEx_MultiModeConfigChannel
+	.p2align	2
+	.type	HAL_ADCEx_MultiModeConfigChannel,%function
+	.code	16                      @ @HAL_ADCEx_MultiModeConfigChannel
+	.thumb_func
+HAL_ADCEx_MultiModeConfigChannel:
+.Lfunc_begin14:
+	.loc	7 941 0 is_stmt 1       @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:941:0
+	.fnstart
+	.cfi_startproc
+@ %bb.0:
+	@DEBUG_VALUE: HAL_ADCEx_MultiModeConfigChannel:hadc <- $r0
+	@DEBUG_VALUE: HAL_ADCEx_MultiModeConfigChannel:hadc <- $r0
+	@DEBUG_VALUE: HAL_ADCEx_MultiModeConfigChannel:multimode <- $r1
+	@DEBUG_VALUE: HAL_ADCEx_MultiModeConfigChannel:multimode <- $r1
+	.loc	7 948 3 prologue_end    @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:948:3
+	ldrb.w	r2, [r0, #60]
+.Ltmp229:
+	.loc	7 948 3 is_stmt 0       @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:948:3
+	cmp	r2, #1
+	bne	.LBB14_2
+.Ltmp230:
+@ %bb.1:
+	@DEBUG_VALUE: HAL_ADCEx_MultiModeConfigChannel:multimode <- $r1
+	@DEBUG_VALUE: HAL_ADCEx_MultiModeConfigChannel:hadc <- $r0
+	.loc	7 0 3                   @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:0:3
+	movs	r1, #2
+.Ltmp231:
+	b	.LBB14_3
+.LBB14_2:
+.Ltmp232:
+	@DEBUG_VALUE: HAL_ADCEx_MultiModeConfigChannel:multimode <- $r1
+	@DEBUG_VALUE: HAL_ADCEx_MultiModeConfigChannel:hadc <- $r0
+	ldr	r2, __arm_cp.14_0
+	.loc	7 951 12 is_stmt 1      @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:951:12
+	ldr	r3, [r2]
+	bic	r3, r3, #31
+	str	r3, [r2]
+	.loc	7 952 26                @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:952:26
+	ldr.w	r12, [r1]
+	.loc	7 952 12 is_stmt 0      @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:952:12
+	ldr	r3, [r2]
+	orr.w	r3, r3, r12
+	str	r3, [r2]
+	.loc	7 955 12 is_stmt 1      @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:955:12
+	ldr	r3, [r2]
+	bic	r3, r3, #49152
+	str	r3, [r2]
+	.loc	7 956 26                @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:956:26
+	ldr.w	r12, [r1, #4]
+	.loc	7 956 12 is_stmt 0      @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:956:12
+	ldr	r3, [r2]
+	orr.w	r3, r3, r12
+	str	r3, [r2]
+	.loc	7 959 12 is_stmt 1      @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:959:12
+	ldr	r3, [r2]
+	bic	r3, r3, #3840
+	str	r3, [r2]
+	.loc	7 960 26                @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:960:26
+	ldr	r1, [r1, #8]
+.Ltmp233:
+	.loc	7 960 12 is_stmt 0      @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:960:12
+	ldr	r3, [r2]
+	orrs	r1, r3
+	str	r1, [r2]
+	movs	r1, #0
+.Ltmp234:
+	.loc	7 963 3 is_stmt 1       @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:963:3
+	strb.w	r1, [r0, #60]
+.Ltmp235:
+.LBB14_3:
+	@DEBUG_VALUE: HAL_ADCEx_MultiModeConfigChannel:hadc <- $r0
+	.loc	7 967 1                 @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:967:1
+	uxtb	r0, r1
+	bx	lr
+.Ltmp236:
+	.p2align	2
+@ %bb.4:
+	.loc	7 0 1 is_stmt 0         @ ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c:0:1
+__arm_cp.14_0:
+	.long	1073816324              @ 0x40012304
+.Lcpi_end18:
+	.size	__arm_cp.14_0, .Lcpi_end18-__arm_cp.14_0
+.Lfunc_end14:
+	.size	HAL_ADCEx_MultiModeConfigChannel, .Lfunc_end14-HAL_ADCEx_MultiModeConfigChannel
+	.cfi_endproc
+	.cantunwind
+	.fnend
+                                        @ -- End function
+	.file	8 "../Drivers/STM32F7xx_HAL_Driver/Inc" "stm32f7xx_hal_adc_ex.h"
+	.section	.debug_str,"MS",%progbits,1
+.Linfo_string0:
+	.asciz	"Component: ARM Compiler 6.10.1 Tool: armclang [5d143200]" @ string offset=0
+.Linfo_string1:
+	.asciz	"../Drivers/STM32F7xx_HAL_Driver/Src\\stm32f7xx_hal_adc_ex.c" @ string offset=57
+.Linfo_string2:
+	.asciz	"F:\\SkyDrive\\OtvoreniProjekti\\HotelSaplast\\fw\\RoomThermostat\\DE-170518\\MDK-ARM" @ string offset=116
+.Linfo_string3:
+	.asciz	"unsigned char"         @ string offset=194
+.Linfo_string4:
+	.asciz	"HAL_OK"                @ string offset=208
+.Linfo_string5:
+	.asciz	"HAL_ERROR"             @ string offset=215
+.Linfo_string6:
+	.asciz	"HAL_BUSY"              @ string offset=225
+.Linfo_string7:
+	.asciz	"HAL_TIMEOUT"           @ string offset=234
+.Linfo_string8:
+	.asciz	"HAL_UNLOCKED"          @ string offset=246
+.Linfo_string9:
+	.asciz	"HAL_LOCKED"            @ string offset=259
+.Linfo_string10:
+	.asciz	"HAL_DMA_STATE_RESET"   @ string offset=270
+.Linfo_string11:
+	.asciz	"HAL_DMA_STATE_READY"   @ string offset=290
+.Linfo_string12:
+	.asciz	"HAL_DMA_STATE_BUSY"    @ string offset=310
+.Linfo_string13:
+	.asciz	"HAL_DMA_STATE_TIMEOUT" @ string offset=329
+.Linfo_string14:
+	.asciz	"HAL_DMA_STATE_ERROR"   @ string offset=351
+.Linfo_string15:
+	.asciz	"HAL_DMA_STATE_ABORT"   @ string offset=371
+.Linfo_string16:
+	.asciz	"RESET"                 @ string offset=391
+.Linfo_string17:
+	.asciz	"SET"                   @ string offset=397
+.Linfo_string18:
+	.asciz	"DISABLE"               @ string offset=401
+.Linfo_string19:
+	.asciz	"ENABLE"                @ string offset=409
+.Linfo_string20:
+	.asciz	"unsigned int"          @ string offset=416
+.Linfo_string21:
+	.asciz	"uint32_t"              @ string offset=429
+.Linfo_string22:
+	.asciz	"CSR"                   @ string offset=438
+.Linfo_string23:
+	.asciz	"CCR"                   @ string offset=442
+.Linfo_string24:
+	.asciz	"CDR"                   @ string offset=446
+.Linfo_string25:
+	.asciz	"ADC_Common_TypeDef"    @ string offset=450
+.Linfo_string26:
+	.asciz	"SR"                    @ string offset=469
+.Linfo_string27:
+	.asciz	"CR1"                   @ string offset=472
+.Linfo_string28:
+	.asciz	"CR2"                   @ string offset=476
+.Linfo_string29:
+	.asciz	"SMPR1"                 @ string offset=480
+.Linfo_string30:
+	.asciz	"SMPR2"                 @ string offset=486
+.Linfo_string31:
+	.asciz	"JOFR1"                 @ string offset=492
+.Linfo_string32:
+	.asciz	"JOFR2"                 @ string offset=498
+.Linfo_string33:
+	.asciz	"JOFR3"                 @ string offset=504
+.Linfo_string34:
+	.asciz	"JOFR4"                 @ string offset=510
+.Linfo_string35:
+	.asciz	"HTR"                   @ string offset=516
+.Linfo_string36:
+	.asciz	"LTR"                   @ string offset=520
+.Linfo_string37:
+	.asciz	"SQR1"                  @ string offset=524
+.Linfo_string38:
+	.asciz	"SQR2"                  @ string offset=529
+.Linfo_string39:
+	.asciz	"SQR3"                  @ string offset=534
+.Linfo_string40:
+	.asciz	"JSQR"                  @ string offset=539
+.Linfo_string41:
+	.asciz	"JDR1"                  @ string offset=544
+.Linfo_string42:
+	.asciz	"JDR2"                  @ string offset=549
+.Linfo_string43:
+	.asciz	"JDR3"                  @ string offset=554
+.Linfo_string44:
+	.asciz	"JDR4"                  @ string offset=559
+.Linfo_string45:
+	.asciz	"DR"                    @ string offset=564
+.Linfo_string46:
+	.asciz	"ADC_TypeDef"           @ string offset=567
+.Linfo_string47:
+	.asciz	"unsigned short"        @ string offset=579
+.Linfo_string48:
+	.asciz	"uint16_t"              @ string offset=594
+.Linfo_string49:
+	.asciz	"uint8_t"               @ string offset=603
+.Linfo_string50:
+	.asciz	"Instance"              @ string offset=611
+.Linfo_string51:
+	.asciz	"Init"                  @ string offset=620
+.Linfo_string52:
+	.asciz	"ClockPrescaler"        @ string offset=625
+.Linfo_string53:
+	.asciz	"Resolution"            @ string offset=640
+.Linfo_string54:
+	.asciz	"DataAlign"             @ string offset=651
+.Linfo_string55:
+	.asciz	"ScanConvMode"          @ string offset=661
+.Linfo_string56:
+	.asciz	"EOCSelection"          @ string offset=674
+.Linfo_string57:
+	.asciz	"ContinuousConvMode"    @ string offset=687
+.Linfo_string58:
+	.asciz	"NbrOfConversion"       @ string offset=706
+.Linfo_string59:
+	.asciz	"DiscontinuousConvMode" @ string offset=722
+.Linfo_string60:
+	.asciz	"NbrOfDiscConversion"   @ string offset=744
+.Linfo_string61:
+	.asciz	"ExternalTrigConv"      @ string offset=764
+.Linfo_string62:
+	.asciz	"ExternalTrigConvEdge"  @ string offset=781
+.Linfo_string63:
+	.asciz	"DMAContinuousRequests" @ string offset=802
+.Linfo_string64:
+	.asciz	"ADC_InitTypeDef"       @ string offset=824
+.Linfo_string65:
+	.asciz	"NbrOfCurrentConversionRank" @ string offset=840
+.Linfo_string66:
+	.asciz	"DMA_Handle"            @ string offset=867
+.Linfo_string67:
+	.asciz	"CR"                    @ string offset=878
+.Linfo_string68:
+	.asciz	"NDTR"                  @ string offset=881
+.Linfo_string69:
+	.asciz	"PAR"                   @ string offset=886
+.Linfo_string70:
+	.asciz	"M0AR"                  @ string offset=890
+.Linfo_string71:
+	.asciz	"M1AR"                  @ string offset=895
+.Linfo_string72:
+	.asciz	"FCR"                   @ string offset=900
+.Linfo_string73:
+	.asciz	"DMA_Stream_TypeDef"    @ string offset=904
+.Linfo_string74:
+	.asciz	"Channel"               @ string offset=923
+.Linfo_string75:
+	.asciz	"Direction"             @ string offset=931
+.Linfo_string76:
+	.asciz	"PeriphInc"             @ string offset=941
+.Linfo_string77:
+	.asciz	"MemInc"                @ string offset=951
+.Linfo_string78:
+	.asciz	"PeriphDataAlignment"   @ string offset=958
+.Linfo_string79:
+	.asciz	"MemDataAlignment"      @ string offset=978
+.Linfo_string80:
+	.asciz	"Mode"                  @ string offset=995
+.Linfo_string81:
+	.asciz	"Priority"              @ string offset=1000
+.Linfo_string82:
+	.asciz	"FIFOMode"              @ string offset=1009
+.Linfo_string83:
+	.asciz	"FIFOThreshold"         @ string offset=1018
+.Linfo_string84:
+	.asciz	"MemBurst"              @ string offset=1032
+.Linfo_string85:
+	.asciz	"PeriphBurst"           @ string offset=1041
+.Linfo_string86:
+	.asciz	"DMA_InitTypeDef"       @ string offset=1053
+.Linfo_string87:
+	.asciz	"Lock"                  @ string offset=1069
+.Linfo_string88:
+	.asciz	"HAL_LockTypeDef"       @ string offset=1074
+.Linfo_string89:
+	.asciz	"State"                 @ string offset=1090
+.Linfo_string90:
+	.asciz	"HAL_DMA_StateTypeDef"  @ string offset=1096
+.Linfo_string91:
+	.asciz	"Parent"                @ string offset=1117
+.Linfo_string92:
+	.asciz	"XferCpltCallback"      @ string offset=1124
+.Linfo_string93:
+	.asciz	"XferHalfCpltCallback"  @ string offset=1141
+.Linfo_string94:
+	.asciz	"XferM1CpltCallback"    @ string offset=1162
+.Linfo_string95:
+	.asciz	"XferM1HalfCpltCallback" @ string offset=1181
+.Linfo_string96:
+	.asciz	"XferErrorCallback"     @ string offset=1204
+.Linfo_string97:
+	.asciz	"XferAbortCallback"     @ string offset=1222
+.Linfo_string98:
+	.asciz	"ErrorCode"             @ string offset=1240
+.Linfo_string99:
+	.asciz	"StreamBaseAddress"     @ string offset=1250
+.Linfo_string100:
+	.asciz	"StreamIndex"           @ string offset=1268
+.Linfo_string101:
+	.asciz	"__DMA_HandleTypeDef"   @ string offset=1280
+.Linfo_string102:
+	.asciz	"DMA_HandleTypeDef"     @ string offset=1300
+.Linfo_string103:
+	.asciz	"ADC_HandleTypeDef"     @ string offset=1318
+.Linfo_string104:
+	.asciz	"HAL_ADCEx_InjectedStart" @ string offset=1336
+.Linfo_string105:
+	.asciz	"HAL_StatusTypeDef"     @ string offset=1360
+.Linfo_string106:
+	.asciz	"HAL_ADCEx_InjectedStart_IT" @ string offset=1378
+.Linfo_string107:
+	.asciz	"HAL_ADCEx_InjectedStop" @ string offset=1405
+.Linfo_string108:
+	.asciz	"HAL_ADCEx_InjectedPollForConversion" @ string offset=1428
+.Linfo_string109:
+	.asciz	"HAL_ADCEx_InjectedStop_IT" @ string offset=1464
+.Linfo_string110:
+	.asciz	"HAL_ADCEx_InjectedGetValue" @ string offset=1490
+.Linfo_string111:
+	.asciz	"HAL_ADCEx_MultiModeStart_DMA" @ string offset=1517
+.Linfo_string112:
+	.asciz	"ADC_MultiModeDMAConvCplt" @ string offset=1546
+.Linfo_string113:
+	.asciz	"ADC_MultiModeDMAHalfConvCplt" @ string offset=1571
+.Linfo_string114:
+	.asciz	"ADC_MultiModeDMAError" @ string offset=1600
+.Linfo_string115:
+	.asciz	"HAL_ADCEx_MultiModeStop_DMA" @ string offset=1622
+.Linfo_string116:
+	.asciz	"HAL_ADCEx_MultiModeGetValue" @ string offset=1650
+.Linfo_string117:
+	.asciz	"HAL_ADCEx_InjectedConvCpltCallback" @ string offset=1678
+.Linfo_string118:
+	.asciz	"HAL_ADCEx_InjectedConfigChannel" @ string offset=1713
+.Linfo_string119:
+	.asciz	"HAL_ADCEx_MultiModeConfigChannel" @ string offset=1745
+.Linfo_string120:
+	.asciz	"hadc"                  @ string offset=1778
+.Linfo_string121:
+	.asciz	"counter"               @ string offset=1783
+.Linfo_string122:
+	.asciz	"tmp2"                  @ string offset=1791
+.Linfo_string123:
+	.asciz	"tmp1"                  @ string offset=1796
+.Linfo_string124:
+	.asciz	"tmp_hal_status"        @ string offset=1801
+.Linfo_string125:
+	.asciz	"Timeout"               @ string offset=1816
+.Linfo_string126:
+	.asciz	"tickstart"             @ string offset=1824
+.Linfo_string127:
+	.asciz	"InjectedRank"          @ string offset=1834
+.Linfo_string128:
+	.asciz	"tmp"                   @ string offset=1847
+.Linfo_string129:
+	.asciz	"pData"                 @ string offset=1851
+.Linfo_string130:
+	.asciz	"Length"                @ string offset=1857
+.Linfo_string131:
+	.asciz	"hdma"                  @ string offset=1864
+.Linfo_string132:
+	.asciz	"sConfigInjected"       @ string offset=1869
+.Linfo_string133:
+	.asciz	"InjectedChannel"       @ string offset=1885
+.Linfo_string134:
+	.asciz	"InjectedSamplingTime"  @ string offset=1901
+.Linfo_string135:
+	.asciz	"InjectedOffset"        @ string offset=1922
+.Linfo_string136:
+	.asciz	"InjectedNbrOfConversion" @ string offset=1937
+.Linfo_string137:
+	.asciz	"InjectedDiscontinuousConvMode" @ string offset=1961
+.Linfo_string138:
+	.asciz	"AutoInjectedConv"      @ string offset=1991
+.Linfo_string139:
+	.asciz	"ExternalTrigInjecConv" @ string offset=2008
+.Linfo_string140:
+	.asciz	"ExternalTrigInjecConvEdge" @ string offset=2030
+.Linfo_string141:
+	.asciz	"ADC_InjectionConfTypeDef" @ string offset=2056
+.Linfo_string142:
+	.asciz	"multimode"             @ string offset=2081
+.Linfo_string143:
+	.asciz	"DMAAccessMode"         @ string offset=2091
+.Linfo_string144:
+	.asciz	"TwoSamplingDelay"      @ string offset=2105
+.Linfo_string145:
+	.asciz	"ADC_MultiModeTypeDef"  @ string offset=2122
+	.section	.debug_loc,"",%progbits
+.Ldebug_loc0:
+	.long	.Lfunc_begin0
+	.long	.Ltmp4
+	.short	1                       @ Loc expr size
+	.byte	80                      @ DW_OP_reg0
+	.long	.Ltmp5
+	.long	.Ltmp22
+	.short	1                       @ Loc expr size
+	.byte	80                      @ DW_OP_reg0
+	.long	0
+	.long	0
+.Ldebug_loc1:
+	.long	.Ltmp0
+	.long	.Ltmp10
+	.short	2                       @ Loc expr size
+	.byte	16                      @ DW_OP_constu
+	.byte	0                       @ 0
+	.long	.Ltmp10
+	.long	.Ltmp14
+	.short	1                       @ Loc expr size
+	.byte	82                      @ DW_OP_reg2
+	.long	0
+	.long	0
+.Ldebug_loc2:
+	.long	.Ltmp1
+	.long	.Lfunc_end0
+	.short	2                       @ Loc expr size
+	.byte	16                      @ DW_OP_constu
+	.byte	0                       @ 0
+	.long	0
+	.long	0
+.Ldebug_loc3:
+	.long	.Ltmp1
+	.long	.Lfunc_end0
+	.short	2                       @ Loc expr size
+	.byte	16                      @ DW_OP_constu
+	.byte	0                       @ 0
+	.long	0
+	.long	0
+.Ldebug_loc4:
+	.long	.Lfunc_begin1
+	.long	.Ltmp33
+	.short	1                       @ Loc expr size
+	.byte	80                      @ DW_OP_reg0
+	.long	.Ltmp34
+	.long	.Ltmp51
+	.short	1                       @ Loc expr size
+	.byte	80                      @ DW_OP_reg0
+	.long	0
+	.long	0
+.Ldebug_loc5:
+	.long	.Ltmp29
+	.long	.Ltmp39
+	.short	2                       @ Loc expr size
+	.byte	16                      @ DW_OP_constu
+	.byte	0                       @ 0
+	.long	.Ltmp39
+	.long	.Ltmp43
+	.short	1                       @ Loc expr size
+	.byte	82                      @ DW_OP_reg2
+	.long	0
+	.long	0
+.Ldebug_loc6:
+	.long	.Ltmp30
+	.long	.Lfunc_end1
+	.short	2                       @ Loc expr size
+	.byte	16                      @ DW_OP_constu
+	.byte	0                       @ 0
+	.long	0
+	.long	0
+.Ldebug_loc7:
+	.long	.Ltmp30
+	.long	.Lfunc_end1
+	.short	2                       @ Loc expr size
+	.byte	16                      @ DW_OP_constu
+	.byte	0                       @ 0
+	.long	0
+	.long	0
+.Ldebug_loc8:
+	.long	.Lfunc_begin2
+	.long	.Ltmp67
+	.short	2                       @ Loc expr size
+	.byte	16                      @ DW_OP_constu
+	.byte	0                       @ 0
+	.long	.Ltmp67
+	.long	.Lfunc_end2
+	.short	2                       @ Loc expr size
+	.byte	16                      @ DW_OP_constu
+	.byte	1                       @ 1
+	.long	0
+	.long	0
+.Ldebug_loc9:
+	.long	.Lfunc_begin3
+	.long	.Ltmp71
+	.short	1                       @ Loc expr size
+	.byte	80                      @ DW_OP_reg0
+	.long	.Ltmp71
+	.long	.Lfunc_end3
+	.short	1                       @ Loc expr size
+	.byte	84                      @ DW_OP_reg4
+	.long	0
+	.long	0
+.Ldebug_loc10:
+	.long	.Lfunc_begin3
+	.long	.Ltmp71
+	.short	1                       @ Loc expr size
+	.byte	81                      @ DW_OP_reg1
+	.long	.Ltmp71
+	.long	.Lfunc_end3
+	.short	1                       @ Loc expr size
+	.byte	85                      @ DW_OP_reg5
+	.long	0
+	.long	0
+.Ldebug_loc11:
+	.long	.Ltmp71
+	.long	.Ltmp72
+	.short	2                       @ Loc expr size
+	.byte	16                      @ DW_OP_constu
+	.byte	0                       @ 0
+	.long	.Ltmp72
+	.long	.Lfunc_end3
+	.short	1                       @ Loc expr size
+	.byte	86                      @ DW_OP_reg6
+	.long	0
+	.long	0
+.Ldebug_loc12:
+	.long	.Lfunc_begin4
+	.long	.Ltmp102
+	.short	2                       @ Loc expr size
+	.byte	16                      @ DW_OP_constu
+	.byte	0                       @ 0
+	.long	.Ltmp102
+	.long	.Lfunc_end4
+	.short	2                       @ Loc expr size
+	.byte	16                      @ DW_OP_constu
+	.byte	1                       @ 1
+	.long	0
+	.long	0
+.Ldebug_loc13:
+	.long	.Lfunc_begin5
+	.long	.Ltmp108
+	.short	1                       @ Loc expr size
+	.byte	80                      @ DW_OP_reg0
+	.long	0
+	.long	0
+.Ldebug_loc14:
+	.long	.Lfunc_begin5
+	.long	.Ltmp107
+	.short	1                       @ Loc expr size
+	.byte	81                      @ DW_OP_reg1
+	.long	0
+	.long	0
+.Ldebug_loc15:
+	.long	.Ltmp106
+	.long	.Ltmp113
+	.short	2                       @ Loc expr size
+	.byte	16                      @ DW_OP_constu
+	.byte	0                       @ 0
+	.long	.Ltmp113
+	.long	.Ltmp114
+	.short	1                       @ Loc expr size
+	.byte	80                      @ DW_OP_reg0
+	.long	.Ltmp115
+	.long	.Lfunc_end5
+	.short	1                       @ Loc expr size
+	.byte	80                      @ DW_OP_reg0
+	.long	0
+	.long	0
+.Ldebug_loc16:
+	.long	.Lfunc_begin6
+	.long	.Ltmp117
+	.short	1                       @ Loc expr size
+	.byte	80                      @ DW_OP_reg0
+	.long	.Ltmp117
+	.long	.Ltmp152
+	.short	1                       @ Loc expr size
+	.byte	84                      @ DW_OP_reg4
+	.long	0
+	.long	0
+.Ldebug_loc17:
+	.long	.Lfunc_begin6
+	.long	.Ltmp117
+	.short	1                       @ Loc expr size
+	.byte	81                      @ DW_OP_reg1
+	.long	.Ltmp117
+	.long	.Ltmp119
+	.short	1                       @ Loc expr size
+	.byte	87                      @ DW_OP_reg7
+	.long	0
+	.long	0
+.Ldebug_loc18:
+	.long	.Lfunc_begin6
+	.long	.Ltmp117
+	.short	1                       @ Loc expr size
+	.byte	82                      @ DW_OP_reg2
+	.long	.Ltmp117
+	.long	.Ltmp118
+	.short	1                       @ Loc expr size
+	.byte	94                      @ DW_OP_reg14
+	.long	0
+	.long	0
+.Ldebug_loc19:
+	.long	.Ltmp117
+	.long	.Ltmp128
+	.short	2                       @ Loc expr size
+	.byte	16                      @ DW_OP_constu
+	.byte	0                       @ 0
+	.long	.Ltmp128
+	.long	.Ltmp132
+	.short	1                       @ Loc expr size
+	.byte	80                      @ DW_OP_reg0
+	.long	0
+	.long	0
+.Ldebug_loc20:
+	.long	.Lfunc_begin7
+	.long	.Ltmp153
+	.short	1                       @ Loc expr size
+	.byte	80                      @ DW_OP_reg0
+	.long	.Ltmp153
+	.long	.Ltmp159
+	.short	1                       @ Loc expr size
+	.byte	81                      @ DW_OP_reg1
+	.long	0
+	.long	0
+.Ldebug_loc21:
+	.long	.Ltmp154
+	.long	.Ltmp157
+	.short	1                       @ Loc expr size
+	.byte	80                      @ DW_OP_reg0
+	.long	.Ltmp158
+	.long	.Lfunc_end7
+	.short	1                       @ Loc expr size
+	.byte	80                      @ DW_OP_reg0
+	.long	0
+	.long	0
+.Ldebug_loc22:
+	.long	.Lfunc_begin8
+	.long	.Ltmp171
+	.short	1                       @ Loc expr size
+	.byte	80                      @ DW_OP_reg0
+	.long	0
+	.long	0
+.Ldebug_loc23:
+	.long	.Ltmp171
+	.long	.Lfunc_end8
+	.short	1                       @ Loc expr size
+	.byte	80                      @ DW_OP_reg0
+	.long	0
+	.long	0
+.Ldebug_loc24:
+	.long	.Lfunc_begin9
+	.long	.Ltmp173
+	.short	1                       @ Loc expr size
+	.byte	80                      @ DW_OP_reg0
+	.long	0
+	.long	0
+.Ldebug_loc25:
+	.long	.Ltmp173
+	.long	.Lfunc_end9
+	.short	1                       @ Loc expr size
+	.byte	80                      @ DW_OP_reg0
+	.long	0
+	.long	0
+.Ldebug_loc26:
+	.long	.Lfunc_begin10
+	.long	.Ltmp175
+	.short	1                       @ Loc expr size
+	.byte	80                      @ DW_OP_reg0
+	.long	.Ltmp175
+	.long	.Ltmp178
+	.short	1                       @ Loc expr size
+	.byte	84                      @ DW_OP_reg4
+	.long	0
+	.long	0
+.Ldebug_loc27:
+	.long	.Lfunc_begin11
+	.long	.Ltmp187
+	.short	1                       @ Loc expr size
+	.byte	80                      @ DW_OP_reg0
+	.long	0
+	.long	0
+.Ldebug_loc28:
+	.long	.Lfunc_begin13
+	.long	.Ltmp192
+	.short	1                       @ Loc expr size
+	.byte	81                      @ DW_OP_reg1
+	.long	.Ltmp193
+	.long	.Ltmp219
+	.short	1                       @ Loc expr size
+	.byte	81                      @ DW_OP_reg1
+	.long	0
+	.long	0
+.Ldebug_loc29:
+	.long	.Lfunc_begin14
+	.long	.Ltmp231
+	.short	1                       @ Loc expr size
+	.byte	81                      @ DW_OP_reg1
+	.long	.Ltmp232
+	.long	.Ltmp233
+	.short	1                       @ Loc expr size
+	.byte	81                      @ DW_OP_reg1
+	.long	0
+	.long	0
+	.section	.debug_abbrev,"",%progbits
+	.byte	1                       @ Abbreviation Code
+	.byte	17                      @ DW_TAG_compile_unit
+	.byte	1                       @ DW_CHILDREN_yes
+	.byte	37                      @ DW_AT_producer
+	.byte	14                      @ DW_FORM_strp
+	.byte	19                      @ DW_AT_language
+	.byte	5                       @ DW_FORM_data2
+	.byte	3                       @ DW_AT_name
+	.byte	14                      @ DW_FORM_strp
+	.byte	16                      @ DW_AT_stmt_list
+	.byte	6                       @ DW_FORM_data4
+	.byte	27                      @ DW_AT_comp_dir
+	.byte	14                      @ DW_FORM_strp
+	.ascii	"\264B"                 @ DW_AT_GNU_pubnames
+	.byte	12                      @ DW_FORM_flag
+	.byte	17                      @ DW_AT_low_pc
+	.byte	1                       @ DW_FORM_addr
+	.byte	85                      @ DW_AT_ranges
+	.byte	6                       @ DW_FORM_data4
+	.byte	0                       @ EOM(1)
+	.byte	0                       @ EOM(2)
+	.byte	2                       @ Abbreviation Code
+	.byte	4                       @ DW_TAG_enumeration_type
+	.byte	1                       @ DW_CHILDREN_yes
+	.byte	73                      @ DW_AT_type
+	.byte	19                      @ DW_FORM_ref4
+	.byte	11                      @ DW_AT_byte_size
+	.byte	11                      @ DW_FORM_data1
+	.byte	58                      @ DW_AT_decl_file
+	.byte	11                      @ DW_FORM_data1
+	.byte	59                      @ DW_AT_decl_line
+	.byte	11                      @ DW_FORM_data1
+	.byte	0                       @ EOM(1)
+	.byte	0                       @ EOM(2)
+	.byte	3                       @ Abbreviation Code
+	.byte	40                      @ DW_TAG_enumerator
+	.byte	0                       @ DW_CHILDREN_no
+	.byte	3                       @ DW_AT_name
+	.byte	14                      @ DW_FORM_strp
+	.byte	28                      @ DW_AT_const_value
+	.byte	15                      @ DW_FORM_udata
+	.byte	0                       @ EOM(1)
+	.byte	0                       @ EOM(2)
+	.byte	4                       @ Abbreviation Code
+	.byte	36                      @ DW_TAG_base_type
+	.byte	0                       @ DW_CHILDREN_no
+	.byte	3                       @ DW_AT_name
+	.byte	14                      @ DW_FORM_strp
+	.byte	62                      @ DW_AT_encoding
+	.byte	11                      @ DW_FORM_data1
+	.byte	11                      @ DW_AT_byte_size
+	.byte	11                      @ DW_FORM_data1
+	.byte	0                       @ EOM(1)
+	.byte	0                       @ EOM(2)
+	.byte	5                       @ Abbreviation Code
+	.byte	22                      @ DW_TAG_typedef
+	.byte	0                       @ DW_CHILDREN_no
+	.byte	73                      @ DW_AT_type
+	.byte	19                      @ DW_FORM_ref4
+	.byte	3                       @ DW_AT_name
+	.byte	14                      @ DW_FORM_strp
+	.byte	58                      @ DW_AT_decl_file
+	.byte	11                      @ DW_FORM_data1
+	.byte	59                      @ DW_AT_decl_line
+	.byte	11                      @ DW_FORM_data1
+	.byte	0                       @ EOM(1)
+	.byte	0                       @ EOM(2)
+	.byte	6                       @ Abbreviation Code
+	.byte	15                      @ DW_TAG_pointer_type
+	.byte	0                       @ DW_CHILDREN_no
+	.byte	73                      @ DW_AT_type
+	.byte	19                      @ DW_FORM_ref4
+	.byte	0                       @ EOM(1)
+	.byte	0                       @ EOM(2)
+	.byte	7                       @ Abbreviation Code
+	.byte	19                      @ DW_TAG_structure_type
+	.byte	1                       @ DW_CHILDREN_yes
+	.byte	11                      @ DW_AT_byte_size
+	.byte	11                      @ DW_FORM_data1
+	.byte	58                      @ DW_AT_decl_file
+	.byte	11                      @ DW_FORM_data1
+	.byte	59                      @ DW_AT_decl_line
+	.byte	11                      @ DW_FORM_data1
+	.byte	0                       @ EOM(1)
+	.byte	0                       @ EOM(2)
+	.byte	8                       @ Abbreviation Code
+	.byte	13                      @ DW_TAG_member
+	.byte	0                       @ DW_CHILDREN_no
+	.byte	3                       @ DW_AT_name
+	.byte	14                      @ DW_FORM_strp
+	.byte	73                      @ DW_AT_type
+	.byte	19                      @ DW_FORM_ref4
+	.byte	58                      @ DW_AT_decl_file
+	.byte	11                      @ DW_FORM_data1
+	.byte	59                      @ DW_AT_decl_line
+	.byte	11                      @ DW_FORM_data1
+	.byte	56                      @ DW_AT_data_member_location
+	.byte	11                      @ DW_FORM_data1
+	.byte	0                       @ EOM(1)
+	.byte	0                       @ EOM(2)
+	.byte	9                       @ Abbreviation Code
+	.byte	53                      @ DW_TAG_volatile_type
+	.byte	0                       @ DW_CHILDREN_no
+	.byte	73                      @ DW_AT_type
+	.byte	19                      @ DW_FORM_ref4
+	.byte	0                       @ EOM(1)
+	.byte	0                       @ EOM(2)
+	.byte	10                      @ Abbreviation Code
+	.byte	19                      @ DW_TAG_structure_type
+	.byte	1                       @ DW_CHILDREN_yes
+	.byte	3                       @ DW_AT_name
+	.byte	14                      @ DW_FORM_strp
+	.byte	11                      @ DW_AT_byte_size
+	.byte	11                      @ DW_FORM_data1
+	.byte	58                      @ DW_AT_decl_file
+	.byte	11                      @ DW_FORM_data1
+	.byte	59                      @ DW_AT_decl_line
+	.byte	11                      @ DW_FORM_data1
+	.byte	0                       @ EOM(1)
+	.byte	0                       @ EOM(2)
+	.byte	11                      @ Abbreviation Code
+	.byte	22                      @ DW_TAG_typedef
+	.byte	0                       @ DW_CHILDREN_no
+	.byte	73                      @ DW_AT_type
+	.byte	19                      @ DW_FORM_ref4
+	.byte	3                       @ DW_AT_name
+	.byte	14                      @ DW_FORM_strp
+	.byte	58                      @ DW_AT_decl_file
+	.byte	11                      @ DW_FORM_data1
+	.byte	59                      @ DW_AT_decl_line
+	.byte	5                       @ DW_FORM_data2
+	.byte	0                       @ EOM(1)
+	.byte	0                       @ EOM(2)
+	.byte	12                      @ Abbreviation Code
+	.byte	19                      @ DW_TAG_structure_type
+	.byte	1                       @ DW_CHILDREN_yes
+	.byte	11                      @ DW_AT_byte_size
+	.byte	11                      @ DW_FORM_data1
+	.byte	58                      @ DW_AT_decl_file
+	.byte	11                      @ DW_FORM_data1
+	.byte	59                      @ DW_AT_decl_line
+	.byte	5                       @ DW_FORM_data2
+	.byte	0                       @ EOM(1)
+	.byte	0                       @ EOM(2)
+	.byte	13                      @ Abbreviation Code
+	.byte	13                      @ DW_TAG_member
+	.byte	0                       @ DW_CHILDREN_no
+	.byte	3                       @ DW_AT_name
+	.byte	14                      @ DW_FORM_strp
+	.byte	73                      @ DW_AT_type
+	.byte	19                      @ DW_FORM_ref4
+	.byte	58                      @ DW_AT_decl_file
+	.byte	11                      @ DW_FORM_data1
+	.byte	59                      @ DW_AT_decl_line
+	.byte	5                       @ DW_FORM_data2
+	.byte	56                      @ DW_AT_data_member_location
+	.byte	11                      @ DW_FORM_data1
+	.byte	0                       @ EOM(1)
+	.byte	0                       @ EOM(2)
+	.byte	14                      @ Abbreviation Code
+	.byte	15                      @ DW_TAG_pointer_type
+	.byte	0                       @ DW_CHILDREN_no
+	.byte	0                       @ EOM(1)
+	.byte	0                       @ EOM(2)
+	.byte	15                      @ Abbreviation Code
+	.byte	21                      @ DW_TAG_subroutine_type
+	.byte	1                       @ DW_CHILDREN_yes
+	.byte	39                      @ DW_AT_prototyped
+	.byte	12                      @ DW_FORM_flag
+	.byte	0                       @ EOM(1)
+	.byte	0                       @ EOM(2)
+	.byte	16                      @ Abbreviation Code
+	.byte	5                       @ DW_TAG_formal_parameter
+	.byte	0                       @ DW_CHILDREN_no
+	.byte	73                      @ DW_AT_type
+	.byte	19                      @ DW_FORM_ref4
+	.byte	0                       @ EOM(1)
+	.byte	0                       @ EOM(2)
+	.byte	17                      @ Abbreviation Code
+	.byte	46                      @ DW_TAG_subprogram
+	.byte	1                       @ DW_CHILDREN_yes
+	.byte	17                      @ DW_AT_low_pc
+	.byte	1                       @ DW_FORM_addr
+	.byte	18                      @ DW_AT_high_pc
+	.byte	1                       @ DW_FORM_addr
+	.byte	64                      @ DW_AT_frame_base
+	.byte	10                      @ DW_FORM_block1
+	.byte	3                       @ DW_AT_name
+	.byte	14                      @ DW_FORM_strp
+	.byte	58                      @ DW_AT_decl_file
+	.byte	11                      @ DW_FORM_data1
+	.byte	59                      @ DW_AT_decl_line
+	.byte	11                      @ DW_FORM_data1
+	.byte	39                      @ DW_AT_prototyped
+	.byte	12                      @ DW_FORM_flag
+	.byte	73                      @ DW_AT_type
+	.byte	19                      @ DW_FORM_ref4
+	.byte	63                      @ DW_AT_external
+	.byte	12                      @ DW_FORM_flag
+	.byte	0                       @ EOM(1)
+	.byte	0                       @ EOM(2)
+	.byte	18                      @ Abbreviation Code
+	.byte	5                       @ DW_TAG_formal_parameter
+	.byte	0                       @ DW_CHILDREN_no
+	.byte	2                       @ DW_AT_location
+	.byte	6                       @ DW_FORM_data4
+	.byte	3                       @ DW_AT_name
+	.byte	14                      @ DW_FORM_strp
+	.byte	58                      @ DW_AT_decl_file
+	.byte	11                      @ DW_FORM_data1
+	.byte	59                      @ DW_AT_decl_line
+	.byte	11                      @ DW_FORM_data1
+	.byte	73                      @ DW_AT_type
+	.byte	19                      @ DW_FORM_ref4
+	.byte	0                       @ EOM(1)
+	.byte	0                       @ EOM(2)
+	.byte	19                      @ Abbreviation Code
+	.byte	52                      @ DW_TAG_variable
+	.byte	0                       @ DW_CHILDREN_no
+	.byte	2                       @ DW_AT_location
+	.byte	6                       @ DW_FORM_data4
+	.byte	3                       @ DW_AT_name
+	.byte	14                      @ DW_FORM_strp
+	.byte	58                      @ DW_AT_decl_file
+	.byte	11                      @ DW_FORM_data1
+	.byte	59                      @ DW_AT_decl_line
+	.byte	11                      @ DW_FORM_data1
+	.byte	73                      @ DW_AT_type
+	.byte	19                      @ DW_FORM_ref4
+	.byte	0                       @ EOM(1)
+	.byte	0                       @ EOM(2)
+	.byte	20                      @ Abbreviation Code
+	.byte	46                      @ DW_TAG_subprogram
+	.byte	1                       @ DW_CHILDREN_yes
+	.byte	17                      @ DW_AT_low_pc
+	.byte	1                       @ DW_FORM_addr
+	.byte	18                      @ DW_AT_high_pc
+	.byte	1                       @ DW_FORM_addr
+	.byte	64                      @ DW_AT_frame_base
+	.byte	10                      @ DW_FORM_block1
+	.byte	3                       @ DW_AT_name
+	.byte	14                      @ DW_FORM_strp
+	.byte	58                      @ DW_AT_decl_file
+	.byte	11                      @ DW_FORM_data1
+	.byte	59                      @ DW_AT_decl_line
+	.byte	5                       @ DW_FORM_data2
+	.byte	39                      @ DW_AT_prototyped
+	.byte	12                      @ DW_FORM_flag
+	.byte	73                      @ DW_AT_type
+	.byte	19                      @ DW_FORM_ref4
+	.byte	63                      @ DW_AT_external
+	.byte	12                      @ DW_FORM_flag
+	.byte	0                       @ EOM(1)
+	.byte	0                       @ EOM(2)
+	.byte	21                      @ Abbreviation Code
+	.byte	5                       @ DW_TAG_formal_parameter
+	.byte	0                       @ DW_CHILDREN_no
+	.byte	2                       @ DW_AT_location
+	.byte	6                       @ DW_FORM_data4
+	.byte	3                       @ DW_AT_name
+	.byte	14                      @ DW_FORM_strp
+	.byte	58                      @ DW_AT_decl_file
+	.byte	11                      @ DW_FORM_data1
+	.byte	59                      @ DW_AT_decl_line
+	.byte	5                       @ DW_FORM_data2
+	.byte	73                      @ DW_AT_type
+	.byte	19                      @ DW_FORM_ref4
+	.byte	0                       @ EOM(1)
+	.byte	0                       @ EOM(2)
+	.byte	22                      @ Abbreviation Code
+	.byte	52                      @ DW_TAG_variable
+	.byte	0                       @ DW_CHILDREN_no
+	.byte	2                       @ DW_AT_location
+	.byte	6                       @ DW_FORM_data4
+	.byte	3                       @ DW_AT_name
+	.byte	14                      @ DW_FORM_strp
+	.byte	58                      @ DW_AT_decl_file
+	.byte	11                      @ DW_FORM_data1
+	.byte	59                      @ DW_AT_decl_line
+	.byte	5                       @ DW_FORM_data2
+	.byte	73                      @ DW_AT_type
+	.byte	19                      @ DW_FORM_ref4
+	.byte	0                       @ EOM(1)
+	.byte	0                       @ EOM(2)
+	.byte	23                      @ Abbreviation Code
+	.byte	5                       @ DW_TAG_formal_parameter
+	.byte	0                       @ DW_CHILDREN_no
+	.byte	2                       @ DW_AT_location
+	.byte	10                      @ DW_FORM_block1
+	.byte	3                       @ DW_AT_name
+	.byte	14                      @ DW_FORM_strp
+	.byte	58                      @ DW_AT_decl_file
+	.byte	11                      @ DW_FORM_data1
+	.byte	59                      @ DW_AT_decl_line
+	.byte	5                       @ DW_FORM_data2
+	.byte	73                      @ DW_AT_type
+	.byte	19                      @ DW_FORM_ref4
+	.byte	0                       @ EOM(1)
+	.byte	0                       @ EOM(2)
+	.byte	24                      @ Abbreviation Code
+	.byte	46                      @ DW_TAG_subprogram
+	.byte	1                       @ DW_CHILDREN_yes
+	.byte	17                      @ DW_AT_low_pc
+	.byte	1                       @ DW_FORM_addr
+	.byte	18                      @ DW_AT_high_pc
+	.byte	1                       @ DW_FORM_addr
+	.byte	64                      @ DW_AT_frame_base
+	.byte	10                      @ DW_FORM_block1
+	.byte	3                       @ DW_AT_name
+	.byte	14                      @ DW_FORM_strp
+	.byte	58                      @ DW_AT_decl_file
+	.byte	11                      @ DW_FORM_data1
+	.byte	59                      @ DW_AT_decl_line
+	.byte	5                       @ DW_FORM_data2
+	.byte	39                      @ DW_AT_prototyped
+	.byte	12                      @ DW_FORM_flag
+	.byte	0                       @ EOM(1)
+	.byte	0                       @ EOM(2)
+	.byte	25                      @ Abbreviation Code
+	.byte	52                      @ DW_TAG_variable
+	.byte	0                       @ DW_CHILDREN_no
+	.byte	28                      @ DW_AT_const_value
+	.byte	13                      @ DW_FORM_sdata
+	.byte	3                       @ DW_AT_name
+	.byte	14                      @ DW_FORM_strp
+	.byte	58                      @ DW_AT_decl_file
+	.byte	11                      @ DW_FORM_data1
+	.byte	59                      @ DW_AT_decl_line
+	.byte	5                       @ DW_FORM_data2
+	.byte	73                      @ DW_AT_type
+	.byte	19                      @ DW_FORM_ref4
+	.byte	0                       @ EOM(1)
+	.byte	0                       @ EOM(2)
+	.byte	26                      @ Abbreviation Code
+	.byte	46                      @ DW_TAG_subprogram
+	.byte	1                       @ DW_CHILDREN_yes
+	.byte	17                      @ DW_AT_low_pc
+	.byte	1                       @ DW_FORM_addr
+	.byte	18                      @ DW_AT_high_pc
+	.byte	1                       @ DW_FORM_addr
+	.byte	64                      @ DW_AT_frame_base
+	.byte	10                      @ DW_FORM_block1
+	.byte	3                       @ DW_AT_name
+	.byte	14                      @ DW_FORM_strp
+	.byte	58                      @ DW_AT_decl_file
+	.byte	11                      @ DW_FORM_data1
+	.byte	59                      @ DW_AT_decl_line
+	.byte	5                       @ DW_FORM_data2
+	.byte	39                      @ DW_AT_prototyped
+	.byte	12                      @ DW_FORM_flag
+	.byte	63                      @ DW_AT_external
+	.byte	12                      @ DW_FORM_flag
+	.byte	0                       @ EOM(1)
+	.byte	0                       @ EOM(2)
+	.byte	0                       @ EOM(3)
+	.section	.debug_info,"",%progbits
+.Lcu_begin0:
+	.long	2435                    @ Length of Unit
+	.short	3                       @ DWARF version number
+	.long	.debug_abbrev           @ Offset Into Abbrev. Section
+	.byte	4                       @ Address Size (in bytes)
+	.byte	1                       @ Abbrev [1] 0xb:0x97c DW_TAG_compile_unit
+	.long	.Linfo_string0          @ DW_AT_producer
+	.short	12                      @ DW_AT_language
+	.long	.Linfo_string1          @ DW_AT_name
+	.long	.Lline_table_start0     @ DW_AT_stmt_list
+	.long	.Linfo_string2          @ DW_AT_comp_dir
+	.byte	1                       @ DW_AT_GNU_pubnames
+	.long	0                       @ DW_AT_low_pc
+	.long	.Ldebug_ranges0         @ DW_AT_ranges
+	.byte	2                       @ Abbrev [2] 0x27:0x21 DW_TAG_enumeration_type
+	.long	72                      @ DW_AT_type
+	.byte	1                       @ DW_AT_byte_size
+	.byte	1                       @ DW_AT_decl_file
+	.byte	54                      @ DW_AT_decl_line
+	.byte	3                       @ Abbrev [3] 0x2f:0x6 DW_TAG_enumerator
+	.long	.Linfo_string4          @ DW_AT_name
+	.byte	0                       @ DW_AT_const_value
+	.byte	3                       @ Abbrev [3] 0x35:0x6 DW_TAG_enumerator
+	.long	.Linfo_string5          @ DW_AT_name
+	.byte	1                       @ DW_AT_const_value
+	.byte	3                       @ Abbrev [3] 0x3b:0x6 DW_TAG_enumerator
+	.long	.Linfo_string6          @ DW_AT_name
+	.byte	2                       @ DW_AT_const_value
+	.byte	3                       @ Abbrev [3] 0x41:0x6 DW_TAG_enumerator
+	.long	.Linfo_string7          @ DW_AT_name
+	.byte	3                       @ DW_AT_const_value
+	.byte	0                       @ End Of Children Mark
+	.byte	4                       @ Abbrev [4] 0x48:0x7 DW_TAG_base_type
+	.long	.Linfo_string3          @ DW_AT_name
+	.byte	8                       @ DW_AT_encoding
+	.byte	1                       @ DW_AT_byte_size
+	.byte	2                       @ Abbrev [2] 0x4f:0x15 DW_TAG_enumeration_type
+	.long	72                      @ DW_AT_type
+	.byte	1                       @ DW_AT_byte_size
+	.byte	1                       @ DW_AT_decl_file
+	.byte	65                      @ DW_AT_decl_line
+	.byte	3                       @ Abbrev [3] 0x57:0x6 DW_TAG_enumerator
+	.long	.Linfo_string8          @ DW_AT_name
+	.byte	0                       @ DW_AT_const_value
+	.byte	3                       @ Abbrev [3] 0x5d:0x6 DW_TAG_enumerator
+	.long	.Linfo_string9          @ DW_AT_name
+	.byte	1                       @ DW_AT_const_value
+	.byte	0                       @ End Of Children Mark
+	.byte	2                       @ Abbrev [2] 0x64:0x2d DW_TAG_enumeration_type
+	.long	72                      @ DW_AT_type
+	.byte	1                       @ DW_AT_byte_size
+	.byte	2                       @ DW_AT_decl_file
+	.byte	118                     @ DW_AT_decl_line
+	.byte	3                       @ Abbrev [3] 0x6c:0x6 DW_TAG_enumerator
+	.long	.Linfo_string10         @ DW_AT_name
+	.byte	0                       @ DW_AT_const_value
+	.byte	3                       @ Abbrev [3] 0x72:0x6 DW_TAG_enumerator
+	.long	.Linfo_string11         @ DW_AT_name
+	.byte	1                       @ DW_AT_const_value
+	.byte	3                       @ Abbrev [3] 0x78:0x6 DW_TAG_enumerator
+	.long	.Linfo_string12         @ DW_AT_name
+	.byte	2                       @ DW_AT_const_value
+	.byte	3                       @ Abbrev [3] 0x7e:0x6 DW_TAG_enumerator
+	.long	.Linfo_string13         @ DW_AT_name
+	.byte	3                       @ DW_AT_const_value
+	.byte	3                       @ Abbrev [3] 0x84:0x6 DW_TAG_enumerator
+	.long	.Linfo_string14         @ DW_AT_name
+	.byte	4                       @ DW_AT_const_value
+	.byte	3                       @ Abbrev [3] 0x8a:0x6 DW_TAG_enumerator
+	.long	.Linfo_string15         @ DW_AT_name
+	.byte	5                       @ DW_AT_const_value
+	.byte	0                       @ End Of Children Mark
+	.byte	2                       @ Abbrev [2] 0x91:0x15 DW_TAG_enumeration_type
+	.long	72                      @ DW_AT_type
+	.byte	1                       @ DW_AT_byte_size
+	.byte	3                       @ DW_AT_decl_file
+	.byte	164                     @ DW_AT_decl_line
+	.byte	3                       @ Abbrev [3] 0x99:0x6 DW_TAG_enumerator
+	.long	.Linfo_string16         @ DW_AT_name
+	.byte	0                       @ DW_AT_const_value
+	.byte	3                       @ Abbrev [3] 0x9f:0x6 DW_TAG_enumerator
+	.long	.Linfo_string17         @ DW_AT_name
+	.byte	1                       @ DW_AT_const_value
+	.byte	0                       @ End Of Children Mark
+	.byte	2                       @ Abbrev [2] 0xa6:0x15 DW_TAG_enumeration_type
+	.long	72                      @ DW_AT_type
+	.byte	1                       @ DW_AT_byte_size
+	.byte	3                       @ DW_AT_decl_file
+	.byte	170                     @ DW_AT_decl_line
+	.byte	3                       @ Abbrev [3] 0xae:0x6 DW_TAG_enumerator
+	.long	.Linfo_string18         @ DW_AT_name
+	.byte	0                       @ DW_AT_const_value
+	.byte	3                       @ Abbrev [3] 0xb4:0x6 DW_TAG_enumerator
+	.long	.Linfo_string19         @ DW_AT_name
+	.byte	1                       @ DW_AT_const_value
+	.byte	0                       @ End Of Children Mark
+	.byte	5                       @ Abbrev [5] 0xbb:0xb DW_TAG_typedef
+	.long	198                     @ DW_AT_type
+	.long	.Linfo_string21         @ DW_AT_name
+	.byte	4                       @ DW_AT_decl_file
+	.byte	64                      @ DW_AT_decl_line
+	.byte	4                       @ Abbrev [4] 0xc6:0x7 DW_TAG_base_type
+	.long	.Linfo_string20         @ DW_AT_name
+	.byte	7                       @ DW_AT_encoding
+	.byte	4                       @ DW_AT_byte_size
+	.byte	6                       @ Abbrev [6] 0xcd:0x5 DW_TAG_pointer_type
+	.long	210                     @ DW_AT_type
+	.byte	5                       @ Abbrev [5] 0xd2:0xb DW_TAG_typedef
+	.long	221                     @ DW_AT_type
+	.long	.Linfo_string25         @ DW_AT_name
+	.byte	5                       @ DW_AT_decl_file
+	.byte	234                     @ DW_AT_decl_line
+	.byte	7                       @ Abbrev [7] 0xdd:0x29 DW_TAG_structure_type
+	.byte	12                      @ DW_AT_byte_size
+	.byte	5                       @ DW_AT_decl_file
+	.byte	228                     @ DW_AT_decl_line
+	.byte	8                       @ Abbrev [8] 0xe1:0xc DW_TAG_member
+	.long	.Linfo_string22         @ DW_AT_name
+	.long	262                     @ DW_AT_type
+	.byte	5                       @ DW_AT_decl_file
+	.byte	230                     @ DW_AT_decl_line
+	.byte	0                       @ DW_AT_data_member_location
+	.byte	8                       @ Abbrev [8] 0xed:0xc DW_TAG_member
+	.long	.Linfo_string23         @ DW_AT_name
+	.long	262                     @ DW_AT_type
+	.byte	5                       @ DW_AT_decl_file
+	.byte	231                     @ DW_AT_decl_line
+	.byte	4                       @ DW_AT_data_member_location
+	.byte	8                       @ Abbrev [8] 0xf9:0xc DW_TAG_member
+	.long	.Linfo_string24         @ DW_AT_name
+	.long	262                     @ DW_AT_type
+	.byte	5                       @ DW_AT_decl_file
+	.byte	232                     @ DW_AT_decl_line
+	.byte	8                       @ DW_AT_data_member_location
+	.byte	0                       @ End Of Children Mark
+	.byte	9                       @ Abbrev [9] 0x106:0x5 DW_TAG_volatile_type
+	.long	187                     @ DW_AT_type
+	.byte	6                       @ Abbrev [6] 0x10b:0x5 DW_TAG_pointer_type
+	.long	272                     @ DW_AT_type
+	.byte	5                       @ Abbrev [5] 0x110:0xb DW_TAG_typedef
+	.long	283                     @ DW_AT_type
+	.long	.Linfo_string46         @ DW_AT_name
+	.byte	5                       @ DW_AT_decl_file
+	.byte	226                     @ DW_AT_decl_line
+	.byte	7                       @ Abbrev [7] 0x11b:0xf5 DW_TAG_structure_type
+	.byte	80                      @ DW_AT_byte_size
+	.byte	5                       @ DW_AT_decl_file
+	.byte	204                     @ DW_AT_decl_line
+	.byte	8                       @ Abbrev [8] 0x11f:0xc DW_TAG_member
+	.long	.Linfo_string26         @ DW_AT_name
+	.long	262                     @ DW_AT_type
+	.byte	5                       @ DW_AT_decl_file
+	.byte	206                     @ DW_AT_decl_line
+	.byte	0                       @ DW_AT_data_member_location
+	.byte	8                       @ Abbrev [8] 0x12b:0xc DW_TAG_member
+	.long	.Linfo_string27         @ DW_AT_name
+	.long	262                     @ DW_AT_type
+	.byte	5                       @ DW_AT_decl_file
+	.byte	207                     @ DW_AT_decl_line
+	.byte	4                       @ DW_AT_data_member_location
+	.byte	8                       @ Abbrev [8] 0x137:0xc DW_TAG_member
+	.long	.Linfo_string28         @ DW_AT_name
+	.long	262                     @ DW_AT_type
+	.byte	5                       @ DW_AT_decl_file
+	.byte	208                     @ DW_AT_decl_line
+	.byte	8                       @ DW_AT_data_member_location
+	.byte	8                       @ Abbrev [8] 0x143:0xc DW_TAG_member
+	.long	.Linfo_string29         @ DW_AT_name
+	.long	262                     @ DW_AT_type
+	.byte	5                       @ DW_AT_decl_file
+	.byte	209                     @ DW_AT_decl_line
+	.byte	12                      @ DW_AT_data_member_location
+	.byte	8                       @ Abbrev [8] 0x14f:0xc DW_TAG_member
+	.long	.Linfo_string30         @ DW_AT_name
+	.long	262                     @ DW_AT_type
+	.byte	5                       @ DW_AT_decl_file
+	.byte	210                     @ DW_AT_decl_line
+	.byte	16                      @ DW_AT_data_member_location
+	.byte	8                       @ Abbrev [8] 0x15b:0xc DW_TAG_member
+	.long	.Linfo_string31         @ DW_AT_name
+	.long	262                     @ DW_AT_type
+	.byte	5                       @ DW_AT_decl_file
+	.byte	211                     @ DW_AT_decl_line
+	.byte	20                      @ DW_AT_data_member_location
+	.byte	8                       @ Abbrev [8] 0x167:0xc DW_TAG_member
+	.long	.Linfo_string32         @ DW_AT_name
+	.long	262                     @ DW_AT_type
+	.byte	5                       @ DW_AT_decl_file
+	.byte	212                     @ DW_AT_decl_line
+	.byte	24                      @ DW_AT_data_member_location
+	.byte	8                       @ Abbrev [8] 0x173:0xc DW_TAG_member
+	.long	.Linfo_string33         @ DW_AT_name
+	.long	262                     @ DW_AT_type
+	.byte	5                       @ DW_AT_decl_file
+	.byte	213                     @ DW_AT_decl_line
+	.byte	28                      @ DW_AT_data_member_location
+	.byte	8                       @ Abbrev [8] 0x17f:0xc DW_TAG_member
+	.long	.Linfo_string34         @ DW_AT_name
+	.long	262                     @ DW_AT_type
+	.byte	5                       @ DW_AT_decl_file
+	.byte	214                     @ DW_AT_decl_line
+	.byte	32                      @ DW_AT_data_member_location
+	.byte	8                       @ Abbrev [8] 0x18b:0xc DW_TAG_member
+	.long	.Linfo_string35         @ DW_AT_name
+	.long	262                     @ DW_AT_type
+	.byte	5                       @ DW_AT_decl_file
+	.byte	215                     @ DW_AT_decl_line
+	.byte	36                      @ DW_AT_data_member_location
+	.byte	8                       @ Abbrev [8] 0x197:0xc DW_TAG_member
+	.long	.Linfo_string36         @ DW_AT_name
+	.long	262                     @ DW_AT_type
+	.byte	5                       @ DW_AT_decl_file
+	.byte	216                     @ DW_AT_decl_line
+	.byte	40                      @ DW_AT_data_member_location
+	.byte	8                       @ Abbrev [8] 0x1a3:0xc DW_TAG_member
+	.long	.Linfo_string37         @ DW_AT_name
+	.long	262                     @ DW_AT_type
+	.byte	5                       @ DW_AT_decl_file
+	.byte	217                     @ DW_AT_decl_line
+	.byte	44                      @ DW_AT_data_member_location
+	.byte	8                       @ Abbrev [8] 0x1af:0xc DW_TAG_member
+	.long	.Linfo_string38         @ DW_AT_name
+	.long	262                     @ DW_AT_type
+	.byte	5                       @ DW_AT_decl_file
+	.byte	218                     @ DW_AT_decl_line
+	.byte	48                      @ DW_AT_data_member_location
+	.byte	8                       @ Abbrev [8] 0x1bb:0xc DW_TAG_member
+	.long	.Linfo_string39         @ DW_AT_name
+	.long	262                     @ DW_AT_type
+	.byte	5                       @ DW_AT_decl_file
+	.byte	219                     @ DW_AT_decl_line
+	.byte	52                      @ DW_AT_data_member_location
+	.byte	8                       @ Abbrev [8] 0x1c7:0xc DW_TAG_member
+	.long	.Linfo_string40         @ DW_AT_name
+	.long	262                     @ DW_AT_type
+	.byte	5                       @ DW_AT_decl_file
+	.byte	220                     @ DW_AT_decl_line
+	.byte	56                      @ DW_AT_data_member_location
+	.byte	8                       @ Abbrev [8] 0x1d3:0xc DW_TAG_member
+	.long	.Linfo_string41         @ DW_AT_name
+	.long	262                     @ DW_AT_type
+	.byte	5                       @ DW_AT_decl_file
+	.byte	221                     @ DW_AT_decl_line
+	.byte	60                      @ DW_AT_data_member_location
+	.byte	8                       @ Abbrev [8] 0x1df:0xc DW_TAG_member
+	.long	.Linfo_string42         @ DW_AT_name
+	.long	262                     @ DW_AT_type
+	.byte	5                       @ DW_AT_decl_file
+	.byte	222                     @ DW_AT_decl_line
+	.byte	64                      @ DW_AT_data_member_location
+	.byte	8                       @ Abbrev [8] 0x1eb:0xc DW_TAG_member
+	.long	.Linfo_string43         @ DW_AT_name
+	.long	262                     @ DW_AT_type
+	.byte	5                       @ DW_AT_decl_file
+	.byte	223                     @ DW_AT_decl_line
+	.byte	68                      @ DW_AT_data_member_location
+	.byte	8                       @ Abbrev [8] 0x1f7:0xc DW_TAG_member
+	.long	.Linfo_string44         @ DW_AT_name
+	.long	262                     @ DW_AT_type
+	.byte	5                       @ DW_AT_decl_file
+	.byte	224                     @ DW_AT_decl_line
+	.byte	72                      @ DW_AT_data_member_location
+	.byte	8                       @ Abbrev [8] 0x203:0xc DW_TAG_member
+	.long	.Linfo_string45         @ DW_AT_name
+	.long	262                     @ DW_AT_type
+	.byte	5                       @ DW_AT_decl_file
+	.byte	225                     @ DW_AT_decl_line
+	.byte	76                      @ DW_AT_data_member_location
+	.byte	0                       @ End Of Children Mark
+	.byte	5                       @ Abbrev [5] 0x210:0xb DW_TAG_typedef
+	.long	539                     @ DW_AT_type
+	.long	.Linfo_string48         @ DW_AT_name
+	.byte	4                       @ DW_AT_decl_file
+	.byte	63                      @ DW_AT_decl_line
+	.byte	4                       @ Abbrev [4] 0x21b:0x7 DW_TAG_base_type
+	.long	.Linfo_string47         @ DW_AT_name
+	.byte	7                       @ DW_AT_encoding
+	.byte	2                       @ DW_AT_byte_size
+	.byte	5                       @ Abbrev [5] 0x222:0xb DW_TAG_typedef
+	.long	72                      @ DW_AT_type
+	.long	.Linfo_string49         @ DW_AT_name
+	.byte	4                       @ DW_AT_decl_file
+	.byte	62                      @ DW_AT_decl_line
+	.byte	6                       @ Abbrev [6] 0x22d:0x5 DW_TAG_pointer_type
+	.long	562                     @ DW_AT_type
+	.byte	5                       @ Abbrev [5] 0x232:0xb DW_TAG_typedef
+	.long	573                     @ DW_AT_type
+	.long	.Linfo_string103        @ DW_AT_name
+	.byte	6                       @ DW_AT_decl_file
+	.byte	223                     @ DW_AT_decl_line
+	.byte	7                       @ Abbrev [7] 0x23d:0x59 DW_TAG_structure_type
+	.byte	72                      @ DW_AT_byte_size
+	.byte	6                       @ DW_AT_decl_file
+	.byte	208                     @ DW_AT_decl_line
+	.byte	8                       @ Abbrev [8] 0x241:0xc DW_TAG_member
+	.long	.Linfo_string50         @ DW_AT_name
+	.long	267                     @ DW_AT_type
+	.byte	6                       @ DW_AT_decl_file
+	.byte	210                     @ DW_AT_decl_line
+	.byte	0                       @ DW_AT_data_member_location
+	.byte	8                       @ Abbrev [8] 0x24d:0xc DW_TAG_member
+	.long	.Linfo_string51         @ DW_AT_name
+	.long	662                     @ DW_AT_type
+	.byte	6                       @ DW_AT_decl_file
+	.byte	212                     @ DW_AT_decl_line
+	.byte	4                       @ DW_AT_data_member_location
+	.byte	8                       @ Abbrev [8] 0x259:0xc DW_TAG_member
+	.long	.Linfo_string65         @ DW_AT_name
+	.long	262                     @ DW_AT_type
+	.byte	6                       @ DW_AT_decl_file
+	.byte	214                     @ DW_AT_decl_line
+	.byte	52                      @ DW_AT_data_member_location
+	.byte	8                       @ Abbrev [8] 0x265:0xc DW_TAG_member
+	.long	.Linfo_string66         @ DW_AT_name
+	.long	822                     @ DW_AT_type
+	.byte	6                       @ DW_AT_decl_file
+	.byte	216                     @ DW_AT_decl_line
+	.byte	56                      @ DW_AT_data_member_location
+	.byte	8                       @ Abbrev [8] 0x271:0xc DW_TAG_member
+	.long	.Linfo_string87         @ DW_AT_name
+	.long	1276                    @ DW_AT_type
+	.byte	6                       @ DW_AT_decl_file
+	.byte	218                     @ DW_AT_decl_line
+	.byte	60                      @ DW_AT_data_member_location
+	.byte	8                       @ Abbrev [8] 0x27d:0xc DW_TAG_member
+	.long	.Linfo_string89         @ DW_AT_name
+	.long	262                     @ DW_AT_type
+	.byte	6                       @ DW_AT_decl_file
+	.byte	220                     @ DW_AT_decl_line
+	.byte	64                      @ DW_AT_data_member_location
+	.byte	8                       @ Abbrev [8] 0x289:0xc DW_TAG_member
+	.long	.Linfo_string98         @ DW_AT_name
+	.long	262                     @ DW_AT_type
+	.byte	6                       @ DW_AT_decl_file
+	.byte	222                     @ DW_AT_decl_line
+	.byte	68                      @ DW_AT_data_member_location
+	.byte	0                       @ End Of Children Mark
+	.byte	5                       @ Abbrev [5] 0x296:0xb DW_TAG_typedef
+	.long	673                     @ DW_AT_type
+	.long	.Linfo_string64         @ DW_AT_name
+	.byte	6                       @ DW_AT_decl_file
+	.byte	123                     @ DW_AT_decl_line
+	.byte	7                       @ Abbrev [7] 0x2a1:0x95 DW_TAG_structure_type
+	.byte	48                      @ DW_AT_byte_size
+	.byte	6                       @ DW_AT_decl_file
+	.byte	73                      @ DW_AT_decl_line
+	.byte	8                       @ Abbrev [8] 0x2a5:0xc DW_TAG_member
+	.long	.Linfo_string52         @ DW_AT_name
+	.long	187                     @ DW_AT_type
+	.byte	6                       @ DW_AT_decl_file
+	.byte	75                      @ DW_AT_decl_line
+	.byte	0                       @ DW_AT_data_member_location
+	.byte	8                       @ Abbrev [8] 0x2b1:0xc DW_TAG_member
+	.long	.Linfo_string53         @ DW_AT_name
+	.long	187                     @ DW_AT_type
+	.byte	6                       @ DW_AT_decl_file
+	.byte	78                      @ DW_AT_decl_line
+	.byte	4                       @ DW_AT_data_member_location
+	.byte	8                       @ Abbrev [8] 0x2bd:0xc DW_TAG_member
+	.long	.Linfo_string54         @ DW_AT_name
+	.long	187                     @ DW_AT_type
+	.byte	6                       @ DW_AT_decl_file
+	.byte	80                      @ DW_AT_decl_line
+	.byte	8                       @ DW_AT_data_member_location
+	.byte	8                       @ Abbrev [8] 0x2c9:0xc DW_TAG_member
+	.long	.Linfo_string55         @ DW_AT_name
+	.long	187                     @ DW_AT_type
+	.byte	6                       @ DW_AT_decl_file
+	.byte	83                      @ DW_AT_decl_line
+	.byte	12                      @ DW_AT_data_member_location
+	.byte	8                       @ Abbrev [8] 0x2d5:0xc DW_TAG_member
+	.long	.Linfo_string56         @ DW_AT_name
+	.long	187                     @ DW_AT_type
+	.byte	6                       @ DW_AT_decl_file
+	.byte	91                      @ DW_AT_decl_line
+	.byte	16                      @ DW_AT_data_member_location
+	.byte	8                       @ Abbrev [8] 0x2e1:0xc DW_TAG_member
+	.long	.Linfo_string57         @ DW_AT_name
+	.long	187                     @ DW_AT_type
+	.byte	6                       @ DW_AT_decl_file
+	.byte	98                      @ DW_AT_decl_line
+	.byte	20                      @ DW_AT_data_member_location
+	.byte	8                       @ Abbrev [8] 0x2ed:0xc DW_TAG_member
+	.long	.Linfo_string58         @ DW_AT_name
+	.long	187                     @ DW_AT_type
+	.byte	6                       @ DW_AT_decl_file
+	.byte	101                     @ DW_AT_decl_line
+	.byte	24                      @ DW_AT_data_member_location
+	.byte	8                       @ Abbrev [8] 0x2f9:0xc DW_TAG_member
+	.long	.Linfo_string59         @ DW_AT_name
+	.long	187                     @ DW_AT_type
+	.byte	6                       @ DW_AT_decl_file
+	.byte	104                     @ DW_AT_decl_line
+	.byte	28                      @ DW_AT_data_member_location
+	.byte	8                       @ Abbrev [8] 0x305:0xc DW_TAG_member
+	.long	.Linfo_string60         @ DW_AT_name
+	.long	187                     @ DW_AT_type
+	.byte	6                       @ DW_AT_decl_file
+	.byte	108                     @ DW_AT_decl_line
+	.byte	32                      @ DW_AT_data_member_location
+	.byte	8                       @ Abbrev [8] 0x311:0xc DW_TAG_member
+	.long	.Linfo_string61         @ DW_AT_name
+	.long	187                     @ DW_AT_type
+	.byte	6                       @ DW_AT_decl_file
+	.byte	111                     @ DW_AT_decl_line
+	.byte	36                      @ DW_AT_data_member_location
+	.byte	8                       @ Abbrev [8] 0x31d:0xc DW_TAG_member
+	.long	.Linfo_string62         @ DW_AT_name
+	.long	187                     @ DW_AT_type
+	.byte	6                       @ DW_AT_decl_file
+	.byte	115                     @ DW_AT_decl_line
+	.byte	40                      @ DW_AT_data_member_location
+	.byte	8                       @ Abbrev [8] 0x329:0xc DW_TAG_member
+	.long	.Linfo_string63         @ DW_AT_name
+	.long	187                     @ DW_AT_type
+	.byte	6                       @ DW_AT_decl_file
+	.byte	118                     @ DW_AT_decl_line
+	.byte	44                      @ DW_AT_data_member_location
+	.byte	0                       @ End Of Children Mark
+	.byte	6                       @ Abbrev [6] 0x336:0x5 DW_TAG_pointer_type
+	.long	827                     @ DW_AT_type
+	.byte	5                       @ Abbrev [5] 0x33b:0xb DW_TAG_typedef
+	.long	838                     @ DW_AT_type
+	.long	.Linfo_string102        @ DW_AT_name
+	.byte	2                       @ DW_AT_decl_file
+	.byte	184                     @ DW_AT_decl_line
+	.byte	10                      @ Abbrev [10] 0x346:0xb1 DW_TAG_structure_type
+	.long	.Linfo_string101        @ DW_AT_name
+	.byte	96                      @ DW_AT_byte_size
+	.byte	2                       @ DW_AT_decl_file
+	.byte	154                     @ DW_AT_decl_line
+	.byte	8                       @ Abbrev [8] 0x34e:0xc DW_TAG_member
+	.long	.Linfo_string50         @ DW_AT_name
+	.long	1015                    @ DW_AT_type
+	.byte	2                       @ DW_AT_decl_file
+	.byte	156                     @ DW_AT_decl_line
+	.byte	0                       @ DW_AT_data_member_location
+	.byte	8                       @ Abbrev [8] 0x35a:0xc DW_TAG_member
+	.long	.Linfo_string51         @ DW_AT_name
+	.long	1116                    @ DW_AT_type
+	.byte	2                       @ DW_AT_decl_file
+	.byte	158                     @ DW_AT_decl_line
+	.byte	4                       @ DW_AT_data_member_location
+	.byte	8                       @ Abbrev [8] 0x366:0xc DW_TAG_member
+	.long	.Linfo_string87         @ DW_AT_name
+	.long	1276                    @ DW_AT_type
+	.byte	2                       @ DW_AT_decl_file
+	.byte	160                     @ DW_AT_decl_line
+	.byte	52                      @ DW_AT_data_member_location
+	.byte	8                       @ Abbrev [8] 0x372:0xc DW_TAG_member
+	.long	.Linfo_string89         @ DW_AT_name
+	.long	1287                    @ DW_AT_type
+	.byte	2                       @ DW_AT_decl_file
+	.byte	162                     @ DW_AT_decl_line
+	.byte	53                      @ DW_AT_data_member_location
+	.byte	8                       @ Abbrev [8] 0x37e:0xc DW_TAG_member
+	.long	.Linfo_string91         @ DW_AT_name
+	.long	1303                    @ DW_AT_type
+	.byte	2                       @ DW_AT_decl_file
+	.byte	164                     @ DW_AT_decl_line
+	.byte	56                      @ DW_AT_data_member_location
+	.byte	8                       @ Abbrev [8] 0x38a:0xc DW_TAG_member
+	.long	.Linfo_string92         @ DW_AT_name
+	.long	1304                    @ DW_AT_type
+	.byte	2                       @ DW_AT_decl_file
+	.byte	166                     @ DW_AT_decl_line
+	.byte	60                      @ DW_AT_data_member_location
+	.byte	8                       @ Abbrev [8] 0x396:0xc DW_TAG_member
+	.long	.Linfo_string93         @ DW_AT_name
+	.long	1304                    @ DW_AT_type
+	.byte	2                       @ DW_AT_decl_file
+	.byte	168                     @ DW_AT_decl_line
+	.byte	64                      @ DW_AT_data_member_location
+	.byte	8                       @ Abbrev [8] 0x3a2:0xc DW_TAG_member
+	.long	.Linfo_string94         @ DW_AT_name
+	.long	1304                    @ DW_AT_type
+	.byte	2                       @ DW_AT_decl_file
+	.byte	170                     @ DW_AT_decl_line
+	.byte	68                      @ DW_AT_data_member_location
+	.byte	8                       @ Abbrev [8] 0x3ae:0xc DW_TAG_member
+	.long	.Linfo_string95         @ DW_AT_name
+	.long	1304                    @ DW_AT_type
+	.byte	2                       @ DW_AT_decl_file
+	.byte	172                     @ DW_AT_decl_line
+	.byte	72                      @ DW_AT_data_member_location
+	.byte	8                       @ Abbrev [8] 0x3ba:0xc DW_TAG_member
+	.long	.Linfo_string96         @ DW_AT_name
+	.long	1304                    @ DW_AT_type
+	.byte	2                       @ DW_AT_decl_file
+	.byte	174                     @ DW_AT_decl_line
+	.byte	76                      @ DW_AT_data_member_location
+	.byte	8                       @ Abbrev [8] 0x3c6:0xc DW_TAG_member
+	.long	.Linfo_string97         @ DW_AT_name
+	.long	1304                    @ DW_AT_type
+	.byte	2                       @ DW_AT_decl_file
+	.byte	176                     @ DW_AT_decl_line
+	.byte	80                      @ DW_AT_data_member_location
+	.byte	8                       @ Abbrev [8] 0x3d2:0xc DW_TAG_member
+	.long	.Linfo_string98         @ DW_AT_name
+	.long	262                     @ DW_AT_type
+	.byte	2                       @ DW_AT_decl_file
+	.byte	178                     @ DW_AT_decl_line
+	.byte	84                      @ DW_AT_data_member_location
+	.byte	8                       @ Abbrev [8] 0x3de:0xc DW_TAG_member
+	.long	.Linfo_string99         @ DW_AT_name
+	.long	187                     @ DW_AT_type
+	.byte	2                       @ DW_AT_decl_file
+	.byte	180                     @ DW_AT_decl_line
+	.byte	88                      @ DW_AT_data_member_location
+	.byte	8                       @ Abbrev [8] 0x3ea:0xc DW_TAG_member
+	.long	.Linfo_string100        @ DW_AT_name
+	.long	187                     @ DW_AT_type
+	.byte	2                       @ DW_AT_decl_file
+	.byte	182                     @ DW_AT_decl_line
+	.byte	92                      @ DW_AT_data_member_location
+	.byte	0                       @ End Of Children Mark
+	.byte	6                       @ Abbrev [6] 0x3f7:0x5 DW_TAG_pointer_type
+	.long	1020                    @ DW_AT_type
+	.byte	11                      @ Abbrev [11] 0x3fc:0xc DW_TAG_typedef
+	.long	1032                    @ DW_AT_type
+	.long	.Linfo_string73         @ DW_AT_name
+	.byte	5                       @ DW_AT_decl_file
+	.short	397                     @ DW_AT_decl_line
+	.byte	12                      @ Abbrev [12] 0x408:0x54 DW_TAG_structure_type
+	.byte	24                      @ DW_AT_byte_size
+	.byte	5                       @ DW_AT_decl_file
+	.short	389                     @ DW_AT_decl_line
+	.byte	13                      @ Abbrev [13] 0x40d:0xd DW_TAG_member
+	.long	.Linfo_string67         @ DW_AT_name
+	.long	262                     @ DW_AT_type
+	.byte	5                       @ DW_AT_decl_file
+	.short	391                     @ DW_AT_decl_line
+	.byte	0                       @ DW_AT_data_member_location
+	.byte	13                      @ Abbrev [13] 0x41a:0xd DW_TAG_member
+	.long	.Linfo_string68         @ DW_AT_name
+	.long	262                     @ DW_AT_type
+	.byte	5                       @ DW_AT_decl_file
+	.short	392                     @ DW_AT_decl_line
+	.byte	4                       @ DW_AT_data_member_location
+	.byte	13                      @ Abbrev [13] 0x427:0xd DW_TAG_member
+	.long	.Linfo_string69         @ DW_AT_name
+	.long	262                     @ DW_AT_type
+	.byte	5                       @ DW_AT_decl_file
+	.short	393                     @ DW_AT_decl_line
+	.byte	8                       @ DW_AT_data_member_location
+	.byte	13                      @ Abbrev [13] 0x434:0xd DW_TAG_member
+	.long	.Linfo_string70         @ DW_AT_name
+	.long	262                     @ DW_AT_type
+	.byte	5                       @ DW_AT_decl_file
+	.short	394                     @ DW_AT_decl_line
+	.byte	12                      @ DW_AT_data_member_location
+	.byte	13                      @ Abbrev [13] 0x441:0xd DW_TAG_member
+	.long	.Linfo_string71         @ DW_AT_name
+	.long	262                     @ DW_AT_type
+	.byte	5                       @ DW_AT_decl_file
+	.short	395                     @ DW_AT_decl_line
+	.byte	16                      @ DW_AT_data_member_location
+	.byte	13                      @ Abbrev [13] 0x44e:0xd DW_TAG_member
+	.long	.Linfo_string72         @ DW_AT_name
+	.long	262                     @ DW_AT_type
+	.byte	5                       @ DW_AT_decl_file
+	.short	396                     @ DW_AT_decl_line
+	.byte	20                      @ DW_AT_data_member_location
+	.byte	0                       @ End Of Children Mark
+	.byte	5                       @ Abbrev [5] 0x45c:0xb DW_TAG_typedef
+	.long	1127                    @ DW_AT_type
+	.long	.Linfo_string86         @ DW_AT_name
+	.byte	2                       @ DW_AT_decl_file
+	.byte	113                     @ DW_AT_decl_line
+	.byte	7                       @ Abbrev [7] 0x467:0x95 DW_TAG_structure_type
+	.byte	48                      @ DW_AT_byte_size
+	.byte	2                       @ DW_AT_decl_file
+	.byte	65                      @ DW_AT_decl_line
+	.byte	8                       @ Abbrev [8] 0x46b:0xc DW_TAG_member
+	.long	.Linfo_string74         @ DW_AT_name
+	.long	187                     @ DW_AT_type
+	.byte	2                       @ DW_AT_decl_file
+	.byte	67                      @ DW_AT_decl_line
+	.byte	0                       @ DW_AT_data_member_location
+	.byte	8                       @ Abbrev [8] 0x477:0xc DW_TAG_member
+	.long	.Linfo_string75         @ DW_AT_name
+	.long	187                     @ DW_AT_type
+	.byte	2                       @ DW_AT_decl_file
+	.byte	70                      @ DW_AT_decl_line
+	.byte	4                       @ DW_AT_data_member_location
+	.byte	8                       @ Abbrev [8] 0x483:0xc DW_TAG_member
+	.long	.Linfo_string76         @ DW_AT_name
+	.long	187                     @ DW_AT_type
+	.byte	2                       @ DW_AT_decl_file
+	.byte	74                      @ DW_AT_decl_line
+	.byte	8                       @ DW_AT_data_member_location
+	.byte	8                       @ Abbrev [8] 0x48f:0xc DW_TAG_member
+	.long	.Linfo_string77         @ DW_AT_name
+	.long	187                     @ DW_AT_type
+	.byte	2                       @ DW_AT_decl_file
+	.byte	77                      @ DW_AT_decl_line
+	.byte	12                      @ DW_AT_data_member_location
+	.byte	8                       @ Abbrev [8] 0x49b:0xc DW_TAG_member
+	.long	.Linfo_string78         @ DW_AT_name
+	.long	187                     @ DW_AT_type
+	.byte	2                       @ DW_AT_decl_file
+	.byte	80                      @ DW_AT_decl_line
+	.byte	16                      @ DW_AT_data_member_location
+	.byte	8                       @ Abbrev [8] 0x4a7:0xc DW_TAG_member
+	.long	.Linfo_string79         @ DW_AT_name
+	.long	187                     @ DW_AT_type
+	.byte	2                       @ DW_AT_decl_file
+	.byte	83                      @ DW_AT_decl_line
+	.byte	20                      @ DW_AT_data_member_location
+	.byte	8                       @ Abbrev [8] 0x4b3:0xc DW_TAG_member
+	.long	.Linfo_string80         @ DW_AT_name
+	.long	187                     @ DW_AT_type
+	.byte	2                       @ DW_AT_decl_file
+	.byte	86                      @ DW_AT_decl_line
+	.byte	24                      @ DW_AT_data_member_location
+	.byte	8                       @ Abbrev [8] 0x4bf:0xc DW_TAG_member
+	.long	.Linfo_string81         @ DW_AT_name
+	.long	187                     @ DW_AT_type
+	.byte	2                       @ DW_AT_decl_file
+	.byte	91                      @ DW_AT_decl_line
+	.byte	28                      @ DW_AT_data_member_location
+	.byte	8                       @ Abbrev [8] 0x4cb:0xc DW_TAG_member
+	.long	.Linfo_string82         @ DW_AT_name
+	.long	187                     @ DW_AT_type
+	.byte	2                       @ DW_AT_decl_file
+	.byte	94                      @ DW_AT_decl_line
+	.byte	32                      @ DW_AT_data_member_location
+	.byte	8                       @ Abbrev [8] 0x4d7:0xc DW_TAG_member
+	.long	.Linfo_string83         @ DW_AT_name
+	.long	187                     @ DW_AT_type
+	.byte	2                       @ DW_AT_decl_file
+	.byte	99                      @ DW_AT_decl_line
+	.byte	36                      @ DW_AT_data_member_location
+	.byte	8                       @ Abbrev [8] 0x4e3:0xc DW_TAG_member
+	.long	.Linfo_string84         @ DW_AT_name
+	.long	187                     @ DW_AT_type
+	.byte	2                       @ DW_AT_decl_file
+	.byte	102                     @ DW_AT_decl_line
+	.byte	40                      @ DW_AT_data_member_location
+	.byte	8                       @ Abbrev [8] 0x4ef:0xc DW_TAG_member
+	.long	.Linfo_string85         @ DW_AT_name
+	.long	187                     @ DW_AT_type
+	.byte	2                       @ DW_AT_decl_file
+	.byte	108                     @ DW_AT_decl_line
+	.byte	44                      @ DW_AT_data_member_location
+	.byte	0                       @ End Of Children Mark
+	.byte	5                       @ Abbrev [5] 0x4fc:0xb DW_TAG_typedef
+	.long	79                      @ DW_AT_type
+	.long	.Linfo_string88         @ DW_AT_name
+	.byte	1                       @ DW_AT_decl_file
+	.byte	69                      @ DW_AT_decl_line
+	.byte	9                       @ Abbrev [9] 0x507:0x5 DW_TAG_volatile_type
+	.long	1292                    @ DW_AT_type
+	.byte	5                       @ Abbrev [5] 0x50c:0xb DW_TAG_typedef
+	.long	100                     @ DW_AT_type
+	.long	.Linfo_string90         @ DW_AT_name
+	.byte	2                       @ DW_AT_decl_file
+	.byte	126                     @ DW_AT_decl_line
+	.byte	14                      @ Abbrev [14] 0x517:0x1 DW_TAG_pointer_type
+	.byte	6                       @ Abbrev [6] 0x518:0x5 DW_TAG_pointer_type
+	.long	1309                    @ DW_AT_type
+	.byte	15                      @ Abbrev [15] 0x51d:0x8 DW_TAG_subroutine_type
+	.byte	1                       @ DW_AT_prototyped
+	.byte	16                      @ Abbrev [16] 0x51f:0x5 DW_TAG_formal_parameter
+	.long	1317                    @ DW_AT_type
+	.byte	0                       @ End Of Children Mark
+	.byte	6                       @ Abbrev [6] 0x525:0x5 DW_TAG_pointer_type
+	.long	838                     @ DW_AT_type
+	.byte	17                      @ Abbrev [17] 0x52a:0x54 DW_TAG_subprogram
+	.long	.Lfunc_begin0           @ DW_AT_low_pc
+	.long	.Lfunc_end0             @ DW_AT_high_pc
+	.byte	1                       @ DW_AT_frame_base
+	.byte	93
+	.long	.Linfo_string104        @ DW_AT_name
+	.byte	7                       @ DW_AT_decl_file
+	.byte	175                     @ DW_AT_decl_line
+	.byte	1                       @ DW_AT_prototyped
+	.long	2236                    @ DW_AT_type
+	.byte	1                       @ DW_AT_external
+	.byte	18                      @ Abbrev [18] 0x541:0xf DW_TAG_formal_parameter
+	.long	.Ldebug_loc0            @ DW_AT_location
+	.long	.Linfo_string120        @ DW_AT_name
+	.byte	7                       @ DW_AT_decl_file
+	.byte	175                     @ DW_AT_decl_line
+	.long	557                     @ DW_AT_type
+	.byte	19                      @ Abbrev [19] 0x550:0xf DW_TAG_variable
+	.long	.Ldebug_loc1            @ DW_AT_location
+	.long	.Linfo_string121        @ DW_AT_name
+	.byte	7                       @ DW_AT_decl_file
+	.byte	177                     @ DW_AT_decl_line
+	.long	262                     @ DW_AT_type
+	.byte	19                      @ Abbrev [19] 0x55f:0xf DW_TAG_variable
+	.long	.Ldebug_loc2            @ DW_AT_location
+	.long	.Linfo_string122        @ DW_AT_name
+	.byte	7                       @ DW_AT_decl_file
+	.byte	178                     @ DW_AT_decl_line
+	.long	187                     @ DW_AT_type
+	.byte	19                      @ Abbrev [19] 0x56e:0xf DW_TAG_variable
+	.long	.Ldebug_loc3            @ DW_AT_location
+	.long	.Linfo_string123        @ DW_AT_name
+	.byte	7                       @ DW_AT_decl_file
+	.byte	178                     @ DW_AT_decl_line
+	.long	187                     @ DW_AT_type
+	.byte	0                       @ End Of Children Mark
+	.byte	20                      @ Abbrev [20] 0x57e:0x59 DW_TAG_subprogram
+	.long	.Lfunc_begin1           @ DW_AT_low_pc
+	.long	.Lfunc_end1             @ DW_AT_high_pc
+	.byte	1                       @ DW_AT_frame_base
+	.byte	93
+	.long	.Linfo_string106        @ DW_AT_name
+	.byte	7                       @ DW_AT_decl_file
+	.short	264                     @ DW_AT_decl_line
+	.byte	1                       @ DW_AT_prototyped
+	.long	2236                    @ DW_AT_type
+	.byte	1                       @ DW_AT_external
+	.byte	21                      @ Abbrev [21] 0x596:0x10 DW_TAG_formal_parameter
+	.long	.Ldebug_loc4            @ DW_AT_location
+	.long	.Linfo_string120        @ DW_AT_name
+	.byte	7                       @ DW_AT_decl_file
+	.short	264                     @ DW_AT_decl_line
+	.long	557                     @ DW_AT_type
+	.byte	22                      @ Abbrev [22] 0x5a6:0x10 DW_TAG_variable
+	.long	.Ldebug_loc5            @ DW_AT_location
+	.long	.Linfo_string121        @ DW_AT_name
+	.byte	7                       @ DW_AT_decl_file
+	.short	266                     @ DW_AT_decl_line
+	.long	262                     @ DW_AT_type
+	.byte	22                      @ Abbrev [22] 0x5b6:0x10 DW_TAG_variable
+	.long	.Ldebug_loc6            @ DW_AT_location
+	.long	.Linfo_string122        @ DW_AT_name
+	.byte	7                       @ DW_AT_decl_file
+	.short	267                     @ DW_AT_decl_line
+	.long	187                     @ DW_AT_type
+	.byte	22                      @ Abbrev [22] 0x5c6:0x10 DW_TAG_variable
+	.long	.Ldebug_loc7            @ DW_AT_location
+	.long	.Linfo_string123        @ DW_AT_name
+	.byte	7                       @ DW_AT_decl_file
+	.short	267                     @ DW_AT_decl_line
+	.long	187                     @ DW_AT_type
+	.byte	0                       @ End Of Children Mark
+	.byte	20                      @ Abbrev [20] 0x5d7:0x37 DW_TAG_subprogram
+	.long	.Lfunc_begin2           @ DW_AT_low_pc
+	.long	.Lfunc_end2             @ DW_AT_high_pc
+	.byte	1                       @ DW_AT_frame_base
+	.byte	93
+	.long	.Linfo_string107        @ DW_AT_name
+	.byte	7                       @ DW_AT_decl_file
+	.short	361                     @ DW_AT_decl_line
+	.byte	1                       @ DW_AT_prototyped
+	.long	2236                    @ DW_AT_type
+	.byte	1                       @ DW_AT_external
+	.byte	23                      @ Abbrev [23] 0x5ef:0xe DW_TAG_formal_parameter
+	.byte	1                       @ DW_AT_location
+	.byte	80
+	.long	.Linfo_string120        @ DW_AT_name
+	.byte	7                       @ DW_AT_decl_file
+	.short	361                     @ DW_AT_decl_line
+	.long	557                     @ DW_AT_type
+	.byte	22                      @ Abbrev [22] 0x5fd:0x10 DW_TAG_variable
+	.long	.Ldebug_loc8            @ DW_AT_location
+	.long	.Linfo_string124        @ DW_AT_name
+	.byte	7                       @ DW_AT_decl_file
+	.short	363                     @ DW_AT_decl_line
+	.long	2236                    @ DW_AT_type
+	.byte	0                       @ End Of Children Mark
+	.byte	20                      @ Abbrev [20] 0x60e:0x49 DW_TAG_subprogram
+	.long	.Lfunc_begin3           @ DW_AT_low_pc
+	.long	.Lfunc_end3             @ DW_AT_high_pc
+	.byte	1                       @ DW_AT_frame_base
+	.byte	93
+	.long	.Linfo_string108        @ DW_AT_name
+	.byte	7                       @ DW_AT_decl_file
+	.short	415                     @ DW_AT_decl_line
+	.byte	1                       @ DW_AT_prototyped
+	.long	2236                    @ DW_AT_type
+	.byte	1                       @ DW_AT_external
+	.byte	21                      @ Abbrev [21] 0x626:0x10 DW_TAG_formal_parameter
+	.long	.Ldebug_loc9            @ DW_AT_location
+	.long	.Linfo_string120        @ DW_AT_name
+	.byte	7                       @ DW_AT_decl_file
+	.short	415                     @ DW_AT_decl_line
+	.long	557                     @ DW_AT_type
+	.byte	21                      @ Abbrev [21] 0x636:0x10 DW_TAG_formal_parameter
+	.long	.Ldebug_loc10           @ DW_AT_location
+	.long	.Linfo_string125        @ DW_AT_name
+	.byte	7                       @ DW_AT_decl_file
+	.short	415                     @ DW_AT_decl_line
+	.long	187                     @ DW_AT_type
+	.byte	22                      @ Abbrev [22] 0x646:0x10 DW_TAG_variable
+	.long	.Ldebug_loc11           @ DW_AT_location
+	.long	.Linfo_string126        @ DW_AT_name
+	.byte	7                       @ DW_AT_decl_file
+	.short	417                     @ DW_AT_decl_line
+	.long	187                     @ DW_AT_type
+	.byte	0                       @ End Of Children Mark
+	.byte	20                      @ Abbrev [20] 0x657:0x37 DW_TAG_subprogram
+	.long	.Lfunc_begin4           @ DW_AT_low_pc
+	.long	.Lfunc_end4             @ DW_AT_high_pc
+	.byte	1                       @ DW_AT_frame_base
+	.byte	93
+	.long	.Linfo_string109        @ DW_AT_name
+	.byte	7                       @ DW_AT_decl_file
+	.short	482                     @ DW_AT_decl_line
+	.byte	1                       @ DW_AT_prototyped
+	.long	2236                    @ DW_AT_type
+	.byte	1                       @ DW_AT_external
+	.byte	23                      @ Abbrev [23] 0x66f:0xe DW_TAG_formal_parameter
+	.byte	1                       @ DW_AT_location
+	.byte	80
+	.long	.Linfo_string120        @ DW_AT_name
+	.byte	7                       @ DW_AT_decl_file
+	.short	482                     @ DW_AT_decl_line
+	.long	557                     @ DW_AT_type
+	.byte	22                      @ Abbrev [22] 0x67d:0x10 DW_TAG_variable
+	.long	.Ldebug_loc12           @ DW_AT_location
+	.long	.Linfo_string124        @ DW_AT_name
+	.byte	7                       @ DW_AT_decl_file
+	.short	484                     @ DW_AT_decl_line
+	.long	2236                    @ DW_AT_type
+	.byte	0                       @ End Of Children Mark
+	.byte	20                      @ Abbrev [20] 0x68e:0x49 DW_TAG_subprogram
+	.long	.Lfunc_begin5           @ DW_AT_low_pc
+	.long	.Lfunc_end5             @ DW_AT_high_pc
+	.byte	1                       @ DW_AT_frame_base
+	.byte	93
+	.long	.Linfo_string110        @ DW_AT_name
+	.byte	7                       @ DW_AT_decl_file
+	.short	544                     @ DW_AT_decl_line
+	.byte	1                       @ DW_AT_prototyped
+	.long	187                     @ DW_AT_type
+	.byte	1                       @ DW_AT_external
+	.byte	21                      @ Abbrev [21] 0x6a6:0x10 DW_TAG_formal_parameter
+	.long	.Ldebug_loc13           @ DW_AT_location
+	.long	.Linfo_string120        @ DW_AT_name
+	.byte	7                       @ DW_AT_decl_file
+	.short	544                     @ DW_AT_decl_line
+	.long	557                     @ DW_AT_type
+	.byte	21                      @ Abbrev [21] 0x6b6:0x10 DW_TAG_formal_parameter
+	.long	.Ldebug_loc14           @ DW_AT_location
+	.long	.Linfo_string127        @ DW_AT_name
+	.byte	7                       @ DW_AT_decl_file
+	.short	544                     @ DW_AT_decl_line
+	.long	187                     @ DW_AT_type
+	.byte	22                      @ Abbrev [22] 0x6c6:0x10 DW_TAG_variable
+	.long	.Ldebug_loc15           @ DW_AT_location
+	.long	.Linfo_string128        @ DW_AT_name
+	.byte	7                       @ DW_AT_decl_file
+	.short	546                     @ DW_AT_decl_line
+	.long	262                     @ DW_AT_type
+	.byte	0                       @ End Of Children Mark
+	.byte	20                      @ Abbrev [20] 0x6d7:0x59 DW_TAG_subprogram
+	.long	.Lfunc_begin6           @ DW_AT_low_pc
+	.long	.Lfunc_end6             @ DW_AT_high_pc
+	.byte	1                       @ DW_AT_frame_base
+	.byte	93
+	.long	.Linfo_string111        @ DW_AT_name
+	.byte	7                       @ DW_AT_decl_file
+	.short	595                     @ DW_AT_decl_line
+	.byte	1                       @ DW_AT_prototyped
+	.long	2236                    @ DW_AT_type
+	.byte	1                       @ DW_AT_external
+	.byte	21                      @ Abbrev [21] 0x6ef:0x10 DW_TAG_formal_parameter
+	.long	.Ldebug_loc16           @ DW_AT_location
+	.long	.Linfo_string120        @ DW_AT_name
+	.byte	7                       @ DW_AT_decl_file
+	.short	595                     @ DW_AT_decl_line
+	.long	557                     @ DW_AT_type
+	.byte	21                      @ Abbrev [21] 0x6ff:0x10 DW_TAG_formal_parameter
+	.long	.Ldebug_loc17           @ DW_AT_location
+	.long	.Linfo_string129        @ DW_AT_name
+	.byte	7                       @ DW_AT_decl_file
+	.short	595                     @ DW_AT_decl_line
+	.long	2247                    @ DW_AT_type
+	.byte	21                      @ Abbrev [21] 0x70f:0x10 DW_TAG_formal_parameter
+	.long	.Ldebug_loc18           @ DW_AT_location
+	.long	.Linfo_string130        @ DW_AT_name
+	.byte	7                       @ DW_AT_decl_file
+	.short	595                     @ DW_AT_decl_line
+	.long	187                     @ DW_AT_type
+	.byte	22                      @ Abbrev [22] 0x71f:0x10 DW_TAG_variable
+	.long	.Ldebug_loc19           @ DW_AT_location
+	.long	.Linfo_string121        @ DW_AT_name
+	.byte	7                       @ DW_AT_decl_file
+	.short	597                     @ DW_AT_decl_line
+	.long	262                     @ DW_AT_type
+	.byte	0                       @ End Of Children Mark
+	.byte	24                      @ Abbrev [24] 0x730:0x34 DW_TAG_subprogram
+	.long	.Lfunc_begin7           @ DW_AT_low_pc
+	.long	.Lfunc_end7             @ DW_AT_high_pc
+	.byte	1                       @ DW_AT_frame_base
+	.byte	93
+	.long	.Linfo_string112        @ DW_AT_name
+	.byte	7                       @ DW_AT_decl_file
+	.short	979                     @ DW_AT_decl_line
+	.byte	1                       @ DW_AT_prototyped
+	.byte	21                      @ Abbrev [21] 0x743:0x10 DW_TAG_formal_parameter
+	.long	.Ldebug_loc20           @ DW_AT_location
+	.long	.Linfo_string131        @ DW_AT_name
+	.byte	7                       @ DW_AT_decl_file
+	.short	979                     @ DW_AT_decl_line
+	.long	822                     @ DW_AT_type
+	.byte	22                      @ Abbrev [22] 0x753:0x10 DW_TAG_variable
+	.long	.Ldebug_loc21           @ DW_AT_location
+	.long	.Linfo_string120        @ DW_AT_name
+	.byte	7                       @ DW_AT_decl_file
+	.short	982                     @ DW_AT_decl_line
+	.long	557                     @ DW_AT_type
+	.byte	0                       @ End Of Children Mark
+	.byte	24                      @ Abbrev [24] 0x764:0x34 DW_TAG_subprogram
+	.long	.Lfunc_begin8           @ DW_AT_low_pc
+	.long	.Lfunc_end8             @ DW_AT_high_pc
+	.byte	1                       @ DW_AT_frame_base
+	.byte	93
+	.long	.Linfo_string113        @ DW_AT_name
+	.byte	7                       @ DW_AT_decl_file
+	.short	1032                    @ DW_AT_decl_line
+	.byte	1                       @ DW_AT_prototyped
+	.byte	21                      @ Abbrev [21] 0x777:0x10 DW_TAG_formal_parameter
+	.long	.Ldebug_loc22           @ DW_AT_location
+	.long	.Linfo_string131        @ DW_AT_name
+	.byte	7                       @ DW_AT_decl_file
+	.short	1032                    @ DW_AT_decl_line
+	.long	822                     @ DW_AT_type
+	.byte	22                      @ Abbrev [22] 0x787:0x10 DW_TAG_variable
+	.long	.Ldebug_loc23           @ DW_AT_location
+	.long	.Linfo_string120        @ DW_AT_name
+	.byte	7                       @ DW_AT_decl_file
+	.short	1034                    @ DW_AT_decl_line
+	.long	557                     @ DW_AT_type
+	.byte	0                       @ End Of Children Mark
+	.byte	24                      @ Abbrev [24] 0x798:0x34 DW_TAG_subprogram
+	.long	.Lfunc_begin9           @ DW_AT_low_pc
+	.long	.Lfunc_end9             @ DW_AT_high_pc
+	.byte	1                       @ DW_AT_frame_base
+	.byte	93
+	.long	.Linfo_string114        @ DW_AT_name
+	.byte	7                       @ DW_AT_decl_file
+	.short	1045                    @ DW_AT_decl_line
+	.byte	1                       @ DW_AT_prototyped
+	.byte	21                      @ Abbrev [21] 0x7ab:0x10 DW_TAG_formal_parameter
+	.long	.Ldebug_loc24           @ DW_AT_location
+	.long	.Linfo_string131        @ DW_AT_name
+	.byte	7                       @ DW_AT_decl_file
+	.short	1045                    @ DW_AT_decl_line
+	.long	822                     @ DW_AT_type
+	.byte	22                      @ Abbrev [22] 0x7bb:0x10 DW_TAG_variable
+	.long	.Ldebug_loc25           @ DW_AT_location
+	.long	.Linfo_string120        @ DW_AT_name
+	.byte	7                       @ DW_AT_decl_file
+	.short	1047                    @ DW_AT_decl_line
+	.long	557                     @ DW_AT_type
+	.byte	0                       @ End Of Children Mark
+	.byte	20                      @ Abbrev [20] 0x7cc:0x36 DW_TAG_subprogram
+	.long	.Lfunc_begin10          @ DW_AT_low_pc
+	.long	.Lfunc_end10            @ DW_AT_high_pc
+	.byte	1                       @ DW_AT_frame_base
+	.byte	93
+	.long	.Linfo_string115        @ DW_AT_name
+	.byte	7                       @ DW_AT_decl_file
+	.short	708                     @ DW_AT_decl_line
+	.byte	1                       @ DW_AT_prototyped
+	.long	2236                    @ DW_AT_type
+	.byte	1                       @ DW_AT_external
+	.byte	21                      @ Abbrev [21] 0x7e4:0x10 DW_TAG_formal_parameter
+	.long	.Ldebug_loc26           @ DW_AT_location
+	.long	.Linfo_string120        @ DW_AT_name
+	.byte	7                       @ DW_AT_decl_file
+	.short	708                     @ DW_AT_decl_line
+	.long	557                     @ DW_AT_type
+	.byte	25                      @ Abbrev [25] 0x7f4:0xd DW_TAG_variable
+	.byte	0                       @ DW_AT_const_value
+	.long	.Linfo_string124        @ DW_AT_name
+	.byte	7                       @ DW_AT_decl_file
+	.short	710                     @ DW_AT_decl_line
+	.long	2236                    @ DW_AT_type
+	.byte	0                       @ End Of Children Mark
+	.byte	20                      @ Abbrev [20] 0x802:0x29 DW_TAG_subprogram
+	.long	.Lfunc_begin11          @ DW_AT_low_pc
+	.long	.Lfunc_end11            @ DW_AT_high_pc
+	.byte	1                       @ DW_AT_frame_base
+	.byte	93
+	.long	.Linfo_string116        @ DW_AT_name
+	.byte	7                       @ DW_AT_decl_file
+	.short	755                     @ DW_AT_decl_line
+	.byte	1                       @ DW_AT_prototyped
+	.long	187                     @ DW_AT_type
+	.byte	1                       @ DW_AT_external
+	.byte	21                      @ Abbrev [21] 0x81a:0x10 DW_TAG_formal_parameter
+	.long	.Ldebug_loc27           @ DW_AT_location
+	.long	.Linfo_string120        @ DW_AT_name
+	.byte	7                       @ DW_AT_decl_file
+	.short	755                     @ DW_AT_decl_line
+	.long	557                     @ DW_AT_type
+	.byte	0                       @ End Of Children Mark
+	.byte	26                      @ Abbrev [26] 0x82b:0x23 DW_TAG_subprogram
+	.long	.Lfunc_begin12          @ DW_AT_low_pc
+	.long	.Lfunc_end12            @ DW_AT_high_pc
+	.byte	1                       @ DW_AT_frame_base
+	.byte	93
+	.long	.Linfo_string117        @ DW_AT_name
+	.byte	7                       @ DW_AT_decl_file
+	.short	767                     @ DW_AT_decl_line
+	.byte	1                       @ DW_AT_prototyped
+	.byte	1                       @ DW_AT_external
+	.byte	23                      @ Abbrev [23] 0x83f:0xe DW_TAG_formal_parameter
+	.byte	1                       @ DW_AT_location
+	.byte	80
+	.long	.Linfo_string120        @ DW_AT_name
+	.byte	7                       @ DW_AT_decl_file
+	.short	767                     @ DW_AT_decl_line
+	.long	557                     @ DW_AT_type
+	.byte	0                       @ End Of Children Mark
+	.byte	20                      @ Abbrev [20] 0x84e:0x37 DW_TAG_subprogram
+	.long	.Lfunc_begin13          @ DW_AT_low_pc
+	.long	.Lfunc_end13            @ DW_AT_high_pc
+	.byte	1                       @ DW_AT_frame_base
+	.byte	93
+	.long	.Linfo_string118        @ DW_AT_name
+	.byte	7                       @ DW_AT_decl_file
+	.short	784                     @ DW_AT_decl_line
+	.byte	1                       @ DW_AT_prototyped
+	.long	2236                    @ DW_AT_type
+	.byte	1                       @ DW_AT_external
+	.byte	23                      @ Abbrev [23] 0x866:0xe DW_TAG_formal_parameter
+	.byte	1                       @ DW_AT_location
+	.byte	80
+	.long	.Linfo_string120        @ DW_AT_name
+	.byte	7                       @ DW_AT_decl_file
+	.short	784                     @ DW_AT_decl_line
+	.long	557                     @ DW_AT_type
+	.byte	21                      @ Abbrev [21] 0x874:0x10 DW_TAG_formal_parameter
+	.long	.Ldebug_loc28           @ DW_AT_location
+	.long	.Linfo_string132        @ DW_AT_name
+	.byte	7                       @ DW_AT_decl_file
+	.short	784                     @ DW_AT_decl_line
+	.long	2252                    @ DW_AT_type
+	.byte	0                       @ End Of Children Mark
+	.byte	20                      @ Abbrev [20] 0x885:0x37 DW_TAG_subprogram
+	.long	.Lfunc_begin14          @ DW_AT_low_pc
+	.long	.Lfunc_end14            @ DW_AT_high_pc
+	.byte	1                       @ DW_AT_frame_base
+	.byte	93
+	.long	.Linfo_string119        @ DW_AT_name
+	.byte	7                       @ DW_AT_decl_file
+	.short	940                     @ DW_AT_decl_line
+	.byte	1                       @ DW_AT_prototyped
+	.long	2236                    @ DW_AT_type
+	.byte	1                       @ DW_AT_external
+	.byte	23                      @ Abbrev [23] 0x89d:0xe DW_TAG_formal_parameter
+	.byte	1                       @ DW_AT_location
+	.byte	80
+	.long	.Linfo_string120        @ DW_AT_name
+	.byte	7                       @ DW_AT_decl_file
+	.short	940                     @ DW_AT_decl_line
+	.long	557                     @ DW_AT_type
+	.byte	21                      @ Abbrev [21] 0x8ab:0x10 DW_TAG_formal_parameter
+	.long	.Ldebug_loc29           @ DW_AT_location
+	.long	.Linfo_string142        @ DW_AT_name
+	.byte	7                       @ DW_AT_decl_file
+	.short	940                     @ DW_AT_decl_line
+	.long	2381                    @ DW_AT_type
+	.byte	0                       @ End Of Children Mark
+	.byte	5                       @ Abbrev [5] 0x8bc:0xb DW_TAG_typedef
+	.long	39                      @ DW_AT_type
+	.long	.Linfo_string105        @ DW_AT_name
+	.byte	1                       @ DW_AT_decl_file
+	.byte	60                      @ DW_AT_decl_line
+	.byte	6                       @ Abbrev [6] 0x8c7:0x5 DW_TAG_pointer_type
+	.long	187                     @ DW_AT_type
+	.byte	6                       @ Abbrev [6] 0x8cc:0x5 DW_TAG_pointer_type
+	.long	2257                    @ DW_AT_type
+	.byte	5                       @ Abbrev [5] 0x8d1:0xb DW_TAG_typedef
+	.long	2268                    @ DW_AT_type
+	.long	.Linfo_string141        @ DW_AT_name
+	.byte	8                       @ DW_AT_decl_file
+	.byte	126                     @ DW_AT_decl_line
+	.byte	7                       @ Abbrev [7] 0x8dc:0x71 DW_TAG_structure_type
+	.byte	36                      @ DW_AT_byte_size
+	.byte	8                       @ DW_AT_decl_file
+	.byte	72                      @ DW_AT_decl_line
+	.byte	8                       @ Abbrev [8] 0x8e0:0xc DW_TAG_member
+	.long	.Linfo_string133        @ DW_AT_name
+	.long	187                     @ DW_AT_type
+	.byte	8                       @ DW_AT_decl_file
+	.byte	74                      @ DW_AT_decl_line
+	.byte	0                       @ DW_AT_data_member_location
+	.byte	8                       @ Abbrev [8] 0x8ec:0xc DW_TAG_member
+	.long	.Linfo_string127        @ DW_AT_name
+	.long	187                     @ DW_AT_type
+	.byte	8                       @ DW_AT_decl_file
+	.byte	77                      @ DW_AT_decl_line
+	.byte	4                       @ DW_AT_data_member_location
+	.byte	8                       @ Abbrev [8] 0x8f8:0xc DW_TAG_member
+	.long	.Linfo_string134        @ DW_AT_name
+	.long	187                     @ DW_AT_type
+	.byte	8                       @ DW_AT_decl_file
+	.byte	80                      @ DW_AT_decl_line
+	.byte	8                       @ DW_AT_data_member_location
+	.byte	8                       @ Abbrev [8] 0x904:0xc DW_TAG_member
+	.long	.Linfo_string135        @ DW_AT_name
+	.long	187                     @ DW_AT_type
+	.byte	8                       @ DW_AT_decl_file
+	.byte	89                      @ DW_AT_decl_line
+	.byte	12                      @ DW_AT_data_member_location
+	.byte	8                       @ Abbrev [8] 0x910:0xc DW_TAG_member
+	.long	.Linfo_string136        @ DW_AT_name
+	.long	187                     @ DW_AT_type
+	.byte	8                       @ DW_AT_decl_file
+	.byte	93                      @ DW_AT_decl_line
+	.byte	16                      @ DW_AT_data_member_location
+	.byte	8                       @ Abbrev [8] 0x91c:0xc DW_TAG_member
+	.long	.Linfo_string137        @ DW_AT_name
+	.long	187                     @ DW_AT_type
+	.byte	8                       @ DW_AT_decl_file
+	.byte	98                      @ DW_AT_decl_line
+	.byte	20                      @ DW_AT_data_member_location
+	.byte	8                       @ Abbrev [8] 0x928:0xc DW_TAG_member
+	.long	.Linfo_string138        @ DW_AT_name
+	.long	187                     @ DW_AT_type
+	.byte	8                       @ DW_AT_decl_file
+	.byte	105                     @ DW_AT_decl_line
+	.byte	24                      @ DW_AT_data_member_location
+	.byte	8                       @ Abbrev [8] 0x934:0xc DW_TAG_member
+	.long	.Linfo_string139        @ DW_AT_name
+	.long	187                     @ DW_AT_type
+	.byte	8                       @ DW_AT_decl_file
+	.byte	113                     @ DW_AT_decl_line
+	.byte	28                      @ DW_AT_data_member_location
+	.byte	8                       @ Abbrev [8] 0x940:0xc DW_TAG_member
+	.long	.Linfo_string140        @ DW_AT_name
+	.long	187                     @ DW_AT_type
+	.byte	8                       @ DW_AT_decl_file
+	.byte	121                     @ DW_AT_decl_line
+	.byte	32                      @ DW_AT_data_member_location
+	.byte	0                       @ End Of Children Mark
+	.byte	6                       @ Abbrev [6] 0x94d:0x5 DW_TAG_pointer_type
+	.long	2386                    @ DW_AT_type
+	.byte	5                       @ Abbrev [5] 0x952:0xb DW_TAG_typedef
+	.long	2397                    @ DW_AT_type
+	.long	.Linfo_string145        @ DW_AT_name
+	.byte	8                       @ DW_AT_decl_file
+	.byte	139                     @ DW_AT_decl_line
+	.byte	7                       @ Abbrev [7] 0x95d:0x29 DW_TAG_structure_type
+	.byte	12                      @ DW_AT_byte_size
+	.byte	8                       @ DW_AT_decl_file
+	.byte	131                     @ DW_AT_decl_line
+	.byte	8                       @ Abbrev [8] 0x961:0xc DW_TAG_member
+	.long	.Linfo_string80         @ DW_AT_name
+	.long	187                     @ DW_AT_type
+	.byte	8                       @ DW_AT_decl_file
+	.byte	133                     @ DW_AT_decl_line
+	.byte	0                       @ DW_AT_data_member_location
+	.byte	8                       @ Abbrev [8] 0x96d:0xc DW_TAG_member
+	.long	.Linfo_string143        @ DW_AT_name
+	.long	187                     @ DW_AT_type
+	.byte	8                       @ DW_AT_decl_file
+	.byte	135                     @ DW_AT_decl_line
+	.byte	4                       @ DW_AT_data_member_location
+	.byte	8                       @ Abbrev [8] 0x979:0xc DW_TAG_member
+	.long	.Linfo_string144        @ DW_AT_name
+	.long	187                     @ DW_AT_type
+	.byte	8                       @ DW_AT_decl_file
+	.byte	137                     @ DW_AT_decl_line
+	.byte	8                       @ DW_AT_data_member_location
+	.byte	0                       @ End Of Children Mark
+	.byte	0                       @ End Of Children Mark
+	.section	.debug_ranges,"",%progbits
+.Ldebug_ranges0:
+	.long	.Lfunc_begin0
+	.long	.Lfunc_end0
+	.long	.Lfunc_begin1
+	.long	.Lfunc_end1
+	.long	.Lfunc_begin2
+	.long	.Lfunc_end2
+	.long	.Lfunc_begin3
+	.long	.Lfunc_end3
+	.long	.Lfunc_begin4
+	.long	.Lfunc_end4
+	.long	.Lfunc_begin5
+	.long	.Lfunc_end5
+	.long	.Lfunc_begin6
+	.long	.Lfunc_end6
+	.long	.Lfunc_begin7
+	.long	.Lfunc_end7
+	.long	.Lfunc_begin8
+	.long	.Lfunc_end8
+	.long	.Lfunc_begin9
+	.long	.Lfunc_end9
+	.long	.Lfunc_begin10
+	.long	.Lfunc_end10
+	.long	.Lfunc_begin11
+	.long	.Lfunc_end11
+	.long	.Lfunc_begin12
+	.long	.Lfunc_end12
+	.long	.Lfunc_begin13
+	.long	.Lfunc_end13
+	.long	.Lfunc_begin14
+	.long	.Lfunc_end14
+	.long	0
+	.long	0
+	.section	.debug_macinfo,"",%progbits
+.Lcu_macro_begin0:
+	.byte	0                       @ End Of Macro List Mark
+	.section	.debug_pubnames,"",%progbits
+	.long	.LpubNames_end0-.LpubNames_begin0 @ Length of Public Names Info
+.LpubNames_begin0:
+	.short	2                       @ DWARF Version
+	.long	.Lcu_begin0             @ Offset of Compilation Unit Info
+	.long	2439                    @ Compilation Unit Length
+	.long	1623                    @ DIE offset
+	.asciz	"HAL_ADCEx_InjectedStop_IT" @ External Name
+	.long	1550                    @ DIE offset
+	.asciz	"HAL_ADCEx_InjectedPollForConversion" @ External Name
+	.long	1495                    @ DIE offset
+	.asciz	"HAL_ADCEx_InjectedStop" @ External Name
+	.long	2050                    @ DIE offset
+	.asciz	"HAL_ADCEx_MultiModeGetValue" @ External Name
+	.long	1751                    @ DIE offset
+	.asciz	"HAL_ADCEx_MultiModeStart_DMA" @ External Name
+	.long	1406                    @ DIE offset
+	.asciz	"HAL_ADCEx_InjectedStart_IT" @ External Name
+	.long	1322                    @ DIE offset
+	.asciz	"HAL_ADCEx_InjectedStart" @ External Name
+	.long	1892                    @ DIE offset
+	.asciz	"ADC_MultiModeDMAHalfConvCplt" @ External Name
+	.long	2126                    @ DIE offset
+	.asciz	"HAL_ADCEx_InjectedConfigChannel" @ External Name
+	.long	1840                    @ DIE offset
+	.asciz	"ADC_MultiModeDMAConvCplt" @ External Name
+	.long	1944                    @ DIE offset
+	.asciz	"ADC_MultiModeDMAError" @ External Name
+	.long	2091                    @ DIE offset
+	.asciz	"HAL_ADCEx_InjectedConvCpltCallback" @ External Name
+	.long	2181                    @ DIE offset
+	.asciz	"HAL_ADCEx_MultiModeConfigChannel" @ External Name
+	.long	1678                    @ DIE offset
+	.asciz	"HAL_ADCEx_InjectedGetValue" @ External Name
+	.long	1996                    @ DIE offset
+	.asciz	"HAL_ADCEx_MultiModeStop_DMA" @ External Name
+	.long	0                       @ End Mark
+.LpubNames_end0:
+	.section	.debug_pubtypes,"",%progbits
+	.long	.LpubTypes_end0-.LpubTypes_begin0 @ Length of Public Types Info
+.LpubTypes_begin0:
+	.short	2                       @ DWARF Version
+	.long	.Lcu_begin0             @ Offset of Compilation Unit Info
+	.long	2439                    @ Compilation Unit Length
+	.long	210                     @ DIE offset
+	.asciz	"ADC_Common_TypeDef"    @ External Name
+	.long	2257                    @ DIE offset
+	.asciz	"ADC_InjectionConfTypeDef" @ External Name
+	.long	562                     @ DIE offset
+	.asciz	"ADC_HandleTypeDef"     @ External Name
+	.long	198                     @ DIE offset
+	.asciz	"unsigned int"          @ External Name
+	.long	2236                    @ DIE offset
+	.asciz	"HAL_StatusTypeDef"     @ External Name
+	.long	546                     @ DIE offset
+	.asciz	"uint8_t"               @ External Name
+	.long	838                     @ DIE offset
+	.asciz	"__DMA_HandleTypeDef"   @ External Name
+	.long	1020                    @ DIE offset
+	.asciz	"DMA_Stream_TypeDef"    @ External Name
+	.long	827                     @ DIE offset
+	.asciz	"DMA_HandleTypeDef"     @ External Name
+	.long	662                     @ DIE offset
+	.asciz	"ADC_InitTypeDef"       @ External Name
+	.long	539                     @ DIE offset
+	.asciz	"unsigned short"        @ External Name
+	.long	1276                    @ DIE offset
+	.asciz	"HAL_LockTypeDef"       @ External Name
+	.long	2386                    @ DIE offset
+	.asciz	"ADC_MultiModeTypeDef"  @ External Name
+	.long	1116                    @ DIE offset
+	.asciz	"DMA_InitTypeDef"       @ External Name
+	.long	1292                    @ DIE offset
+	.asciz	"HAL_DMA_StateTypeDef"  @ External Name
+	.long	187                     @ DIE offset
+	.asciz	"uint32_t"              @ External Name
+	.long	272                     @ DIE offset
+	.asciz	"ADC_TypeDef"           @ External Name
+	.long	528                     @ DIE offset
+	.asciz	"uint16_t"              @ External Name
+	.long	72                      @ DIE offset
+	.asciz	"unsigned char"         @ External Name
+	.long	0                       @ End Mark
+.LpubTypes_end0:
+
+	.ident	"Component: ARM Compiler 6.10.1 Tool: armclang [5d143200]"
+	.section	".note.GNU-stack","",%progbits
+	.eabi_attribute	30, 4	@ Tag_ABI_optimization_goals
+	.ARM_attribute	16, 1	@ Tag_AV_eba
+	.section	.debug_line,"",%progbits
+.Lline_table_start0:

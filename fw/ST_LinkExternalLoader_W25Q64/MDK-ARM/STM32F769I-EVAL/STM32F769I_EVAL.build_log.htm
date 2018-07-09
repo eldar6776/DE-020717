@@ -1,0 +1,113 @@
+<html>
+<body>
+<pre>
+<h1>µVision Build Log</h1>
+<h2>Tool Versions:</h2>
+IDE-Version: µVision V5.25.0.0
+Copyright (C) 2017 ARM Ltd and ARM Germany GmbH. All rights reserved.
+License Information: no_first_name no_last_name, no_compny, LIC=TA3WF-61DXT-9XAUW-QQM5A-SQ46R-CN0X0
+ 
+Tool Versions:
+Toolchain:       MDK-ARM Professional  Version: 5.25.0.0
+Toolchain Path:  C:\Keil\ARM\ARMCC\Bin
+C Compiler:      Armcc.exe V5.06 update 6 (build 750)
+Assembler:       Armasm.exe V5.06 update 6 (build 750)
+Linker/Locator:  ArmLink.exe V5.06 update 6 (build 750)
+Library Manager: ArmAr.exe V5.06 update 6 (build 750)
+Hex Converter:   FromElf.exe V5.06 update 6 (build 750)
+CPU DLL:         SARMCM3.DLL V5.25.0.0
+Dialog DLL:      DCM.DLL V1.17.0.0
+Target DLL:      UL2CM3.DLL V1.160.6.0
+Dialog DLL:      TCM.DLL V1.34.0.0
+ 
+<h2>Project:</h2>
+C:\Users\eldar\Desktop\STM32 ST-LINK Utility\ST-LINK Utility\ExternalLoader\W25Q64\MDK-ARM\Project.uvprojx
+Project File Date:  05/27/2018
+
+<h2>Output:</h2>
+*** Using Compiler 'V5.06 update 6 (build 750)', folder: 'C:\Keil\ARM\ARMCC\Bin'
+Rebuild target 'STM32F769I_EVAL'
+compiling Dev_Inf.c...
+compiling stm32f7xx_hal.c...
+compiling stm32f7xx_hal_msp.c...
+compiling Loader_Src.c...
+compiling stm32f7xx_hal_cortex.c...
+compiling stm32f7xx_hal_gpio.c...
+compiling stm32f7xx_hal_pwr_ex.c...
+compiling stm32f7xx_hal_pwr.c...
+compiling stm32f7xx_hal_qspi.c...
+compiling stm32f7xx_hal_rcc.c...
+compiling stm32f7xx_hal_dma.c...
+compiling stm32f7xx_hal_rcc_ex.c...
+compiling system_stm32f7xx.c...
+linking...
+.\STM32F769I-EVAL\STM32F769I_EVAL.axf: Error: L6265E: Non-PI Section stm32f7xx_hal.o(.data) cannot be assigned to PI Exec region PrgData.
+.\STM32F769I-EVAL\STM32F769I_EVAL.axf: Error: L6265E: Non-PI Section system_stm32f7xx.o(.data) cannot be assigned to PI Exec region PrgData.
+.\STM32F769I-EVAL\STM32F769I_EVAL.axf: Error: L6265E: Non-PI Section loader_src.o(.bss) cannot be assigned to PI Exec region PrgData.
+.\STM32F769I-EVAL\STM32F769I_EVAL.axf: Error: L6248E: stm32f7xx_hal_dma.o(i.DMA_CalcBaseAndBitshift) in PI region 'PrgCode' cannot have address type relocation to flagBitshiftOffset in PI region 'PrgCode'.
+.\STM32F769I-EVAL\STM32F769I_EVAL.axf: Error: L6248E: loader_src.o(i.EraseSector) in PI region 'PrgCode' cannot have address type relocation to QSPIHandle in PI region 'PrgData'.
+.\STM32F769I-EVAL\STM32F769I_EVAL.axf: Error: L6248E: loader_src.o(i.EraseSector) in PI region 'PrgCode' cannot have address type relocation to sCommand in PI region 'PrgData'.
+.\STM32F769I-EVAL\STM32F769I_EVAL.axf: Error: L6248E: stm32f7xx_hal_dma.o(i.HAL_DMA_IRQHandler) in PI region 'PrgCode' cannot have address type relocation to SystemCoreClock in PI region 'PrgData'.
+.\STM32F769I-EVAL\STM32F769I_EVAL.axf: Error: L6248E: stm32f7xx_hal.o(i.HAL_Delay) in PI region 'PrgCode' cannot have address type relocation to uwTickFreq in PI region 'PrgData'.
+.\STM32F769I-EVAL\STM32F769I_EVAL.axf: Error: L6248E: stm32f7xx_hal.o(i.HAL_GetTick) in PI region 'PrgCode' cannot have address type relocation to uwTick in PI region 'PrgData'.
+.\STM32F769I-EVAL\STM32F769I_EVAL.axf: Error: L6248E: stm32f7xx_hal.o(i.HAL_GetTickFreq) in PI region 'PrgCode' cannot have address type relocation to uwTickFreq in PI region 'PrgData'.
+.\STM32F769I-EVAL\STM32F769I_EVAL.axf: Error: L6248E: stm32f7xx_hal.o(i.HAL_GetTickPrio) in PI region 'PrgCode' cannot have address type relocation to uwTickPrio in PI region 'PrgData'.
+.\STM32F769I-EVAL\STM32F769I_EVAL.axf: Error: L6248E: stm32f7xx_hal.o(i.HAL_IncTick) in PI region 'PrgCode' cannot have address type relocation to uwTick in PI region 'PrgData'.
+.\STM32F769I-EVAL\STM32F769I_EVAL.axf: Error: L6248E: stm32f7xx_hal.o(i.HAL_IncTick) in PI region 'PrgCode' cannot have address type relocation to uwTickFreq in PI region 'PrgData'.
+.\STM32F769I-EVAL\STM32F769I_EVAL.axf: Error: L6248E: stm32f7xx_hal.o(i.HAL_InitTick) in PI region 'PrgCode' cannot have address type relocation to uwTickFreq in PI region 'PrgData'.
+.\STM32F769I-EVAL\STM32F769I_EVAL.axf: Error: L6248E: stm32f7xx_hal.o(i.HAL_InitTick) in PI region 'PrgCode' cannot have address type relocation to SystemCoreClock in PI region 'PrgData'.
+.\STM32F769I-EVAL\STM32F769I_EVAL.axf: Error: L6248E: stm32f7xx_hal.o(i.HAL_InitTick) in PI region 'PrgCode' cannot have address type relocation to uwTickPrio in PI region 'PrgData'.
+.\STM32F769I-EVAL\STM32F769I_EVAL.axf: Error: L6248E: stm32f7xx_hal_qspi.o(i.HAL_QSPI_Abort_IT) in PI region 'PrgCode' cannot have address type relocation to QSPI_DMAAbortCplt in PI region 'PrgCode'.
+.\STM32F769I-EVAL\STM32F769I_EVAL.axf: Error: L6248E: stm32f7xx_hal_qspi.o(i.HAL_QSPI_IRQHandler) in PI region 'PrgCode' cannot have address type relocation to QSPI_DMAAbortCplt in PI region 'PrgCode'.
+.\STM32F769I-EVAL\STM32F769I_EVAL.axf: Error: L6248E: stm32f7xx_hal_qspi.o(i.HAL_QSPI_Receive_DMA) in PI region 'PrgCode' cannot have address type relocation to QSPI_DMARxCplt in PI region 'PrgCode'.
+.\STM32F769I-EVAL\STM32F769I_EVAL.axf: Error: L6248E: stm32f7xx_hal_qspi.o(i.HAL_QSPI_Receive_DMA) in PI region 'PrgCode' cannot have address type relocation to QSPI_DMARxHalfCplt in PI region 'PrgCode'.
+.\STM32F769I-EVAL\STM32F769I_EVAL.axf: Error: L6248E: stm32f7xx_hal_qspi.o(i.HAL_QSPI_Receive_DMA) in PI region 'PrgCode' cannot have address type relocation to QSPI_DMAError in PI region 'PrgCode'.
+.\STM32F769I-EVAL\STM32F769I_EVAL.axf: Error: L6248E: stm32f7xx_hal_qspi.o(i.HAL_QSPI_Transmit_DMA) in PI region 'PrgCode' cannot have address type relocation to QSPI_DMATxCplt in PI region 'PrgCode'.
+.\STM32F769I-EVAL\STM32F769I_EVAL.axf: Error: L6248E: stm32f7xx_hal_qspi.o(i.HAL_QSPI_Transmit_DMA) in PI region 'PrgCode' cannot have address type relocation to QSPI_DMATxHalfCplt in PI region 'PrgCode'.
+.\STM32F769I-EVAL\STM32F769I_EVAL.axf: Error: L6248E: stm32f7xx_hal_qspi.o(i.HAL_QSPI_Transmit_DMA) in PI region 'PrgCode' cannot have address type relocation to QSPI_DMAError in PI region 'PrgCode'.
+.\STM32F769I-EVAL\STM32F769I_EVAL.axf: Error: L6248E: stm32f7xx_hal_rcc.o(i.HAL_RCC_ClockConfig) in PI region 'PrgCode' cannot have address type relocation to AHBPrescTable in PI region 'PrgCode'.
+.\STM32F769I-EVAL\STM32F769I_EVAL.axf: Error: L6248E: stm32f7xx_hal_rcc.o(i.HAL_RCC_ClockConfig) in PI region 'PrgCode' cannot have address type relocation to SystemCoreClock in PI region 'PrgData'.
+.\STM32F769I-EVAL\STM32F769I_EVAL.axf: Error: L6248E: stm32f7xx_hal_rcc.o(i.HAL_RCC_DeInit) in PI region 'PrgCode' cannot have address type relocation to SystemCoreClock in PI region 'PrgData'.
+.\STM32F769I-EVAL\STM32F769I_EVAL.axf: Error: L6248E: stm32f7xx_hal_rcc.o(i.HAL_RCC_GetHCLKFreq) in PI region 'PrgCode' cannot have address type relocation to SystemCoreClock in PI region 'PrgData'.
+.\STM32F769I-EVAL\STM32F769I_EVAL.axf: Error: L6248E: stm32f7xx_hal_rcc.o(i.HAL_RCC_GetPCLK1Freq) in PI region 'PrgCode' cannot have address type relocation to APBPrescTable in PI region 'PrgCode'.
+.\STM32F769I-EVAL\STM32F769I_EVAL.axf: Error: L6248E: stm32f7xx_hal_rcc.o(i.HAL_RCC_GetPCLK2Freq) in PI region 'PrgCode' cannot have address type relocation to APBPrescTable in PI region 'PrgCode'.
+.\STM32F769I-EVAL\STM32F769I_EVAL.axf: Error: L6248E: stm32f7xx_hal.o(i.HAL_SetTickFreq) in PI region 'PrgCode' cannot have address type relocation to uwTickFreq in PI region 'PrgData'.
+.\STM32F769I-EVAL\STM32F769I_EVAL.axf: Error: L6248E: stm32f7xx_hal.o(i.HAL_SetTickFreq) in PI region 'PrgCode' cannot have address type relocation to uwTickPrio in PI region 'PrgData'.
+.\STM32F769I-EVAL\STM32F769I_EVAL.axf: Error: L6248E: loader_src.o(i.Init) in PI region 'PrgCode' cannot have address type relocation to QSPIHandle in PI region 'PrgData'.
+.\STM32F769I-EVAL\STM32F769I_EVAL.axf: Error: L6248E: loader_src.o(i.Init) in PI region 'PrgCode' cannot have address type relocation to sCommand in PI region 'PrgData'.
+.\STM32F769I-EVAL\STM32F769I_EVAL.axf: Error: L6248E: loader_src.o(i.Init) in PI region 'PrgCode' cannot have address type relocation to sConfig in PI region 'PrgData'.
+.\STM32F769I-EVAL\STM32F769I_EVAL.axf: Error: L6248E: loader_src.o(i.QSPI_AutoPollingMemReady) in PI region 'PrgCode' cannot have address type relocation to sCommand in PI region 'PrgData'.
+.\STM32F769I-EVAL\STM32F769I_EVAL.axf: Error: L6248E: loader_src.o(i.QSPI_AutoPollingMemReady) in PI region 'PrgCode' cannot have address type relocation to sConfig in PI region 'PrgData'.
+.\STM32F769I-EVAL\STM32F769I_EVAL.axf: Error: L6248E: loader_src.o(i.QSPI_AutoPollingMemReady) in PI region 'PrgCode' cannot have address type relocation to QSPIHandle in PI region 'PrgData'.
+.\STM32F769I-EVAL\STM32F769I_EVAL.axf: Error: L6248E: loader_src.o(i.QSPI_WriteEnable) in PI region 'PrgCode' cannot have address type relocation to sCommand in PI region 'PrgData'.
+.\STM32F769I-EVAL\STM32F769I_EVAL.axf: Error: L6248E: loader_src.o(i.QSPI_WriteEnable) in PI region 'PrgCode' cannot have address type relocation to QSPIHandle in PI region 'PrgData'.
+.\STM32F769I-EVAL\STM32F769I_EVAL.axf: Error: L6248E: loader_src.o(i.QSPI_WriteEnable) in PI region 'PrgCode' cannot have address type relocation to sConfig in PI region 'PrgData'.
+.\STM32F769I-EVAL\STM32F769I_EVAL.axf: Error: L6248E: loader_src.o(i.QSPI_WritePage) in PI region 'PrgCode' cannot have address type relocation to QSPIHandle in PI region 'PrgData'.
+.\STM32F769I-EVAL\STM32F769I_EVAL.axf: Error: L6248E: loader_src.o(i.QSPI_WritePage) in PI region 'PrgCode' cannot have address type relocation to sCommand in PI region 'PrgData'.
+.\STM32F769I-EVAL\STM32F769I_EVAL.axf: Error: L6248E: loader_src.o(i.QUADSPI_MappedMode) in PI region 'PrgCode' cannot have address type relocation to QSPIHandle in PI region 'PrgData'.
+.\STM32F769I-EVAL\STM32F769I_EVAL.axf: Error: L6248E: loader_src.o(i.QUADSPI_MappedMode) in PI region 'PrgCode' cannot have address type relocation to sCommand in PI region 'PrgData'.
+.\STM32F769I-EVAL\STM32F769I_EVAL.axf: Error: L6248E: loader_src.o(i.ResetMemory) in PI region 'PrgCode' cannot have address type relocation to QSPIHandle in PI region 'PrgData'.
+.\STM32F769I-EVAL\STM32F769I_EVAL.axf: Error: L6248E: system_stm32f7xx.o(i.SystemCoreClockUpdate) in PI region 'PrgCode' cannot have address type relocation to SystemCoreClock in PI region 'PrgData'.
+.\STM32F769I-EVAL\STM32F769I_EVAL.axf: Error: L6248E: system_stm32f7xx.o(i.SystemCoreClockUpdate) in PI region 'PrgCode' cannot have address type relocation to AHBPrescTable in PI region 'PrgCode'.
+.\STM32F769I-EVAL\STM32F769I_EVAL.axf: Error: L6285E: Non-relocatable Load region FLASH_LOADER contains R-Type dynamic relocations. First R-Type dynamic relocation found in stm32f7xx_hal_dma.o(i.DMA_CalcBaseAndBitshift) at offset 0x298.
+Not enough information to list load addresses in the image map.
+Finished: 1 information, 0 warning and 49 error messages.
+".\STM32F769I-EVAL\STM32F769I_EVAL.axf" - 49 Error(s), 0 Warning(s).
+
+<h2>Software Packages used:</h2>
+
+Package Vendor: Keil
+                http://www.keil.com/pack/Keil.STM32L4xx_DFP.2.0.0.pack
+                Keil.STM32L4xx_DFP.2.0.0
+                STMicroelectronics STM32L4 Series Device Support, Drivers and Examples
+
+<h2>Collection of Component include folders:</h2>
+  .\RTE\_STM32F769I_EVAL
+  C:\Keil\ARM\PACK\Keil\STM32L4xx_DFP\2.0.0\Drivers\CMSIS\Device\ST\STM32L4xx\Include
+
+<h2>Collection of Component Files used:</h2>
+Target not created.
+Build Time Elapsed:  00:00:02
+</pre>
+</body>
+</html>

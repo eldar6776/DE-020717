@@ -1,0 +1,4849 @@
+	.text
+	.syntax unified
+	.eabi_attribute	67, "2.09"	@ Tag_conformance
+	.cpu	cortex-m7
+	.eabi_attribute	6, 13	@ Tag_CPU_arch
+	.eabi_attribute	7, 77	@ Tag_CPU_arch_profile
+	.eabi_attribute	8, 0	@ Tag_ARM_ISA_use
+	.eabi_attribute	9, 2	@ Tag_THUMB_ISA_use
+	.fpu	fpv5-sp-d16
+	.eabi_attribute	27, 1	@ Tag_ABI_HardFP_use
+	.eabi_attribute	36, 1	@ Tag_FP_HP_extension
+	.eabi_attribute	34, 1	@ Tag_CPU_unaligned_access
+	.eabi_attribute	17, 1	@ Tag_ABI_PCS_GOT_use
+	.eabi_attribute	20, 2	@ Tag_ABI_FP_denormal
+	.eabi_attribute	21, 0	@ Tag_ABI_FP_exceptions
+	.eabi_attribute	23, 1	@ Tag_ABI_FP_number_model
+	.eabi_attribute	24, 1	@ Tag_ABI_align_needed
+	.eabi_attribute	25, 1	@ Tag_ABI_align_preserved
+	.eabi_attribute	28, 1	@ Tag_ABI_VFP_args
+	.eabi_attribute	38, 1	@ Tag_ABI_FP_16bit_format
+	.eabi_attribute	18, 2	@ Tag_ABI_PCS_wchar_t
+	.eabi_attribute	26, 1	@ Tag_ABI_enum_size
+	.eabi_attribute	14, 0	@ Tag_ABI_PCS_R9_use
+	.file	"one_wire.c"
+	.file	1 "C:\\Keil\\ARM\\ARMCLANG\\Bin\\..\\include" "stdint.h"
+	.file	2 "../Src" "one_wire.c"
+	.file	3 "../Inc" "one_wire.h"
+	.file	4 "../Drivers/STM32F7xx_HAL_Driver/Inc" "stm32f7xx_hal_uart.h"
+	.file	5 "../Drivers/STM32F7xx_HAL_Driver/Inc" "stm32f7xx_hal_def.h"
+	.file	6 "../Drivers/CMSIS/Device/ST/STM32F7xx/Include" "stm32f746xx.h"
+	.section	.text.ONEWIRE_Init,"ax",%progbits
+	.hidden	ONEWIRE_Init            @ -- Begin function ONEWIRE_Init
+	.globl	ONEWIRE_Init
+	.p2align	2
+	.type	ONEWIRE_Init,%function
+	.code	16                      @ @ONEWIRE_Init
+	.thumb_func
+ONEWIRE_Init:
+.Lfunc_begin0:
+	.loc	2 84 0                  @ ../Src/one_wire.c:84:0
+	.fnstart
+	.cfi_sections .debug_frame
+	.cfi_startproc
+@ %bb.0:
+	.save	{r4, r5, r7, lr}
+	push	{r4, r5, r7, lr}
+	.cfi_def_cfa_offset 16
+	.cfi_offset lr, -4
+	.cfi_offset r7, -8
+	.cfi_offset r5, -12
+	.cfi_offset r4, -16
+.Ltmp0:
+	.loc	2 591 27 prologue_end   @ ../Src/one_wire.c:591:27
+	ldr	r4, __arm_cp.0_0
+	movs	r0, #0
+	.loc	2 593 27                @ ../Src/one_wire.c:593:27
+	strb	r0, [r4, #5]
+	.loc	2 591 27                @ ../Src/one_wire.c:591:27
+	strh.w	r0, [r4, #3]
+	.loc	2 594 24                @ ../Src/one_wire.c:594:24
+	strb	r0, [r4]
+.Ltmp1:
+	.loc	2 87 5                  @ ../Src/one_wire.c:87:5
+	add.w	r0, r4, #16
+	mov	r1, r4
+	bl	ONEWIRE_Search
+	ldr	r1, [r4, #8]
+.Ltmp2:
+	.loc	2 87 5 is_stmt 0        @ ../Src/one_wire.c:87:5
+	cbz	r0, .LBB0_8
+@ %bb.1:
+.Ltmp3:
+	.loc	2 89 3 is_stmt 1        @ ../Src/one_wire.c:89:3
+	orr	r0, r1, #2
+.Ltmp4:
+	.loc	2 90 6                  @ ../Src/one_wire.c:90:6
+	mov	r1, r4
+.Ltmp5:
+	.loc	2 89 3                  @ ../Src/one_wire.c:89:3
+	str	r0, [r4, #8]
+.Ltmp6:
+	.loc	2 90 6                  @ ../Src/one_wire.c:90:6
+	add.w	r0, r4, #32
+	bl	ONEWIRE_Search
+.Ltmp7:
+	.loc	2 90 6 is_stmt 0        @ ../Src/one_wire.c:90:6
+	cmp	r0, #0
+	beq	.LBB0_9
+@ %bb.2:
+.Ltmp8:
+	.loc	2 91 6 is_stmt 1        @ ../Src/one_wire.c:91:6
+	add.w	r0, r4, #48
+	mov	r1, r4
+	bl	ONEWIRE_Search
+.Ltmp9:
+	.loc	2 91 6 is_stmt 0        @ ../Src/one_wire.c:91:6
+	cbz	r0, .LBB0_9
+@ %bb.3:
+.Ltmp10:
+	.loc	2 92 6 is_stmt 1        @ ../Src/one_wire.c:92:6
+	add.w	r0, r4, #64
+	mov	r1, r4
+	bl	ONEWIRE_Search
+.Ltmp11:
+	.loc	2 92 6 is_stmt 0        @ ../Src/one_wire.c:92:6
+	cbz	r0, .LBB0_9
+@ %bb.4:
+.Ltmp12:
+	.loc	2 93 6 is_stmt 1        @ ../Src/one_wire.c:93:6
+	add.w	r0, r4, #80
+	mov	r1, r4
+	bl	ONEWIRE_Search
+.Ltmp13:
+	.loc	2 93 6 is_stmt 0        @ ../Src/one_wire.c:93:6
+	cbz	r0, .LBB0_9
+@ %bb.5:
+.Ltmp14:
+	.loc	2 94 6 is_stmt 1        @ ../Src/one_wire.c:94:6
+	add.w	r0, r4, #96
+	mov	r1, r4
+	bl	ONEWIRE_Search
+.Ltmp15:
+	.loc	2 94 6 is_stmt 0        @ ../Src/one_wire.c:94:6
+	cbz	r0, .LBB0_9
+@ %bb.6:
+.Ltmp16:
+	.loc	2 95 6 is_stmt 1        @ ../Src/one_wire.c:95:6
+	add.w	r0, r4, #112
+	mov	r1, r4
+	bl	ONEWIRE_Search
+.Ltmp17:
+	.loc	2 95 6 is_stmt 0        @ ../Src/one_wire.c:95:6
+	cbz	r0, .LBB0_9
+@ %bb.7:
+.Ltmp18:
+	.loc	2 96 6 is_stmt 1        @ ../Src/one_wire.c:96:6
+	ldr	r0, __arm_cp.0_1
+	ldr	r1, __arm_cp.0_0
+	bl	ONEWIRE_Search
+.Ltmp19:
+	.loc	2 107 1                 @ ../Src/one_wire.c:107:1
+	pop	{r4, r5, r7, pc}
+.LBB0_8:
+.Ltmp20:
+	.loc	2 100 3                 @ ../Src/one_wire.c:100:3
+	bic	r0, r1, #2
+	str	r0, [r4, #8]
+	.loc	2 101 3                 @ ../Src/one_wire.c:101:3
+	mov.w	r0, #9600
+	bl	ONEWIRE_SetUsart
+	.loc	2 102 3                 @ ../Src/one_wire.c:102:3
+	ldr	r5, __arm_cp.0_2
+	mov	r0, r5
+	bl	HAL_HalfDuplex_EnableReceiver
+.Ltmp21:
+	.loc	2 103 3                 @ ../Src/one_wire.c:103:3
+	ldr	r0, [r5]
+.Ltmp22:
+	.loc	2 104 3                 @ ../Src/one_wire.c:104:3
+	movs	r2, #64
+.Ltmp23:
+	.loc	2 103 3                 @ ../Src/one_wire.c:103:3
+	ldr	r1, [r0, #24]
+	orr	r1, r1, #8
+	str	r1, [r0, #24]
+	ldr	r1, [r0, #24]
+	orr	r1, r1, #16
+	str	r1, [r0, #24]
+.Ltmp24:
+	.loc	2 104 3                 @ ../Src/one_wire.c:104:3
+	ldr	r0, __arm_cp.0_1
+	add.w	r1, r0, #16
+	mov	r0, r5
+	bl	HAL_UART_Receive_IT
+	.loc	2 105 16                @ ../Src/one_wire.c:105:16
+	movs	r0, #1
+	strb	r0, [r4, #1]
+.Ltmp25:
+.LBB0_9:
+	.loc	2 107 1                 @ ../Src/one_wire.c:107:1
+	pop	{r4, r5, r7, pc}
+.Ltmp26:
+	.p2align	2
+@ %bb.10:
+	.loc	2 0 1 is_stmt 0         @ ../Src/one_wire.c:0:1
+__arm_cp.0_0:
+	.long	.L_MergedGlobals
+.Lcpi_end0:
+	.size	__arm_cp.0_0, .Lcpi_end0-__arm_cp.0_0
+__arm_cp.0_1:
+	.long	.L_MergedGlobals.1
+.Lcpi_end1:
+	.size	__arm_cp.0_1, .Lcpi_end1-__arm_cp.0_1
+__arm_cp.0_2:
+	.long	huart2
+.Lcpi_end2:
+	.size	__arm_cp.0_2, .Lcpi_end2-__arm_cp.0_2
+.Lfunc_end0:
+	.size	ONEWIRE_Init, .Lfunc_end0-ONEWIRE_Init
+	.cfi_endproc
+	.cantunwind
+	.fnend
+                                        @ -- End function
+	.section	.text.ONEWIRE_ResetSearch,"ax",%progbits
+	.hidden	ONEWIRE_ResetSearch     @ -- Begin function ONEWIRE_ResetSearch
+	.globl	ONEWIRE_ResetSearch
+	.p2align	2
+	.type	ONEWIRE_ResetSearch,%function
+	.code	16                      @ @ONEWIRE_ResetSearch
+	.thumb_func
+ONEWIRE_ResetSearch:
+.Lfunc_begin1:
+	.loc	2 590 0 is_stmt 1       @ ../Src/one_wire.c:590:0
+	.fnstart
+	.cfi_startproc
+@ %bb.0:
+	.loc	2 591 27 prologue_end   @ ../Src/one_wire.c:591:27
+	ldr	r0, __arm_cp.1_0
+	movs	r1, #0
+	.loc	2 593 27                @ ../Src/one_wire.c:593:27
+	strb	r1, [r0, #5]
+	.loc	2 591 27                @ ../Src/one_wire.c:591:27
+	strh.w	r1, [r0, #3]
+	.loc	2 594 24                @ ../Src/one_wire.c:594:24
+	strb	r1, [r0]
+	.loc	2 595 1                 @ ../Src/one_wire.c:595:1
+	bx	lr
+.Ltmp27:
+	.p2align	2
+@ %bb.1:
+	.loc	2 0 1 is_stmt 0         @ ../Src/one_wire.c:0:1
+__arm_cp.1_0:
+	.long	.L_MergedGlobals
+.Lcpi_end3:
+	.size	__arm_cp.1_0, .Lcpi_end3-__arm_cp.1_0
+.Lfunc_end1:
+	.size	ONEWIRE_ResetSearch, .Lfunc_end1-ONEWIRE_ResetSearch
+	.cfi_endproc
+	.cantunwind
+	.fnend
+                                        @ -- End function
+	.section	.text.ONEWIRE_Search,"ax",%progbits
+	.hidden	ONEWIRE_Search          @ -- Begin function ONEWIRE_Search
+	.globl	ONEWIRE_Search
+	.p2align	2
+	.type	ONEWIRE_Search,%function
+	.code	16                      @ @ONEWIRE_Search
+	.thumb_func
+ONEWIRE_Search:
+.Lfunc_begin2:
+	.loc	2 599 0 is_stmt 1       @ ../Src/one_wire.c:599:0
+	.fnstart
+	.cfi_startproc
+@ %bb.0:
+	.save	{r4, r5, r6, r7, r8, r9, r10, r11, lr}
+	.pad	#4
+	push.w	{r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
+	.cfi_def_cfa_offset 40
+	.cfi_offset lr, -4
+	.cfi_offset r11, -8
+	.cfi_offset r10, -12
+	.cfi_offset r9, -16
+	.cfi_offset r8, -20
+	.cfi_offset r7, -24
+	.cfi_offset r6, -28
+	.cfi_offset r5, -32
+	.cfi_offset r4, -36
+	@DEBUG_VALUE: ONEWIRE_Search:ds18b20 <- $r0
+	@DEBUG_VALUE: ONEWIRE_Search:sensor_cnt <- $r1
+.Ltmp28:
+	.loc	2 610 6 prologue_end    @ ../Src/one_wire.c:610:6
+	ldr.w	r9, __arm_cp.2_0
+	mov	r11, r0
+.Ltmp29:
+	@DEBUG_VALUE: ONEWIRE_Search:rom_byte_mask <- 1
+	@DEBUG_VALUE: ONEWIRE_Search:rom_byte_number <- 0
+	@DEBUG_VALUE: ONEWIRE_Search:last_zero <- 0
+	@DEBUG_VALUE: ONEWIRE_Search:id_bit_number <- 1
+	@DEBUG_VALUE: ONEWIRE_Search:sensor_cnt <- $r8
+	@DEBUG_VALUE: ONEWIRE_Search:ds18b20 <- $r11
+	.loc	2 0 6 is_stmt 0         @ ../Src/one_wire.c:0:6
+	mov	r8, r1
+.Ltmp30:
+	.loc	2 610 6                 @ ../Src/one_wire.c:610:6
+	ldrb.w	r0, [r9, #5]
+.Ltmp31:
+	.loc	2 610 6                 @ ../Src/one_wire.c:610:6
+	cbz	r0, .LBB2_3
+.Ltmp32:
+.LBB2_1:
+	@DEBUG_VALUE: ONEWIRE_Search:ds18b20 <- $r11
+	.loc	2 668 31 is_stmt 1      @ ../Src/one_wire.c:668:31
+	ldrb.w	r0, [r11, #1]
+.Ltmp33:
+	.loc	2 668 6 is_stmt 0       @ ../Src/one_wire.c:668:6
+	cmp	r0, #0
+	beq	.LBB2_17
+.Ltmp34:
+@ %bb.2:
+	@DEBUG_VALUE: ONEWIRE_Search:ds18b20 <- $r11
+	.loc	2 677 11 is_stmt 1      @ ../Src/one_wire.c:677:11
+	ldr	r1, __arm_cp.2_1
+	ldrb	r0, [r1]
+	adds	r0, #1
+	strb	r0, [r1]
+	.loc	2 678 15                @ ../Src/one_wire.c:678:15
+	strb.w	r0, [r8]
+	.loc	2 679 22                @ ../Src/one_wire.c:679:22
+	strb.w	r0, [r11]
+	b	.LBB2_18
+.Ltmp35:
+.LBB2_3:
+	@DEBUG_VALUE: ONEWIRE_Search:ds18b20 <- $r11
+	.loc	2 612 7                 @ ../Src/one_wire.c:612:7
+	bl	ONEWIRE_Reset
+.Ltmp36:
+	.loc	2 612 7 is_stmt 0       @ ../Src/one_wire.c:612:7
+	cmp	r0, #0
+	beq	.LBB2_17
+.Ltmp37:
+@ %bb.4:
+	@DEBUG_VALUE: ONEWIRE_Search:ds18b20 <- $r11
+	.loc	2 620 3 is_stmt 1       @ ../Src/one_wire.c:620:3
+	movs	r0, #240
+	bl	ONEWIRE_SendByte
+	movs	r5, #1
+	movs	r7, #0
+	mov.w	r10, #0
+	movs	r4, #1
+.Ltmp38:
+.LBB2_5:                                @ =>This Inner Loop Header: Depth=1
+	@DEBUG_VALUE: ONEWIRE_Search:ds18b20 <- $r11
+	.loc	2 623 13                @ ../Src/one_wire.c:623:13
+	bl	ONEWIRE_ReceiveBit
+	mov	r6, r0
+	.loc	2 624 17                @ ../Src/one_wire.c:624:17
+	bl	ONEWIRE_ReceiveBit
+.Ltmp39:
+	.loc	2 626 22                @ ../Src/one_wire.c:626:22
+	cmp	r6, #1
+	it	eq
+	cmpeq	r0, #1
+	beq	.LBB2_15
+.Ltmp40:
+@ %bb.6:                                @   in Loop: Header=BB2_5 Depth=1
+	@DEBUG_VALUE: ONEWIRE_Search:ds18b20 <- $r11
+	.loc	2 629 9                 @ ../Src/one_wire.c:629:9
+	cmp	r6, r0
+	bne	.LBB2_9
+.Ltmp41:
+@ %bb.7:                                @   in Loop: Header=BB2_5 Depth=1
+	@DEBUG_VALUE: ONEWIRE_Search:ds18b20 <- $r11
+	.loc	2 632 26                @ ../Src/one_wire.c:632:26
+	ldrb.w	r1, [r9, #3]
+	.loc	2 632 24 is_stmt 0      @ ../Src/one_wire.c:632:24
+	uxtb	r0, r5
+.Ltmp42:
+	.loc	2 632 10                @ ../Src/one_wire.c:632:10
+	cmp	r0, r1
+	bhs	.LBB2_10
+.Ltmp43:
+@ %bb.8:                                @   in Loop: Header=BB2_5 Depth=1
+	@DEBUG_VALUE: ONEWIRE_Search:ds18b20 <- $r11
+	.loc	2 634 28 is_stmt 1      @ ../Src/one_wire.c:634:28
+	uxtab	r1, r11, r7
+	ldrb	r1, [r1, #1]
+.Ltmp44:
+	.loc	2 638 10                @ ../Src/one_wire.c:638:10
+	tst	r1, r4
+	bne	.LBB2_11
+	b	.LBB2_12
+.Ltmp45:
+.LBB2_9:                                @   in Loop: Header=BB2_5 Depth=1
+	@DEBUG_VALUE: ONEWIRE_Search:ds18b20 <- $r11
+	.loc	2 645 9                 @ ../Src/one_wire.c:645:9
+	cmp	r6, #1
+	beq	.LBB2_11
+	b	.LBB2_13
+.Ltmp46:
+.LBB2_10:                               @   in Loop: Header=BB2_5 Depth=1
+	@DEBUG_VALUE: ONEWIRE_Search:ds18b20 <- $r11
+	.loc	2 638 10                @ ../Src/one_wire.c:638:10
+	bne	.LBB2_12
+.Ltmp47:
+.LBB2_11:                               @   in Loop: Header=BB2_5 Depth=1
+	@DEBUG_VALUE: ONEWIRE_Search:ds18b20 <- $r11
+	.loc	2 645 32                @ ../Src/one_wire.c:645:32
+	uxtab	r0, r11, r7
+	movs	r6, #1
+	.loc	2 645 67 is_stmt 0      @ ../Src/one_wire.c:645:67
+	ldrb	r1, [r0, #1]
+	orrs	r1, r4
+	b	.LBB2_14
+.Ltmp48:
+.LBB2_12:                               @   in Loop: Header=BB2_5 Depth=1
+	@DEBUG_VALUE: ONEWIRE_Search:ds18b20 <- $r11
+	.loc	2 641 11 is_stmt 1      @ ../Src/one_wire.c:641:11
+	cmp	r0, #8
+	mov.w	r6, #0
+	mov	r10, r5
+.Ltmp49:
+	.loc	2 641 59 is_stmt 0      @ ../Src/one_wire.c:641:59
+	it	ls
+	strbls.w	r5, [r9, #4]
+.Ltmp50:
+.LBB2_13:                               @   in Loop: Header=BB2_5 Depth=1
+	@DEBUG_VALUE: ONEWIRE_Search:ds18b20 <- $r11
+	.loc	2 646 10 is_stmt 1      @ ../Src/one_wire.c:646:10
+	uxtab	r0, r11, r7
+	.loc	2 646 45 is_stmt 0      @ ../Src/one_wire.c:646:45
+	ldrb	r1, [r0, #1]
+	bics	r1, r4
+.Ltmp51:
+.LBB2_14:                               @   in Loop: Header=BB2_5 Depth=1
+	@DEBUG_VALUE: ONEWIRE_Search:ds18b20 <- $r11
+	.loc	2 0 45                  @ ../Src/one_wire.c:0:45
+	strb	r1, [r0, #1]
+	.loc	2 648 5 is_stmt 1       @ ../Src/one_wire.c:648:5
+	mov	r0, r6
+	bl	ONEWIRE_SendBit
+	.loc	2 650 19                @ ../Src/one_wire.c:650:19
+	lsls	r4, r4, #1
+	.loc	2 649 18                @ ../Src/one_wire.c:649:18
+	adds	r5, #1
+	.loc	2 650 19                @ ../Src/one_wire.c:650:19
+	uxtb	r0, r4
+	.loc	2 652 9                 @ ../Src/one_wire.c:652:9
+	cmp	r0, #0
+	it	eq
+	addeq	r7, #1
+	it	eq
+	moveq	r4, #1
+	uxtb	r0, r7
+.Ltmp52:
+	.loc	2 658 3                 @ ../Src/one_wire.c:658:3
+	cmp	r0, #8
+	blo	.LBB2_5
+.Ltmp53:
+.LBB2_15:
+	@DEBUG_VALUE: ONEWIRE_Search:ds18b20 <- $r11
+	.loc	2 660 23                @ ../Src/one_wire.c:660:23
+	uxtb	r0, r5
+.Ltmp54:
+	.loc	2 660 7 is_stmt 0       @ ../Src/one_wire.c:660:7
+	cmp	r0, #65
+	blo	.LBB2_1
+.Ltmp55:
+@ %bb.16:
+	@DEBUG_VALUE: ONEWIRE_Search:ds18b20 <- $r11
+	@DEBUG_VALUE: ONEWIRE_Search:search_result <- 1
+	.loc	2 664 8 is_stmt 1       @ ../Src/one_wire.c:664:8
+	tst.w	r10, #255
+	.loc	2 663 29                @ ../Src/one_wire.c:663:29
+	strb.w	r10, [r9, #3]
+.Ltmp56:
+	.loc	2 664 64                @ ../Src/one_wire.c:664:64
+	itt	eq
+	moveq	r0, #1
+	strbeq.w	r0, [r9, #5]
+	b	.LBB2_1
+.Ltmp57:
+.LBB2_17:
+	@DEBUG_VALUE: ONEWIRE_Search:ds18b20 <- $r11
+	.loc	2 0 64 is_stmt 0        @ ../Src/one_wire.c:0:64
+	movs	r0, #0
+	strb.w	r0, [r9, #5]
+	strh.w	r0, [r9, #3]
+.Ltmp58:
+.LBB2_18:
+	@DEBUG_VALUE: ONEWIRE_Search:ds18b20 <- $r11
+	.loc	2 682 1 is_stmt 1       @ ../Src/one_wire.c:682:1
+	uxtb	r0, r0
+	add	sp, #4
+	pop.w	{r4, r5, r6, r7, r8, r9, r10, r11, pc}
+.Ltmp59:
+	.p2align	2
+@ %bb.19:
+	.loc	2 0 1 is_stmt 0         @ ../Src/one_wire.c:0:1
+__arm_cp.2_0:
+	.long	.L_MergedGlobals
+.Lcpi_end4:
+	.size	__arm_cp.2_0, .Lcpi_end4-__arm_cp.2_0
+__arm_cp.2_1:
+	.long	ONEWIRE_Search.init_cnt
+.Lcpi_end5:
+	.size	__arm_cp.2_1, .Lcpi_end5-__arm_cp.2_1
+.Lfunc_end2:
+	.size	ONEWIRE_Search, .Lfunc_end2-ONEWIRE_Search
+	.cfi_endproc
+	.cantunwind
+	.fnend
+                                        @ -- End function
+	.section	.text.ONEWIRE_SetUsart,"ax",%progbits
+	.hidden	ONEWIRE_SetUsart        @ -- Begin function ONEWIRE_SetUsart
+	.globl	ONEWIRE_SetUsart
+	.p2align	2
+	.type	ONEWIRE_SetUsart,%function
+	.code	16                      @ @ONEWIRE_SetUsart
+	.thumb_func
+ONEWIRE_SetUsart:
+.Lfunc_begin3:
+	.loc	2 405 0 is_stmt 1       @ ../Src/one_wire.c:405:0
+	.fnstart
+	.cfi_startproc
+@ %bb.0:
+	.save	{r7, lr}
+	push	{r7, lr}
+	.cfi_def_cfa_offset 8
+	.cfi_offset lr, -4
+	.cfi_offset r7, -8
+	@DEBUG_VALUE: ONEWIRE_SetUsart:setup <- $r0
+	@DEBUG_VALUE: ONEWIRE_SetUsart:setup <- $r0
+.Ltmp60:
+	.loc	2 406 27 prologue_end   @ ../Src/one_wire.c:406:27
+	ldr	r1, __arm_cp.3_0
+	ldr	r2, __arm_cp.3_1
+	movs	r3, #0
+	mov.w	r12, #12
+	strd	r2, r0, [r1]
+.Ltmp61:
+	.loc	2 415 5                 @ ../Src/one_wire.c:415:5
+	mov	r0, r1
+.Ltmp62:
+	.loc	2 408 27                @ ../Src/one_wire.c:408:27
+	strd	r3, r3, [r1, #8]
+	.loc	2 410 27                @ ../Src/one_wire.c:410:27
+	strd	r3, r12, [r1, #16]
+	.loc	2 411 27                @ ../Src/one_wire.c:411:27
+	strd	r3, r3, [r1, #24]
+	.loc	2 414 37                @ ../Src/one_wire.c:414:37
+	str	r3, [r1, #36]
+.Ltmp63:
+	.loc	2 415 5                 @ ../Src/one_wire.c:415:5
+	bl	HAL_UART_DeInit
+.Ltmp64:
+	.loc	2 415 5 is_stmt 0       @ ../Src/one_wire.c:415:5
+	cbz	r0, .LBB3_2
+@ %bb.1:
+.Ltmp65:
+	.loc	2 415 41                @ ../Src/one_wire.c:415:41
+	bl	Error_Handler
+.Ltmp66:
+.LBB3_2:
+	.loc	2 416 5 is_stmt 1       @ ../Src/one_wire.c:416:5
+	ldr	r0, __arm_cp.3_0
+	bl	HAL_HalfDuplex_Init
+.Ltmp67:
+	.loc	2 416 5 is_stmt 0       @ ../Src/one_wire.c:416:5
+	cbz	r0, .LBB3_4
+@ %bb.3:
+.Ltmp68:
+	.loc	2 416 45                @ ../Src/one_wire.c:416:45
+	pop.w	{r7, lr}
+	b	Error_Handler
+.Ltmp69:
+.LBB3_4:
+	.loc	2 417 1 is_stmt 1       @ ../Src/one_wire.c:417:1
+	pop	{r7, pc}
+.Ltmp70:
+	.p2align	2
+@ %bb.5:
+	.loc	2 0 1 is_stmt 0         @ ../Src/one_wire.c:0:1
+__arm_cp.3_0:
+	.long	huart2
+.Lcpi_end6:
+	.size	__arm_cp.3_0, .Lcpi_end6-__arm_cp.3_0
+__arm_cp.3_1:
+	.long	1073759232              @ 0x40004400
+.Lcpi_end7:
+	.size	__arm_cp.3_1, .Lcpi_end7-__arm_cp.3_1
+.Lfunc_end3:
+	.size	ONEWIRE_SetUsart, .Lfunc_end3-ONEWIRE_SetUsart
+	.cfi_endproc
+	.cantunwind
+	.fnend
+                                        @ -- End function
+	.section	.text.ONEWIRE_Service,"ax",%progbits
+	.hidden	ONEWIRE_Service         @ -- Begin function ONEWIRE_Service
+	.globl	ONEWIRE_Service
+	.p2align	2
+	.type	ONEWIRE_Service,%function
+	.code	16                      @ @ONEWIRE_Service
+	.thumb_func
+ONEWIRE_Service:
+.Lfunc_begin4:
+	.loc	2 111 0 is_stmt 1       @ ../Src/one_wire.c:111:0
+	.fnstart
+	.cfi_startproc
+@ %bb.0:
+	.save	{r4, r5, r6, r7, r8, lr}
+	push.w	{r4, r5, r6, r7, r8, lr}
+	.cfi_def_cfa_offset 24
+	.cfi_offset lr, -4
+	.cfi_offset r8, -8
+	.cfi_offset r7, -12
+	.cfi_offset r6, -16
+	.cfi_offset r5, -20
+	.cfi_offset r4, -24
+.Ltmp71:
+	.loc	2 117 6 prologue_end    @ ../Src/one_wire.c:117:6
+	ldr.w	r6, __arm_cp.4_0
+	ldr	r0, [r6, #12]
+.Ltmp72:
+	.loc	2 117 5 is_stmt 0       @ ../Src/one_wire.c:117:5
+	cbz	r0, .LBB4_2
+.LBB4_1:
+	.loc	2 389 1 is_stmt 1       @ ../Src/one_wire.c:389:1
+	pop.w	{r4, r5, r6, r7, r8, pc}
+.LBB4_2:
+.Ltmp73:
+	.loc	2 121 10                @ ../Src/one_wire.c:121:10
+	ldrb	r0, [r6, #8]
+	lsls	r0, r0, #30
+	bmi	.LBB4_14
+@ %bb.3:
+.Ltmp74:
+	.loc	2 187 7                 @ ../Src/one_wire.c:187:7
+	ldrb	r0, [r6, #1]
+.Ltmp75:
+	.loc	2 187 7 is_stmt 0       @ ../Src/one_wire.c:187:7
+	cmp	r0, #3
+	beq.w	.LBB4_51
+@ %bb.4:
+	cmp	r0, #2
+	bne	.LBB4_1
+@ %bb.5:
+.Ltmp76:
+	.loc	2 192 7 is_stmt 1       @ ../Src/one_wire.c:192:7
+	ldr.w	r7, __arm_cp.4_2
+	ldrb	r0, [r7, #18]
+.Ltmp77:
+	.loc	2 192 7 is_stmt 0       @ ../Src/one_wire.c:192:7
+	cmp	r0, #6
+	bne	.LBB4_7
+@ %bb.6:
+.Ltmp78:
+	.loc	2 194 5 is_stmt 1       @ ../Src/one_wire.c:194:5
+	ldrb	r1, [r7, #19]
+	ldr.w	r4, __arm_cp.4_10
+	movw	r0, #2051
+	blx	r4
+	.loc	2 195 5                 @ ../Src/one_wire.c:195:5
+	ldrb	r1, [r7, #20]
+	movw	r0, #2052
+	blx	r4
+	.loc	2 196 5                 @ ../Src/one_wire.c:196:5
+	ldrb	r1, [r7, #21]
+	movw	r0, #2053
+	blx	r4
+.Ltmp79:
+.LBB4_7:
+	.loc	2 201 7                 @ ../Src/one_wire.c:201:7
+	ldrb	r0, [r7, #22]
+.Ltmp80:
+	.loc	2 201 7 is_stmt 0       @ ../Src/one_wire.c:201:7
+	cmp	r0, #6
+	bne	.LBB4_9
+@ %bb.8:
+.Ltmp81:
+	.loc	2 203 17 is_stmt 1      @ ../Src/one_wire.c:203:17
+	ldrb	r0, [r7, #23]
+	.loc	2 203 15 is_stmt 0      @ ../Src/one_wire.c:203:15
+	ldr	r4, __arm_cp.4_4
+	.loc	2 206 17 is_stmt 1      @ ../Src/one_wire.c:206:17
+	ldrb	r1, [r7, #26]
+	.loc	2 207 18                @ ../Src/one_wire.c:207:18
+	ldrb	r2, [r7, #27]
+	.loc	2 210 5                 @ ../Src/one_wire.c:210:5
+	ldr.w	r5, __arm_cp.4_11
+	.loc	2 203 15                @ ../Src/one_wire.c:203:15
+	strb	r0, [r4, #2]
+	.loc	2 204 20                @ ../Src/one_wire.c:204:20
+	ldrh	r0, [r7, #24]
+	.loc	2 204 18 is_stmt 0      @ ../Src/one_wire.c:204:18
+	strh	r0, [r4]
+	.loc	2 206 15 is_stmt 1      @ ../Src/one_wire.c:206:15
+	strb	r1, [r4, #3]
+	.loc	2 207 16                @ ../Src/one_wire.c:207:16
+	ldr	r1, __arm_cp.4_5
+	.loc	2 208 20                @ ../Src/one_wire.c:208:20
+	ldrh	r0, [r7, #28]
+	.loc	2 207 16                @ ../Src/one_wire.c:207:16
+	strb	r2, [r1]
+	.loc	2 208 18                @ ../Src/one_wire.c:208:18
+	strh.w	r0, [r1, #1]
+	.loc	2 210 5                 @ ../Src/one_wire.c:210:5
+	mov	r0, r5
+	movs	r2, #1
+	bl	HAL_RTC_SetTime
+	.loc	2 211 5                 @ ../Src/one_wire.c:211:5
+	mov	r0, r5
+	mov	r1, r4
+	movs	r2, #1
+	bl	HAL_RTC_SetDate
+	.loc	2 212 5                 @ ../Src/one_wire.c:212:5
+	mov	r0, r5
+	bl	HAL_RTC_WaitForSynchro
+.Ltmp82:
+.LBB4_9:
+	.loc	2 217 7                 @ ../Src/one_wire.c:217:7
+	ldrb	r0, [r7, #30]
+.Ltmp83:
+	.loc	2 217 7 is_stmt 0       @ ../Src/one_wire.c:217:7
+	cmp	r0, #6
+	bne	.LBB4_11
+@ %bb.10:
+.Ltmp84:
+	.loc	2 219 26 is_stmt 1      @ ../Src/one_wire.c:219:26
+	ldr.w	r0, [r7, #31]
+	.loc	2 219 24 is_stmt 0      @ ../Src/one_wire.c:219:24
+	ldr	r2, __arm_cp.4_6
+	.loc	2 225 41 is_stmt 1      @ ../Src/one_wire.c:225:41
+	ldr.w	r1, [r7, #39]
+	.loc	2 219 24                @ ../Src/one_wire.c:219:24
+	str	r0, [r2]
+	.loc	2 223 66                @ ../Src/one_wire.c:223:66
+	ldrh.w	r0, [r7, #35]
+	.loc	2 225 39                @ ../Src/one_wire.c:225:39
+	str	r1, [r2, #8]
+	.loc	2 223 66                @ ../Src/one_wire.c:223:66
+	rev	r0, r0
+	lsrs	r0, r0, #16
+	.loc	2 223 37 is_stmt 0      @ ../Src/one_wire.c:223:37
+	strh	r0, [r2, #4]
+	.loc	2 224 63 is_stmt 1      @ ../Src/one_wire.c:224:63
+	ldrh.w	r0, [r7, #37]
+	rev	r0, r0
+	lsrs	r0, r0, #16
+	.loc	2 224 34 is_stmt 0      @ ../Src/one_wire.c:224:34
+	strh	r0, [r2, #6]
+.Ltmp85:
+.LBB4_11:
+	.loc	2 280 7 is_stmt 1       @ ../Src/one_wire.c:280:7
+	ldrb.w	r0, [r7, #72]
+.Ltmp86:
+	.loc	2 280 7 is_stmt 0       @ ../Src/one_wire.c:280:7
+	cmp	r0, #6
+	bne	.LBB4_13
+@ %bb.12:
+	.loc	2 0 7                   @ ../Src/one_wire.c:0:7
+	ldr	r2, __arm_cp.4_7
+.Ltmp87:
+	.loc	2 282 8 is_stmt 1       @ ../Src/one_wire.c:282:8
+	ldrb.w	r0, [r7, #73]
+.Ltmp88:
+	.loc	2 285 8                 @ ../Src/one_wire.c:285:8
+	ldrb.w	r1, [r7, #74]
+	ldr	r3, [r2]
+.Ltmp89:
+	.loc	2 282 8                 @ ../Src/one_wire.c:282:8
+	cmp	r0, #0
+.Ltmp90:
+	.loc	2 283 10                @ ../Src/one_wire.c:283:10
+	orr	r5, r3, #1
+.Ltmp91:
+	.loc	2 282 8                 @ ../Src/one_wire.c:282:8
+	it	eq
+	biceq	r5, r3, #1
+	.loc	2 285 8                 @ ../Src/one_wire.c:285:8
+	cmp	r1, #0
+.Ltmp92:
+	.loc	2 286 10                @ ../Src/one_wire.c:286:10
+	orr	r0, r5, #2
+.Ltmp93:
+	.loc	2 285 8                 @ ../Src/one_wire.c:285:8
+	it	eq
+	biceq	r0, r5, #2
+	str	r0, [r2]
+.Ltmp94:
+.LBB4_13:
+	.loc	2 290 17                @ ../Src/one_wire.c:290:17
+	movs	r0, #3
+	.loc	2 289 32                @ ../Src/one_wire.c:289:32
+	ldr	r1, __arm_cp.4_8
+	.loc	2 290 17                @ ../Src/one_wire.c:290:17
+	strb	r0, [r6, #1]
+	.loc	2 289 34                @ ../Src/one_wire.c:289:34
+	ldrb.w	r0, [r7, #75]
+	.loc	2 289 32 is_stmt 0      @ ../Src/one_wire.c:289:32
+	strb	r0, [r1]
+.Ltmp95:
+	.loc	2 389 1 is_stmt 1       @ ../Src/one_wire.c:389:1
+	pop.w	{r4, r5, r6, r7, r8, pc}
+.LBB4_14:
+	.loc	2 0 1 is_stmt 0         @ ../Src/one_wire.c:0:1
+	ldr	r5, __arm_cp.4_1
+	ldrb	r4, [r5]
+.Ltmp96:
+	bl	ONEWIRE_Reset
+	movs	r0, #85
+	bl	ONEWIRE_SendByte
+.Ltmp97:
+	@DEBUG_VALUE: ONEWIRE_Service:e <- 0
+	.loc	2 126 6 is_stmt 1       @ ../Src/one_wire.c:126:6
+	cmp	r4, #0
+	beq	.LBB4_35
+@ %bb.15:
+	.loc	2 0 6 is_stmt 0         @ ../Src/one_wire.c:0:6
+	ldr	r7, __arm_cp.4_2
+	movs	r4, #0
+	b	.LBB4_29
+.LBB4_16:                               @   in Loop: Header=BB4_29 Depth=1
+.Ltmp98:
+	@DEBUG_VALUE: ONEWIRE_Service:e <- $r4
+	.loc	2 154 8 is_stmt 1       @ ../Src/one_wire.c:154:8
+	ldrb	r0, [r5, #1]
+.Ltmp99:
+	.loc	2 154 8 is_stmt 0       @ ../Src/one_wire.c:154:8
+	cmp	r0, #7
+	bhi	.LBB4_28
+.Ltmp100:
+@ %bb.17:                               @   in Loop: Header=BB4_29 Depth=1
+	@DEBUG_VALUE: ONEWIRE_Service:e <- $r4
+	.loc	2 0 8                   @ ../Src/one_wire.c:0:8
+.LCPI4_12:
+	tbb	[pc, r0]
+.Ltmp101:
+@ %bb.18:
+.LJTI4_1:
+	.byte	(.LBB4_19-(.LCPI4_12+4))/2
+	.byte	(.LBB4_20-(.LCPI4_12+4))/2
+	.byte	(.LBB4_21-(.LCPI4_12+4))/2
+	.byte	(.LBB4_22-(.LCPI4_12+4))/2
+	.byte	(.LBB4_23-(.LCPI4_12+4))/2
+	.byte	(.LBB4_24-(.LCPI4_12+4))/2
+	.byte	(.LBB4_26-(.LCPI4_12+4))/2
+	.byte	(.LBB4_25-(.LCPI4_12+4))/2
+	.p2align	1
+.LBB4_19:                               @   in Loop: Header=BB4_29 Depth=1
+.Ltmp102:
+	@DEBUG_VALUE: ONEWIRE_Service:e <- $r4
+	.loc	2 154 43                @ ../Src/one_wire.c:154:43
+	adds	r0, r6, r4
+	.loc	2 154 26                @ ../Src/one_wire.c:154:26
+	ldrb	r0, [r0, #17]
+	b	.LBB4_27
+.Ltmp103:
+.LBB4_20:                               @   in Loop: Header=BB4_29 Depth=1
+	@DEBUG_VALUE: ONEWIRE_Service:e <- $r4
+	.loc	2 155 48 is_stmt 1      @ ../Src/one_wire.c:155:48
+	adds	r0, r6, r4
+	.loc	2 155 31 is_stmt 0      @ ../Src/one_wire.c:155:31
+	ldrb.w	r0, [r0, #33]
+	b	.LBB4_27
+.Ltmp104:
+.LBB4_21:                               @   in Loop: Header=BB4_29 Depth=1
+	@DEBUG_VALUE: ONEWIRE_Service:e <- $r4
+	.loc	2 156 48 is_stmt 1      @ ../Src/one_wire.c:156:48
+	adds	r0, r6, r4
+	.loc	2 156 31 is_stmt 0      @ ../Src/one_wire.c:156:31
+	ldrb.w	r0, [r0, #49]
+	b	.LBB4_27
+.Ltmp105:
+.LBB4_22:                               @   in Loop: Header=BB4_29 Depth=1
+	@DEBUG_VALUE: ONEWIRE_Service:e <- $r4
+	.loc	2 157 48 is_stmt 1      @ ../Src/one_wire.c:157:48
+	adds	r0, r6, r4
+	.loc	2 157 31 is_stmt 0      @ ../Src/one_wire.c:157:31
+	ldrb.w	r0, [r0, #65]
+	b	.LBB4_27
+.Ltmp106:
+.LBB4_23:                               @   in Loop: Header=BB4_29 Depth=1
+	@DEBUG_VALUE: ONEWIRE_Service:e <- $r4
+	.loc	2 158 48 is_stmt 1      @ ../Src/one_wire.c:158:48
+	adds	r0, r6, r4
+	.loc	2 158 31 is_stmt 0      @ ../Src/one_wire.c:158:31
+	ldrb.w	r0, [r0, #81]
+	b	.LBB4_27
+.Ltmp107:
+.LBB4_24:                               @   in Loop: Header=BB4_29 Depth=1
+	@DEBUG_VALUE: ONEWIRE_Service:e <- $r4
+	.loc	2 159 48 is_stmt 1      @ ../Src/one_wire.c:159:48
+	adds	r0, r6, r4
+	.loc	2 159 31 is_stmt 0      @ ../Src/one_wire.c:159:31
+	ldrb.w	r0, [r0, #97]
+	b	.LBB4_27
+.Ltmp108:
+.LBB4_25:                               @   in Loop: Header=BB4_29 Depth=1
+	@DEBUG_VALUE: ONEWIRE_Service:e <- $r4
+	.loc	2 161 48 is_stmt 1      @ ../Src/one_wire.c:161:48
+	adds	r0, r7, r4
+	.loc	2 161 31 is_stmt 0      @ ../Src/one_wire.c:161:31
+	ldrb	r0, [r0, #1]
+	b	.LBB4_27
+.Ltmp109:
+.LBB4_26:                               @   in Loop: Header=BB4_29 Depth=1
+	@DEBUG_VALUE: ONEWIRE_Service:e <- $r4
+	.loc	2 160 48 is_stmt 1      @ ../Src/one_wire.c:160:48
+	adds	r0, r6, r4
+	.loc	2 160 31 is_stmt 0      @ ../Src/one_wire.c:160:31
+	ldrb.w	r0, [r0, #113]
+.Ltmp110:
+.LBB4_27:                               @   in Loop: Header=BB4_29 Depth=1
+	@DEBUG_VALUE: ONEWIRE_Service:e <- $r4
+	.loc	2 0 31                  @ ../Src/one_wire.c:0:31
+	bl	ONEWIRE_SendByte
+.Ltmp111:
+.LBB4_28:                               @   in Loop: Header=BB4_29 Depth=1
+	@DEBUG_VALUE: ONEWIRE_Service:e <- $r4
+	.loc	2 152 23 is_stmt 1      @ ../Src/one_wire.c:152:23
+	adds	r4, #1
+.Ltmp112:
+.LBB4_29:                               @ =>This Inner Loop Header: Depth=1
+	@DEBUG_VALUE: ONEWIRE_Service:e <- $r4
+	.loc	2 152 4 is_stmt 0       @ ../Src/one_wire.c:152:4
+	cmp	r4, #8
+	bne	.LBB4_16
+.Ltmp113:
+@ %bb.30:
+	@DEBUG_VALUE: ONEWIRE_Service:e <- $r4
+	.loc	2 164 4 is_stmt 1       @ ../Src/one_wire.c:164:4
+	movs	r0, #190
+	bl	ONEWIRE_SendByte
+	.loc	2 165 4                 @ ../Src/one_wire.c:165:4
+	add.w	r4, r7, #16
+.Ltmp114:
+	movs	r1, #9
+	mov	r0, r4
+	bl	ONEWIRE_Receive
+	.loc	2 166 18                @ ../Src/one_wire.c:166:18
+	mov	r0, r4
+	movs	r1, #8
+	bl	ONEWIRE_CrcCheck
+.Ltmp115:
+	.loc	2 168 22                @ ../Src/one_wire.c:168:22
+	ldrb	r1, [r7, #24]
+.Ltmp116:
+	.loc	2 166 16                @ ../Src/one_wire.c:166:16
+	strb	r0, [r6, #2]
+	.loc	2 168 7                 @ ../Src/one_wire.c:168:7
+	cmp	r0, r1
+	bne.w	.LBB4_54
+@ %bb.31:
+.Ltmp117:
+	.loc	2 171 8                 @ ../Src/one_wire.c:171:8
+	ldrb	r0, [r5, #1]
+.Ltmp118:
+	.loc	2 171 8 is_stmt 0       @ ../Src/one_wire.c:171:8
+	cmp	r0, #7
+	bhi.w	.LBB4_55
+@ %bb.32:
+	.loc	2 0 8                   @ ../Src/one_wire.c:0:8
+	ldrh	r1, [r7, #16]
+.LCPI4_13:
+	tbh	[pc, r0, lsl #1]
+@ %bb.33:
+.LJTI4_2:
+	.short	(.LBB4_34-(.LCPI4_13+4))/2
+	.short	(.LBB4_56-(.LCPI4_13+4))/2
+	.short	(.LBB4_57-(.LCPI4_13+4))/2
+	.short	(.LBB4_58-(.LCPI4_13+4))/2
+	.short	(.LBB4_59-(.LCPI4_13+4))/2
+	.short	(.LBB4_60-(.LCPI4_13+4))/2
+	.short	(.LBB4_61-(.LCPI4_13+4))/2
+	.short	(.LBB4_62-(.LCPI4_13+4))/2
+	.p2align	1
+.LBB4_34:
+.Ltmp119:
+	.loc	2 171 50                @ ../Src/one_wire.c:171:50
+	uxth	r0, r1
+	bl	ONEWIRE_ScratchpadToTemperature
+	.loc	2 171 48                @ ../Src/one_wire.c:171:48
+	str	r0, [r6, #28]
+	movs	r0, #0
+	b	.LBB4_55
+.Ltmp120:
+.LBB4_35:
+	.loc	2 0 48                  @ ../Src/one_wire.c:0:48
+	ldr	r7, __arm_cp.4_2
+	movs	r4, #0
+	b	.LBB4_49
+.LBB4_36:                               @   in Loop: Header=BB4_49 Depth=1
+.Ltmp121:
+	@DEBUG_VALUE: ONEWIRE_Service:e <- $r4
+	.loc	2 133 8 is_stmt 1       @ ../Src/one_wire.c:133:8
+	ldrb	r0, [r5, #1]
+.Ltmp122:
+	.loc	2 133 8 is_stmt 0       @ ../Src/one_wire.c:133:8
+	cmp	r0, #7
+	bhi	.LBB4_48
+.Ltmp123:
+@ %bb.37:                               @   in Loop: Header=BB4_49 Depth=1
+	@DEBUG_VALUE: ONEWIRE_Service:e <- $r4
+	.loc	2 0 8                   @ ../Src/one_wire.c:0:8
+.LCPI4_14:
+	tbb	[pc, r0]
+.Ltmp124:
+@ %bb.38:
+.LJTI4_0:
+	.byte	(.LBB4_39-(.LCPI4_14+4))/2
+	.byte	(.LBB4_40-(.LCPI4_14+4))/2
+	.byte	(.LBB4_41-(.LCPI4_14+4))/2
+	.byte	(.LBB4_42-(.LCPI4_14+4))/2
+	.byte	(.LBB4_43-(.LCPI4_14+4))/2
+	.byte	(.LBB4_44-(.LCPI4_14+4))/2
+	.byte	(.LBB4_46-(.LCPI4_14+4))/2
+	.byte	(.LBB4_45-(.LCPI4_14+4))/2
+	.p2align	1
+.LBB4_39:                               @   in Loop: Header=BB4_49 Depth=1
+.Ltmp125:
+	@DEBUG_VALUE: ONEWIRE_Service:e <- $r4
+	.loc	2 133 43                @ ../Src/one_wire.c:133:43
+	adds	r0, r6, r4
+	.loc	2 133 26                @ ../Src/one_wire.c:133:26
+	ldrb	r0, [r0, #17]
+	b	.LBB4_47
+.Ltmp126:
+.LBB4_40:                               @   in Loop: Header=BB4_49 Depth=1
+	@DEBUG_VALUE: ONEWIRE_Service:e <- $r4
+	.loc	2 134 48 is_stmt 1      @ ../Src/one_wire.c:134:48
+	adds	r0, r6, r4
+	.loc	2 134 31 is_stmt 0      @ ../Src/one_wire.c:134:31
+	ldrb.w	r0, [r0, #33]
+	b	.LBB4_47
+.Ltmp127:
+.LBB4_41:                               @   in Loop: Header=BB4_49 Depth=1
+	@DEBUG_VALUE: ONEWIRE_Service:e <- $r4
+	.loc	2 135 48 is_stmt 1      @ ../Src/one_wire.c:135:48
+	adds	r0, r6, r4
+	.loc	2 135 31 is_stmt 0      @ ../Src/one_wire.c:135:31
+	ldrb.w	r0, [r0, #49]
+	b	.LBB4_47
+.Ltmp128:
+.LBB4_42:                               @   in Loop: Header=BB4_49 Depth=1
+	@DEBUG_VALUE: ONEWIRE_Service:e <- $r4
+	.loc	2 136 48 is_stmt 1      @ ../Src/one_wire.c:136:48
+	adds	r0, r6, r4
+	.loc	2 136 31 is_stmt 0      @ ../Src/one_wire.c:136:31
+	ldrb.w	r0, [r0, #65]
+	b	.LBB4_47
+.Ltmp129:
+.LBB4_43:                               @   in Loop: Header=BB4_49 Depth=1
+	@DEBUG_VALUE: ONEWIRE_Service:e <- $r4
+	.loc	2 137 48 is_stmt 1      @ ../Src/one_wire.c:137:48
+	adds	r0, r6, r4
+	.loc	2 137 31 is_stmt 0      @ ../Src/one_wire.c:137:31
+	ldrb.w	r0, [r0, #81]
+	b	.LBB4_47
+.Ltmp130:
+.LBB4_44:                               @   in Loop: Header=BB4_49 Depth=1
+	@DEBUG_VALUE: ONEWIRE_Service:e <- $r4
+	.loc	2 138 48 is_stmt 1      @ ../Src/one_wire.c:138:48
+	adds	r0, r6, r4
+	.loc	2 138 31 is_stmt 0      @ ../Src/one_wire.c:138:31
+	ldrb.w	r0, [r0, #97]
+	b	.LBB4_47
+.Ltmp131:
+.LBB4_45:                               @   in Loop: Header=BB4_49 Depth=1
+	@DEBUG_VALUE: ONEWIRE_Service:e <- $r4
+	.loc	2 140 48 is_stmt 1      @ ../Src/one_wire.c:140:48
+	adds	r0, r7, r4
+	.loc	2 140 31 is_stmt 0      @ ../Src/one_wire.c:140:31
+	ldrb	r0, [r0, #1]
+	b	.LBB4_47
+.Ltmp132:
+.LBB4_46:                               @   in Loop: Header=BB4_49 Depth=1
+	@DEBUG_VALUE: ONEWIRE_Service:e <- $r4
+	.loc	2 139 48 is_stmt 1      @ ../Src/one_wire.c:139:48
+	adds	r0, r6, r4
+	.loc	2 139 31 is_stmt 0      @ ../Src/one_wire.c:139:31
+	ldrb.w	r0, [r0, #113]
+.Ltmp133:
+.LBB4_47:                               @   in Loop: Header=BB4_49 Depth=1
+	@DEBUG_VALUE: ONEWIRE_Service:e <- $r4
+	.loc	2 0 31                  @ ../Src/one_wire.c:0:31
+	bl	ONEWIRE_SendByte
+.Ltmp134:
+.LBB4_48:                               @   in Loop: Header=BB4_49 Depth=1
+	@DEBUG_VALUE: ONEWIRE_Service:e <- $r4
+	.loc	2 131 23 is_stmt 1      @ ../Src/one_wire.c:131:23
+	adds	r4, #1
+.Ltmp135:
+.LBB4_49:                               @ =>This Inner Loop Header: Depth=1
+	@DEBUG_VALUE: ONEWIRE_Service:e <- $r4
+	.loc	2 131 4 is_stmt 0       @ ../Src/one_wire.c:131:4
+	cmp	r4, #8
+	bne	.LBB4_36
+.Ltmp136:
+@ %bb.50:
+	@DEBUG_VALUE: ONEWIRE_Service:e <- $r4
+	.loc	2 143 4 is_stmt 1       @ ../Src/one_wire.c:143:4
+	movs	r0, #68
+	bl	ONEWIRE_SendByte
+	movs	r0, #1
+	strb	r0, [r5]
+	.loc	2 144 4                 @ ../Src/one_wire.c:144:4
+	movw	r0, #750
+	str	r0, [r6, #12]
+.Ltmp137:
+	.loc	2 389 1                 @ ../Src/one_wire.c:389:1
+	pop.w	{r4, r5, r6, r7, r8, pc}
+.Ltmp138:
+.LBB4_51:
+	.loc	2 294 4                 @ ../Src/one_wire.c:294:4
+	ldr	r5, __arm_cp.4_2
+	movs	r1, #96
+	add.w	r8, r5, #16
+	mov	r0, r8
+	bl	ClearBuffer
+	.loc	2 304 24                @ ../Src/one_wire.c:304:24
+	ldr	r4, __arm_cp.4_3
+	movs	r7, #21
+	.loc	2 298 22                @ ../Src/one_wire.c:298:22
+	movw	r0, #4386
+	.loc	2 303 22                @ ../Src/one_wire.c:303:22
+	strb	r7, [r5, #18]
+	.loc	2 298 22                @ ../Src/one_wire.c:298:22
+	strh	r0, [r5, #16]
+	.loc	2 304 24                @ ../Src/one_wire.c:304:24
+	movw	r0, #2051
+	blx	r4
+	.loc	2 304 22 is_stmt 0      @ ../Src/one_wire.c:304:22
+	strb	r0, [r5, #19]
+	.loc	2 305 24 is_stmt 1      @ ../Src/one_wire.c:305:24
+	movw	r0, #2052
+	blx	r4
+	.loc	2 305 22 is_stmt 0      @ ../Src/one_wire.c:305:22
+	strb	r0, [r5, #20]
+	.loc	2 306 24 is_stmt 1      @ ../Src/one_wire.c:306:24
+	movw	r0, #2053
+	blx	r4
+	.loc	2 306 22 is_stmt 0      @ ../Src/one_wire.c:306:22
+	strb	r0, [r5, #21]
+	.loc	2 311 29 is_stmt 1      @ ../Src/one_wire.c:311:29
+	ldr	r0, __arm_cp.4_4
+	.loc	2 310 22                @ ../Src/one_wire.c:310:22
+	strb	r7, [r5, #22]
+	.loc	2 321 23                @ ../Src/one_wire.c:321:23
+	strb	r7, [r5, #30]
+	.loc	2 311 29                @ ../Src/one_wire.c:311:29
+	ldrb	r1, [r0, #2]
+	.loc	2 314 30                @ ../Src/one_wire.c:314:30
+	ldrb	r2, [r0, #3]
+	.loc	2 312 29                @ ../Src/one_wire.c:312:29
+	ldrh	r0, [r0]
+	.loc	2 311 22                @ ../Src/one_wire.c:311:22
+	strb	r1, [r5, #23]
+	.loc	2 312 22                @ ../Src/one_wire.c:312:22
+	strh	r0, [r5, #24]
+	.loc	2 315 30                @ ../Src/one_wire.c:315:30
+	ldr	r0, __arm_cp.4_5
+	.loc	2 314 23                @ ../Src/one_wire.c:314:23
+	strb	r2, [r5, #26]
+	.loc	2 315 30                @ ../Src/one_wire.c:315:30
+	ldrh	r1, [r0]
+	.loc	2 317 30                @ ../Src/one_wire.c:317:30
+	ldrb	r0, [r0, #2]
+	.loc	2 315 23                @ ../Src/one_wire.c:315:23
+	strh.w	r1, [r5, #27]
+	.loc	2 317 23                @ ../Src/one_wire.c:317:23
+	strb	r0, [r5, #29]
+	.loc	2 322 38                @ ../Src/one_wire.c:322:38
+	ldr	r0, __arm_cp.4_6
+	ldrb	r1, [r0]
+	.loc	2 323 38                @ ../Src/one_wire.c:323:38
+	ldrb	r2, [r0, #1]
+	.loc	2 322 23                @ ../Src/one_wire.c:322:23
+	strb	r1, [r5, #31]
+	.loc	2 324 38                @ ../Src/one_wire.c:324:38
+	ldrh	r1, [r0, #2]
+	.loc	2 323 23                @ ../Src/one_wire.c:323:23
+	strb.w	r2, [r5, #32]
+	.loc	2 337 23                @ ../Src/one_wire.c:337:23
+	strb.w	r7, [r5, #43]
+	.loc	2 369 23                @ ../Src/one_wire.c:369:23
+	strb.w	r7, [r5, #72]
+	.loc	2 328 39                @ ../Src/one_wire.c:328:39
+	ldrh	r2, [r0, #6]
+	.loc	2 324 23                @ ../Src/one_wire.c:324:23
+	strh.w	r1, [r5, #33]
+	.loc	2 326 39                @ ../Src/one_wire.c:326:39
+	ldrh	r1, [r0, #4]
+	.loc	2 330 38                @ ../Src/one_wire.c:330:38
+	ldr	r0, [r0, #8]
+	.loc	2 327 23                @ ../Src/one_wire.c:327:23
+	strb.w	r1, [r5, #36]
+	.loc	2 329 23                @ ../Src/one_wire.c:329:23
+	strb.w	r2, [r5, #38]
+	.loc	2 330 23                @ ../Src/one_wire.c:330:23
+	str.w	r0, [r5, #39]
+	.loc	2 326 58                @ ../Src/one_wire.c:326:58
+	lsrs	r0, r1, #8
+	.loc	2 326 23 is_stmt 0      @ ../Src/one_wire.c:326:23
+	strb.w	r0, [r5, #35]
+	.loc	2 328 55 is_stmt 1      @ ../Src/one_wire.c:328:55
+	lsrs	r0, r2, #8
+	.loc	2 328 23 is_stmt 0      @ ../Src/one_wire.c:328:23
+	strb.w	r0, [r5, #37]
+	.loc	2 370 25 is_stmt 1      @ ../Src/one_wire.c:370:25
+	ldr	r0, __arm_cp.4_7
+	ldrb	r0, [r0]
+	and	r1, r0, #1
+	.loc	2 370 23 is_stmt 0      @ ../Src/one_wire.c:370:23
+	strb.w	r1, [r5, #73]
+	.loc	2 371 25 is_stmt 1      @ ../Src/one_wire.c:371:25
+	ubfx	r0, r0, #1, #1
+	.loc	2 379 25                @ ../Src/one_wire.c:379:25
+	movs	r1, #63
+	.loc	2 371 23                @ ../Src/one_wire.c:371:23
+	strb.w	r0, [r5, #74]
+	.loc	2 375 25                @ ../Src/one_wire.c:375:25
+	ldr	r0, __arm_cp.4_8
+	ldrb	r0, [r0]
+	.loc	2 375 23 is_stmt 0      @ ../Src/one_wire.c:375:23
+	strb.w	r0, [r5, #75]
+	.loc	2 376 23 is_stmt 1      @ ../Src/one_wire.c:376:23
+	movs	r0, #0
+	strh.w	r0, [r5, #76]
+	.loc	2 378 23                @ ../Src/one_wire.c:378:23
+	strb.w	r0, [r5, #78]
+	.loc	2 379 25                @ ../Src/one_wire.c:379:25
+	mov	r0, r8
+	bl	CalcCRC
+	.loc	2 379 23 is_stmt 0      @ ../Src/one_wire.c:379:23
+	strb.w	r0, [r5, #79]
+	.loc	2 380 4 is_stmt 1       @ ../Src/one_wire.c:380:4
+	movs	r0, #10
+	bl	HAL_Delay
+	.loc	2 381 4                 @ ../Src/one_wire.c:381:4
+	ldr	r5, __arm_cp.4_9
+	mov	r0, r5
+	bl	HAL_HalfDuplex_EnableTransmitter
+	.loc	2 382 4                 @ ../Src/one_wire.c:382:4
+	mov	r0, r5
+	mov	r1, r8
+	movs	r2, #64
+	movw	r3, #345
+	bl	HAL_UART_Transmit
+.LBB4_52:                               @ =>This Inner Loop Header: Depth=1
+	.loc	2 383 18                @ ../Src/one_wire.c:383:18
+	ldrb.w	r0, [r5, #105]
+	.loc	2 383 4 is_stmt 0       @ ../Src/one_wire.c:383:4
+	cmp	r0, #32
+	bne	.LBB4_52
+@ %bb.53:
+	.loc	2 384 4 is_stmt 1       @ ../Src/one_wire.c:384:4
+	ldr	r5, __arm_cp.4_9
+	mov	r0, r5
+	bl	HAL_HalfDuplex_EnableReceiver
+	.loc	2 385 4                 @ ../Src/one_wire.c:385:4
+	mov	r0, r5
+	mov	r1, r8
+	movs	r2, #64
+	bl	HAL_UART_Receive_IT
+	.loc	2 386 17                @ ../Src/one_wire.c:386:17
+	movs	r0, #1
+	strb	r0, [r6, #1]
+.Ltmp139:
+	.loc	2 389 1                 @ ../Src/one_wire.c:389:1
+	pop.w	{r4, r5, r6, r7, r8, pc}
+.LBB4_54:
+.Ltmp140:
+	.loc	2 181 7                 @ ../Src/one_wire.c:181:7
+	ldrb	r0, [r5, #1]
+.LBB4_55:
+	.loc	2 181 24 is_stmt 0      @ ../Src/one_wire.c:181:24
+	ldrb	r2, [r6]
+	.loc	2 181 7                 @ ../Src/one_wire.c:181:7
+	adds	r0, #1
+	movs	r1, #0
+	uxtb	r3, r0
+	strb	r1, [r5]
+.Ltmp141:
+	.loc	2 181 7                 @ ../Src/one_wire.c:181:7
+	cmp	r3, r2
+	it	lo
+	movlo	r1, r0
+	strb	r1, [r5, #1]
+.Ltmp142:
+	.loc	2 389 1 is_stmt 1       @ ../Src/one_wire.c:389:1
+	pop.w	{r4, r5, r6, r7, r8, pc}
+.LBB4_56:
+.Ltmp143:
+	.loc	2 172 55                @ ../Src/one_wire.c:172:55
+	uxth	r0, r1
+	bl	ONEWIRE_ScratchpadToTemperature
+	.loc	2 172 53 is_stmt 0      @ ../Src/one_wire.c:172:53
+	str	r0, [r6, #44]
+	movs	r0, #1
+	b	.LBB4_55
+.LBB4_57:
+.Ltmp144:
+	.loc	2 173 55 is_stmt 1      @ ../Src/one_wire.c:173:55
+	uxth	r0, r1
+	bl	ONEWIRE_ScratchpadToTemperature
+	.loc	2 173 53 is_stmt 0      @ ../Src/one_wire.c:173:53
+	str	r0, [r6, #60]
+	movs	r0, #2
+	b	.LBB4_55
+.LBB4_58:
+.Ltmp145:
+	.loc	2 174 55 is_stmt 1      @ ../Src/one_wire.c:174:55
+	uxth	r0, r1
+	bl	ONEWIRE_ScratchpadToTemperature
+	.loc	2 174 53 is_stmt 0      @ ../Src/one_wire.c:174:53
+	str	r0, [r6, #76]
+	movs	r0, #3
+	b	.LBB4_55
+.LBB4_59:
+.Ltmp146:
+	.loc	2 175 55 is_stmt 1      @ ../Src/one_wire.c:175:55
+	uxth	r0, r1
+	bl	ONEWIRE_ScratchpadToTemperature
+	.loc	2 175 53 is_stmt 0      @ ../Src/one_wire.c:175:53
+	str	r0, [r6, #92]
+	movs	r0, #4
+	b	.LBB4_55
+.LBB4_60:
+.Ltmp147:
+	.loc	2 176 55 is_stmt 1      @ ../Src/one_wire.c:176:55
+	uxth	r0, r1
+	bl	ONEWIRE_ScratchpadToTemperature
+	.loc	2 176 53 is_stmt 0      @ ../Src/one_wire.c:176:53
+	str	r0, [r6, #108]
+	movs	r0, #5
+	b	.LBB4_55
+.LBB4_61:
+.Ltmp148:
+	.loc	2 177 55 is_stmt 1      @ ../Src/one_wire.c:177:55
+	uxth	r0, r1
+	bl	ONEWIRE_ScratchpadToTemperature
+	.loc	2 177 53 is_stmt 0      @ ../Src/one_wire.c:177:53
+	str	r0, [r6, #124]
+	movs	r0, #6
+	b	.LBB4_55
+.LBB4_62:
+.Ltmp149:
+	.loc	2 178 55 is_stmt 1      @ ../Src/one_wire.c:178:55
+	uxth	r0, r1
+	bl	ONEWIRE_ScratchpadToTemperature
+	.loc	2 178 53 is_stmt 0      @ ../Src/one_wire.c:178:53
+	str	r0, [r7, #12]
+	movs	r0, #7
+	b	.LBB4_55
+.Ltmp150:
+	.p2align	2
+@ %bb.63:
+	.loc	2 0 53                  @ ../Src/one_wire.c:0:53
+__arm_cp.4_0:
+	.long	.L_MergedGlobals
+.Lcpi_end8:
+	.size	__arm_cp.4_0, .Lcpi_end8-__arm_cp.4_0
+__arm_cp.4_1:
+	.long	.L_MergedGlobals.2
+.Lcpi_end9:
+	.size	__arm_cp.4_1, .Lcpi_end9-__arm_cp.4_1
+__arm_cp.4_2:
+	.long	.L_MergedGlobals.1
+.Lcpi_end10:
+	.size	__arm_cp.4_2, .Lcpi_end10-__arm_cp.4_2
+__arm_cp.4_3:
+	.long	BUTTON_GetState
+.Lcpi_end11:
+	.size	__arm_cp.4_3, .Lcpi_end11-__arm_cp.4_3
+__arm_cp.4_4:
+	.long	date
+.Lcpi_end12:
+	.size	__arm_cp.4_4, .Lcpi_end12-__arm_cp.4_4
+__arm_cp.4_5:
+	.long	time
+.Lcpi_end13:
+	.size	__arm_cp.4_5, .Lcpi_end13-__arm_cp.4_5
+__arm_cp.4_6:
+	.long	Thermostat_1
+.Lcpi_end14:
+	.size	__arm_cp.4_6, .Lcpi_end14-__arm_cp.4_6
+__arm_cp.4_7:
+	.long	display_flags
+.Lcpi_end15:
+	.size	__arm_cp.4_7, .Lcpi_end15-__arm_cp.4_7
+__arm_cp.4_8:
+	.long	current_outdoor_temperature
+.Lcpi_end16:
+	.size	__arm_cp.4_8, .Lcpi_end16-__arm_cp.4_8
+__arm_cp.4_9:
+	.long	huart2
+.Lcpi_end17:
+	.size	__arm_cp.4_9, .Lcpi_end17-__arm_cp.4_9
+__arm_cp.4_10:
+	.long	BUTTON_SetNewState
+.Lcpi_end18:
+	.size	__arm_cp.4_10, .Lcpi_end18-__arm_cp.4_10
+__arm_cp.4_11:
+	.long	hrtc
+.Lcpi_end19:
+	.size	__arm_cp.4_11, .Lcpi_end19-__arm_cp.4_11
+.Lfunc_end4:
+	.size	ONEWIRE_Service, .Lfunc_end4-ONEWIRE_Service
+	.cfi_endproc
+	.cantunwind
+	.fnend
+                                        @ -- End function
+	.section	.text.ONEWIRE_Reset,"ax",%progbits
+	.hidden	ONEWIRE_Reset           @ -- Begin function ONEWIRE_Reset
+	.globl	ONEWIRE_Reset
+	.p2align	2
+	.type	ONEWIRE_Reset,%function
+	.code	16                      @ @ONEWIRE_Reset
+	.thumb_func
+ONEWIRE_Reset:
+.Lfunc_begin5:
+	.loc	2 393 0 is_stmt 1       @ ../Src/one_wire.c:393:0
+	.fnstart
+	.cfi_startproc
+@ %bb.0:
+	.save	{r4, r5, r6, lr}
+	push	{r4, r5, r6, lr}
+	.cfi_def_cfa_offset 16
+	.cfi_offset lr, -4
+	.cfi_offset r6, -8
+	.cfi_offset r5, -12
+	.cfi_offset r4, -16
+.Ltmp151:
+	.loc	2 394 2 prologue_end    @ ../Src/one_wire.c:394:2
+	mov.w	r0, #9600
+	bl	ONEWIRE_SetUsart
+	.loc	2 395 20                @ ../Src/one_wire.c:395:20
+	ldr	r5, __arm_cp.5_0
+	.loc	2 396 2                 @ ../Src/one_wire.c:396:2
+	ldr	r6, __arm_cp.5_1
+	.loc	2 395 20                @ ../Src/one_wire.c:395:20
+	movs	r0, #240
+	.loc	2 396 2                 @ ../Src/one_wire.c:396:2
+	movs	r2, #1
+	mov.w	r3, #800
+	movs	r4, #1
+	.loc	2 395 20                @ ../Src/one_wire.c:395:20
+	strb	r0, [r5, #16]!
+	.loc	2 396 2                 @ ../Src/one_wire.c:396:2
+	mov	r0, r6
+	mov	r1, r5
+	bl	HAL_UART_Transmit
+	.loc	2 397 2                 @ ../Src/one_wire.c:397:2
+	mov	r0, r6
+	mov	r1, r5
+	movs	r2, #1
+	mov.w	r3, #800
+	bl	HAL_UART_Receive
+	.loc	2 398 2                 @ ../Src/one_wire.c:398:2
+	mov.w	r0, #115200
+	bl	ONEWIRE_SetUsart
+.Ltmp152:
+	.loc	2 399 6                 @ ../Src/one_wire.c:399:6
+	ldrb	r0, [r5]
+	.loc	2 399 33 is_stmt 0      @ ../Src/one_wire.c:399:33
+	cbz	r0, .LBB5_2
+@ %bb.1:
+	cmp	r0, #255
+	it	ne
+	cmpne	r0, #240
+	bne	.LBB5_3
+.Ltmp153:
+.LBB5_2:
+	.loc	2 0 33                  @ ../Src/one_wire.c:0:33
+	movs	r4, #0
+.LBB5_3:
+	.loc	2 401 1 is_stmt 1       @ ../Src/one_wire.c:401:1
+	mov	r0, r4
+	pop	{r4, r5, r6, pc}
+.Ltmp154:
+	.p2align	2
+@ %bb.4:
+	.loc	2 0 1 is_stmt 0         @ ../Src/one_wire.c:0:1
+__arm_cp.5_0:
+	.long	.L_MergedGlobals.1
+.Lcpi_end20:
+	.size	__arm_cp.5_0, .Lcpi_end20-__arm_cp.5_0
+__arm_cp.5_1:
+	.long	huart2
+.Lcpi_end21:
+	.size	__arm_cp.5_1, .Lcpi_end21-__arm_cp.5_1
+.Lfunc_end5:
+	.size	ONEWIRE_Reset, .Lfunc_end5-ONEWIRE_Reset
+	.cfi_endproc
+	.cantunwind
+	.fnend
+                                        @ -- End function
+	.section	.text.ONEWIRE_SendByte,"ax",%progbits
+	.hidden	ONEWIRE_SendByte        @ -- Begin function ONEWIRE_SendByte
+	.globl	ONEWIRE_SendByte
+	.p2align	1
+	.type	ONEWIRE_SendByte,%function
+	.code	16                      @ @ONEWIRE_SendByte
+	.thumb_func
+ONEWIRE_SendByte:
+.Lfunc_begin6:
+	.loc	2 421 0 is_stmt 1       @ ../Src/one_wire.c:421:0
+	.fnstart
+	.cfi_startproc
+@ %bb.0:
+	.save	{r4, r5, r7, lr}
+	push	{r4, r5, r7, lr}
+	.cfi_def_cfa_offset 16
+	.cfi_offset lr, -4
+	.cfi_offset r7, -8
+	.cfi_offset r5, -12
+	.cfi_offset r4, -16
+	@DEBUG_VALUE: ONEWIRE_SendByte:data <- $r0
+	mov	r4, r0
+.Ltmp155:
+	@DEBUG_VALUE: ONEWIRE_SendByte:data <- $r4
+	movs	r5, #0
+.Ltmp156:
+	@DEBUG_VALUE: ONEWIRE_SendByte:i <- 0
+.LBB6_1:                                @ =>This Inner Loop Header: Depth=1
+	@DEBUG_VALUE: ONEWIRE_SendByte:data <- $r4
+	.loc	2 424 15 prologue_end   @ ../Src/one_wire.c:424:15
+	uxtb	r0, r5
+.Ltmp157:
+	.loc	2 424 2 is_stmt 0       @ ../Src/one_wire.c:424:2
+	cmp	r0, #7
+.Ltmp158:
+	.loc	2 428 1 is_stmt 1       @ ../Src/one_wire.c:428:1
+	it	hi
+	pophi	{r4, r5, r7, pc}
+.Ltmp159:
+	.loc	2 426 3                 @ ../Src/one_wire.c:426:3
+	and	r0, r4, #1
+	bl	ONEWIRE_SendBit
+.Ltmp160:
+	.loc	2 424 38                @ ../Src/one_wire.c:424:38
+	ubfx	r4, r4, #1, #7
+	.loc	2 424 21 is_stmt 0      @ ../Src/one_wire.c:424:21
+	adds	r5, #1
+	b	.LBB6_1
+.Ltmp161:
+.Lfunc_end6:
+	.size	ONEWIRE_SendByte, .Lfunc_end6-ONEWIRE_SendByte
+	.cfi_endproc
+	.cantunwind
+	.fnend
+                                        @ -- End function
+	.section	.text.ONEWIRE_Receive,"ax",%progbits
+	.hidden	ONEWIRE_Receive         @ -- Begin function ONEWIRE_Receive
+	.globl	ONEWIRE_Receive
+	.p2align	2
+	.type	ONEWIRE_Receive,%function
+	.code	16                      @ @ONEWIRE_Receive
+	.thumb_func
+ONEWIRE_Receive:
+.Lfunc_begin7:
+	.loc	2 481 0 is_stmt 1       @ ../Src/one_wire.c:481:0
+	.fnstart
+	.cfi_startproc
+@ %bb.0:
+	.save	{r4, r5, r6, r7, r8, r9, r10, lr}
+	.pad	#8
+	push.w	{r2, r3, r4, r5, r6, r7, r8, r9, r10, lr}
+	.cfi_def_cfa_offset 40
+	.cfi_offset lr, -4
+	.cfi_offset r10, -8
+	.cfi_offset r9, -12
+	.cfi_offset r8, -16
+	.cfi_offset r7, -20
+	.cfi_offset r6, -24
+	.cfi_offset r5, -28
+	.cfi_offset r4, -32
+	@DEBUG_VALUE: ONEWIRE_Receive:data <- $r0
+	@DEBUG_VALUE: ONEWIRE_Receive:lenght <- $r1
+	mov	r10, r0
+.Ltmp162:
+	@DEBUG_VALUE: ONEWIRE_Receive:lenght <- $r4
+	@DEBUG_VALUE: ONEWIRE_Receive:data <- $r10
+	.loc	2 484 10 prologue_end   @ ../Src/one_wire.c:484:10
+	movs	r0, #255
+.Ltmp163:
+	@DEBUG_VALUE: ONEWIRE_Receive:tx_byte <- -1
+	.loc	2 0 10 is_stmt 0        @ ../Src/one_wire.c:0:10
+	ldr.w	r9, __arm_cp.7_1
+	mov	r4, r1
+.Ltmp164:
+	.loc	2 486 6 is_stmt 1       @ ../Src/one_wire.c:486:6
+	lsls	r5, r1, #3
+	add.w	r8, sp, #7
+.Ltmp165:
+	.loc	2 484 10                @ ../Src/one_wire.c:484:10
+	strb.w	r0, [sp, #7]
+.Ltmp166:
+	@DEBUG_VALUE: ONEWIRE_Receive:i <- 0
+	.loc	2 0 10 is_stmt 0        @ ../Src/one_wire.c:0:10
+	ldr	r0, __arm_cp.7_0
+	add.w	r6, r0, #16
+	mov	r7, r6
+	b	.LBB7_2
+.Ltmp167:
+.LBB7_1:                                @   in Loop: Header=BB7_2 Depth=1
+	@DEBUG_VALUE: ONEWIRE_Receive:data <- $r10
+	@DEBUG_VALUE: ONEWIRE_Receive:tx_byte <- [DW_OP_plus_uconst 7] [$sp+0]
+	.loc	2 488 3 is_stmt 1       @ ../Src/one_wire.c:488:3
+	mov	r0, r9
+	mov	r1, r8
+	movs	r2, #1
+	mov.w	r3, #800
+	bl	HAL_UART_Transmit
+	.loc	2 489 3                 @ ../Src/one_wire.c:489:3
+	mov	r0, r9
+	mov	r1, r7
+	movs	r2, #1
+	mov.w	r3, #800
+	bl	HAL_UART_Receive
+.Ltmp168:
+	.loc	2 486 2                 @ ../Src/one_wire.c:486:2
+	adds	r7, #1
+	subs	r5, #1
+.Ltmp169:
+.LBB7_2:                                @ =>This Inner Loop Header: Depth=1
+	@DEBUG_VALUE: ONEWIRE_Receive:data <- $r10
+	.loc	2 486 2 is_stmt 0       @ ../Src/one_wire.c:486:2
+	cmp	r5, #0
+	bne	.LBB7_1
+	b	.LBB7_4
+.Ltmp170:
+.LBB7_3:                                @   in Loop: Header=BB7_4 Depth=1
+	@DEBUG_VALUE: ONEWIRE_Receive:data <- $r10
+	.loc	2 494 13 is_stmt 1      @ ../Src/one_wire.c:494:13
+	mov	r0, r6
+	bl	ONEWIRE_Unpack
+	.loc	2 494 11 is_stmt 0      @ ../Src/one_wire.c:494:11
+	strb	r0, [r10], #1
+.Ltmp171:
+	.loc	2 492 2 is_stmt 1       @ ../Src/one_wire.c:492:2
+	adds	r6, #8
+	subs	r4, #1
+.Ltmp172:
+.LBB7_4:                                @ =>This Inner Loop Header: Depth=1
+	@DEBUG_VALUE: ONEWIRE_Receive:data <- $r10
+	.loc	2 492 2 is_stmt 0       @ ../Src/one_wire.c:492:2
+	cmp	r4, #0
+	bne	.LBB7_3
+.Ltmp173:
+@ %bb.5:
+	@DEBUG_VALUE: ONEWIRE_Receive:data <- $r10
+	.loc	2 496 1 is_stmt 1       @ ../Src/one_wire.c:496:1
+	pop.w	{r2, r3, r4, r5, r6, r7, r8, r9, r10, pc}
+.Ltmp174:
+	.p2align	2
+@ %bb.6:
+	.loc	2 0 1 is_stmt 0         @ ../Src/one_wire.c:0:1
+__arm_cp.7_0:
+	.long	.L_MergedGlobals.1
+.Lcpi_end22:
+	.size	__arm_cp.7_0, .Lcpi_end22-__arm_cp.7_0
+__arm_cp.7_1:
+	.long	huart2
+.Lcpi_end23:
+	.size	__arm_cp.7_1, .Lcpi_end23-__arm_cp.7_1
+.Lfunc_end7:
+	.size	ONEWIRE_Receive, .Lfunc_end7-ONEWIRE_Receive
+	.cfi_endproc
+	.cantunwind
+	.fnend
+                                        @ -- End function
+	.section	.text.ONEWIRE_CrcCheck,"ax",%progbits
+	.hidden	ONEWIRE_CrcCheck        @ -- Begin function ONEWIRE_CrcCheck
+	.globl	ONEWIRE_CrcCheck
+	.p2align	1
+	.type	ONEWIRE_CrcCheck,%function
+	.code	16                      @ @ONEWIRE_CrcCheck
+	.thumb_func
+ONEWIRE_CrcCheck:
+.Lfunc_begin8:
+	.loc	2 516 0 is_stmt 1       @ ../Src/one_wire.c:516:0
+	.fnstart
+	.cfi_startproc
+@ %bb.0:
+	.save	{r4, r5, r7, lr}
+	push	{r4, r5, r7, lr}
+	.cfi_def_cfa_offset 16
+	.cfi_offset lr, -4
+	.cfi_offset r7, -8
+	.cfi_offset r5, -12
+	.cfi_offset r4, -16
+	@DEBUG_VALUE: ONEWIRE_CrcCheck:ow_address <- $r0
+	@DEBUG_VALUE: ONEWIRE_CrcCheck:ow_address <- $r0
+	@DEBUG_VALUE: ONEWIRE_CrcCheck:lenght <- $r1
+	@DEBUG_VALUE: ONEWIRE_CrcCheck:lenght <- $r1
+	mov.w	r12, #0
+.Ltmp175:
+	@DEBUG_VALUE: ONEWIRE_CrcCheck:i <- 0
+	@DEBUG_VALUE: ONEWIRE_CrcCheck:crc <- 0
+	@DEBUG_VALUE: ONEWIRE_CrcCheck:lenght <- undef
+	mvn	lr, #115
+	movs	r2, #0
+.Ltmp176:
+.LBB8_1:                                @ =>This Loop Header: Depth=1
+                                        @     Child Loop BB8_3 Depth 2
+	@DEBUG_VALUE: ONEWIRE_CrcCheck:ow_address <- $r0
+	@DEBUG_VALUE: ONEWIRE_CrcCheck:i <- $r12
+	.loc	2 520 2 prologue_end    @ ../Src/one_wire.c:520:2
+	cmp	r12, r1
+.Ltmp177:
+	.loc	2 534 2                 @ ../Src/one_wire.c:534:2
+	itt	eq
+	uxtbeq	r0, r2
+.Ltmp178:
+	@DEBUG_VALUE: ONEWIRE_CrcCheck:crc <- $r0
+	popeq	{r4, r5, r7, pc}
+.Ltmp179:
+	.loc	2 522 20                @ ../Src/one_wire.c:522:20
+	ldrb.w	r3, [r0, r12]
+	movs	r4, #0
+.Ltmp180:
+	@DEBUG_VALUE: ONEWIRE_CrcCheck:j <- 0
+	.loc	2 0 20 is_stmt 0        @ ../Src/one_wire.c:0:20
+	b	.LBB8_3
+.Ltmp181:
+.LBB8_2:                                @   in Loop: Header=BB8_3 Depth=2
+	@DEBUG_VALUE: ONEWIRE_CrcCheck:crc <- $r0
+	@DEBUG_VALUE: ONEWIRE_CrcCheck:i <- $r12
+	.loc	2 527 8 is_stmt 1       @ ../Src/one_wire.c:527:8
+	ubfx	r5, r2, #1, #7
+	.loc	2 526 23                @ ../Src/one_wire.c:526:23
+	eors	r2, r3
+.Ltmp182:
+	.loc	2 524 23                @ ../Src/one_wire.c:524:23
+	adds	r4, #1
+.Ltmp183:
+	.loc	2 528 8                 @ ../Src/one_wire.c:528:8
+	lsls	r2, r2, #31
+	it	ne
+	eorne.w	r5, r5, lr
+	.loc	2 530 11                @ ../Src/one_wire.c:530:11
+	ubfx	r3, r3, #1, #7
+	mov	r2, r5
+.Ltmp184:
+.LBB8_3:                                @   Parent Loop BB8_1 Depth=1
+                                        @ =>  This Inner Loop Header: Depth=2
+	@DEBUG_VALUE: ONEWIRE_CrcCheck:crc <- $r0
+	@DEBUG_VALUE: ONEWIRE_CrcCheck:i <- $r12
+	.loc	2 524 17                @ ../Src/one_wire.c:524:17
+	uxtb	r5, r4
+.Ltmp185:
+	.loc	2 524 3 is_stmt 0       @ ../Src/one_wire.c:524:3
+	cmp	r5, #7
+	bls	.LBB8_2
+.Ltmp186:
+@ %bb.4:                                @   in Loop: Header=BB8_1 Depth=1
+	@DEBUG_VALUE: ONEWIRE_CrcCheck:crc <- $r0
+	@DEBUG_VALUE: ONEWIRE_CrcCheck:i <- $r12
+	.loc	2 520 27 is_stmt 1      @ ../Src/one_wire.c:520:27
+	add.w	r12, r12, #1
+.Ltmp187:
+	.loc	2 0 27 is_stmt 0        @ ../Src/one_wire.c:0:27
+	b	.LBB8_1
+.Ltmp188:
+.Lfunc_end8:
+	.size	ONEWIRE_CrcCheck, .Lfunc_end8-ONEWIRE_CrcCheck
+	.cfi_endproc
+	.cantunwind
+	.fnend
+                                        @ -- End function
+	.section	.text.ONEWIRE_ScratchpadToTemperature,"ax",%progbits
+	.hidden	ONEWIRE_ScratchpadToTemperature @ -- Begin function ONEWIRE_ScratchpadToTemperature
+	.globl	ONEWIRE_ScratchpadToTemperature
+	.p2align	2
+	.type	ONEWIRE_ScratchpadToTemperature,%function
+	.code	16                      @ @ONEWIRE_ScratchpadToTemperature
+	.thumb_func
+ONEWIRE_ScratchpadToTemperature:
+.Lfunc_begin9:
+	.loc	2 567 0 is_stmt 1       @ ../Src/one_wire.c:567:0
+	.fnstart
+	.cfi_startproc
+@ %bb.0:
+	@DEBUG_VALUE: ONEWIRE_ScratchpadToTemperature:scratchpad <- $r0
+	@DEBUG_VALUE: ONEWIRE_ScratchpadToTemperature:scratchpad <- $r0
+	.loc	2 570 5 prologue_end    @ ../Src/one_wire.c:570:5
+	cmp.w	r0, #64512
+	blo	.LBB9_2
+.Ltmp189:
+@ %bb.1:
+	@DEBUG_VALUE: ONEWIRE_ScratchpadToTemperature:scratchpad <- $r0
+	.loc	2 572 28                @ ../Src/one_wire.c:572:28
+	rsbs	r0, r0, #0
+.Ltmp190:
+	.loc	2 575 37                @ ../Src/one_wire.c:575:37
+	movw	r2, #625
+	.loc	2 575 27 is_stmt 0      @ ../Src/one_wire.c:575:27
+	and	r1, r0, #15
+	.loc	2 573 23 is_stmt 1      @ ../Src/one_wire.c:573:23
+	ubfx	r0, r0, #4, #12
+	.loc	2 575 37                @ ../Src/one_wire.c:575:37
+	smulbb	r1, r1, r2
+	.loc	2 575 43 is_stmt 0      @ ../Src/one_wire.c:575:43
+	mov.w	r2, #1000
+	.loc	2 574 10 is_stmt 1      @ ../Src/one_wire.c:574:10
+	add.w	r0, r0, r0, lsl #2
+	.loc	2 575 43                @ ../Src/one_wire.c:575:43
+	udiv	r1, r1, r2
+	.loc	2 575 10 is_stmt 0      @ ../Src/one_wire.c:575:10
+	add.w	r0, r1, r0, lsl #1
+	.loc	2 576 10 is_stmt 1      @ ../Src/one_wire.c:576:10
+	ldr	r1, __arm_cp.9_0
+	orrs	r0, r1
+	b	.LBB9_3
+.Ltmp191:
+.LBB9_2:
+	@DEBUG_VALUE: ONEWIRE_ScratchpadToTemperature:scratchpad <- $r0
+	.loc	2 582 27                @ ../Src/one_wire.c:582:27
+	and	r1, r0, #15
+	.loc	2 582 37 is_stmt 0      @ ../Src/one_wire.c:582:37
+	movw	r2, #625
+	.loc	2 580 23 is_stmt 1      @ ../Src/one_wire.c:580:23
+	lsrs	r0, r0, #4
+.Ltmp192:
+	.loc	2 582 37                @ ../Src/one_wire.c:582:37
+	smulbb	r1, r1, r2
+	.loc	2 582 43 is_stmt 0      @ ../Src/one_wire.c:582:43
+	mov.w	r2, #1000
+	.loc	2 581 10 is_stmt 1      @ ../Src/one_wire.c:581:10
+	add.w	r0, r0, r0, lsl #2
+	.loc	2 582 43                @ ../Src/one_wire.c:582:43
+	udiv	r1, r1, r2
+	.loc	2 582 10 is_stmt 0      @ ../Src/one_wire.c:582:10
+	add.w	r0, r1, r0, lsl #1
+.Ltmp193:
+.LBB9_3:
+	.loc	2 585 5 is_stmt 1       @ ../Src/one_wire.c:585:5
+	uxth	r0, r0
+.Ltmp194:
+	@DEBUG_VALUE: ONEWIRE_ScratchpadToTemperature:result <- $r0
+	bx	lr
+.Ltmp195:
+	.p2align	2
+@ %bb.4:
+	.loc	2 0 5 is_stmt 0         @ ../Src/one_wire.c:0:5
+__arm_cp.9_0:
+	.long	4294934528              @ 0xffff8000
+.Lcpi_end24:
+	.size	__arm_cp.9_0, .Lcpi_end24-__arm_cp.9_0
+.Lfunc_end9:
+	.size	ONEWIRE_ScratchpadToTemperature, .Lfunc_end9-ONEWIRE_ScratchpadToTemperature
+	.cfi_endproc
+	.cantunwind
+	.fnend
+                                        @ -- End function
+	.section	.text.ONEWIRE_SendBit,"ax",%progbits
+	.hidden	ONEWIRE_SendBit         @ -- Begin function ONEWIRE_SendBit
+	.globl	ONEWIRE_SendBit
+	.p2align	2
+	.type	ONEWIRE_SendBit,%function
+	.code	16                      @ @ONEWIRE_SendBit
+	.thumb_func
+ONEWIRE_SendBit:
+.Lfunc_begin10:
+	.loc	2 456 0 is_stmt 1       @ ../Src/one_wire.c:456:0
+	.fnstart
+	.cfi_startproc
+@ %bb.0:
+	.save	{r4, lr}
+	.pad	#8
+	push	{r2, r3, r4, lr}
+	.cfi_def_cfa_offset 16
+	.cfi_offset lr, -4
+	.cfi_offset r4, -8
+	@DEBUG_VALUE: ONEWIRE_SendBit:send_bit <- $r0
+	@DEBUG_VALUE: ONEWIRE_SendBit:send_bit <- $r0
+.Ltmp196:
+	.loc	2 460 2 prologue_end    @ ../Src/one_wire.c:460:2
+	ldr	r4, __arm_cp.10_0
+	.loc	2 458 5                 @ ../Src/one_wire.c:458:5
+	cmp	r0, #0
+	add.w	r1, sp, #7
+.Ltmp197:
+	@DEBUG_VALUE: ONEWIRE_SendBit:txb <- [DW_OP_plus_uconst 7] [$sp+0]
+	.loc	2 460 2                 @ ../Src/one_wire.c:460:2
+	mov.w	r2, #1
+	mov.w	r3, #800
+	.loc	2 458 5                 @ ../Src/one_wire.c:458:5
+	it	ne
+	movne.w	r0, #-1
+.Ltmp198:
+	.loc	2 0 5 is_stmt 0         @ ../Src/one_wire.c:0:5
+	strb.w	r0, [sp, #7]
+	.loc	2 460 2 is_stmt 1       @ ../Src/one_wire.c:460:2
+	mov	r0, r4
+	bl	HAL_UART_Transmit
+	add.w	r1, sp, #6
+.Ltmp199:
+	@DEBUG_VALUE: ONEWIRE_SendBit:rxb <- [DW_OP_plus_uconst 6] [$sp+0]
+	.loc	2 461 2                 @ ../Src/one_wire.c:461:2
+	mov	r0, r4
+	movs	r2, #1
+	mov.w	r3, #800
+	bl	HAL_UART_Receive
+	.loc	2 462 1                 @ ../Src/one_wire.c:462:1
+	pop	{r2, r3, r4, pc}
+.Ltmp200:
+	.p2align	2
+@ %bb.1:
+	.loc	2 0 1 is_stmt 0         @ ../Src/one_wire.c:0:1
+__arm_cp.10_0:
+	.long	huart2
+.Lcpi_end25:
+	.size	__arm_cp.10_0, .Lcpi_end25-__arm_cp.10_0
+.Lfunc_end10:
+	.size	ONEWIRE_SendBit, .Lfunc_end10-ONEWIRE_SendBit
+	.cfi_endproc
+	.cantunwind
+	.fnend
+                                        @ -- End function
+	.section	.text.ONEWIRE_ReadByte,"ax",%progbits
+	.hidden	ONEWIRE_ReadByte        @ -- Begin function ONEWIRE_ReadByte
+	.globl	ONEWIRE_ReadByte
+	.p2align	1
+	.type	ONEWIRE_ReadByte,%function
+	.code	16                      @ @ONEWIRE_ReadByte
+	.thumb_func
+ONEWIRE_ReadByte:
+.Lfunc_begin11:
+	.loc	2 432 0 is_stmt 1       @ ../Src/one_wire.c:432:0
+	.fnstart
+	.cfi_startproc
+@ %bb.0:
+	.save	{r4, r5, r7, lr}
+	push	{r4, r5, r7, lr}
+	.cfi_def_cfa_offset 16
+	.cfi_offset lr, -4
+	.cfi_offset r7, -8
+	.cfi_offset r5, -12
+	.cfi_offset r4, -16
+	movs	r4, #0
+.Ltmp201:
+	@DEBUG_VALUE: ONEWIRE_ReadByte:i <- 0
+                                        @ implicit-def: $r0
+.LBB11_1:                               @ =>This Inner Loop Header: Depth=1
+	.loc	2 435 15 prologue_end   @ ../Src/one_wire.c:435:15
+	uxtb	r1, r4
+.Ltmp202:
+	.loc	2 435 2 is_stmt 0       @ ../Src/one_wire.c:435:2
+	cmp	r1, #7
+.Ltmp203:
+	.loc	2 440 2 is_stmt 1       @ ../Src/one_wire.c:440:2
+	itt	hi
+	uxtbhi	r0, r0
+.Ltmp204:
+	@DEBUG_VALUE: ONEWIRE_ReadByte:rd_byte <- $r0
+	pophi	{r4, r5, r7, pc}
+.Ltmp205:
+	.loc	2 437 22                @ ../Src/one_wire.c:437:22
+	and	r5, r0, #254
+	.loc	2 437 34 is_stmt 0      @ ../Src/one_wire.c:437:34
+	bl	ONEWIRE_ReceiveBit
+.Ltmp206:
+	.loc	2 437 32                @ ../Src/one_wire.c:437:32
+	lsls	r0, r0, #7
+.Ltmp207:
+	.loc	2 435 21 is_stmt 1      @ ../Src/one_wire.c:435:21
+	adds	r4, #1
+.Ltmp208:
+	.loc	2 437 26                @ ../Src/one_wire.c:437:26
+	orr.w	r0, r0, r5, lsr #1
+	b	.LBB11_1
+.Ltmp209:
+.Lfunc_end11:
+	.size	ONEWIRE_ReadByte, .Lfunc_end11-ONEWIRE_ReadByte
+	.cfi_endproc
+	.cantunwind
+	.fnend
+                                        @ -- End function
+	.section	.text.ONEWIRE_ReceiveBit,"ax",%progbits
+	.hidden	ONEWIRE_ReceiveBit      @ -- Begin function ONEWIRE_ReceiveBit
+	.globl	ONEWIRE_ReceiveBit
+	.p2align	2
+	.type	ONEWIRE_ReceiveBit,%function
+	.code	16                      @ @ONEWIRE_ReceiveBit
+	.thumb_func
+ONEWIRE_ReceiveBit:
+.Lfunc_begin12:
+	.loc	2 445 0                 @ ../Src/one_wire.c:445:0
+	.fnstart
+	.cfi_startproc
+@ %bb.0:
+	.save	{r4, lr}
+	.pad	#8
+	push	{r2, r3, r4, lr}
+	.cfi_def_cfa_offset 16
+	.cfi_offset lr, -4
+	.cfi_offset r4, -8
+.Ltmp210:
+	.loc	2 448 2 prologue_end    @ ../Src/one_wire.c:448:2
+	ldr	r4, __arm_cp.12_0
+	.loc	2 447 6                 @ ../Src/one_wire.c:447:6
+	movs	r0, #255
+.Ltmp211:
+	@DEBUG_VALUE: ONEWIRE_ReceiveBit:txd <- -1
+	.loc	2 0 6 is_stmt 0         @ ../Src/one_wire.c:0:6
+	add.w	r1, sp, #7
+.Ltmp212:
+	@DEBUG_VALUE: ONEWIRE_ReceiveBit:txd <- [DW_OP_plus_uconst 7] [$sp+0]
+	.loc	2 448 2 is_stmt 1       @ ../Src/one_wire.c:448:2
+	movs	r2, #1
+	mov.w	r3, #800
+	.loc	2 447 6                 @ ../Src/one_wire.c:447:6
+	strb.w	r0, [sp, #7]
+	.loc	2 448 2                 @ ../Src/one_wire.c:448:2
+	mov	r0, r4
+	bl	HAL_UART_Transmit
+	add.w	r1, sp, #6
+.Ltmp213:
+	@DEBUG_VALUE: ONEWIRE_ReceiveBit:rxd <- [DW_OP_plus_uconst 6] [$sp+0]
+	.loc	2 449 2                 @ ../Src/one_wire.c:449:2
+	mov	r0, r4
+	movs	r2, #1
+	mov.w	r3, #800
+	bl	HAL_UART_Receive
+.Ltmp214:
+	.loc	2 450 12                @ ../Src/one_wire.c:450:12
+	ldrb.w	r0, [sp, #7]
+	.loc	2 450 5 is_stmt 0       @ ../Src/one_wire.c:450:5
+	ldrb.w	r1, [sp, #6]
+	.loc	2 450 9                 @ ../Src/one_wire.c:450:9
+	subs	r0, r1, r0
+	clz	r0, r0
+	lsrs	r0, r0, #5
+.Ltmp215:
+	.loc	2 452 1 is_stmt 1       @ ../Src/one_wire.c:452:1
+	add	sp, #8
+.Ltmp216:
+	pop	{r4, pc}
+.Ltmp217:
+	.p2align	2
+@ %bb.1:
+	.loc	2 0 1 is_stmt 0         @ ../Src/one_wire.c:0:1
+__arm_cp.12_0:
+	.long	huart2
+.Lcpi_end26:
+	.size	__arm_cp.12_0, .Lcpi_end26-__arm_cp.12_0
+.Lfunc_end12:
+	.size	ONEWIRE_ReceiveBit, .Lfunc_end12-ONEWIRE_ReceiveBit
+	.cfi_endproc
+	.cantunwind
+	.fnend
+                                        @ -- End function
+	.section	.text.ONEWIRE_Send,"ax",%progbits
+	.hidden	ONEWIRE_Send            @ -- Begin function ONEWIRE_Send
+	.globl	ONEWIRE_Send
+	.p2align	2
+	.type	ONEWIRE_Send,%function
+	.code	16                      @ @ONEWIRE_Send
+	.thumb_func
+ONEWIRE_Send:
+.Lfunc_begin13:
+	.loc	2 466 0 is_stmt 1       @ ../Src/one_wire.c:466:0
+	.fnstart
+	.cfi_startproc
+@ %bb.0:
+	.save	{r4, r5, r6, lr}
+	push	{r4, r5, r6, lr}
+	.cfi_def_cfa_offset 16
+	.cfi_offset lr, -4
+	.cfi_offset r6, -8
+	.cfi_offset r5, -12
+	.cfi_offset r4, -16
+	@DEBUG_VALUE: ONEWIRE_Send:command <- $r0
+	@DEBUG_VALUE: ONEWIRE_Send:lenght <- $r1
+	mov	r12, r1
+.Ltmp218:
+	@DEBUG_VALUE: ONEWIRE_Send:lenght <- $r12
+	@DEBUG_VALUE: ONEWIRE_Send:command <- $r0
+	ldr	r1, __arm_cp.13_0
+	mov.w	lr, #0
+.Ltmp219:
+	@DEBUG_VALUE: ONEWIRE_Send:i <- 0
+	movs	r2, #1
+	adds	r1, #16
+	mov	r3, r1
+	b	.LBB13_5
+.Ltmp220:
+.LBB13_1:                               @   in Loop: Header=BB13_5 Depth=1
+	@DEBUG_VALUE: ONEWIRE_Send:i <- $lr
+	@DEBUG_VALUE: ONEWIRE_Send:lenght <- $r12
+	@DEBUG_VALUE: ONEWIRE_Send:command <- $r0
+	@DEBUG_VALUE: ONEWIRE_Pack:i <- 0
+	ldrb.w	r4, [r0, lr]
+	movs	r5, #0
+	b	.LBB13_3
+.Ltmp221:
+.LBB13_2:                               @   in Loop: Header=BB13_3 Depth=2
+	@DEBUG_VALUE: ONEWIRE_Send:i <- $lr
+	@DEBUG_VALUE: ONEWIRE_Pack:i <- $r5
+	@DEBUG_VALUE: ONEWIRE_Send:lenght <- $r12
+	@DEBUG_VALUE: ONEWIRE_Send:command <- $r0
+	.loc	2 544 29 prologue_end   @ ../Src/one_wire.c:544:29
+	lsl.w	r6, r2, r5
+	.loc	2 544 24 is_stmt 0      @ ../Src/one_wire.c:544:24
+	ands	r6, r4
+	.loc	2 544 15                @ ../Src/one_wire.c:544:15
+	it	ne
+	movne.w	r6, #-1
+	.loc	2 544 13                @ ../Src/one_wire.c:544:13
+	strb	r6, [r3, r5]
+.Ltmp222:
+	.loc	2 542 23 is_stmt 1      @ ../Src/one_wire.c:542:23
+	adds	r5, #1
+.Ltmp223:
+	@DEBUG_VALUE: ONEWIRE_Pack:i <- $r5
+.LBB13_3:                               @   Parent Loop BB13_5 Depth=1
+                                        @ =>  This Inner Loop Header: Depth=2
+	@DEBUG_VALUE: ONEWIRE_Send:i <- $lr
+	@DEBUG_VALUE: ONEWIRE_Send:lenght <- $r12
+	@DEBUG_VALUE: ONEWIRE_Send:command <- $r0
+	@DEBUG_VALUE: ONEWIRE_Pack:i <- $r5
+	.loc	2 542 2 is_stmt 0       @ ../Src/one_wire.c:542:2
+	cmp	r5, #8
+	bne	.LBB13_2
+.Ltmp224:
+@ %bb.4:                                @   in Loop: Header=BB13_5 Depth=1
+	@DEBUG_VALUE: ONEWIRE_Send:i <- $lr
+	@DEBUG_VALUE: ONEWIRE_Send:lenght <- $r12
+	@DEBUG_VALUE: ONEWIRE_Send:command <- $r0
+	.loc	2 471 2 is_stmt 1       @ ../Src/one_wire.c:471:2
+	adds	r3, #8
+	.loc	2 471 28 is_stmt 0      @ ../Src/one_wire.c:471:28
+	add.w	lr, lr, #1
+.Ltmp225:
+	@DEBUG_VALUE: ONEWIRE_Send:i <- $lr
+.LBB13_5:                               @ =>This Loop Header: Depth=1
+                                        @     Child Loop BB13_3 Depth 2
+	@DEBUG_VALUE: ONEWIRE_Send:lenght <- $r12
+	@DEBUG_VALUE: ONEWIRE_Send:command <- $r0
+	@DEBUG_VALUE: ONEWIRE_Send:i <- $lr
+	.loc	2 471 2                 @ ../Src/one_wire.c:471:2
+	cmp	lr, r12
+	bne	.LBB13_1
+.Ltmp226:
+@ %bb.6:
+	@DEBUG_VALUE: ONEWIRE_Send:i <- $lr
+	@DEBUG_VALUE: ONEWIRE_Send:lenght <- $r12
+	@DEBUG_VALUE: ONEWIRE_Send:command <- $r0
+	.loc	2 476 2 is_stmt 1       @ ../Src/one_wire.c:476:2
+	ldr	r0, __arm_cp.13_1
+	lsl.w	r2, r12, #3
+	mov.w	r3, #800
+	pop.w	{r4, r5, r6, lr}
+.Ltmp227:
+	b	HAL_UART_Transmit
+.Ltmp228:
+	.p2align	2
+@ %bb.7:
+	.loc	2 0 2 is_stmt 0         @ ../Src/one_wire.c:0:2
+__arm_cp.13_0:
+	.long	.L_MergedGlobals.1
+.Lcpi_end27:
+	.size	__arm_cp.13_0, .Lcpi_end27-__arm_cp.13_0
+__arm_cp.13_1:
+	.long	huart2
+.Lcpi_end28:
+	.size	__arm_cp.13_1, .Lcpi_end28-__arm_cp.13_1
+.Lfunc_end13:
+	.size	ONEWIRE_Send, .Lfunc_end13-ONEWIRE_Send
+	.cfi_endproc
+	.cantunwind
+	.fnend
+                                        @ -- End function
+	.section	.text.ONEWIRE_Pack,"ax",%progbits
+	.hidden	ONEWIRE_Pack            @ -- Begin function ONEWIRE_Pack
+	.globl	ONEWIRE_Pack
+	.p2align	1
+	.type	ONEWIRE_Pack,%function
+	.code	16                      @ @ONEWIRE_Pack
+	.thumb_func
+ONEWIRE_Pack:
+.Lfunc_begin14:
+	.loc	2 539 0 is_stmt 1       @ ../Src/one_wire.c:539:0
+	.fnstart
+	.cfi_startproc
+@ %bb.0:
+	@DEBUG_VALUE: ONEWIRE_Pack:command <- $r0
+	@DEBUG_VALUE: ONEWIRE_Pack:command <- $r0
+	@DEBUG_VALUE: ONEWIRE_Pack:buffer <- $r1
+	@DEBUG_VALUE: ONEWIRE_Pack:buffer <- $r1
+	movs	r2, #0
+.Ltmp229:
+	@DEBUG_VALUE: ONEWIRE_Pack:i <- 0
+	@DEBUG_VALUE: ONEWIRE_Pack:command <- undef
+	mov.w	r12, #1
+.LBB14_1:                               @ =>This Inner Loop Header: Depth=1
+	@DEBUG_VALUE: ONEWIRE_Pack:buffer <- $r1
+.Ltmp230:
+	@DEBUG_VALUE: ONEWIRE_Pack:i <- $r2
+	.loc	2 542 2 prologue_end    @ ../Src/one_wire.c:542:2
+	cmp	r2, #8
+.Ltmp231:
+	.loc	2 546 1                 @ ../Src/one_wire.c:546:1
+	it	eq
+	bxeq	lr
+.Ltmp232:
+	.loc	2 544 29                @ ../Src/one_wire.c:544:29
+	lsl.w	r3, r12, r2
+	.loc	2 544 24 is_stmt 0      @ ../Src/one_wire.c:544:24
+	ands	r3, r0
+	.loc	2 544 15                @ ../Src/one_wire.c:544:15
+	it	ne
+	movne.w	r3, #-1
+	.loc	2 544 13                @ ../Src/one_wire.c:544:13
+	strb	r3, [r1, r2]
+.Ltmp233:
+	.loc	2 542 23 is_stmt 1      @ ../Src/one_wire.c:542:23
+	adds	r2, #1
+.Ltmp234:
+	@DEBUG_VALUE: ONEWIRE_Pack:i <- $r2
+	.loc	2 0 23 is_stmt 0        @ ../Src/one_wire.c:0:23
+	b	.LBB14_1
+.Ltmp235:
+.Lfunc_end14:
+	.size	ONEWIRE_Pack, .Lfunc_end14-ONEWIRE_Pack
+	.cfi_endproc
+	.cantunwind
+	.fnend
+                                        @ -- End function
+	.section	.text.ONEWIRE_Unpack,"ax",%progbits
+	.hidden	ONEWIRE_Unpack          @ -- Begin function ONEWIRE_Unpack
+	.globl	ONEWIRE_Unpack
+	.p2align	1
+	.type	ONEWIRE_Unpack,%function
+	.code	16                      @ @ONEWIRE_Unpack
+	.thumb_func
+ONEWIRE_Unpack:
+.Lfunc_begin15:
+	.loc	2 550 0 is_stmt 1       @ ../Src/one_wire.c:550:0
+	.fnstart
+	.cfi_startproc
+@ %bb.0:
+	@DEBUG_VALUE: ONEWIRE_Unpack:buffer <- $r0
+	@DEBUG_VALUE: ONEWIRE_Unpack:buffer <- $r0
+	movs	r1, #0
+.Ltmp236:
+	@DEBUG_VALUE: ONEWIRE_Unpack:i <- 0
+	@DEBUG_VALUE: ONEWIRE_Unpack:res <- 0
+	mov.w	r12, #1
+	movs	r3, #0
+.Ltmp237:
+.LBB15_1:                               @ =>This Inner Loop Header: Depth=1
+	@DEBUG_VALUE: ONEWIRE_Unpack:buffer <- $r0
+	@DEBUG_VALUE: ONEWIRE_Unpack:i <- $r1
+	.loc	2 554 2 prologue_end    @ ../Src/one_wire.c:554:2
+	cmp	r1, #8
+.Ltmp238:
+	.loc	2 562 2                 @ ../Src/one_wire.c:562:2
+	itt	eq
+	uxtbeq	r0, r3
+.Ltmp239:
+	bxeq	lr
+.Ltmp240:
+	.loc	2 556 7                 @ ../Src/one_wire.c:556:7
+	ldrb	r2, [r0, r1]
+.Ltmp241:
+	.loc	2 556 7 is_stmt 0       @ ../Src/one_wire.c:556:7
+	cmp	r2, #255
+.Ltmp242:
+	.loc	2 558 15 is_stmt 1      @ ../Src/one_wire.c:558:15
+	itt	eq
+	lsleq.w	r2, r12, r1
+	.loc	2 558 8 is_stmt 0       @ ../Src/one_wire.c:558:8
+	orreq	r3, r2
+.Ltmp243:
+	.loc	2 554 22 is_stmt 1      @ ../Src/one_wire.c:554:22
+	adds	r1, #1
+.Ltmp244:
+	@DEBUG_VALUE: ONEWIRE_Unpack:i <- $r1
+	.loc	2 0 22 is_stmt 0        @ ../Src/one_wire.c:0:22
+	b	.LBB15_1
+.Ltmp245:
+.Lfunc_end15:
+	.size	ONEWIRE_Unpack, .Lfunc_end15-ONEWIRE_Unpack
+	.cfi_endproc
+	.cantunwind
+	.fnend
+                                        @ -- End function
+	.section	.text.ONEWIRE_ReadROM,"ax",%progbits
+	.hidden	ONEWIRE_ReadROM         @ -- Begin function ONEWIRE_ReadROM
+	.globl	ONEWIRE_ReadROM
+	.p2align	1
+	.type	ONEWIRE_ReadROM,%function
+	.code	16                      @ @ONEWIRE_ReadROM
+	.thumb_func
+ONEWIRE_ReadROM:
+.Lfunc_begin16:
+	.loc	2 500 0 is_stmt 1       @ ../Src/one_wire.c:500:0
+	.fnstart
+	.cfi_startproc
+@ %bb.0:
+	.save	{r4, lr}
+	push	{r4, lr}
+	.cfi_def_cfa_offset 8
+	.cfi_offset lr, -4
+	.cfi_offset r4, -8
+	@DEBUG_VALUE: ONEWIRE_ReadROM:ow_address <- $r0
+	mov	r4, r0
+.Ltmp246:
+	@DEBUG_VALUE: ONEWIRE_ReadROM:ow_address <- $r4
+	.loc	2 503 5 prologue_end    @ ../Src/one_wire.c:503:5
+	bl	ONEWIRE_Reset
+.Ltmp247:
+	.loc	2 503 5 is_stmt 0       @ ../Src/one_wire.c:503:5
+	cbz	r0, .LBB16_2
+.Ltmp248:
+@ %bb.1:
+	@DEBUG_VALUE: ONEWIRE_ReadROM:ow_address <- $r4
+	.loc	2 505 3 is_stmt 1       @ ../Src/one_wire.c:505:3
+	movs	r0, #51
+	bl	ONEWIRE_SendByte
+	.loc	2 506 3                 @ ../Src/one_wire.c:506:3
+	mov	r0, r4
+	movs	r1, #8
+	bl	ONEWIRE_Receive
+	.loc	2 507 9                 @ ../Src/one_wire.c:507:9
+	mov	r0, r4
+	movs	r1, #7
+	bl	ONEWIRE_CrcCheck
+.Ltmp249:
+	.loc	2 508 14                @ ../Src/one_wire.c:508:14
+	ldrb	r1, [r4, #7]
+	.loc	2 508 11 is_stmt 0      @ ../Src/one_wire.c:508:11
+	subs	r1, r0, r1
+	.loc	2 508 37                @ ../Src/one_wire.c:508:37
+	clz	r0, r0
+	.loc	2 508 11                @ ../Src/one_wire.c:508:11
+	it	ne
+	movne	r1, #1
+	.loc	2 508 37                @ ../Src/one_wire.c:508:37
+	lsrs	r0, r0, #5
+	.loc	2 508 29                @ ../Src/one_wire.c:508:29
+	orrs	r0, r1
+	pop	{r4, pc}
+.Ltmp250:
+.LBB16_2:
+	@DEBUG_VALUE: ONEWIRE_ReadROM:ow_address <- $r4
+	.loc	2 512 1 is_stmt 1       @ ../Src/one_wire.c:512:1
+	movs	r0, #2
+	pop	{r4, pc}
+.Ltmp251:
+.Lfunc_end16:
+	.size	ONEWIRE_ReadROM, .Lfunc_end16-ONEWIRE_ReadROM
+	.cfi_endproc
+	.cantunwind
+	.fnend
+                                        @ -- End function
+	.section	.text.ONEWIRE_Select,"ax",%progbits
+	.hidden	ONEWIRE_Select          @ -- Begin function ONEWIRE_Select
+	.globl	ONEWIRE_Select
+	.p2align	1
+	.type	ONEWIRE_Select,%function
+	.code	16                      @ @ONEWIRE_Select
+	.thumb_func
+ONEWIRE_Select:
+.Lfunc_begin17:
+	.loc	2 686 0                 @ ../Src/one_wire.c:686:0
+	.fnstart
+	.cfi_startproc
+@ %bb.0:
+	.save	{r4, r5, r7, lr}
+	push	{r4, r5, r7, lr}
+	.cfi_def_cfa_offset 16
+	.cfi_offset lr, -4
+	.cfi_offset r7, -8
+	.cfi_offset r5, -12
+	.cfi_offset r4, -16
+	@DEBUG_VALUE: ONEWIRE_Select:addr <- $r0
+	mov	r4, r0
+.Ltmp252:
+	@DEBUG_VALUE: ONEWIRE_Select:addr <- $r4
+	.loc	2 689 2 prologue_end    @ ../Src/one_wire.c:689:2
+	movs	r0, #85
+	bl	ONEWIRE_SendByte
+	movs	r5, #0
+.Ltmp253:
+	@DEBUG_VALUE: ONEWIRE_Select:i <- 0
+.LBB17_1:                               @ =>This Inner Loop Header: Depth=1
+	@DEBUG_VALUE: ONEWIRE_Select:addr <- $r4
+	@DEBUG_VALUE: ONEWIRE_Select:i <- $r5
+	.loc	2 691 2                 @ ../Src/one_wire.c:691:2
+	cmp	r5, #8
+.Ltmp254:
+	.loc	2 695 1                 @ ../Src/one_wire.c:695:1
+	it	eq
+	popeq	{r4, r5, r7, pc}
+.Ltmp255:
+	.loc	2 693 3                 @ ../Src/one_wire.c:693:3
+	ldrb	r0, [r4, r5]
+	bl	ONEWIRE_SendByte
+.Ltmp256:
+	.loc	2 691 22                @ ../Src/one_wire.c:691:22
+	adds	r5, #1
+	b	.LBB17_1
+.Ltmp257:
+.Lfunc_end17:
+	.size	ONEWIRE_Select, .Lfunc_end17-ONEWIRE_Select
+	.cfi_endproc
+	.cantunwind
+	.fnend
+                                        @ -- End function
+	.type	ONEWIRE_Search.init_cnt,%object @ @ONEWIRE_Search.init_cnt
+	.section	.bss.ONEWIRE_Search.init_cnt,"aw",%nobits
+ONEWIRE_Search.init_cnt:
+	.byte	0                       @ 0x0
+	.size	ONEWIRE_Search.init_cnt, 1
+
+	.hidden	onewire_timeout_timer   @ @onewire_timeout_timer
+	.type	onewire_timeout_timer,%object
+	.section	.bss.onewire_timeout_timer,"aw",%nobits
+	.globl	onewire_timeout_timer
+	.p2align	2
+onewire_timeout_timer:
+	.long	0                       @ 0x0
+	.size	onewire_timeout_timer, 4
+
+	.type	.L_MergedGlobals,%object @ @_MergedGlobals
+	.section	.bss..L_MergedGlobals,"aw",%nobits
+	.p2align	4
+.L_MergedGlobals:
+	.zero	128
+	.size	.L_MergedGlobals, 128
+
+	.type	.L_MergedGlobals.1,%object @ @_MergedGlobals.1
+	.section	.bss..L_MergedGlobals.1,"aw",%nobits
+	.p2align	4
+.L_MergedGlobals.1:
+	.zero	112
+	.size	.L_MergedGlobals.1, 112
+
+	.type	.L_MergedGlobals.2,%object @ @_MergedGlobals.2
+	.section	.bss..L_MergedGlobals.2,"aw",%nobits
+	.p2align	2
+.L_MergedGlobals.2:
+	.zero	2
+	.size	.L_MergedGlobals.2, 2
+
+	.section	.debug_str,"MS",%progbits,1
+.Linfo_string0:
+	.asciz	"Component: ARM Compiler 6.10.1 Tool: armclang [5d143200]" @ string offset=0
+.Linfo_string1:
+	.asciz	"../Src\\one_wire.c"    @ string offset=57
+.Linfo_string2:
+	.asciz	"F:\\SkyDrive\\OtvoreniProjekti\\HotelSaplast\\fw\\RoomThermostat\\DE-170518\\MDK-ARM" @ string offset=75
+.Linfo_string3:
+	.asciz	"ow_pcnt"               @ string offset=153
+.Linfo_string4:
+	.asciz	"unsigned char"         @ string offset=161
+.Linfo_string5:
+	.asciz	"uint8_t"               @ string offset=175
+.Linfo_string6:
+	.asciz	"ds18b20_cnt"           @ string offset=183
+.Linfo_string7:
+	.asciz	"init_cnt"              @ string offset=195
+.Linfo_string8:
+	.asciz	"OnewireState"          @ string offset=204
+.Linfo_string9:
+	.asciz	"ONEWIRE_INIT"          @ string offset=217
+.Linfo_string10:
+	.asciz	"ONEWIRE_PACKET_PENDING" @ string offset=230
+.Linfo_string11:
+	.asciz	"ONEWIRE_PACKET_RECEIVED" @ string offset=253
+.Linfo_string12:
+	.asciz	"ONEWIRE_PACKET_SEND"   @ string offset=277
+.Linfo_string13:
+	.asciz	"ONEWIRE_ERROR"         @ string offset=297
+.Linfo_string14:
+	.asciz	"OnewireStateTypeDef"   @ string offset=311
+.Linfo_string15:
+	.asciz	"ds18b20_1"             @ string offset=331
+.Linfo_string16:
+	.asciz	"sensor_id"             @ string offset=341
+.Linfo_string17:
+	.asciz	"rom_code"              @ string offset=351
+.Linfo_string18:
+	.asciz	"sizetype"              @ string offset=360
+.Linfo_string19:
+	.asciz	"temperature"           @ string offset=369
+.Linfo_string20:
+	.asciz	"int"                   @ string offset=381
+.Linfo_string21:
+	.asciz	"TempSensorTypeDef"     @ string offset=385
+.Linfo_string22:
+	.asciz	"ds18b20_2"             @ string offset=403
+.Linfo_string23:
+	.asciz	"ds18b20_3"             @ string offset=413
+.Linfo_string24:
+	.asciz	"ds18b20_4"             @ string offset=423
+.Linfo_string25:
+	.asciz	"ds18b20_5"             @ string offset=433
+.Linfo_string26:
+	.asciz	"ds18b20_6"             @ string offset=443
+.Linfo_string27:
+	.asciz	"ds18b20_7"             @ string offset=453
+.Linfo_string28:
+	.asciz	"ds18b20_8"             @ string offset=463
+.Linfo_string29:
+	.asciz	"onewire_timer"         @ string offset=473
+.Linfo_string30:
+	.asciz	"unsigned int"          @ string offset=487
+.Linfo_string31:
+	.asciz	"uint32_t"              @ string offset=500
+.Linfo_string32:
+	.asciz	"onewire_timeout_timer" @ string offset=509
+.Linfo_string33:
+	.asciz	"onewire_flags"         @ string offset=531
+.Linfo_string34:
+	.asciz	"onewire_buffer"        @ string offset=545
+.Linfo_string35:
+	.asciz	"onewire_last_family_discrepancy" @ string offset=560
+.Linfo_string36:
+	.asciz	"onewire_last_discrepancy" @ string offset=592
+.Linfo_string37:
+	.asciz	"onewire_last_device_flag" @ string offset=617
+.Linfo_string38:
+	.asciz	"onewire_sensor_number" @ string offset=642
+.Linfo_string39:
+	.asciz	"onewire_crc"           @ string offset=664
+.Linfo_string40:
+	.asciz	"HAL_UART_STATE_RESET"  @ string offset=676
+.Linfo_string41:
+	.asciz	"HAL_UART_STATE_READY"  @ string offset=697
+.Linfo_string42:
+	.asciz	"HAL_UART_STATE_BUSY"   @ string offset=718
+.Linfo_string43:
+	.asciz	"HAL_UART_STATE_BUSY_TX" @ string offset=738
+.Linfo_string44:
+	.asciz	"HAL_UART_STATE_BUSY_RX" @ string offset=761
+.Linfo_string45:
+	.asciz	"HAL_UART_STATE_BUSY_TX_RX" @ string offset=784
+.Linfo_string46:
+	.asciz	"HAL_UART_STATE_TIMEOUT" @ string offset=810
+.Linfo_string47:
+	.asciz	"HAL_UART_STATE_ERROR"  @ string offset=833
+.Linfo_string48:
+	.asciz	"HAL_OK"                @ string offset=854
+.Linfo_string49:
+	.asciz	"HAL_ERROR"             @ string offset=861
+.Linfo_string50:
+	.asciz	"HAL_BUSY"              @ string offset=871
+.Linfo_string51:
+	.asciz	"HAL_TIMEOUT"           @ string offset=880
+.Linfo_string52:
+	.asciz	"CR1"                   @ string offset=892
+.Linfo_string53:
+	.asciz	"CR2"                   @ string offset=896
+.Linfo_string54:
+	.asciz	"CR3"                   @ string offset=900
+.Linfo_string55:
+	.asciz	"BRR"                   @ string offset=904
+.Linfo_string56:
+	.asciz	"GTPR"                  @ string offset=908
+.Linfo_string57:
+	.asciz	"RTOR"                  @ string offset=913
+.Linfo_string58:
+	.asciz	"RQR"                   @ string offset=918
+.Linfo_string59:
+	.asciz	"ISR"                   @ string offset=922
+.Linfo_string60:
+	.asciz	"ICR"                   @ string offset=926
+.Linfo_string61:
+	.asciz	"RDR"                   @ string offset=930
+.Linfo_string62:
+	.asciz	"TDR"                   @ string offset=934
+.Linfo_string63:
+	.asciz	"USART_TypeDef"         @ string offset=938
+.Linfo_string64:
+	.asciz	"ONEWIRE_ResetSearch"   @ string offset=952
+.Linfo_string65:
+	.asciz	"ONEWIRE_Pack"          @ string offset=972
+.Linfo_string66:
+	.asciz	"command"               @ string offset=985
+.Linfo_string67:
+	.asciz	"buffer"                @ string offset=993
+.Linfo_string68:
+	.asciz	"i"                     @ string offset=1000
+.Linfo_string69:
+	.asciz	"ONEWIRE_Init"          @ string offset=1002
+.Linfo_string70:
+	.asciz	"ONEWIRE_Search"        @ string offset=1015
+.Linfo_string71:
+	.asciz	"ONEWIRE_SetUsart"      @ string offset=1030
+.Linfo_string72:
+	.asciz	"ONEWIRE_Service"       @ string offset=1047
+.Linfo_string73:
+	.asciz	"ONEWIRE_Reset"         @ string offset=1063
+.Linfo_string74:
+	.asciz	"ONEWIRE_SendByte"      @ string offset=1077
+.Linfo_string75:
+	.asciz	"ONEWIRE_Receive"       @ string offset=1094
+.Linfo_string76:
+	.asciz	"ONEWIRE_CrcCheck"      @ string offset=1110
+.Linfo_string77:
+	.asciz	"ONEWIRE_ScratchpadToTemperature" @ string offset=1127
+.Linfo_string78:
+	.asciz	"unsigned short"        @ string offset=1159
+.Linfo_string79:
+	.asciz	"uint16_t"              @ string offset=1174
+.Linfo_string80:
+	.asciz	"ONEWIRE_SendBit"       @ string offset=1183
+.Linfo_string81:
+	.asciz	"ONEWIRE_ReadByte"      @ string offset=1199
+.Linfo_string82:
+	.asciz	"ONEWIRE_ReceiveBit"    @ string offset=1216
+.Linfo_string83:
+	.asciz	"ONEWIRE_Send"          @ string offset=1235
+.Linfo_string84:
+	.asciz	"ONEWIRE_Unpack"        @ string offset=1248
+.Linfo_string85:
+	.asciz	"ONEWIRE_ReadROM"       @ string offset=1263
+.Linfo_string86:
+	.asciz	"ONEWIRE_Select"        @ string offset=1279
+.Linfo_string87:
+	.asciz	"ds18b20"               @ string offset=1294
+.Linfo_string88:
+	.asciz	"sensor_cnt"            @ string offset=1302
+.Linfo_string89:
+	.asciz	"rom_byte_mask"         @ string offset=1313
+.Linfo_string90:
+	.asciz	"rom_byte_number"       @ string offset=1327
+.Linfo_string91:
+	.asciz	"last_zero"             @ string offset=1343
+.Linfo_string92:
+	.asciz	"id_bit_number"         @ string offset=1353
+.Linfo_string93:
+	.asciz	"search_result"         @ string offset=1367
+.Linfo_string94:
+	.asciz	"id_bit"                @ string offset=1381
+.Linfo_string95:
+	.asciz	"cmp_id_bit"            @ string offset=1388
+.Linfo_string96:
+	.asciz	"search_direction"      @ string offset=1399
+.Linfo_string97:
+	.asciz	"setup"                 @ string offset=1416
+.Linfo_string98:
+	.asciz	"e"                     @ string offset=1422
+.Linfo_string99:
+	.asciz	"sensor_temp"           @ string offset=1424
+.Linfo_string100:
+	.asciz	"data"                  @ string offset=1436
+.Linfo_string101:
+	.asciz	"lenght"                @ string offset=1441
+.Linfo_string102:
+	.asciz	"tx_byte"               @ string offset=1448
+.Linfo_string103:
+	.asciz	"onewire_lenght"        @ string offset=1456
+.Linfo_string104:
+	.asciz	"ow_address"            @ string offset=1471
+.Linfo_string105:
+	.asciz	"crc"                   @ string offset=1482
+.Linfo_string106:
+	.asciz	"j"                     @ string offset=1486
+.Linfo_string107:
+	.asciz	"inbyte"                @ string offset=1488
+.Linfo_string108:
+	.asciz	"mix"                   @ string offset=1495
+.Linfo_string109:
+	.asciz	"scratchpad"            @ string offset=1499
+.Linfo_string110:
+	.asciz	"result"                @ string offset=1510
+.Linfo_string111:
+	.asciz	"send_bit"              @ string offset=1517
+.Linfo_string112:
+	.asciz	"txb"                   @ string offset=1526
+.Linfo_string113:
+	.asciz	"rxb"                   @ string offset=1530
+.Linfo_string114:
+	.asciz	"rd_byte"               @ string offset=1534
+.Linfo_string115:
+	.asciz	"txd"                   @ string offset=1542
+.Linfo_string116:
+	.asciz	"rxd"                   @ string offset=1546
+.Linfo_string117:
+	.asciz	"one_wire_lenght"       @ string offset=1550
+.Linfo_string118:
+	.asciz	"res"                   @ string offset=1566
+.Linfo_string119:
+	.asciz	"addr"                  @ string offset=1570
+	.section	.debug_loc,"",%progbits
+.Ldebug_loc0:
+	.long	.Lfunc_begin2
+	.long	.Ltmp29
+	.short	1                       @ Loc expr size
+	.byte	80                      @ DW_OP_reg0
+	.long	.Ltmp29
+	.long	.Ltmp59
+	.short	1                       @ Loc expr size
+	.byte	91                      @ DW_OP_reg11
+	.long	0
+	.long	0
+.Ldebug_loc1:
+	.long	.Lfunc_begin2
+	.long	.Ltmp29
+	.short	1                       @ Loc expr size
+	.byte	81                      @ DW_OP_reg1
+	.long	.Ltmp29
+	.long	.Ltmp30
+	.short	1                       @ Loc expr size
+	.byte	88                      @ DW_OP_reg8
+	.long	0
+	.long	0
+.Ldebug_loc2:
+	.long	.Ltmp29
+	.long	.Lfunc_end2
+	.short	2                       @ Loc expr size
+	.byte	16                      @ DW_OP_constu
+	.byte	1                       @ 1
+	.long	0
+	.long	0
+.Ldebug_loc3:
+	.long	.Ltmp29
+	.long	.Lfunc_end2
+	.short	2                       @ Loc expr size
+	.byte	16                      @ DW_OP_constu
+	.byte	0                       @ 0
+	.long	0
+	.long	0
+.Ldebug_loc4:
+	.long	.Ltmp29
+	.long	.Lfunc_end2
+	.short	2                       @ Loc expr size
+	.byte	16                      @ DW_OP_constu
+	.byte	0                       @ 0
+	.long	0
+	.long	0
+.Ldebug_loc5:
+	.long	.Ltmp29
+	.long	.Lfunc_end2
+	.short	2                       @ Loc expr size
+	.byte	16                      @ DW_OP_constu
+	.byte	1                       @ 1
+	.long	0
+	.long	0
+.Ldebug_loc6:
+	.long	.Ltmp55
+	.long	.Lfunc_end2
+	.short	2                       @ Loc expr size
+	.byte	16                      @ DW_OP_constu
+	.byte	1                       @ 1
+	.long	0
+	.long	0
+.Ldebug_loc7:
+	.long	.Lfunc_begin3
+	.long	.Ltmp62
+	.short	1                       @ Loc expr size
+	.byte	80                      @ DW_OP_reg0
+	.long	0
+	.long	0
+.Ldebug_loc8:
+	.long	.Ltmp97
+	.long	.Ltmp98
+	.short	2                       @ Loc expr size
+	.byte	16                      @ DW_OP_constu
+	.byte	0                       @ 0
+	.long	.Ltmp98
+	.long	.Ltmp101
+	.short	1                       @ Loc expr size
+	.byte	84                      @ DW_OP_reg4
+	.long	.Ltmp102
+	.long	.Ltmp114
+	.short	1                       @ Loc expr size
+	.byte	84                      @ DW_OP_reg4
+	.long	.Ltmp121
+	.long	.Ltmp124
+	.short	1                       @ Loc expr size
+	.byte	84                      @ DW_OP_reg4
+	.long	.Ltmp125
+	.long	.Ltmp138
+	.short	1                       @ Loc expr size
+	.byte	84                      @ DW_OP_reg4
+	.long	0
+	.long	0
+.Ldebug_loc9:
+	.long	.Lfunc_begin6
+	.long	.Ltmp155
+	.short	1                       @ Loc expr size
+	.byte	80                      @ DW_OP_reg0
+	.long	.Ltmp155
+	.long	.Ltmp159
+	.short	1                       @ Loc expr size
+	.byte	84                      @ DW_OP_reg4
+	.long	0
+	.long	0
+.Ldebug_loc10:
+	.long	.Ltmp156
+	.long	.Lfunc_end6
+	.short	2                       @ Loc expr size
+	.byte	16                      @ DW_OP_constu
+	.byte	0                       @ 0
+	.long	0
+	.long	0
+.Ldebug_loc11:
+	.long	.Lfunc_begin7
+	.long	.Ltmp162
+	.short	1                       @ Loc expr size
+	.byte	80                      @ DW_OP_reg0
+	.long	.Ltmp162
+	.long	.Ltmp171
+	.short	1                       @ Loc expr size
+	.byte	90                      @ DW_OP_reg10
+	.long	.Ltmp172
+	.long	.Ltmp174
+	.short	1                       @ Loc expr size
+	.byte	90                      @ DW_OP_reg10
+	.long	0
+	.long	0
+.Ldebug_loc12:
+	.long	.Lfunc_begin7
+	.long	.Ltmp162
+	.short	1                       @ Loc expr size
+	.byte	81                      @ DW_OP_reg1
+	.long	.Ltmp162
+	.long	.Ltmp164
+	.short	1                       @ Loc expr size
+	.byte	84                      @ DW_OP_reg4
+	.long	0
+	.long	0
+.Ldebug_loc13:
+	.long	.Ltmp163
+	.long	.Ltmp167
+	.short	11                      @ Loc expr size
+	.byte	16                      @ DW_OP_constu
+	.byte	255                     @ 18446744073709551615
+	.byte	255                     @ 
+	.byte	255                     @ 
+	.byte	255                     @ 
+	.byte	255                     @ 
+	.byte	255                     @ 
+	.byte	255                     @ 
+	.byte	255                     @ 
+	.byte	255                     @ 
+	.byte	1                       @ 
+	.long	.Ltmp167
+	.long	.Ltmp169
+	.short	2                       @ Loc expr size
+	.byte	125                     @ DW_OP_breg13
+	.byte	7                       @ 7
+	.long	0
+	.long	0
+.Ldebug_loc14:
+	.long	.Ltmp166
+	.long	.Lfunc_end7
+	.short	2                       @ Loc expr size
+	.byte	16                      @ DW_OP_constu
+	.byte	0                       @ 0
+	.long	0
+	.long	0
+.Ldebug_loc15:
+	.long	.Lfunc_begin8
+	.long	.Ltmp178
+	.short	1                       @ Loc expr size
+	.byte	80                      @ DW_OP_reg0
+	.long	0
+	.long	0
+.Ldebug_loc16:
+	.long	.Lfunc_begin8
+	.long	.Ltmp175
+	.short	1                       @ Loc expr size
+	.byte	81                      @ DW_OP_reg1
+	.long	0
+	.long	0
+.Ldebug_loc17:
+	.long	.Ltmp175
+	.long	.Ltmp176
+	.short	2                       @ Loc expr size
+	.byte	16                      @ DW_OP_constu
+	.byte	0                       @ 0
+	.long	.Ltmp176
+	.long	.Ltmp187
+	.short	1                       @ Loc expr size
+	.byte	92                      @ DW_OP_reg12
+	.long	0
+	.long	0
+.Ldebug_loc18:
+	.long	.Ltmp175
+	.long	.Ltmp178
+	.short	2                       @ Loc expr size
+	.byte	16                      @ DW_OP_constu
+	.byte	0                       @ 0
+	.long	.Ltmp178
+	.long	.Lfunc_end8
+	.short	1                       @ Loc expr size
+	.byte	80                      @ DW_OP_reg0
+	.long	0
+	.long	0
+.Ldebug_loc19:
+	.long	.Ltmp180
+	.long	.Lfunc_end8
+	.short	2                       @ Loc expr size
+	.byte	16                      @ DW_OP_constu
+	.byte	0                       @ 0
+	.long	0
+	.long	0
+.Ldebug_loc20:
+	.long	.Lfunc_begin9
+	.long	.Ltmp190
+	.short	1                       @ Loc expr size
+	.byte	80                      @ DW_OP_reg0
+	.long	.Ltmp191
+	.long	.Ltmp192
+	.short	1                       @ Loc expr size
+	.byte	80                      @ DW_OP_reg0
+	.long	0
+	.long	0
+.Ldebug_loc21:
+	.long	.Ltmp194
+	.long	.Ltmp195
+	.short	1                       @ Loc expr size
+	.byte	80                      @ DW_OP_reg0
+	.long	0
+	.long	0
+.Ldebug_loc22:
+	.long	.Lfunc_begin10
+	.long	.Ltmp198
+	.short	1                       @ Loc expr size
+	.byte	80                      @ DW_OP_reg0
+	.long	0
+	.long	0
+.Ldebug_loc23:
+	.long	.Ltmp197
+	.long	.Ltmp200
+	.short	2                       @ Loc expr size
+	.byte	125                     @ DW_OP_breg13
+	.byte	7                       @ 7
+	.long	0
+	.long	0
+.Ldebug_loc24:
+	.long	.Ltmp199
+	.long	.Ltmp200
+	.short	2                       @ Loc expr size
+	.byte	125                     @ DW_OP_breg13
+	.byte	6                       @ 6
+	.long	0
+	.long	0
+.Ldebug_loc25:
+	.long	.Ltmp201
+	.long	.Lfunc_end11
+	.short	2                       @ Loc expr size
+	.byte	16                      @ DW_OP_constu
+	.byte	0                       @ 0
+	.long	0
+	.long	0
+.Ldebug_loc26:
+	.long	.Ltmp204
+	.long	.Ltmp206
+	.short	1                       @ Loc expr size
+	.byte	80                      @ DW_OP_reg0
+	.long	0
+	.long	0
+.Ldebug_loc27:
+	.long	.Ltmp211
+	.long	.Ltmp212
+	.short	11                      @ Loc expr size
+	.byte	16                      @ DW_OP_constu
+	.byte	255                     @ 18446744073709551615
+	.byte	255                     @ 
+	.byte	255                     @ 
+	.byte	255                     @ 
+	.byte	255                     @ 
+	.byte	255                     @ 
+	.byte	255                     @ 
+	.byte	255                     @ 
+	.byte	255                     @ 
+	.byte	1                       @ 
+	.long	.Ltmp212
+	.long	.Ltmp216
+	.short	2                       @ Loc expr size
+	.byte	125                     @ DW_OP_breg13
+	.byte	7                       @ 7
+	.long	0
+	.long	0
+.Ldebug_loc28:
+	.long	.Ltmp213
+	.long	.Ltmp216
+	.short	2                       @ Loc expr size
+	.byte	125                     @ DW_OP_breg13
+	.byte	6                       @ 6
+	.long	0
+	.long	0
+.Ldebug_loc29:
+	.long	.Lfunc_begin13
+	.long	.Lfunc_end13
+	.short	1                       @ Loc expr size
+	.byte	80                      @ DW_OP_reg0
+	.long	0
+	.long	0
+.Ldebug_loc30:
+	.long	.Lfunc_begin13
+	.long	.Ltmp218
+	.short	1                       @ Loc expr size
+	.byte	81                      @ DW_OP_reg1
+	.long	.Ltmp218
+	.long	.Ltmp228
+	.short	1                       @ Loc expr size
+	.byte	92                      @ DW_OP_reg12
+	.long	0
+	.long	0
+.Ldebug_loc31:
+	.long	.Ltmp219
+	.long	.Ltmp220
+	.short	2                       @ Loc expr size
+	.byte	16                      @ DW_OP_constu
+	.byte	0                       @ 0
+	.long	.Ltmp220
+	.long	.Ltmp227
+	.short	1                       @ Loc expr size
+	.byte	94                      @ DW_OP_reg14
+	.long	0
+	.long	0
+.Ldebug_loc32:
+	.long	.Ltmp220
+	.long	.Ltmp221
+	.short	2                       @ Loc expr size
+	.byte	16                      @ DW_OP_constu
+	.byte	0                       @ 0
+	.long	.Ltmp221
+	.long	.Ltmp224
+	.short	1                       @ Loc expr size
+	.byte	85                      @ DW_OP_reg5
+	.long	0
+	.long	0
+.Ldebug_loc33:
+	.long	.Lfunc_begin14
+	.long	.Ltmp229
+	.short	1                       @ Loc expr size
+	.byte	80                      @ DW_OP_reg0
+	.long	0
+	.long	0
+.Ldebug_loc34:
+	.long	.Lfunc_begin14
+	.long	.Lfunc_end14
+	.short	1                       @ Loc expr size
+	.byte	81                      @ DW_OP_reg1
+	.long	0
+	.long	0
+.Ldebug_loc35:
+	.long	.Ltmp229
+	.long	.Ltmp230
+	.short	2                       @ Loc expr size
+	.byte	16                      @ DW_OP_constu
+	.byte	0                       @ 0
+	.long	.Ltmp230
+	.long	.Lfunc_end14
+	.short	1                       @ Loc expr size
+	.byte	82                      @ DW_OP_reg2
+	.long	0
+	.long	0
+.Ldebug_loc36:
+	.long	.Lfunc_begin15
+	.long	.Ltmp239
+	.short	1                       @ Loc expr size
+	.byte	80                      @ DW_OP_reg0
+	.long	0
+	.long	0
+.Ldebug_loc37:
+	.long	.Ltmp236
+	.long	.Ltmp237
+	.short	2                       @ Loc expr size
+	.byte	16                      @ DW_OP_constu
+	.byte	0                       @ 0
+	.long	.Ltmp237
+	.long	.Lfunc_end15
+	.short	1                       @ Loc expr size
+	.byte	81                      @ DW_OP_reg1
+	.long	0
+	.long	0
+.Ldebug_loc38:
+	.long	.Ltmp236
+	.long	.Lfunc_end15
+	.short	2                       @ Loc expr size
+	.byte	16                      @ DW_OP_constu
+	.byte	0                       @ 0
+	.long	0
+	.long	0
+.Ldebug_loc39:
+	.long	.Lfunc_begin16
+	.long	.Ltmp246
+	.short	1                       @ Loc expr size
+	.byte	80                      @ DW_OP_reg0
+	.long	.Ltmp246
+	.long	.Ltmp251
+	.short	1                       @ Loc expr size
+	.byte	84                      @ DW_OP_reg4
+	.long	0
+	.long	0
+.Ldebug_loc40:
+	.long	.Lfunc_begin17
+	.long	.Ltmp252
+	.short	1                       @ Loc expr size
+	.byte	80                      @ DW_OP_reg0
+	.long	.Ltmp252
+	.long	.Ltmp255
+	.short	1                       @ Loc expr size
+	.byte	84                      @ DW_OP_reg4
+	.long	0
+	.long	0
+.Ldebug_loc41:
+	.long	.Ltmp253
+	.long	.Ltmp253
+	.short	2                       @ Loc expr size
+	.byte	16                      @ DW_OP_constu
+	.byte	0                       @ 0
+	.long	.Ltmp253
+	.long	.Ltmp255
+	.short	1                       @ Loc expr size
+	.byte	85                      @ DW_OP_reg5
+	.long	0
+	.long	0
+	.section	.debug_abbrev,"",%progbits
+	.byte	1                       @ Abbreviation Code
+	.byte	17                      @ DW_TAG_compile_unit
+	.byte	1                       @ DW_CHILDREN_yes
+	.byte	37                      @ DW_AT_producer
+	.byte	14                      @ DW_FORM_strp
+	.byte	19                      @ DW_AT_language
+	.byte	5                       @ DW_FORM_data2
+	.byte	3                       @ DW_AT_name
+	.byte	14                      @ DW_FORM_strp
+	.byte	16                      @ DW_AT_stmt_list
+	.byte	6                       @ DW_FORM_data4
+	.byte	27                      @ DW_AT_comp_dir
+	.byte	14                      @ DW_FORM_strp
+	.ascii	"\264B"                 @ DW_AT_GNU_pubnames
+	.byte	12                      @ DW_FORM_flag
+	.byte	17                      @ DW_AT_low_pc
+	.byte	1                       @ DW_FORM_addr
+	.byte	85                      @ DW_AT_ranges
+	.byte	6                       @ DW_FORM_data4
+	.byte	0                       @ EOM(1)
+	.byte	0                       @ EOM(2)
+	.byte	2                       @ Abbreviation Code
+	.byte	46                      @ DW_TAG_subprogram
+	.byte	1                       @ DW_CHILDREN_yes
+	.byte	17                      @ DW_AT_low_pc
+	.byte	1                       @ DW_FORM_addr
+	.byte	18                      @ DW_AT_high_pc
+	.byte	1                       @ DW_FORM_addr
+	.byte	64                      @ DW_AT_frame_base
+	.byte	10                      @ DW_FORM_block1
+	.byte	3                       @ DW_AT_name
+	.byte	14                      @ DW_FORM_strp
+	.byte	58                      @ DW_AT_decl_file
+	.byte	11                      @ DW_FORM_data1
+	.byte	59                      @ DW_AT_decl_line
+	.byte	11                      @ DW_FORM_data1
+	.byte	39                      @ DW_AT_prototyped
+	.byte	12                      @ DW_FORM_flag
+	.byte	63                      @ DW_AT_external
+	.byte	12                      @ DW_FORM_flag
+	.byte	0                       @ EOM(1)
+	.byte	0                       @ EOM(2)
+	.byte	3                       @ Abbreviation Code
+	.byte	52                      @ DW_TAG_variable
+	.byte	0                       @ DW_CHILDREN_no
+	.byte	3                       @ DW_AT_name
+	.byte	14                      @ DW_FORM_strp
+	.byte	73                      @ DW_AT_type
+	.byte	19                      @ DW_FORM_ref4
+	.byte	58                      @ DW_AT_decl_file
+	.byte	11                      @ DW_FORM_data1
+	.byte	59                      @ DW_AT_decl_line
+	.byte	11                      @ DW_FORM_data1
+	.byte	2                       @ DW_AT_location
+	.byte	10                      @ DW_FORM_block1
+	.byte	0                       @ EOM(1)
+	.byte	0                       @ EOM(2)
+	.byte	4                       @ Abbreviation Code
+	.byte	52                      @ DW_TAG_variable
+	.byte	0                       @ DW_CHILDREN_no
+	.byte	2                       @ DW_AT_location
+	.byte	6                       @ DW_FORM_data4
+	.byte	3                       @ DW_AT_name
+	.byte	14                      @ DW_FORM_strp
+	.byte	58                      @ DW_AT_decl_file
+	.byte	11                      @ DW_FORM_data1
+	.byte	59                      @ DW_AT_decl_line
+	.byte	11                      @ DW_FORM_data1
+	.byte	73                      @ DW_AT_type
+	.byte	19                      @ DW_FORM_ref4
+	.byte	0                       @ EOM(1)
+	.byte	0                       @ EOM(2)
+	.byte	5                       @ Abbreviation Code
+	.byte	52                      @ DW_TAG_variable
+	.byte	0                       @ DW_CHILDREN_no
+	.byte	3                       @ DW_AT_name
+	.byte	14                      @ DW_FORM_strp
+	.byte	58                      @ DW_AT_decl_file
+	.byte	11                      @ DW_FORM_data1
+	.byte	59                      @ DW_AT_decl_line
+	.byte	11                      @ DW_FORM_data1
+	.byte	73                      @ DW_AT_type
+	.byte	19                      @ DW_FORM_ref4
+	.byte	0                       @ EOM(1)
+	.byte	0                       @ EOM(2)
+	.byte	6                       @ Abbreviation Code
+	.byte	22                      @ DW_TAG_typedef
+	.byte	0                       @ DW_CHILDREN_no
+	.byte	73                      @ DW_AT_type
+	.byte	19                      @ DW_FORM_ref4
+	.byte	3                       @ DW_AT_name
+	.byte	14                      @ DW_FORM_strp
+	.byte	58                      @ DW_AT_decl_file
+	.byte	11                      @ DW_FORM_data1
+	.byte	59                      @ DW_AT_decl_line
+	.byte	11                      @ DW_FORM_data1
+	.byte	0                       @ EOM(1)
+	.byte	0                       @ EOM(2)
+	.byte	7                       @ Abbreviation Code
+	.byte	36                      @ DW_TAG_base_type
+	.byte	0                       @ DW_CHILDREN_no
+	.byte	3                       @ DW_AT_name
+	.byte	14                      @ DW_FORM_strp
+	.byte	62                      @ DW_AT_encoding
+	.byte	11                      @ DW_FORM_data1
+	.byte	11                      @ DW_AT_byte_size
+	.byte	11                      @ DW_FORM_data1
+	.byte	0                       @ EOM(1)
+	.byte	0                       @ EOM(2)
+	.byte	8                       @ Abbreviation Code
+	.byte	46                      @ DW_TAG_subprogram
+	.byte	1                       @ DW_CHILDREN_yes
+	.byte	17                      @ DW_AT_low_pc
+	.byte	1                       @ DW_FORM_addr
+	.byte	18                      @ DW_AT_high_pc
+	.byte	1                       @ DW_FORM_addr
+	.byte	64                      @ DW_AT_frame_base
+	.byte	10                      @ DW_FORM_block1
+	.byte	3                       @ DW_AT_name
+	.byte	14                      @ DW_FORM_strp
+	.byte	58                      @ DW_AT_decl_file
+	.byte	11                      @ DW_FORM_data1
+	.byte	59                      @ DW_AT_decl_line
+	.byte	5                       @ DW_FORM_data2
+	.byte	39                      @ DW_AT_prototyped
+	.byte	12                      @ DW_FORM_flag
+	.byte	73                      @ DW_AT_type
+	.byte	19                      @ DW_FORM_ref4
+	.byte	63                      @ DW_AT_external
+	.byte	12                      @ DW_FORM_flag
+	.byte	0                       @ EOM(1)
+	.byte	0                       @ EOM(2)
+	.byte	9                       @ Abbreviation Code
+	.byte	52                      @ DW_TAG_variable
+	.byte	0                       @ DW_CHILDREN_no
+	.byte	3                       @ DW_AT_name
+	.byte	14                      @ DW_FORM_strp
+	.byte	73                      @ DW_AT_type
+	.byte	19                      @ DW_FORM_ref4
+	.byte	58                      @ DW_AT_decl_file
+	.byte	11                      @ DW_FORM_data1
+	.byte	59                      @ DW_AT_decl_line
+	.byte	5                       @ DW_FORM_data2
+	.byte	2                       @ DW_AT_location
+	.byte	10                      @ DW_FORM_block1
+	.byte	0                       @ EOM(1)
+	.byte	0                       @ EOM(2)
+	.byte	10                      @ Abbreviation Code
+	.byte	5                       @ DW_TAG_formal_parameter
+	.byte	0                       @ DW_CHILDREN_no
+	.byte	2                       @ DW_AT_location
+	.byte	6                       @ DW_FORM_data4
+	.byte	3                       @ DW_AT_name
+	.byte	14                      @ DW_FORM_strp
+	.byte	58                      @ DW_AT_decl_file
+	.byte	11                      @ DW_FORM_data1
+	.byte	59                      @ DW_AT_decl_line
+	.byte	5                       @ DW_FORM_data2
+	.byte	73                      @ DW_AT_type
+	.byte	19                      @ DW_FORM_ref4
+	.byte	0                       @ EOM(1)
+	.byte	0                       @ EOM(2)
+	.byte	11                      @ Abbreviation Code
+	.byte	52                      @ DW_TAG_variable
+	.byte	0                       @ DW_CHILDREN_no
+	.byte	2                       @ DW_AT_location
+	.byte	6                       @ DW_FORM_data4
+	.byte	3                       @ DW_AT_name
+	.byte	14                      @ DW_FORM_strp
+	.byte	58                      @ DW_AT_decl_file
+	.byte	11                      @ DW_FORM_data1
+	.byte	59                      @ DW_AT_decl_line
+	.byte	5                       @ DW_FORM_data2
+	.byte	73                      @ DW_AT_type
+	.byte	19                      @ DW_FORM_ref4
+	.byte	0                       @ EOM(1)
+	.byte	0                       @ EOM(2)
+	.byte	12                      @ Abbreviation Code
+	.byte	52                      @ DW_TAG_variable
+	.byte	0                       @ DW_CHILDREN_no
+	.byte	3                       @ DW_AT_name
+	.byte	14                      @ DW_FORM_strp
+	.byte	58                      @ DW_AT_decl_file
+	.byte	11                      @ DW_FORM_data1
+	.byte	59                      @ DW_AT_decl_line
+	.byte	5                       @ DW_FORM_data2
+	.byte	73                      @ DW_AT_type
+	.byte	19                      @ DW_FORM_ref4
+	.byte	0                       @ EOM(1)
+	.byte	0                       @ EOM(2)
+	.byte	13                      @ Abbreviation Code
+	.byte	52                      @ DW_TAG_variable
+	.byte	0                       @ DW_CHILDREN_no
+	.byte	3                       @ DW_AT_name
+	.byte	14                      @ DW_FORM_strp
+	.byte	73                      @ DW_AT_type
+	.byte	19                      @ DW_FORM_ref4
+	.byte	63                      @ DW_AT_external
+	.byte	12                      @ DW_FORM_flag
+	.byte	58                      @ DW_AT_decl_file
+	.byte	11                      @ DW_FORM_data1
+	.byte	59                      @ DW_AT_decl_line
+	.byte	11                      @ DW_FORM_data1
+	.byte	2                       @ DW_AT_location
+	.byte	10                      @ DW_FORM_block1
+	.byte	0                       @ EOM(1)
+	.byte	0                       @ EOM(2)
+	.byte	14                      @ Abbreviation Code
+	.byte	4                       @ DW_TAG_enumeration_type
+	.byte	1                       @ DW_CHILDREN_yes
+	.byte	73                      @ DW_AT_type
+	.byte	19                      @ DW_FORM_ref4
+	.byte	11                      @ DW_AT_byte_size
+	.byte	11                      @ DW_FORM_data1
+	.byte	58                      @ DW_AT_decl_file
+	.byte	11                      @ DW_FORM_data1
+	.byte	59                      @ DW_AT_decl_line
+	.byte	11                      @ DW_FORM_data1
+	.byte	0                       @ EOM(1)
+	.byte	0                       @ EOM(2)
+	.byte	15                      @ Abbreviation Code
+	.byte	40                      @ DW_TAG_enumerator
+	.byte	0                       @ DW_CHILDREN_no
+	.byte	3                       @ DW_AT_name
+	.byte	14                      @ DW_FORM_strp
+	.byte	28                      @ DW_AT_const_value
+	.byte	15                      @ DW_FORM_udata
+	.byte	0                       @ EOM(1)
+	.byte	0                       @ EOM(2)
+	.byte	16                      @ Abbreviation Code
+	.byte	19                      @ DW_TAG_structure_type
+	.byte	1                       @ DW_CHILDREN_yes
+	.byte	11                      @ DW_AT_byte_size
+	.byte	11                      @ DW_FORM_data1
+	.byte	58                      @ DW_AT_decl_file
+	.byte	11                      @ DW_FORM_data1
+	.byte	59                      @ DW_AT_decl_line
+	.byte	11                      @ DW_FORM_data1
+	.byte	0                       @ EOM(1)
+	.byte	0                       @ EOM(2)
+	.byte	17                      @ Abbreviation Code
+	.byte	13                      @ DW_TAG_member
+	.byte	0                       @ DW_CHILDREN_no
+	.byte	3                       @ DW_AT_name
+	.byte	14                      @ DW_FORM_strp
+	.byte	73                      @ DW_AT_type
+	.byte	19                      @ DW_FORM_ref4
+	.byte	58                      @ DW_AT_decl_file
+	.byte	11                      @ DW_FORM_data1
+	.byte	59                      @ DW_AT_decl_line
+	.byte	11                      @ DW_FORM_data1
+	.byte	56                      @ DW_AT_data_member_location
+	.byte	11                      @ DW_FORM_data1
+	.byte	0                       @ EOM(1)
+	.byte	0                       @ EOM(2)
+	.byte	18                      @ Abbreviation Code
+	.byte	1                       @ DW_TAG_array_type
+	.byte	1                       @ DW_CHILDREN_yes
+	.byte	73                      @ DW_AT_type
+	.byte	19                      @ DW_FORM_ref4
+	.byte	0                       @ EOM(1)
+	.byte	0                       @ EOM(2)
+	.byte	19                      @ Abbreviation Code
+	.byte	33                      @ DW_TAG_subrange_type
+	.byte	0                       @ DW_CHILDREN_no
+	.byte	73                      @ DW_AT_type
+	.byte	19                      @ DW_FORM_ref4
+	.byte	55                      @ DW_AT_count
+	.byte	11                      @ DW_FORM_data1
+	.byte	0                       @ EOM(1)
+	.byte	0                       @ EOM(2)
+	.byte	20                      @ Abbreviation Code
+	.byte	36                      @ DW_TAG_base_type
+	.byte	0                       @ DW_CHILDREN_no
+	.byte	3                       @ DW_AT_name
+	.byte	14                      @ DW_FORM_strp
+	.byte	11                      @ DW_AT_byte_size
+	.byte	11                      @ DW_FORM_data1
+	.byte	62                      @ DW_AT_encoding
+	.byte	11                      @ DW_FORM_data1
+	.byte	0                       @ EOM(1)
+	.byte	0                       @ EOM(2)
+	.byte	21                      @ Abbreviation Code
+	.byte	53                      @ DW_TAG_volatile_type
+	.byte	0                       @ DW_CHILDREN_no
+	.byte	73                      @ DW_AT_type
+	.byte	19                      @ DW_FORM_ref4
+	.byte	0                       @ EOM(1)
+	.byte	0                       @ EOM(2)
+	.byte	22                      @ Abbreviation Code
+	.byte	15                      @ DW_TAG_pointer_type
+	.byte	0                       @ DW_CHILDREN_no
+	.byte	73                      @ DW_AT_type
+	.byte	19                      @ DW_FORM_ref4
+	.byte	0                       @ EOM(1)
+	.byte	0                       @ EOM(2)
+	.byte	23                      @ Abbreviation Code
+	.byte	22                      @ DW_TAG_typedef
+	.byte	0                       @ DW_CHILDREN_no
+	.byte	73                      @ DW_AT_type
+	.byte	19                      @ DW_FORM_ref4
+	.byte	3                       @ DW_AT_name
+	.byte	14                      @ DW_FORM_strp
+	.byte	58                      @ DW_AT_decl_file
+	.byte	11                      @ DW_FORM_data1
+	.byte	59                      @ DW_AT_decl_line
+	.byte	5                       @ DW_FORM_data2
+	.byte	0                       @ EOM(1)
+	.byte	0                       @ EOM(2)
+	.byte	24                      @ Abbreviation Code
+	.byte	19                      @ DW_TAG_structure_type
+	.byte	1                       @ DW_CHILDREN_yes
+	.byte	11                      @ DW_AT_byte_size
+	.byte	11                      @ DW_FORM_data1
+	.byte	58                      @ DW_AT_decl_file
+	.byte	11                      @ DW_FORM_data1
+	.byte	59                      @ DW_AT_decl_line
+	.byte	5                       @ DW_FORM_data2
+	.byte	0                       @ EOM(1)
+	.byte	0                       @ EOM(2)
+	.byte	25                      @ Abbreviation Code
+	.byte	13                      @ DW_TAG_member
+	.byte	0                       @ DW_CHILDREN_no
+	.byte	3                       @ DW_AT_name
+	.byte	14                      @ DW_FORM_strp
+	.byte	73                      @ DW_AT_type
+	.byte	19                      @ DW_FORM_ref4
+	.byte	58                      @ DW_AT_decl_file
+	.byte	11                      @ DW_FORM_data1
+	.byte	59                      @ DW_AT_decl_line
+	.byte	5                       @ DW_FORM_data2
+	.byte	56                      @ DW_AT_data_member_location
+	.byte	11                      @ DW_FORM_data1
+	.byte	0                       @ EOM(1)
+	.byte	0                       @ EOM(2)
+	.byte	26                      @ Abbreviation Code
+	.byte	46                      @ DW_TAG_subprogram
+	.byte	0                       @ DW_CHILDREN_no
+	.byte	3                       @ DW_AT_name
+	.byte	14                      @ DW_FORM_strp
+	.byte	58                      @ DW_AT_decl_file
+	.byte	11                      @ DW_FORM_data1
+	.byte	59                      @ DW_AT_decl_line
+	.byte	5                       @ DW_FORM_data2
+	.byte	39                      @ DW_AT_prototyped
+	.byte	12                      @ DW_FORM_flag
+	.byte	63                      @ DW_AT_external
+	.byte	12                      @ DW_FORM_flag
+	.byte	32                      @ DW_AT_inline
+	.byte	11                      @ DW_FORM_data1
+	.byte	0                       @ EOM(1)
+	.byte	0                       @ EOM(2)
+	.byte	27                      @ Abbreviation Code
+	.byte	29                      @ DW_TAG_inlined_subroutine
+	.byte	0                       @ DW_CHILDREN_no
+	.byte	49                      @ DW_AT_abstract_origin
+	.byte	19                      @ DW_FORM_ref4
+	.byte	17                      @ DW_AT_low_pc
+	.byte	1                       @ DW_FORM_addr
+	.byte	18                      @ DW_AT_high_pc
+	.byte	1                       @ DW_FORM_addr
+	.byte	88                      @ DW_AT_call_file
+	.byte	11                      @ DW_FORM_data1
+	.byte	89                      @ DW_AT_call_line
+	.byte	11                      @ DW_FORM_data1
+	.byte	0                       @ EOM(1)
+	.byte	0                       @ EOM(2)
+	.byte	28                      @ Abbreviation Code
+	.byte	46                      @ DW_TAG_subprogram
+	.byte	0                       @ DW_CHILDREN_no
+	.byte	17                      @ DW_AT_low_pc
+	.byte	1                       @ DW_FORM_addr
+	.byte	18                      @ DW_AT_high_pc
+	.byte	1                       @ DW_FORM_addr
+	.byte	64                      @ DW_AT_frame_base
+	.byte	10                      @ DW_FORM_block1
+	.byte	49                      @ DW_AT_abstract_origin
+	.byte	19                      @ DW_FORM_ref4
+	.byte	0                       @ EOM(1)
+	.byte	0                       @ EOM(2)
+	.byte	29                      @ Abbreviation Code
+	.byte	46                      @ DW_TAG_subprogram
+	.byte	1                       @ DW_CHILDREN_yes
+	.byte	17                      @ DW_AT_low_pc
+	.byte	1                       @ DW_FORM_addr
+	.byte	18                      @ DW_AT_high_pc
+	.byte	1                       @ DW_FORM_addr
+	.byte	64                      @ DW_AT_frame_base
+	.byte	10                      @ DW_FORM_block1
+	.byte	3                       @ DW_AT_name
+	.byte	14                      @ DW_FORM_strp
+	.byte	58                      @ DW_AT_decl_file
+	.byte	11                      @ DW_FORM_data1
+	.byte	59                      @ DW_AT_decl_line
+	.byte	5                       @ DW_FORM_data2
+	.byte	39                      @ DW_AT_prototyped
+	.byte	12                      @ DW_FORM_flag
+	.byte	63                      @ DW_AT_external
+	.byte	12                      @ DW_FORM_flag
+	.byte	0                       @ EOM(1)
+	.byte	0                       @ EOM(2)
+	.byte	30                      @ Abbreviation Code
+	.byte	46                      @ DW_TAG_subprogram
+	.byte	0                       @ DW_CHILDREN_no
+	.byte	17                      @ DW_AT_low_pc
+	.byte	1                       @ DW_FORM_addr
+	.byte	18                      @ DW_AT_high_pc
+	.byte	1                       @ DW_FORM_addr
+	.byte	64                      @ DW_AT_frame_base
+	.byte	10                      @ DW_FORM_block1
+	.byte	3                       @ DW_AT_name
+	.byte	14                      @ DW_FORM_strp
+	.byte	58                      @ DW_AT_decl_file
+	.byte	11                      @ DW_FORM_data1
+	.byte	59                      @ DW_AT_decl_line
+	.byte	5                       @ DW_FORM_data2
+	.byte	39                      @ DW_AT_prototyped
+	.byte	12                      @ DW_FORM_flag
+	.byte	73                      @ DW_AT_type
+	.byte	19                      @ DW_FORM_ref4
+	.byte	63                      @ DW_AT_external
+	.byte	12                      @ DW_FORM_flag
+	.byte	0                       @ EOM(1)
+	.byte	0                       @ EOM(2)
+	.byte	31                      @ Abbreviation Code
+	.byte	11                      @ DW_TAG_lexical_block
+	.byte	1                       @ DW_CHILDREN_yes
+	.byte	17                      @ DW_AT_low_pc
+	.byte	1                       @ DW_FORM_addr
+	.byte	18                      @ DW_AT_high_pc
+	.byte	1                       @ DW_FORM_addr
+	.byte	0                       @ EOM(1)
+	.byte	0                       @ EOM(2)
+	.byte	32                      @ Abbreviation Code
+	.byte	11                      @ DW_TAG_lexical_block
+	.byte	1                       @ DW_CHILDREN_yes
+	.byte	85                      @ DW_AT_ranges
+	.byte	6                       @ DW_FORM_data4
+	.byte	0                       @ EOM(1)
+	.byte	0                       @ EOM(2)
+	.byte	33                      @ Abbreviation Code
+	.byte	46                      @ DW_TAG_subprogram
+	.byte	1                       @ DW_CHILDREN_yes
+	.byte	3                       @ DW_AT_name
+	.byte	14                      @ DW_FORM_strp
+	.byte	58                      @ DW_AT_decl_file
+	.byte	11                      @ DW_FORM_data1
+	.byte	59                      @ DW_AT_decl_line
+	.byte	5                       @ DW_FORM_data2
+	.byte	39                      @ DW_AT_prototyped
+	.byte	12                      @ DW_FORM_flag
+	.byte	63                      @ DW_AT_external
+	.byte	12                      @ DW_FORM_flag
+	.byte	32                      @ DW_AT_inline
+	.byte	11                      @ DW_FORM_data1
+	.byte	0                       @ EOM(1)
+	.byte	0                       @ EOM(2)
+	.byte	34                      @ Abbreviation Code
+	.byte	5                       @ DW_TAG_formal_parameter
+	.byte	0                       @ DW_CHILDREN_no
+	.byte	3                       @ DW_AT_name
+	.byte	14                      @ DW_FORM_strp
+	.byte	58                      @ DW_AT_decl_file
+	.byte	11                      @ DW_FORM_data1
+	.byte	59                      @ DW_AT_decl_line
+	.byte	5                       @ DW_FORM_data2
+	.byte	73                      @ DW_AT_type
+	.byte	19                      @ DW_FORM_ref4
+	.byte	0                       @ EOM(1)
+	.byte	0                       @ EOM(2)
+	.byte	35                      @ Abbreviation Code
+	.byte	29                      @ DW_TAG_inlined_subroutine
+	.byte	1                       @ DW_CHILDREN_yes
+	.byte	49                      @ DW_AT_abstract_origin
+	.byte	19                      @ DW_FORM_ref4
+	.byte	17                      @ DW_AT_low_pc
+	.byte	1                       @ DW_FORM_addr
+	.byte	18                      @ DW_AT_high_pc
+	.byte	1                       @ DW_FORM_addr
+	.byte	88                      @ DW_AT_call_file
+	.byte	11                      @ DW_FORM_data1
+	.byte	89                      @ DW_AT_call_line
+	.byte	5                       @ DW_FORM_data2
+	.byte	0                       @ EOM(1)
+	.byte	0                       @ EOM(2)
+	.byte	36                      @ Abbreviation Code
+	.byte	52                      @ DW_TAG_variable
+	.byte	0                       @ DW_CHILDREN_no
+	.byte	2                       @ DW_AT_location
+	.byte	6                       @ DW_FORM_data4
+	.byte	49                      @ DW_AT_abstract_origin
+	.byte	19                      @ DW_FORM_ref4
+	.byte	0                       @ EOM(1)
+	.byte	0                       @ EOM(2)
+	.byte	37                      @ Abbreviation Code
+	.byte	46                      @ DW_TAG_subprogram
+	.byte	1                       @ DW_CHILDREN_yes
+	.byte	17                      @ DW_AT_low_pc
+	.byte	1                       @ DW_FORM_addr
+	.byte	18                      @ DW_AT_high_pc
+	.byte	1                       @ DW_FORM_addr
+	.byte	64                      @ DW_AT_frame_base
+	.byte	10                      @ DW_FORM_block1
+	.byte	49                      @ DW_AT_abstract_origin
+	.byte	19                      @ DW_FORM_ref4
+	.byte	0                       @ EOM(1)
+	.byte	0                       @ EOM(2)
+	.byte	38                      @ Abbreviation Code
+	.byte	5                       @ DW_TAG_formal_parameter
+	.byte	0                       @ DW_CHILDREN_no
+	.byte	2                       @ DW_AT_location
+	.byte	6                       @ DW_FORM_data4
+	.byte	49                      @ DW_AT_abstract_origin
+	.byte	19                      @ DW_FORM_ref4
+	.byte	0                       @ EOM(1)
+	.byte	0                       @ EOM(2)
+	.byte	0                       @ EOM(3)
+	.section	.debug_info,"",%progbits
+.Lcu_begin0:
+	.long	2171                    @ Length of Unit
+	.short	3                       @ DWARF version number
+	.long	.debug_abbrev           @ Offset Into Abbrev. Section
+	.byte	4                       @ Address Size (in bytes)
+	.byte	1                       @ Abbrev [1] 0xb:0x874 DW_TAG_compile_unit
+	.long	.Linfo_string0          @ DW_AT_producer
+	.short	12                      @ DW_AT_language
+	.long	.Linfo_string1          @ DW_AT_name
+	.long	.Lline_table_start0     @ DW_AT_stmt_list
+	.long	.Linfo_string2          @ DW_AT_comp_dir
+	.byte	1                       @ DW_AT_GNU_pubnames
+	.long	0                       @ DW_AT_low_pc
+	.long	.Ldebug_ranges1         @ DW_AT_ranges
+	.byte	2                       @ Abbrev [2] 0x27:0x59 DW_TAG_subprogram
+	.long	.Lfunc_begin4           @ DW_AT_low_pc
+	.long	.Lfunc_end4             @ DW_AT_high_pc
+	.byte	1                       @ DW_AT_frame_base
+	.byte	93
+	.long	.Linfo_string72         @ DW_AT_name
+	.byte	2                       @ DW_AT_decl_file
+	.byte	110                     @ DW_AT_decl_line
+	.byte	1                       @ DW_AT_prototyped
+	.byte	1                       @ DW_AT_external
+	.byte	3                       @ Abbrev [3] 0x3a:0x18 DW_TAG_variable
+	.long	.Linfo_string3          @ DW_AT_name
+	.long	128                     @ DW_AT_type
+	.byte	2                       @ DW_AT_decl_file
+	.byte	112                     @ DW_AT_decl_line
+	.byte	12                      @ DW_AT_location
+	.byte	3
+	.long	.L_MergedGlobals.2
+	.byte	6
+	.byte	16
+	.byte	1
+	.byte	30
+	.byte	16
+	.byte	0
+	.byte	34
+	.byte	3                       @ Abbrev [3] 0x52:0x13 DW_TAG_variable
+	.long	.Linfo_string6          @ DW_AT_name
+	.long	128                     @ DW_AT_type
+	.byte	2                       @ DW_AT_decl_file
+	.byte	113                     @ DW_AT_decl_line
+	.byte	7                       @ DW_AT_location
+	.byte	3
+	.long	.L_MergedGlobals.2
+	.byte	35
+	.byte	1
+	.byte	4                       @ Abbrev [4] 0x65:0xf DW_TAG_variable
+	.long	.Ldebug_loc8            @ DW_AT_location
+	.long	.Linfo_string98         @ DW_AT_name
+	.byte	2                       @ DW_AT_decl_file
+	.byte	115                     @ DW_AT_decl_line
+	.long	128                     @ DW_AT_type
+	.byte	5                       @ Abbrev [5] 0x74:0xb DW_TAG_variable
+	.long	.Linfo_string99         @ DW_AT_name
+	.byte	2                       @ DW_AT_decl_file
+	.byte	114                     @ DW_AT_decl_line
+	.long	2151                    @ DW_AT_type
+	.byte	0                       @ End Of Children Mark
+	.byte	6                       @ Abbrev [6] 0x80:0xb DW_TAG_typedef
+	.long	139                     @ DW_AT_type
+	.long	.Linfo_string5          @ DW_AT_name
+	.byte	1                       @ DW_AT_decl_file
+	.byte	62                      @ DW_AT_decl_line
+	.byte	7                       @ Abbrev [7] 0x8b:0x7 DW_TAG_base_type
+	.long	.Linfo_string4          @ DW_AT_name
+	.byte	8                       @ DW_AT_encoding
+	.byte	1                       @ DW_AT_byte_size
+	.byte	8                       @ Abbrev [8] 0x92:0xbf DW_TAG_subprogram
+	.long	.Lfunc_begin2           @ DW_AT_low_pc
+	.long	.Lfunc_end2             @ DW_AT_high_pc
+	.byte	1                       @ DW_AT_frame_base
+	.byte	93
+	.long	.Linfo_string70         @ DW_AT_name
+	.byte	2                       @ DW_AT_decl_file
+	.short	598                     @ DW_AT_decl_line
+	.byte	1                       @ DW_AT_prototyped
+	.long	128                     @ DW_AT_type
+	.byte	1                       @ DW_AT_external
+	.byte	9                       @ Abbrev [9] 0xaa:0x12 DW_TAG_variable
+	.long	.Linfo_string7          @ DW_AT_name
+	.long	128                     @ DW_AT_type
+	.byte	2                       @ DW_AT_decl_file
+	.short	600                     @ DW_AT_decl_line
+	.byte	5                       @ DW_AT_location
+	.byte	3
+	.long	ONEWIRE_Search.init_cnt
+	.byte	10                      @ Abbrev [10] 0xbc:0x10 DW_TAG_formal_parameter
+	.long	.Ldebug_loc0            @ DW_AT_location
+	.long	.Linfo_string87         @ DW_AT_name
+	.byte	2                       @ DW_AT_decl_file
+	.short	598                     @ DW_AT_decl_line
+	.long	2169                    @ DW_AT_type
+	.byte	10                      @ Abbrev [10] 0xcc:0x10 DW_TAG_formal_parameter
+	.long	.Ldebug_loc1            @ DW_AT_location
+	.long	.Linfo_string88         @ DW_AT_name
+	.byte	2                       @ DW_AT_decl_file
+	.short	598                     @ DW_AT_decl_line
+	.long	1817                    @ DW_AT_type
+	.byte	11                      @ Abbrev [11] 0xdc:0x10 DW_TAG_variable
+	.long	.Ldebug_loc2            @ DW_AT_location
+	.long	.Linfo_string89         @ DW_AT_name
+	.byte	2                       @ DW_AT_decl_file
+	.short	603                     @ DW_AT_decl_line
+	.long	128                     @ DW_AT_type
+	.byte	11                      @ Abbrev [11] 0xec:0x10 DW_TAG_variable
+	.long	.Ldebug_loc3            @ DW_AT_location
+	.long	.Linfo_string90         @ DW_AT_name
+	.byte	2                       @ DW_AT_decl_file
+	.short	601                     @ DW_AT_decl_line
+	.long	128                     @ DW_AT_type
+	.byte	11                      @ Abbrev [11] 0xfc:0x10 DW_TAG_variable
+	.long	.Ldebug_loc4            @ DW_AT_location
+	.long	.Linfo_string91         @ DW_AT_name
+	.byte	2                       @ DW_AT_decl_file
+	.short	601                     @ DW_AT_decl_line
+	.long	128                     @ DW_AT_type
+	.byte	11                      @ Abbrev [11] 0x10c:0x10 DW_TAG_variable
+	.long	.Ldebug_loc5            @ DW_AT_location
+	.long	.Linfo_string92         @ DW_AT_name
+	.byte	2                       @ DW_AT_decl_file
+	.short	602                     @ DW_AT_decl_line
+	.long	128                     @ DW_AT_type
+	.byte	11                      @ Abbrev [11] 0x11c:0x10 DW_TAG_variable
+	.long	.Ldebug_loc6            @ DW_AT_location
+	.long	.Linfo_string93         @ DW_AT_name
+	.byte	2                       @ DW_AT_decl_file
+	.short	601                     @ DW_AT_decl_line
+	.long	128                     @ DW_AT_type
+	.byte	12                      @ Abbrev [12] 0x12c:0xc DW_TAG_variable
+	.long	.Linfo_string94         @ DW_AT_name
+	.byte	2                       @ DW_AT_decl_file
+	.short	602                     @ DW_AT_decl_line
+	.long	128                     @ DW_AT_type
+	.byte	12                      @ Abbrev [12] 0x138:0xc DW_TAG_variable
+	.long	.Linfo_string95         @ DW_AT_name
+	.byte	2                       @ DW_AT_decl_file
+	.short	602                     @ DW_AT_decl_line
+	.long	128                     @ DW_AT_type
+	.byte	12                      @ Abbrev [12] 0x144:0xc DW_TAG_variable
+	.long	.Linfo_string96         @ DW_AT_name
+	.byte	2                       @ DW_AT_decl_file
+	.short	603                     @ DW_AT_decl_line
+	.long	128                     @ DW_AT_type
+	.byte	0                       @ End Of Children Mark
+	.byte	13                      @ Abbrev [13] 0x151:0x14 DW_TAG_variable
+	.long	.Linfo_string8          @ DW_AT_name
+	.long	357                     @ DW_AT_type
+	.byte	1                       @ DW_AT_external
+	.byte	2                       @ DW_AT_decl_file
+	.byte	25                      @ DW_AT_decl_line
+	.byte	7                       @ DW_AT_location
+	.byte	3
+	.long	.L_MergedGlobals
+	.byte	35
+	.byte	1
+	.byte	6                       @ Abbrev [6] 0x165:0xb DW_TAG_typedef
+	.long	368                     @ DW_AT_type
+	.long	.Linfo_string14         @ DW_AT_name
+	.byte	3                       @ DW_AT_decl_file
+	.byte	28                      @ DW_AT_decl_line
+	.byte	14                      @ Abbrev [14] 0x170:0x27 DW_TAG_enumeration_type
+	.long	139                     @ DW_AT_type
+	.byte	1                       @ DW_AT_byte_size
+	.byte	3                       @ DW_AT_decl_file
+	.byte	20                      @ DW_AT_decl_line
+	.byte	15                      @ Abbrev [15] 0x178:0x6 DW_TAG_enumerator
+	.long	.Linfo_string9          @ DW_AT_name
+	.byte	0                       @ DW_AT_const_value
+	.byte	15                      @ Abbrev [15] 0x17e:0x6 DW_TAG_enumerator
+	.long	.Linfo_string10         @ DW_AT_name
+	.byte	1                       @ DW_AT_const_value
+	.byte	15                      @ Abbrev [15] 0x184:0x6 DW_TAG_enumerator
+	.long	.Linfo_string11         @ DW_AT_name
+	.byte	2                       @ DW_AT_const_value
+	.byte	15                      @ Abbrev [15] 0x18a:0x6 DW_TAG_enumerator
+	.long	.Linfo_string12         @ DW_AT_name
+	.byte	3                       @ DW_AT_const_value
+	.byte	15                      @ Abbrev [15] 0x190:0x6 DW_TAG_enumerator
+	.long	.Linfo_string13         @ DW_AT_name
+	.byte	4                       @ DW_AT_const_value
+	.byte	0                       @ End Of Children Mark
+	.byte	13                      @ Abbrev [13] 0x197:0x14 DW_TAG_variable
+	.long	.Linfo_string15         @ DW_AT_name
+	.long	427                     @ DW_AT_type
+	.byte	1                       @ DW_AT_external
+	.byte	2                       @ DW_AT_decl_file
+	.byte	26                      @ DW_AT_decl_line
+	.byte	7                       @ DW_AT_location
+	.byte	3
+	.long	.L_MergedGlobals
+	.byte	35
+	.byte	16
+	.byte	6                       @ Abbrev [6] 0x1ab:0xb DW_TAG_typedef
+	.long	438                     @ DW_AT_type
+	.long	.Linfo_string21         @ DW_AT_name
+	.byte	3                       @ DW_AT_decl_file
+	.byte	36                      @ DW_AT_decl_line
+	.byte	16                      @ Abbrev [16] 0x1b6:0x29 DW_TAG_structure_type
+	.byte	16                      @ DW_AT_byte_size
+	.byte	3                       @ DW_AT_decl_file
+	.byte	30                      @ DW_AT_decl_line
+	.byte	17                      @ Abbrev [17] 0x1ba:0xc DW_TAG_member
+	.long	.Linfo_string16         @ DW_AT_name
+	.long	128                     @ DW_AT_type
+	.byte	3                       @ DW_AT_decl_file
+	.byte	32                      @ DW_AT_decl_line
+	.byte	0                       @ DW_AT_data_member_location
+	.byte	17                      @ Abbrev [17] 0x1c6:0xc DW_TAG_member
+	.long	.Linfo_string17         @ DW_AT_name
+	.long	479                     @ DW_AT_type
+	.byte	3                       @ DW_AT_decl_file
+	.byte	33                      @ DW_AT_decl_line
+	.byte	1                       @ DW_AT_data_member_location
+	.byte	17                      @ Abbrev [17] 0x1d2:0xc DW_TAG_member
+	.long	.Linfo_string19         @ DW_AT_name
+	.long	498                     @ DW_AT_type
+	.byte	3                       @ DW_AT_decl_file
+	.byte	34                      @ DW_AT_decl_line
+	.byte	12                      @ DW_AT_data_member_location
+	.byte	0                       @ End Of Children Mark
+	.byte	18                      @ Abbrev [18] 0x1df:0xc DW_TAG_array_type
+	.long	128                     @ DW_AT_type
+	.byte	19                      @ Abbrev [19] 0x1e4:0x6 DW_TAG_subrange_type
+	.long	491                     @ DW_AT_type
+	.byte	8                       @ DW_AT_count
+	.byte	0                       @ End Of Children Mark
+	.byte	20                      @ Abbrev [20] 0x1eb:0x7 DW_TAG_base_type
+	.long	.Linfo_string18         @ DW_AT_name
+	.byte	8                       @ DW_AT_byte_size
+	.byte	7                       @ DW_AT_encoding
+	.byte	7                       @ Abbrev [7] 0x1f2:0x7 DW_TAG_base_type
+	.long	.Linfo_string20         @ DW_AT_name
+	.byte	5                       @ DW_AT_encoding
+	.byte	4                       @ DW_AT_byte_size
+	.byte	13                      @ Abbrev [13] 0x1f9:0x14 DW_TAG_variable
+	.long	.Linfo_string22         @ DW_AT_name
+	.long	427                     @ DW_AT_type
+	.byte	1                       @ DW_AT_external
+	.byte	2                       @ DW_AT_decl_file
+	.byte	27                      @ DW_AT_decl_line
+	.byte	7                       @ DW_AT_location
+	.byte	3
+	.long	.L_MergedGlobals
+	.byte	35
+	.byte	32
+	.byte	13                      @ Abbrev [13] 0x20d:0x14 DW_TAG_variable
+	.long	.Linfo_string23         @ DW_AT_name
+	.long	427                     @ DW_AT_type
+	.byte	1                       @ DW_AT_external
+	.byte	2                       @ DW_AT_decl_file
+	.byte	28                      @ DW_AT_decl_line
+	.byte	7                       @ DW_AT_location
+	.byte	3
+	.long	.L_MergedGlobals
+	.byte	35
+	.byte	48
+	.byte	13                      @ Abbrev [13] 0x221:0x14 DW_TAG_variable
+	.long	.Linfo_string24         @ DW_AT_name
+	.long	427                     @ DW_AT_type
+	.byte	1                       @ DW_AT_external
+	.byte	2                       @ DW_AT_decl_file
+	.byte	29                      @ DW_AT_decl_line
+	.byte	7                       @ DW_AT_location
+	.byte	3
+	.long	.L_MergedGlobals
+	.byte	35
+	.byte	64
+	.byte	13                      @ Abbrev [13] 0x235:0x14 DW_TAG_variable
+	.long	.Linfo_string25         @ DW_AT_name
+	.long	427                     @ DW_AT_type
+	.byte	1                       @ DW_AT_external
+	.byte	2                       @ DW_AT_decl_file
+	.byte	30                      @ DW_AT_decl_line
+	.byte	7                       @ DW_AT_location
+	.byte	3
+	.long	.L_MergedGlobals
+	.byte	35
+	.byte	80
+	.byte	13                      @ Abbrev [13] 0x249:0x14 DW_TAG_variable
+	.long	.Linfo_string26         @ DW_AT_name
+	.long	427                     @ DW_AT_type
+	.byte	1                       @ DW_AT_external
+	.byte	2                       @ DW_AT_decl_file
+	.byte	31                      @ DW_AT_decl_line
+	.byte	7                       @ DW_AT_location
+	.byte	3
+	.long	.L_MergedGlobals
+	.byte	35
+	.byte	96
+	.byte	13                      @ Abbrev [13] 0x25d:0x14 DW_TAG_variable
+	.long	.Linfo_string27         @ DW_AT_name
+	.long	427                     @ DW_AT_type
+	.byte	1                       @ DW_AT_external
+	.byte	2                       @ DW_AT_decl_file
+	.byte	32                      @ DW_AT_decl_line
+	.byte	7                       @ DW_AT_location
+	.byte	3
+	.long	.L_MergedGlobals
+	.byte	35
+	.byte	112
+	.byte	13                      @ Abbrev [13] 0x271:0x12 DW_TAG_variable
+	.long	.Linfo_string28         @ DW_AT_name
+	.long	427                     @ DW_AT_type
+	.byte	1                       @ DW_AT_external
+	.byte	2                       @ DW_AT_decl_file
+	.byte	33                      @ DW_AT_decl_line
+	.byte	5                       @ DW_AT_location
+	.byte	3
+	.long	.L_MergedGlobals.1
+	.byte	13                      @ Abbrev [13] 0x283:0x14 DW_TAG_variable
+	.long	.Linfo_string29         @ DW_AT_name
+	.long	663                     @ DW_AT_type
+	.byte	1                       @ DW_AT_external
+	.byte	2                       @ DW_AT_decl_file
+	.byte	52                      @ DW_AT_decl_line
+	.byte	7                       @ DW_AT_location
+	.byte	3
+	.long	.L_MergedGlobals
+	.byte	35
+	.byte	12
+	.byte	21                      @ Abbrev [21] 0x297:0x5 DW_TAG_volatile_type
+	.long	668                     @ DW_AT_type
+	.byte	6                       @ Abbrev [6] 0x29c:0xb DW_TAG_typedef
+	.long	679                     @ DW_AT_type
+	.long	.Linfo_string31         @ DW_AT_name
+	.byte	1                       @ DW_AT_decl_file
+	.byte	64                      @ DW_AT_decl_line
+	.byte	7                       @ Abbrev [7] 0x2a7:0x7 DW_TAG_base_type
+	.long	.Linfo_string30         @ DW_AT_name
+	.byte	7                       @ DW_AT_encoding
+	.byte	4                       @ DW_AT_byte_size
+	.byte	13                      @ Abbrev [13] 0x2ae:0x12 DW_TAG_variable
+	.long	.Linfo_string32         @ DW_AT_name
+	.long	663                     @ DW_AT_type
+	.byte	1                       @ DW_AT_external
+	.byte	2                       @ DW_AT_decl_file
+	.byte	53                      @ DW_AT_decl_line
+	.byte	5                       @ DW_AT_location
+	.byte	3
+	.long	onewire_timeout_timer
+	.byte	13                      @ Abbrev [13] 0x2c0:0x14 DW_TAG_variable
+	.long	.Linfo_string33         @ DW_AT_name
+	.long	668                     @ DW_AT_type
+	.byte	1                       @ DW_AT_external
+	.byte	2                       @ DW_AT_decl_file
+	.byte	54                      @ DW_AT_decl_line
+	.byte	7                       @ DW_AT_location
+	.byte	3
+	.long	.L_MergedGlobals
+	.byte	35
+	.byte	8
+	.byte	13                      @ Abbrev [13] 0x2d4:0x14 DW_TAG_variable
+	.long	.Linfo_string34         @ DW_AT_name
+	.long	744                     @ DW_AT_type
+	.byte	1                       @ DW_AT_external
+	.byte	2                       @ DW_AT_decl_file
+	.byte	55                      @ DW_AT_decl_line
+	.byte	7                       @ DW_AT_location
+	.byte	3
+	.long	.L_MergedGlobals.1
+	.byte	35
+	.byte	16
+	.byte	18                      @ Abbrev [18] 0x2e8:0xc DW_TAG_array_type
+	.long	128                     @ DW_AT_type
+	.byte	19                      @ Abbrev [19] 0x2ed:0x6 DW_TAG_subrange_type
+	.long	491                     @ DW_AT_type
+	.byte	96                      @ DW_AT_count
+	.byte	0                       @ End Of Children Mark
+	.byte	13                      @ Abbrev [13] 0x2f4:0x14 DW_TAG_variable
+	.long	.Linfo_string35         @ DW_AT_name
+	.long	128                     @ DW_AT_type
+	.byte	1                       @ DW_AT_external
+	.byte	2                       @ DW_AT_decl_file
+	.byte	56                      @ DW_AT_decl_line
+	.byte	7                       @ DW_AT_location
+	.byte	3
+	.long	.L_MergedGlobals
+	.byte	35
+	.byte	4
+	.byte	13                      @ Abbrev [13] 0x308:0x14 DW_TAG_variable
+	.long	.Linfo_string36         @ DW_AT_name
+	.long	128                     @ DW_AT_type
+	.byte	1                       @ DW_AT_external
+	.byte	2                       @ DW_AT_decl_file
+	.byte	57                      @ DW_AT_decl_line
+	.byte	7                       @ DW_AT_location
+	.byte	3
+	.long	.L_MergedGlobals
+	.byte	35
+	.byte	3
+	.byte	13                      @ Abbrev [13] 0x31c:0x14 DW_TAG_variable
+	.long	.Linfo_string37         @ DW_AT_name
+	.long	128                     @ DW_AT_type
+	.byte	1                       @ DW_AT_external
+	.byte	2                       @ DW_AT_decl_file
+	.byte	58                      @ DW_AT_decl_line
+	.byte	7                       @ DW_AT_location
+	.byte	3
+	.long	.L_MergedGlobals
+	.byte	35
+	.byte	5
+	.byte	13                      @ Abbrev [13] 0x330:0x12 DW_TAG_variable
+	.long	.Linfo_string38         @ DW_AT_name
+	.long	128                     @ DW_AT_type
+	.byte	1                       @ DW_AT_external
+	.byte	2                       @ DW_AT_decl_file
+	.byte	59                      @ DW_AT_decl_line
+	.byte	5                       @ DW_AT_location
+	.byte	3
+	.long	.L_MergedGlobals
+	.byte	13                      @ Abbrev [13] 0x342:0x14 DW_TAG_variable
+	.long	.Linfo_string39         @ DW_AT_name
+	.long	128                     @ DW_AT_type
+	.byte	1                       @ DW_AT_external
+	.byte	2                       @ DW_AT_decl_file
+	.byte	60                      @ DW_AT_decl_line
+	.byte	7                       @ DW_AT_location
+	.byte	3
+	.long	.L_MergedGlobals
+	.byte	35
+	.byte	2
+	.byte	14                      @ Abbrev [14] 0x356:0x3b DW_TAG_enumeration_type
+	.long	139                     @ DW_AT_type
+	.byte	1                       @ DW_AT_byte_size
+	.byte	4                       @ DW_AT_decl_file
+	.byte	182                     @ DW_AT_decl_line
+	.byte	15                      @ Abbrev [15] 0x35e:0x6 DW_TAG_enumerator
+	.long	.Linfo_string40         @ DW_AT_name
+	.byte	0                       @ DW_AT_const_value
+	.byte	15                      @ Abbrev [15] 0x364:0x6 DW_TAG_enumerator
+	.long	.Linfo_string41         @ DW_AT_name
+	.byte	32                      @ DW_AT_const_value
+	.byte	15                      @ Abbrev [15] 0x36a:0x6 DW_TAG_enumerator
+	.long	.Linfo_string42         @ DW_AT_name
+	.byte	36                      @ DW_AT_const_value
+	.byte	15                      @ Abbrev [15] 0x370:0x6 DW_TAG_enumerator
+	.long	.Linfo_string43         @ DW_AT_name
+	.byte	33                      @ DW_AT_const_value
+	.byte	15                      @ Abbrev [15] 0x376:0x6 DW_TAG_enumerator
+	.long	.Linfo_string44         @ DW_AT_name
+	.byte	34                      @ DW_AT_const_value
+	.byte	15                      @ Abbrev [15] 0x37c:0x6 DW_TAG_enumerator
+	.long	.Linfo_string45         @ DW_AT_name
+	.byte	35                      @ DW_AT_const_value
+	.byte	15                      @ Abbrev [15] 0x382:0x7 DW_TAG_enumerator
+	.long	.Linfo_string46         @ DW_AT_name
+	.ascii	"\240\001"              @ DW_AT_const_value
+	.byte	15                      @ Abbrev [15] 0x389:0x7 DW_TAG_enumerator
+	.long	.Linfo_string47         @ DW_AT_name
+	.ascii	"\340\001"              @ DW_AT_const_value
+	.byte	0                       @ End Of Children Mark
+	.byte	14                      @ Abbrev [14] 0x391:0x21 DW_TAG_enumeration_type
+	.long	139                     @ DW_AT_type
+	.byte	1                       @ DW_AT_byte_size
+	.byte	5                       @ DW_AT_decl_file
+	.byte	54                      @ DW_AT_decl_line
+	.byte	15                      @ Abbrev [15] 0x399:0x6 DW_TAG_enumerator
+	.long	.Linfo_string48         @ DW_AT_name
+	.byte	0                       @ DW_AT_const_value
+	.byte	15                      @ Abbrev [15] 0x39f:0x6 DW_TAG_enumerator
+	.long	.Linfo_string49         @ DW_AT_name
+	.byte	1                       @ DW_AT_const_value
+	.byte	15                      @ Abbrev [15] 0x3a5:0x6 DW_TAG_enumerator
+	.long	.Linfo_string50         @ DW_AT_name
+	.byte	2                       @ DW_AT_const_value
+	.byte	15                      @ Abbrev [15] 0x3ab:0x6 DW_TAG_enumerator
+	.long	.Linfo_string51         @ DW_AT_name
+	.byte	3                       @ DW_AT_const_value
+	.byte	0                       @ End Of Children Mark
+	.byte	22                      @ Abbrev [22] 0x3b2:0x5 DW_TAG_pointer_type
+	.long	951                     @ DW_AT_type
+	.byte	23                      @ Abbrev [23] 0x3b7:0xc DW_TAG_typedef
+	.long	963                     @ DW_AT_type
+	.long	.Linfo_string63         @ DW_AT_name
+	.byte	6                       @ DW_AT_decl_file
+	.short	986                     @ DW_AT_decl_line
+	.byte	24                      @ Abbrev [24] 0x3c3:0x95 DW_TAG_structure_type
+	.byte	44                      @ DW_AT_byte_size
+	.byte	6                       @ DW_AT_decl_file
+	.short	973                     @ DW_AT_decl_line
+	.byte	25                      @ Abbrev [25] 0x3c8:0xd DW_TAG_member
+	.long	.Linfo_string52         @ DW_AT_name
+	.long	663                     @ DW_AT_type
+	.byte	6                       @ DW_AT_decl_file
+	.short	975                     @ DW_AT_decl_line
+	.byte	0                       @ DW_AT_data_member_location
+	.byte	25                      @ Abbrev [25] 0x3d5:0xd DW_TAG_member
+	.long	.Linfo_string53         @ DW_AT_name
+	.long	663                     @ DW_AT_type
+	.byte	6                       @ DW_AT_decl_file
+	.short	976                     @ DW_AT_decl_line
+	.byte	4                       @ DW_AT_data_member_location
+	.byte	25                      @ Abbrev [25] 0x3e2:0xd DW_TAG_member
+	.long	.Linfo_string54         @ DW_AT_name
+	.long	663                     @ DW_AT_type
+	.byte	6                       @ DW_AT_decl_file
+	.short	977                     @ DW_AT_decl_line
+	.byte	8                       @ DW_AT_data_member_location
+	.byte	25                      @ Abbrev [25] 0x3ef:0xd DW_TAG_member
+	.long	.Linfo_string55         @ DW_AT_name
+	.long	663                     @ DW_AT_type
+	.byte	6                       @ DW_AT_decl_file
+	.short	978                     @ DW_AT_decl_line
+	.byte	12                      @ DW_AT_data_member_location
+	.byte	25                      @ Abbrev [25] 0x3fc:0xd DW_TAG_member
+	.long	.Linfo_string56         @ DW_AT_name
+	.long	663                     @ DW_AT_type
+	.byte	6                       @ DW_AT_decl_file
+	.short	979                     @ DW_AT_decl_line
+	.byte	16                      @ DW_AT_data_member_location
+	.byte	25                      @ Abbrev [25] 0x409:0xd DW_TAG_member
+	.long	.Linfo_string57         @ DW_AT_name
+	.long	663                     @ DW_AT_type
+	.byte	6                       @ DW_AT_decl_file
+	.short	980                     @ DW_AT_decl_line
+	.byte	20                      @ DW_AT_data_member_location
+	.byte	25                      @ Abbrev [25] 0x416:0xd DW_TAG_member
+	.long	.Linfo_string58         @ DW_AT_name
+	.long	663                     @ DW_AT_type
+	.byte	6                       @ DW_AT_decl_file
+	.short	981                     @ DW_AT_decl_line
+	.byte	24                      @ DW_AT_data_member_location
+	.byte	25                      @ Abbrev [25] 0x423:0xd DW_TAG_member
+	.long	.Linfo_string59         @ DW_AT_name
+	.long	663                     @ DW_AT_type
+	.byte	6                       @ DW_AT_decl_file
+	.short	982                     @ DW_AT_decl_line
+	.byte	28                      @ DW_AT_data_member_location
+	.byte	25                      @ Abbrev [25] 0x430:0xd DW_TAG_member
+	.long	.Linfo_string60         @ DW_AT_name
+	.long	663                     @ DW_AT_type
+	.byte	6                       @ DW_AT_decl_file
+	.short	983                     @ DW_AT_decl_line
+	.byte	32                      @ DW_AT_data_member_location
+	.byte	25                      @ Abbrev [25] 0x43d:0xd DW_TAG_member
+	.long	.Linfo_string61         @ DW_AT_name
+	.long	663                     @ DW_AT_type
+	.byte	6                       @ DW_AT_decl_file
+	.short	984                     @ DW_AT_decl_line
+	.byte	36                      @ DW_AT_data_member_location
+	.byte	25                      @ Abbrev [25] 0x44a:0xd DW_TAG_member
+	.long	.Linfo_string62         @ DW_AT_name
+	.long	663                     @ DW_AT_type
+	.byte	6                       @ DW_AT_decl_file
+	.short	985                     @ DW_AT_decl_line
+	.byte	40                      @ DW_AT_data_member_location
+	.byte	0                       @ End Of Children Mark
+	.byte	26                      @ Abbrev [26] 0x458:0xb DW_TAG_subprogram
+	.long	.Linfo_string64         @ DW_AT_name
+	.byte	2                       @ DW_AT_decl_file
+	.short	589                     @ DW_AT_decl_line
+	.byte	1                       @ DW_AT_prototyped
+	.byte	1                       @ DW_AT_external
+	.byte	1                       @ DW_AT_inline
+	.byte	2                       @ Abbrev [2] 0x463:0x23 DW_TAG_subprogram
+	.long	.Lfunc_begin0           @ DW_AT_low_pc
+	.long	.Lfunc_end0             @ DW_AT_high_pc
+	.byte	1                       @ DW_AT_frame_base
+	.byte	93
+	.long	.Linfo_string69         @ DW_AT_name
+	.byte	2                       @ DW_AT_decl_file
+	.byte	83                      @ DW_AT_decl_line
+	.byte	1                       @ DW_AT_prototyped
+	.byte	1                       @ DW_AT_external
+	.byte	27                      @ Abbrev [27] 0x476:0xf DW_TAG_inlined_subroutine
+	.long	1112                    @ DW_AT_abstract_origin
+	.long	.Ltmp0                  @ DW_AT_low_pc
+	.long	.Ltmp1                  @ DW_AT_high_pc
+	.byte	2                       @ DW_AT_call_file
+	.byte	85                      @ DW_AT_call_line
+	.byte	0                       @ End Of Children Mark
+	.byte	28                      @ Abbrev [28] 0x486:0xf DW_TAG_subprogram
+	.long	.Lfunc_begin1           @ DW_AT_low_pc
+	.long	.Lfunc_end1             @ DW_AT_high_pc
+	.byte	1                       @ DW_AT_frame_base
+	.byte	93
+	.long	1112                    @ DW_AT_abstract_origin
+	.byte	29                      @ Abbrev [29] 0x495:0x25 DW_TAG_subprogram
+	.long	.Lfunc_begin3           @ DW_AT_low_pc
+	.long	.Lfunc_end3             @ DW_AT_high_pc
+	.byte	1                       @ DW_AT_frame_base
+	.byte	93
+	.long	.Linfo_string71         @ DW_AT_name
+	.byte	2                       @ DW_AT_decl_file
+	.short	404                     @ DW_AT_decl_line
+	.byte	1                       @ DW_AT_prototyped
+	.byte	1                       @ DW_AT_external
+	.byte	10                      @ Abbrev [10] 0x4a9:0x10 DW_TAG_formal_parameter
+	.long	.Ldebug_loc7            @ DW_AT_location
+	.long	.Linfo_string97         @ DW_AT_name
+	.byte	2                       @ DW_AT_decl_file
+	.short	404                     @ DW_AT_decl_line
+	.long	668                     @ DW_AT_type
+	.byte	0                       @ End Of Children Mark
+	.byte	30                      @ Abbrev [30] 0x4ba:0x18 DW_TAG_subprogram
+	.long	.Lfunc_begin5           @ DW_AT_low_pc
+	.long	.Lfunc_end5             @ DW_AT_high_pc
+	.byte	1                       @ DW_AT_frame_base
+	.byte	93
+	.long	.Linfo_string73         @ DW_AT_name
+	.byte	2                       @ DW_AT_decl_file
+	.short	392                     @ DW_AT_decl_line
+	.byte	1                       @ DW_AT_prototyped
+	.long	128                     @ DW_AT_type
+	.byte	1                       @ DW_AT_external
+	.byte	29                      @ Abbrev [29] 0x4d2:0x35 DW_TAG_subprogram
+	.long	.Lfunc_begin6           @ DW_AT_low_pc
+	.long	.Lfunc_end6             @ DW_AT_high_pc
+	.byte	1                       @ DW_AT_frame_base
+	.byte	93
+	.long	.Linfo_string74         @ DW_AT_name
+	.byte	2                       @ DW_AT_decl_file
+	.short	420                     @ DW_AT_decl_line
+	.byte	1                       @ DW_AT_prototyped
+	.byte	1                       @ DW_AT_external
+	.byte	10                      @ Abbrev [10] 0x4e6:0x10 DW_TAG_formal_parameter
+	.long	.Ldebug_loc9            @ DW_AT_location
+	.long	.Linfo_string100        @ DW_AT_name
+	.byte	2                       @ DW_AT_decl_file
+	.short	420                     @ DW_AT_decl_line
+	.long	128                     @ DW_AT_type
+	.byte	11                      @ Abbrev [11] 0x4f6:0x10 DW_TAG_variable
+	.long	.Ldebug_loc10           @ DW_AT_location
+	.long	.Linfo_string68         @ DW_AT_name
+	.byte	2                       @ DW_AT_decl_file
+	.short	422                     @ DW_AT_decl_line
+	.long	128                     @ DW_AT_type
+	.byte	0                       @ End Of Children Mark
+	.byte	29                      @ Abbrev [29] 0x507:0x61 DW_TAG_subprogram
+	.long	.Lfunc_begin7           @ DW_AT_low_pc
+	.long	.Lfunc_end7             @ DW_AT_high_pc
+	.byte	1                       @ DW_AT_frame_base
+	.byte	93
+	.long	.Linfo_string75         @ DW_AT_name
+	.byte	2                       @ DW_AT_decl_file
+	.short	480                     @ DW_AT_decl_line
+	.byte	1                       @ DW_AT_prototyped
+	.byte	1                       @ DW_AT_external
+	.byte	10                      @ Abbrev [10] 0x51b:0x10 DW_TAG_formal_parameter
+	.long	.Ldebug_loc11           @ DW_AT_location
+	.long	.Linfo_string100        @ DW_AT_name
+	.byte	2                       @ DW_AT_decl_file
+	.short	480                     @ DW_AT_decl_line
+	.long	1817                    @ DW_AT_type
+	.byte	10                      @ Abbrev [10] 0x52b:0x10 DW_TAG_formal_parameter
+	.long	.Ldebug_loc12           @ DW_AT_location
+	.long	.Linfo_string101        @ DW_AT_name
+	.byte	2                       @ DW_AT_decl_file
+	.short	480                     @ DW_AT_decl_line
+	.long	128                     @ DW_AT_type
+	.byte	11                      @ Abbrev [11] 0x53b:0x10 DW_TAG_variable
+	.long	.Ldebug_loc13           @ DW_AT_location
+	.long	.Linfo_string102        @ DW_AT_name
+	.byte	2                       @ DW_AT_decl_file
+	.short	484                     @ DW_AT_decl_line
+	.long	128                     @ DW_AT_type
+	.byte	11                      @ Abbrev [11] 0x54b:0x10 DW_TAG_variable
+	.long	.Ldebug_loc14           @ DW_AT_location
+	.long	.Linfo_string68         @ DW_AT_name
+	.byte	2                       @ DW_AT_decl_file
+	.short	482                     @ DW_AT_decl_line
+	.long	668                     @ DW_AT_type
+	.byte	12                      @ Abbrev [12] 0x55b:0xc DW_TAG_variable
+	.long	.Linfo_string103        @ DW_AT_name
+	.byte	2                       @ DW_AT_decl_file
+	.short	483                     @ DW_AT_decl_line
+	.long	668                     @ DW_AT_type
+	.byte	0                       @ End Of Children Mark
+	.byte	8                       @ Abbrev [8] 0x568:0x91 DW_TAG_subprogram
+	.long	.Lfunc_begin8           @ DW_AT_low_pc
+	.long	.Lfunc_end8             @ DW_AT_high_pc
+	.byte	1                       @ DW_AT_frame_base
+	.byte	93
+	.long	.Linfo_string76         @ DW_AT_name
+	.byte	2                       @ DW_AT_decl_file
+	.short	515                     @ DW_AT_decl_line
+	.byte	1                       @ DW_AT_prototyped
+	.long	128                     @ DW_AT_type
+	.byte	1                       @ DW_AT_external
+	.byte	10                      @ Abbrev [10] 0x580:0x10 DW_TAG_formal_parameter
+	.long	.Ldebug_loc15           @ DW_AT_location
+	.long	.Linfo_string104        @ DW_AT_name
+	.byte	2                       @ DW_AT_decl_file
+	.short	515                     @ DW_AT_decl_line
+	.long	1817                    @ DW_AT_type
+	.byte	10                      @ Abbrev [10] 0x590:0x10 DW_TAG_formal_parameter
+	.long	.Ldebug_loc16           @ DW_AT_location
+	.long	.Linfo_string101        @ DW_AT_name
+	.byte	2                       @ DW_AT_decl_file
+	.short	515                     @ DW_AT_decl_line
+	.long	128                     @ DW_AT_type
+	.byte	11                      @ Abbrev [11] 0x5a0:0x10 DW_TAG_variable
+	.long	.Ldebug_loc17           @ DW_AT_location
+	.long	.Linfo_string68         @ DW_AT_name
+	.byte	2                       @ DW_AT_decl_file
+	.short	518                     @ DW_AT_decl_line
+	.long	128                     @ DW_AT_type
+	.byte	11                      @ Abbrev [11] 0x5b0:0x10 DW_TAG_variable
+	.long	.Ldebug_loc18           @ DW_AT_location
+	.long	.Linfo_string105        @ DW_AT_name
+	.byte	2                       @ DW_AT_decl_file
+	.short	517                     @ DW_AT_decl_line
+	.long	128                     @ DW_AT_type
+	.byte	11                      @ Abbrev [11] 0x5c0:0x10 DW_TAG_variable
+	.long	.Ldebug_loc19           @ DW_AT_location
+	.long	.Linfo_string106        @ DW_AT_name
+	.byte	2                       @ DW_AT_decl_file
+	.short	518                     @ DW_AT_decl_line
+	.long	128                     @ DW_AT_type
+	.byte	31                      @ Abbrev [31] 0x5d0:0x28 DW_TAG_lexical_block
+	.long	.Ltmp179                @ DW_AT_low_pc
+	.long	.Ltmp186                @ DW_AT_high_pc
+	.byte	12                      @ Abbrev [12] 0x5d9:0xc DW_TAG_variable
+	.long	.Linfo_string107        @ DW_AT_name
+	.byte	2                       @ DW_AT_decl_file
+	.short	522                     @ DW_AT_decl_line
+	.long	128                     @ DW_AT_type
+	.byte	32                      @ Abbrev [32] 0x5e5:0x12 DW_TAG_lexical_block
+	.long	.Ldebug_ranges0         @ DW_AT_ranges
+	.byte	12                      @ Abbrev [12] 0x5ea:0xc DW_TAG_variable
+	.long	.Linfo_string108        @ DW_AT_name
+	.byte	2                       @ DW_AT_decl_file
+	.short	526                     @ DW_AT_decl_line
+	.long	128                     @ DW_AT_type
+	.byte	0                       @ End Of Children Mark
+	.byte	0                       @ End Of Children Mark
+	.byte	0                       @ End Of Children Mark
+	.byte	8                       @ Abbrev [8] 0x5f9:0x39 DW_TAG_subprogram
+	.long	.Lfunc_begin9           @ DW_AT_low_pc
+	.long	.Lfunc_end9             @ DW_AT_high_pc
+	.byte	1                       @ DW_AT_frame_base
+	.byte	93
+	.long	.Linfo_string77         @ DW_AT_name
+	.byte	2                       @ DW_AT_decl_file
+	.short	566                     @ DW_AT_decl_line
+	.byte	1                       @ DW_AT_prototyped
+	.long	2151                    @ DW_AT_type
+	.byte	1                       @ DW_AT_external
+	.byte	10                      @ Abbrev [10] 0x611:0x10 DW_TAG_formal_parameter
+	.long	.Ldebug_loc20           @ DW_AT_location
+	.long	.Linfo_string109        @ DW_AT_name
+	.byte	2                       @ DW_AT_decl_file
+	.short	566                     @ DW_AT_decl_line
+	.long	2151                    @ DW_AT_type
+	.byte	11                      @ Abbrev [11] 0x621:0x10 DW_TAG_variable
+	.long	.Ldebug_loc21           @ DW_AT_location
+	.long	.Linfo_string110        @ DW_AT_name
+	.byte	2                       @ DW_AT_decl_file
+	.short	568                     @ DW_AT_decl_line
+	.long	2151                    @ DW_AT_type
+	.byte	0                       @ End Of Children Mark
+	.byte	29                      @ Abbrev [29] 0x632:0x45 DW_TAG_subprogram
+	.long	.Lfunc_begin10          @ DW_AT_low_pc
+	.long	.Lfunc_end10            @ DW_AT_high_pc
+	.byte	1                       @ DW_AT_frame_base
+	.byte	93
+	.long	.Linfo_string80         @ DW_AT_name
+	.byte	2                       @ DW_AT_decl_file
+	.short	455                     @ DW_AT_decl_line
+	.byte	1                       @ DW_AT_prototyped
+	.byte	1                       @ DW_AT_external
+	.byte	10                      @ Abbrev [10] 0x646:0x10 DW_TAG_formal_parameter
+	.long	.Ldebug_loc22           @ DW_AT_location
+	.long	.Linfo_string111        @ DW_AT_name
+	.byte	2                       @ DW_AT_decl_file
+	.short	455                     @ DW_AT_decl_line
+	.long	128                     @ DW_AT_type
+	.byte	11                      @ Abbrev [11] 0x656:0x10 DW_TAG_variable
+	.long	.Ldebug_loc23           @ DW_AT_location
+	.long	.Linfo_string112        @ DW_AT_name
+	.byte	2                       @ DW_AT_decl_file
+	.short	457                     @ DW_AT_decl_line
+	.long	128                     @ DW_AT_type
+	.byte	11                      @ Abbrev [11] 0x666:0x10 DW_TAG_variable
+	.long	.Ldebug_loc24           @ DW_AT_location
+	.long	.Linfo_string113        @ DW_AT_name
+	.byte	2                       @ DW_AT_decl_file
+	.short	457                     @ DW_AT_decl_line
+	.long	128                     @ DW_AT_type
+	.byte	0                       @ End Of Children Mark
+	.byte	8                       @ Abbrev [8] 0x677:0x39 DW_TAG_subprogram
+	.long	.Lfunc_begin11          @ DW_AT_low_pc
+	.long	.Lfunc_end11            @ DW_AT_high_pc
+	.byte	1                       @ DW_AT_frame_base
+	.byte	93
+	.long	.Linfo_string81         @ DW_AT_name
+	.byte	2                       @ DW_AT_decl_file
+	.short	431                     @ DW_AT_decl_line
+	.byte	1                       @ DW_AT_prototyped
+	.long	128                     @ DW_AT_type
+	.byte	1                       @ DW_AT_external
+	.byte	11                      @ Abbrev [11] 0x68f:0x10 DW_TAG_variable
+	.long	.Ldebug_loc25           @ DW_AT_location
+	.long	.Linfo_string68         @ DW_AT_name
+	.byte	2                       @ DW_AT_decl_file
+	.short	433                     @ DW_AT_decl_line
+	.long	128                     @ DW_AT_type
+	.byte	11                      @ Abbrev [11] 0x69f:0x10 DW_TAG_variable
+	.long	.Ldebug_loc26           @ DW_AT_location
+	.long	.Linfo_string114        @ DW_AT_name
+	.byte	2                       @ DW_AT_decl_file
+	.short	433                     @ DW_AT_decl_line
+	.long	128                     @ DW_AT_type
+	.byte	0                       @ End Of Children Mark
+	.byte	8                       @ Abbrev [8] 0x6b0:0x39 DW_TAG_subprogram
+	.long	.Lfunc_begin12          @ DW_AT_low_pc
+	.long	.Lfunc_end12            @ DW_AT_high_pc
+	.byte	1                       @ DW_AT_frame_base
+	.byte	93
+	.long	.Linfo_string82         @ DW_AT_name
+	.byte	2                       @ DW_AT_decl_file
+	.short	444                     @ DW_AT_decl_line
+	.byte	1                       @ DW_AT_prototyped
+	.long	128                     @ DW_AT_type
+	.byte	1                       @ DW_AT_external
+	.byte	11                      @ Abbrev [11] 0x6c8:0x10 DW_TAG_variable
+	.long	.Ldebug_loc27           @ DW_AT_location
+	.long	.Linfo_string115        @ DW_AT_name
+	.byte	2                       @ DW_AT_decl_file
+	.short	446                     @ DW_AT_decl_line
+	.long	128                     @ DW_AT_type
+	.byte	11                      @ Abbrev [11] 0x6d8:0x10 DW_TAG_variable
+	.long	.Ldebug_loc28           @ DW_AT_location
+	.long	.Linfo_string116        @ DW_AT_name
+	.byte	2                       @ DW_AT_decl_file
+	.short	446                     @ DW_AT_decl_line
+	.long	128                     @ DW_AT_type
+	.byte	0                       @ End Of Children Mark
+	.byte	33                      @ Abbrev [33] 0x6e9:0x30 DW_TAG_subprogram
+	.long	.Linfo_string65         @ DW_AT_name
+	.byte	2                       @ DW_AT_decl_file
+	.short	538                     @ DW_AT_decl_line
+	.byte	1                       @ DW_AT_prototyped
+	.byte	1                       @ DW_AT_external
+	.byte	1                       @ DW_AT_inline
+	.byte	34                      @ Abbrev [34] 0x6f4:0xc DW_TAG_formal_parameter
+	.long	.Linfo_string66         @ DW_AT_name
+	.byte	2                       @ DW_AT_decl_file
+	.short	538                     @ DW_AT_decl_line
+	.long	128                     @ DW_AT_type
+	.byte	34                      @ Abbrev [34] 0x700:0xc DW_TAG_formal_parameter
+	.long	.Linfo_string67         @ DW_AT_name
+	.byte	2                       @ DW_AT_decl_file
+	.short	538                     @ DW_AT_decl_line
+	.long	1817                    @ DW_AT_type
+	.byte	12                      @ Abbrev [12] 0x70c:0xc DW_TAG_variable
+	.long	.Linfo_string68         @ DW_AT_name
+	.byte	2                       @ DW_AT_decl_file
+	.short	540                     @ DW_AT_decl_line
+	.long	668                     @ DW_AT_type
+	.byte	0                       @ End Of Children Mark
+	.byte	22                      @ Abbrev [22] 0x719:0x5 DW_TAG_pointer_type
+	.long	128                     @ DW_AT_type
+	.byte	29                      @ Abbrev [29] 0x71e:0x6b DW_TAG_subprogram
+	.long	.Lfunc_begin13          @ DW_AT_low_pc
+	.long	.Lfunc_end13            @ DW_AT_high_pc
+	.byte	1                       @ DW_AT_frame_base
+	.byte	93
+	.long	.Linfo_string83         @ DW_AT_name
+	.byte	2                       @ DW_AT_decl_file
+	.short	465                     @ DW_AT_decl_line
+	.byte	1                       @ DW_AT_prototyped
+	.byte	1                       @ DW_AT_external
+	.byte	10                      @ Abbrev [10] 0x732:0x10 DW_TAG_formal_parameter
+	.long	.Ldebug_loc29           @ DW_AT_location
+	.long	.Linfo_string66         @ DW_AT_name
+	.byte	2                       @ DW_AT_decl_file
+	.short	465                     @ DW_AT_decl_line
+	.long	1817                    @ DW_AT_type
+	.byte	10                      @ Abbrev [10] 0x742:0x10 DW_TAG_formal_parameter
+	.long	.Ldebug_loc30           @ DW_AT_location
+	.long	.Linfo_string101        @ DW_AT_name
+	.byte	2                       @ DW_AT_decl_file
+	.short	465                     @ DW_AT_decl_line
+	.long	128                     @ DW_AT_type
+	.byte	11                      @ Abbrev [11] 0x752:0x10 DW_TAG_variable
+	.long	.Ldebug_loc31           @ DW_AT_location
+	.long	.Linfo_string68         @ DW_AT_name
+	.byte	2                       @ DW_AT_decl_file
+	.short	467                     @ DW_AT_decl_line
+	.long	668                     @ DW_AT_type
+	.byte	12                      @ Abbrev [12] 0x762:0xc DW_TAG_variable
+	.long	.Linfo_string117        @ DW_AT_name
+	.byte	2                       @ DW_AT_decl_file
+	.short	469                     @ DW_AT_decl_line
+	.long	668                     @ DW_AT_type
+	.byte	35                      @ Abbrev [35] 0x76e:0x1a DW_TAG_inlined_subroutine
+	.long	1769                    @ DW_AT_abstract_origin
+	.long	.Ltmp221                @ DW_AT_low_pc
+	.long	.Ltmp224                @ DW_AT_high_pc
+	.byte	2                       @ DW_AT_call_file
+	.short	473                     @ DW_AT_call_line
+	.byte	36                      @ Abbrev [36] 0x77e:0x9 DW_TAG_variable
+	.long	.Ldebug_loc32           @ DW_AT_location
+	.long	1804                    @ DW_AT_abstract_origin
+	.byte	0                       @ End Of Children Mark
+	.byte	0                       @ End Of Children Mark
+	.byte	37                      @ Abbrev [37] 0x789:0x2b DW_TAG_subprogram
+	.long	.Lfunc_begin14          @ DW_AT_low_pc
+	.long	.Lfunc_end14            @ DW_AT_high_pc
+	.byte	1                       @ DW_AT_frame_base
+	.byte	93
+	.long	1769                    @ DW_AT_abstract_origin
+	.byte	38                      @ Abbrev [38] 0x798:0x9 DW_TAG_formal_parameter
+	.long	.Ldebug_loc33           @ DW_AT_location
+	.long	1780                    @ DW_AT_abstract_origin
+	.byte	38                      @ Abbrev [38] 0x7a1:0x9 DW_TAG_formal_parameter
+	.long	.Ldebug_loc34           @ DW_AT_location
+	.long	1792                    @ DW_AT_abstract_origin
+	.byte	36                      @ Abbrev [36] 0x7aa:0x9 DW_TAG_variable
+	.long	.Ldebug_loc35           @ DW_AT_location
+	.long	1804                    @ DW_AT_abstract_origin
+	.byte	0                       @ End Of Children Mark
+	.byte	8                       @ Abbrev [8] 0x7b4:0x49 DW_TAG_subprogram
+	.long	.Lfunc_begin15          @ DW_AT_low_pc
+	.long	.Lfunc_end15            @ DW_AT_high_pc
+	.byte	1                       @ DW_AT_frame_base
+	.byte	93
+	.long	.Linfo_string84         @ DW_AT_name
+	.byte	2                       @ DW_AT_decl_file
+	.short	549                     @ DW_AT_decl_line
+	.byte	1                       @ DW_AT_prototyped
+	.long	128                     @ DW_AT_type
+	.byte	1                       @ DW_AT_external
+	.byte	10                      @ Abbrev [10] 0x7cc:0x10 DW_TAG_formal_parameter
+	.long	.Ldebug_loc36           @ DW_AT_location
+	.long	.Linfo_string67         @ DW_AT_name
+	.byte	2                       @ DW_AT_decl_file
+	.short	549                     @ DW_AT_decl_line
+	.long	1817                    @ DW_AT_type
+	.byte	11                      @ Abbrev [11] 0x7dc:0x10 DW_TAG_variable
+	.long	.Ldebug_loc37           @ DW_AT_location
+	.long	.Linfo_string68         @ DW_AT_name
+	.byte	2                       @ DW_AT_decl_file
+	.short	551                     @ DW_AT_decl_line
+	.long	668                     @ DW_AT_type
+	.byte	11                      @ Abbrev [11] 0x7ec:0x10 DW_TAG_variable
+	.long	.Ldebug_loc38           @ DW_AT_location
+	.long	.Linfo_string118        @ DW_AT_name
+	.byte	2                       @ DW_AT_decl_file
+	.short	552                     @ DW_AT_decl_line
+	.long	128                     @ DW_AT_type
+	.byte	0                       @ End Of Children Mark
+	.byte	8                       @ Abbrev [8] 0x7fd:0x35 DW_TAG_subprogram
+	.long	.Lfunc_begin16          @ DW_AT_low_pc
+	.long	.Lfunc_end16            @ DW_AT_high_pc
+	.byte	1                       @ DW_AT_frame_base
+	.byte	93
+	.long	.Linfo_string85         @ DW_AT_name
+	.byte	2                       @ DW_AT_decl_file
+	.short	499                     @ DW_AT_decl_line
+	.byte	1                       @ DW_AT_prototyped
+	.long	128                     @ DW_AT_type
+	.byte	1                       @ DW_AT_external
+	.byte	10                      @ Abbrev [10] 0x815:0x10 DW_TAG_formal_parameter
+	.long	.Ldebug_loc39           @ DW_AT_location
+	.long	.Linfo_string104        @ DW_AT_name
+	.byte	2                       @ DW_AT_decl_file
+	.short	499                     @ DW_AT_decl_line
+	.long	1817                    @ DW_AT_type
+	.byte	12                      @ Abbrev [12] 0x825:0xc DW_TAG_variable
+	.long	.Linfo_string105        @ DW_AT_name
+	.byte	2                       @ DW_AT_decl_file
+	.short	501                     @ DW_AT_decl_line
+	.long	128                     @ DW_AT_type
+	.byte	0                       @ End Of Children Mark
+	.byte	29                      @ Abbrev [29] 0x832:0x35 DW_TAG_subprogram
+	.long	.Lfunc_begin17          @ DW_AT_low_pc
+	.long	.Lfunc_end17            @ DW_AT_high_pc
+	.byte	1                       @ DW_AT_frame_base
+	.byte	93
+	.long	.Linfo_string86         @ DW_AT_name
+	.byte	2                       @ DW_AT_decl_file
+	.short	685                     @ DW_AT_decl_line
+	.byte	1                       @ DW_AT_prototyped
+	.byte	1                       @ DW_AT_external
+	.byte	10                      @ Abbrev [10] 0x846:0x10 DW_TAG_formal_parameter
+	.long	.Ldebug_loc40           @ DW_AT_location
+	.long	.Linfo_string119        @ DW_AT_name
+	.byte	2                       @ DW_AT_decl_file
+	.short	685                     @ DW_AT_decl_line
+	.long	1817                    @ DW_AT_type
+	.byte	11                      @ Abbrev [11] 0x856:0x10 DW_TAG_variable
+	.long	.Ldebug_loc41           @ DW_AT_location
+	.long	.Linfo_string68         @ DW_AT_name
+	.byte	2                       @ DW_AT_decl_file
+	.short	687                     @ DW_AT_decl_line
+	.long	128                     @ DW_AT_type
+	.byte	0                       @ End Of Children Mark
+	.byte	6                       @ Abbrev [6] 0x867:0xb DW_TAG_typedef
+	.long	2162                    @ DW_AT_type
+	.long	.Linfo_string79         @ DW_AT_name
+	.byte	1                       @ DW_AT_decl_file
+	.byte	63                      @ DW_AT_decl_line
+	.byte	7                       @ Abbrev [7] 0x872:0x7 DW_TAG_base_type
+	.long	.Linfo_string78         @ DW_AT_name
+	.byte	7                       @ DW_AT_encoding
+	.byte	2                       @ DW_AT_byte_size
+	.byte	22                      @ Abbrev [22] 0x879:0x5 DW_TAG_pointer_type
+	.long	427                     @ DW_AT_type
+	.byte	0                       @ End Of Children Mark
+	.section	.debug_ranges,"",%progbits
+.Ldebug_ranges0:
+	.long	.Ltmp181
+	.long	.Ltmp182
+	.long	.Ltmp183
+	.long	.Ltmp184
+	.long	0
+	.long	0
+.Ldebug_ranges1:
+	.long	.Lfunc_begin0
+	.long	.Lfunc_end0
+	.long	.Lfunc_begin1
+	.long	.Lfunc_end1
+	.long	.Lfunc_begin2
+	.long	.Lfunc_end2
+	.long	.Lfunc_begin3
+	.long	.Lfunc_end3
+	.long	.Lfunc_begin4
+	.long	.Lfunc_end4
+	.long	.Lfunc_begin5
+	.long	.Lfunc_end5
+	.long	.Lfunc_begin6
+	.long	.Lfunc_end6
+	.long	.Lfunc_begin7
+	.long	.Lfunc_end7
+	.long	.Lfunc_begin8
+	.long	.Lfunc_end8
+	.long	.Lfunc_begin9
+	.long	.Lfunc_end9
+	.long	.Lfunc_begin10
+	.long	.Lfunc_end10
+	.long	.Lfunc_begin11
+	.long	.Lfunc_end11
+	.long	.Lfunc_begin12
+	.long	.Lfunc_end12
+	.long	.Lfunc_begin13
+	.long	.Lfunc_end13
+	.long	.Lfunc_begin14
+	.long	.Lfunc_end14
+	.long	.Lfunc_begin15
+	.long	.Lfunc_end15
+	.long	.Lfunc_begin16
+	.long	.Lfunc_end16
+	.long	.Lfunc_begin17
+	.long	.Lfunc_end17
+	.long	0
+	.long	0
+	.section	.debug_macinfo,"",%progbits
+.Lcu_macro_begin0:
+	.byte	0                       @ End Of Macro List Mark
+	.section	.debug_pubnames,"",%progbits
+	.long	.LpubNames_end0-.LpubNames_begin0 @ Length of Public Names Info
+.LpubNames_begin0:
+	.short	2                       @ DWARF Version
+	.long	.Lcu_begin0             @ Offset of Compilation Unit Info
+	.long	2175                    @ Compilation Unit Length
+	.long	704                     @ DIE offset
+	.asciz	"onewire_flags"         @ External Name
+	.long	39                      @ DIE offset
+	.asciz	"ONEWIRE_Service"       @ External Name
+	.long	1123                    @ DIE offset
+	.asciz	"ONEWIRE_Init"          @ External Name
+	.long	1384                    @ DIE offset
+	.asciz	"ONEWIRE_CrcCheck"      @ External Name
+	.long	834                     @ DIE offset
+	.asciz	"onewire_crc"           @ External Name
+	.long	796                     @ DIE offset
+	.asciz	"onewire_last_device_flag" @ External Name
+	.long	407                     @ DIE offset
+	.asciz	"ds18b20_1"             @ External Name
+	.long	505                     @ DIE offset
+	.asciz	"ds18b20_2"             @ External Name
+	.long	1769                    @ DIE offset
+	.asciz	"ONEWIRE_Pack"          @ External Name
+	.long	545                     @ DIE offset
+	.asciz	"ds18b20_4"             @ External Name
+	.long	525                     @ DIE offset
+	.asciz	"ds18b20_3"             @ External Name
+	.long	605                     @ DIE offset
+	.asciz	"ds18b20_7"             @ External Name
+	.long	816                     @ DIE offset
+	.asciz	"onewire_sensor_number" @ External Name
+	.long	585                     @ DIE offset
+	.asciz	"ds18b20_6"             @ External Name
+	.long	58                      @ DIE offset
+	.asciz	"ow_pcnt"               @ External Name
+	.long	625                     @ DIE offset
+	.asciz	"ds18b20_8"             @ External Name
+	.long	686                     @ DIE offset
+	.asciz	"onewire_timeout_timer" @ External Name
+	.long	776                     @ DIE offset
+	.asciz	"onewire_last_discrepancy" @ External Name
+	.long	756                     @ DIE offset
+	.asciz	"onewire_last_family_discrepancy" @ External Name
+	.long	565                     @ DIE offset
+	.asciz	"ds18b20_5"             @ External Name
+	.long	1822                    @ DIE offset
+	.asciz	"ONEWIRE_Send"          @ External Name
+	.long	337                     @ DIE offset
+	.asciz	"OnewireState"          @ External Name
+	.long	2045                    @ DIE offset
+	.asciz	"ONEWIRE_ReadROM"       @ External Name
+	.long	1529                    @ DIE offset
+	.asciz	"ONEWIRE_ScratchpadToTemperature" @ External Name
+	.long	1586                    @ DIE offset
+	.asciz	"ONEWIRE_SendBit"       @ External Name
+	.long	82                      @ DIE offset
+	.asciz	"ds18b20_cnt"           @ External Name
+	.long	1655                    @ DIE offset
+	.asciz	"ONEWIRE_ReadByte"      @ External Name
+	.long	2098                    @ DIE offset
+	.asciz	"ONEWIRE_Select"        @ External Name
+	.long	146                     @ DIE offset
+	.asciz	"ONEWIRE_Search"        @ External Name
+	.long	1712                    @ DIE offset
+	.asciz	"ONEWIRE_ReceiveBit"    @ External Name
+	.long	1112                    @ DIE offset
+	.asciz	"ONEWIRE_ResetSearch"   @ External Name
+	.long	724                     @ DIE offset
+	.asciz	"onewire_buffer"        @ External Name
+	.long	1173                    @ DIE offset
+	.asciz	"ONEWIRE_SetUsart"      @ External Name
+	.long	1234                    @ DIE offset
+	.asciz	"ONEWIRE_SendByte"      @ External Name
+	.long	170                     @ DIE offset
+	.asciz	"init_cnt"              @ External Name
+	.long	643                     @ DIE offset
+	.asciz	"onewire_timer"         @ External Name
+	.long	1210                    @ DIE offset
+	.asciz	"ONEWIRE_Reset"         @ External Name
+	.long	1287                    @ DIE offset
+	.asciz	"ONEWIRE_Receive"       @ External Name
+	.long	1972                    @ DIE offset
+	.asciz	"ONEWIRE_Unpack"        @ External Name
+	.long	0                       @ End Mark
+.LpubNames_end0:
+	.section	.debug_pubtypes,"",%progbits
+	.long	.LpubTypes_end0-.LpubTypes_begin0 @ Length of Public Types Info
+.LpubTypes_begin0:
+	.short	2                       @ DWARF Version
+	.long	.Lcu_begin0             @ Offset of Compilation Unit Info
+	.long	2175                    @ Compilation Unit Length
+	.long	427                     @ DIE offset
+	.asciz	"TempSensorTypeDef"     @ External Name
+	.long	498                     @ DIE offset
+	.asciz	"int"                   @ External Name
+	.long	668                     @ DIE offset
+	.asciz	"uint32_t"              @ External Name
+	.long	679                     @ DIE offset
+	.asciz	"unsigned int"          @ External Name
+	.long	2151                    @ DIE offset
+	.asciz	"uint16_t"              @ External Name
+	.long	128                     @ DIE offset
+	.asciz	"uint8_t"               @ External Name
+	.long	139                     @ DIE offset
+	.asciz	"unsigned char"         @ External Name
+	.long	2162                    @ DIE offset
+	.asciz	"unsigned short"        @ External Name
+	.long	357                     @ DIE offset
+	.asciz	"OnewireStateTypeDef"   @ External Name
+	.long	951                     @ DIE offset
+	.asciz	"USART_TypeDef"         @ External Name
+	.long	0                       @ End Mark
+.LpubTypes_end0:
+
+	.globl	onewire_sensor_number
+onewire_sensor_number = .L_MergedGlobals
+	.size	onewire_sensor_number, 1
+	.globl	OnewireState
+OnewireState = .L_MergedGlobals+1
+	.size	OnewireState, 1
+	.globl	onewire_crc
+onewire_crc = .L_MergedGlobals+2
+	.size	onewire_crc, 1
+	.globl	onewire_last_discrepancy
+onewire_last_discrepancy = .L_MergedGlobals+3
+	.size	onewire_last_discrepancy, 1
+	.globl	onewire_last_family_discrepancy
+onewire_last_family_discrepancy = .L_MergedGlobals+4
+	.size	onewire_last_family_discrepancy, 1
+	.globl	onewire_last_device_flag
+onewire_last_device_flag = .L_MergedGlobals+5
+	.size	onewire_last_device_flag, 1
+	.globl	onewire_flags
+onewire_flags = .L_MergedGlobals+8
+	.size	onewire_flags, 4
+	.globl	onewire_timer
+onewire_timer = .L_MergedGlobals+12
+	.size	onewire_timer, 4
+	.globl	ds18b20_1
+ds18b20_1 = .L_MergedGlobals+16
+	.size	ds18b20_1, 16
+	.globl	ds18b20_2
+ds18b20_2 = .L_MergedGlobals+32
+	.size	ds18b20_2, 16
+	.globl	ds18b20_3
+ds18b20_3 = .L_MergedGlobals+48
+	.size	ds18b20_3, 16
+	.globl	ds18b20_4
+ds18b20_4 = .L_MergedGlobals+64
+	.size	ds18b20_4, 16
+	.globl	ds18b20_5
+ds18b20_5 = .L_MergedGlobals+80
+	.size	ds18b20_5, 16
+	.globl	ds18b20_6
+ds18b20_6 = .L_MergedGlobals+96
+	.size	ds18b20_6, 16
+	.globl	ds18b20_7
+ds18b20_7 = .L_MergedGlobals+112
+	.size	ds18b20_7, 16
+	.globl	ds18b20_8
+ds18b20_8 = .L_MergedGlobals.1
+	.size	ds18b20_8, 16
+	.globl	onewire_buffer
+onewire_buffer = .L_MergedGlobals.1+16
+	.size	onewire_buffer, 96
+ONEWIRE_Service.ow_pcnt = .L_MergedGlobals.2
+	.size	ONEWIRE_Service.ow_pcnt, 1
+ONEWIRE_Service.ds18b20_cnt = .L_MergedGlobals.2+1
+	.size	ONEWIRE_Service.ds18b20_cnt, 1
+	.ident	"Component: ARM Compiler 6.10.1 Tool: armclang [5d143200]"
+	.section	".note.GNU-stack","",%progbits
+	.eabi_attribute	30, 4	@ Tag_ABI_optimization_goals
+	.ARM_attribute	16, 1	@ Tag_AV_eba
+	.section	.debug_line,"",%progbits
+.Lline_table_start0:

@@ -1,0 +1,3525 @@
+	.text
+	.syntax unified
+	.eabi_attribute	67, "2.09"	@ Tag_conformance
+	.cpu	cortex-m7
+	.eabi_attribute	6, 13	@ Tag_CPU_arch
+	.eabi_attribute	7, 77	@ Tag_CPU_arch_profile
+	.eabi_attribute	8, 0	@ Tag_ARM_ISA_use
+	.eabi_attribute	9, 2	@ Tag_THUMB_ISA_use
+	.fpu	fpv5-sp-d16
+	.eabi_attribute	27, 1	@ Tag_ABI_HardFP_use
+	.eabi_attribute	36, 1	@ Tag_FP_HP_extension
+	.eabi_attribute	34, 1	@ Tag_CPU_unaligned_access
+	.eabi_attribute	17, 1	@ Tag_ABI_PCS_GOT_use
+	.eabi_attribute	20, 2	@ Tag_ABI_FP_denormal
+	.eabi_attribute	21, 0	@ Tag_ABI_FP_exceptions
+	.eabi_attribute	23, 1	@ Tag_ABI_FP_number_model
+	.eabi_attribute	24, 1	@ Tag_ABI_align_needed
+	.eabi_attribute	25, 1	@ Tag_ABI_align_preserved
+	.eabi_attribute	28, 1	@ Tag_ABI_VFP_args
+	.eabi_attribute	38, 1	@ Tag_ABI_FP_16bit_format
+	.eabi_attribute	18, 2	@ Tag_ABI_PCS_wchar_t
+	.eabi_attribute	26, 1	@ Tag_ABI_enum_size
+	.eabi_attribute	14, 0	@ Tag_ABI_PCS_R9_use
+	.file	"wm8994.c"
+	.file	1 "C:\\Keil\\ARM\\ARMCLANG\\Bin\\..\\include" "stdint.h"
+	.file	2 "../Drivers/BSP/Components/wm8994/../Common" "audio.h"
+	.file	3 "../Drivers/BSP/Components/wm8994" "wm8994.c"
+	.section	.text.wm8994_Init,"ax",%progbits
+	.hidden	wm8994_Init             @ -- Begin function wm8994_Init
+	.globl	wm8994_Init
+	.p2align	2
+	.type	wm8994_Init,%function
+	.code	16                      @ @wm8994_Init
+	.thumb_func
+wm8994_Init:
+.Lfunc_begin0:
+	.loc	3 138 0                 @ ../Drivers/BSP/Components/wm8994/wm8994.c:138:0
+	.fnstart
+	.cfi_sections .debug_frame
+	.cfi_startproc
+@ %bb.0:
+	.save	{r4, r5, r6, r7, r8, r9, r10, r11, lr}
+	.pad	#4
+	push.w	{r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
+	.cfi_def_cfa_offset 40
+	.cfi_offset lr, -4
+	.cfi_offset r11, -8
+	.cfi_offset r10, -12
+	.cfi_offset r9, -16
+	.cfi_offset r8, -20
+	.cfi_offset r7, -24
+	.cfi_offset r6, -28
+	.cfi_offset r5, -32
+	.cfi_offset r4, -36
+	@DEBUG_VALUE: wm8994_Init:DeviceAddr <- $r0
+	@DEBUG_VALUE: wm8994_Init:OutputInputDevice <- $r1
+	@DEBUG_VALUE: wm8994_Init:Volume <- $r2
+	@DEBUG_VALUE: wm8994_Init:AudioFreq <- $r3
+	mov	r7, r3
+	mov	r8, r2
+	mov	r4, r1
+	mov	r9, r0
+.Ltmp0:
+	@DEBUG_VALUE: wm8994_Init:power_mgnt_reg_1 <- 0
+	@DEBUG_VALUE: wm8994_Init:AudioFreq <- $r7
+	@DEBUG_VALUE: wm8994_Init:Volume <- $r8
+	@DEBUG_VALUE: wm8994_Init:OutputInputDevice <- $r4
+	@DEBUG_VALUE: wm8994_Init:DeviceAddr <- $r9
+	.loc	3 145 2 prologue_end    @ ../Drivers/BSP/Components/wm8994/wm8994.c:145:2
+	bl	AUDIO_IO_Init
+	.loc	3 147 13                @ ../Drivers/BSP/Components/wm8994/wm8994.c:147:13
+	ldr.w	r5, __arm_cp.0_0
+	uxtb.w	r6, r9
+	mov.w	r1, #258
+	movs	r2, #3
+	mov	r0, r6
+	blx	r5
+.Ltmp1:
+	@DEBUG_VALUE: wm8994_Init:counter <- 0
+	.loc	3 148 13                @ ../Drivers/BSP/Components/wm8994/wm8994.c:148:13
+	mov	r0, r6
+	movw	r1, #2071
+	movs	r2, #0
+	blx	r5
+	.loc	3 149 13                @ ../Drivers/BSP/Components/wm8994/wm8994.c:149:13
+	mov	r0, r6
+	mov.w	r1, #258
+	movs	r2, #0
+	blx	r5
+	.loc	3 152 13                @ ../Drivers/BSP/Components/wm8994/wm8994.c:152:13
+	mov	r0, r6
+	movs	r1, #57
+	movs	r2, #108
+	blx	r5
+	.loc	3 141 44                @ ../Drivers/BSP/Components/wm8994/wm8994.c:141:44
+	bic	r10, r4, #255
+.Ltmp2:
+	.loc	3 161 14                @ ../Drivers/BSP/Components/wm8994/wm8994.c:161:14
+	mov	r0, r6
+	movs	r1, #1
+.Ltmp3:
+	.loc	3 140 45                @ ../Drivers/BSP/Components/wm8994/wm8994.c:140:45
+	uxtb	r4, r4
+.Ltmp4:
+	.loc	3 155 6                 @ ../Drivers/BSP/Components/wm8994/wm8994.c:155:6
+	cmp.w	r10, #0
+.Ltmp5:
+	.loc	3 161 14                @ ../Drivers/BSP/Components/wm8994/wm8994.c:161:14
+	ite	eq
+	moveq	r2, #3
+.Ltmp6:
+	.loc	3 157 14                @ ../Drivers/BSP/Components/wm8994/wm8994.c:157:14
+	movne	r2, #19
+	bl	CODEC_IO_Write
+.Ltmp7:
+	@DEBUG_VALUE: wm8994_Init:counter <- 0
+	.loc	3 165 3                 @ ../Drivers/BSP/Components/wm8994/wm8994.c:165:3
+	movs	r0, #50
+	bl	AUDIO_IO_Delay
+	ldr.w	r0, __arm_cp.0_1
+	.loc	3 168 7                 @ ../Drivers/BSP/Components/wm8994/wm8994.c:168:7
+	cbz	r4, .LBB0_5
+.Ltmp8:
+@ %bb.1:
+	@DEBUG_VALUE: wm8994_Init:DeviceAddr <- $r9
+	@DEBUG_VALUE: wm8994_Init:Volume <- $r8
+	@DEBUG_VALUE: wm8994_Init:AudioFreq <- $r7
+	.loc	3 0 7 is_stmt 0         @ ../Drivers/BSP/Components/wm8994/wm8994.c:0:7
+	movs	r1, #1
+.Ltmp9:
+	.loc	3 172 5 is_stmt 1       @ ../Drivers/BSP/Components/wm8994/wm8994.c:172:5
+	cmp	r4, #3
+	strb	r1, [r0]
+	beq	.LBB0_7
+.Ltmp10:
+@ %bb.2:
+	@DEBUG_VALUE: wm8994_Init:DeviceAddr <- $r9
+	@DEBUG_VALUE: wm8994_Init:Volume <- $r8
+	@DEBUG_VALUE: wm8994_Init:AudioFreq <- $r7
+	cmp	r4, #2
+	beq	.LBB0_6
+.Ltmp11:
+@ %bb.3:
+	@DEBUG_VALUE: wm8994_Init:DeviceAddr <- $r9
+	@DEBUG_VALUE: wm8994_Init:Volume <- $r8
+	@DEBUG_VALUE: wm8994_Init:AudioFreq <- $r7
+	cmp	r4, #1
+	bne	.LBB0_6
+.Ltmp12:
+@ %bb.4:
+	@DEBUG_VALUE: wm8994_Init:DeviceAddr <- $r9
+	@DEBUG_VALUE: wm8994_Init:Volume <- $r8
+	@DEBUG_VALUE: wm8994_Init:AudioFreq <- $r7
+	.loc	3 177 16                @ ../Drivers/BSP/Components/wm8994/wm8994.c:177:16
+	mov	r0, r6
+	movs	r1, #5
+	movw	r2, #3084
+	blx	r5
+	@DEBUG_VALUE: wm8994_Init:counter <- 0
+	.loc	3 180 16                @ ../Drivers/BSP/Components/wm8994/wm8994.c:180:16
+	mov	r0, r6
+	movw	r1, #1537
+	movs	r2, #0
+	blx	r5
+	.loc	3 183 16                @ ../Drivers/BSP/Components/wm8994/wm8994.c:183:16
+	mov	r0, r6
+	movw	r1, #1538
+	movs	r2, #0
+	b	.LBB0_10
+.Ltmp13:
+.LBB0_5:
+	@DEBUG_VALUE: wm8994_Init:DeviceAddr <- $r9
+	@DEBUG_VALUE: wm8994_Init:Volume <- $r8
+	@DEBUG_VALUE: wm8994_Init:AudioFreq <- $r7
+	.loc	3 0 16 is_stmt 0        @ ../Drivers/BSP/Components/wm8994/wm8994.c:0:16
+	movs	r1, #0
+	strb	r1, [r0]
+	b	.LBB0_12
+.Ltmp14:
+.LBB0_6:
+	@DEBUG_VALUE: wm8994_Init:DeviceAddr <- $r9
+	@DEBUG_VALUE: wm8994_Init:Volume <- $r8
+	@DEBUG_VALUE: wm8994_Init:AudioFreq <- $r7
+	mov	r0, r6
+	movs	r1, #5
+	movw	r2, #771
+	blx	r5
+	@DEBUG_VALUE: wm8994_Init:counter <- 0
+	mov	r0, r6
+	movw	r1, #1537
+	movs	r2, #1
+	blx	r5
+	mov	r0, r6
+	movw	r1, #1538
+	movs	r2, #1
+	blx	r5
+	mov	r0, r6
+	movw	r1, #1540
+	movs	r2, #0
+	blx	r5
+	mov	r0, r6
+	movw	r1, #1541
+	movs	r2, #0
+	b	.LBB0_11
+.Ltmp15:
+.LBB0_7:
+	@DEBUG_VALUE: wm8994_Init:DeviceAddr <- $r9
+	@DEBUG_VALUE: wm8994_Init:Volume <- $r8
+	@DEBUG_VALUE: wm8994_Init:AudioFreq <- $r7
+	mov	r0, r6
+	movs	r1, #5
+	movw	r2, #3855
+	bl	CODEC_IO_Write
+	@DEBUG_VALUE: wm8994_Init:counter <- 0
+	.loc	3 240 15 is_stmt 1      @ ../Drivers/BSP/Components/wm8994/wm8994.c:240:15
+	mov	r0, r6
+	movw	r1, #1537
+.Ltmp16:
+	.loc	3 211 9                 @ ../Drivers/BSP/Components/wm8994/wm8994.c:211:9
+	cmp.w	r10, #2048
+	bne	.LBB0_9
+.Ltmp17:
+@ %bb.8:
+	@DEBUG_VALUE: wm8994_Init:DeviceAddr <- $r9
+	@DEBUG_VALUE: wm8994_Init:Volume <- $r8
+	@DEBUG_VALUE: wm8994_Init:AudioFreq <- $r7
+	.loc	3 219 15                @ ../Drivers/BSP/Components/wm8994/wm8994.c:219:15
+	movs	r2, #3
+	blx	r5
+	@DEBUG_VALUE: wm8994_Init:counter <- 0
+	.loc	3 223 15                @ ../Drivers/BSP/Components/wm8994/wm8994.c:223:15
+	mov	r0, r6
+	movw	r1, #1538
+	movs	r2, #3
+	blx	r5
+	.loc	3 227 15                @ ../Drivers/BSP/Components/wm8994/wm8994.c:227:15
+	mov	r0, r6
+	movw	r1, #1540
+	movs	r2, #3
+	blx	r5
+	.loc	3 231 15                @ ../Drivers/BSP/Components/wm8994/wm8994.c:231:15
+	mov	r0, r6
+	movw	r1, #1541
+	movs	r2, #3
+	b	.LBB0_11
+.Ltmp18:
+.LBB0_9:
+	@DEBUG_VALUE: wm8994_Init:DeviceAddr <- $r9
+	@DEBUG_VALUE: wm8994_Init:Volume <- $r8
+	@DEBUG_VALUE: wm8994_Init:AudioFreq <- $r7
+	.loc	3 240 15                @ ../Drivers/BSP/Components/wm8994/wm8994.c:240:15
+	movs	r2, #1
+	blx	r5
+	@DEBUG_VALUE: wm8994_Init:counter <- 0
+	.loc	3 243 15                @ ../Drivers/BSP/Components/wm8994/wm8994.c:243:15
+	mov	r0, r6
+	movw	r1, #1538
+	movs	r2, #1
+.Ltmp19:
+.LBB0_10:
+	@DEBUG_VALUE: wm8994_Init:DeviceAddr <- $r9
+	@DEBUG_VALUE: wm8994_Init:Volume <- $r8
+	@DEBUG_VALUE: wm8994_Init:AudioFreq <- $r7
+	.loc	3 0 15 is_stmt 0        @ ../Drivers/BSP/Components/wm8994/wm8994.c:0:15
+	blx	r5
+	mov	r0, r6
+	movw	r1, #1540
+	movs	r2, #2
+	blx	r5
+	mov	r0, r6
+	movw	r1, #1541
+	movs	r2, #2
+.Ltmp20:
+.LBB0_11:
+	@DEBUG_VALUE: wm8994_Init:DeviceAddr <- $r9
+	@DEBUG_VALUE: wm8994_Init:Volume <- $r8
+	@DEBUG_VALUE: wm8994_Init:AudioFreq <- $r7
+	blx	r5
+.Ltmp21:
+.LBB0_12:
+	@DEBUG_VALUE: wm8994_Init:DeviceAddr <- $r9
+	@DEBUG_VALUE: wm8994_Init:Volume <- $r8
+	@DEBUG_VALUE: wm8994_Init:AudioFreq <- $r7
+	@DEBUG_VALUE: wm8994_Init:counter <- 0
+	ldr.w	r0, __arm_cp.0_2
+	.loc	3 279 7 is_stmt 1       @ ../Drivers/BSP/Components/wm8994/wm8994.c:279:7
+	cmp.w	r10, #0
+	beq	.LBB0_17
+.Ltmp22:
+@ %bb.13:
+	@DEBUG_VALUE: wm8994_Init:DeviceAddr <- $r9
+	@DEBUG_VALUE: wm8994_Init:Volume <- $r8
+	@DEBUG_VALUE: wm8994_Init:AudioFreq <- $r7
+	.loc	3 0 7 is_stmt 0         @ ../Drivers/BSP/Components/wm8994/wm8994.c:0:7
+	mov.w	r11, #1
+	strb.w	r11, [r0]
+.Ltmp23:
+	.loc	3 282 5 is_stmt 1       @ ../Drivers/BSP/Components/wm8994/wm8994.c:282:5
+	sub.w	r0, r10, #256
+	lsrs	r0, r0, #8
+	cmp	r0, #7
+	bhi.w	.LBB0_24
+.Ltmp24:
+@ %bb.14:
+	@DEBUG_VALUE: wm8994_Init:DeviceAddr <- $r9
+	@DEBUG_VALUE: wm8994_Init:Volume <- $r8
+	@DEBUG_VALUE: wm8994_Init:AudioFreq <- $r7
+	.loc	3 0 5 is_stmt 0         @ ../Drivers/BSP/Components/wm8994/wm8994.c:0:5
+.LCPI0_5:
+	tbb	[pc, r0]
+.Ltmp25:
+@ %bb.15:
+.LJTI0_0:
+	.byte	(.LBB0_16-(.LCPI0_5+4))/2
+	.byte	(.LBB0_18-(.LCPI0_5+4))/2
+	.byte	(.LBB0_19-(.LCPI0_5+4))/2
+	.byte	(.LBB0_24-(.LCPI0_5+4))/2
+	.byte	(.LBB0_24-(.LCPI0_5+4))/2
+	.byte	(.LBB0_24-(.LCPI0_5+4))/2
+	.byte	(.LBB0_24-(.LCPI0_5+4))/2
+	.byte	(.LBB0_21-(.LCPI0_5+4))/2
+	.p2align	1
+.LBB0_16:
+.Ltmp26:
+	@DEBUG_VALUE: wm8994_Init:DeviceAddr <- $r9
+	@DEBUG_VALUE: wm8994_Init:Volume <- $r8
+	@DEBUG_VALUE: wm8994_Init:AudioFreq <- $r7
+	.loc	3 340 18 is_stmt 1      @ ../Drivers/BSP/Components/wm8994/wm8994.c:340:18
+	mov	r0, r6
+	movs	r1, #4
+	mov.w	r2, #780
+	b	.LBB0_20
+.Ltmp27:
+.LBB0_17:
+	@DEBUG_VALUE: wm8994_Init:DeviceAddr <- $r9
+	@DEBUG_VALUE: wm8994_Init:Volume <- $r8
+	@DEBUG_VALUE: wm8994_Init:AudioFreq <- $r7
+	.loc	3 0 18 is_stmt 0        @ ../Drivers/BSP/Components/wm8994/wm8994.c:0:18
+	mov.w	r11, #0
+	strb.w	r11, [r0]
+	b	.LBB0_24
+.Ltmp28:
+.LBB0_18:
+	@DEBUG_VALUE: wm8994_Init:DeviceAddr <- $r9
+	@DEBUG_VALUE: wm8994_Init:Volume <- $r8
+	@DEBUG_VALUE: wm8994_Init:AudioFreq <- $r7
+	.loc	3 288 18 is_stmt 1      @ ../Drivers/BSP/Components/wm8994/wm8994.c:288:18
+	mov	r0, r6
+	movs	r1, #4
+	mov.w	r2, #3120
+	blx	r5
+	@DEBUG_VALUE: wm8994_Init:counter <- 0
+	.loc	3 291 18                @ ../Drivers/BSP/Components/wm8994/wm8994.c:291:18
+	mov	r0, r6
+	mov.w	r1, #1104
+	movs	r2, #219
+	blx	r5
+	.loc	3 294 18                @ ../Drivers/BSP/Components/wm8994/wm8994.c:294:18
+	mov	r0, r6
+	movs	r1, #2
+	mov.w	r2, #24576
+	blx	r5
+	.loc	3 297 18                @ ../Drivers/BSP/Components/wm8994/wm8994.c:297:18
+	mov	r0, r6
+	mov.w	r1, #1544
+	movs	r2, #2
+	blx	r5
+	.loc	3 300 18                @ ../Drivers/BSP/Components/wm8994/wm8994.c:300:18
+	mov	r0, r6
+	movw	r1, #1545
+	movs	r2, #2
+	blx	r5
+	.loc	3 303 18                @ ../Drivers/BSP/Components/wm8994/wm8994.c:303:18
+	mov	r0, r6
+	mov.w	r1, #1792
+	movs	r2, #14
+	b	.LBB0_23
+.Ltmp29:
+.LBB0_19:
+	@DEBUG_VALUE: wm8994_Init:DeviceAddr <- $r9
+	@DEBUG_VALUE: wm8994_Init:Volume <- $r8
+	@DEBUG_VALUE: wm8994_Init:AudioFreq <- $r7
+	.loc	3 308 18                @ ../Drivers/BSP/Components/wm8994/wm8994.c:308:18
+	mov	r0, r6
+	movs	r1, #40
+	movs	r2, #17
+	blx	r5
+	@DEBUG_VALUE: wm8994_Init:counter <- 0
+	.loc	3 311 18                @ ../Drivers/BSP/Components/wm8994/wm8994.c:311:18
+	mov	r0, r6
+	movs	r1, #41
+	movs	r2, #53
+	blx	r5
+	.loc	3 314 18                @ ../Drivers/BSP/Components/wm8994/wm8994.c:314:18
+	mov	r0, r6
+	movs	r1, #42
+	movs	r2, #53
+	blx	r5
+	.loc	3 318 18                @ ../Drivers/BSP/Components/wm8994/wm8994.c:318:18
+	mov	r0, r6
+	movs	r1, #4
+	movw	r2, #771
+.Ltmp30:
+.LBB0_20:
+	@DEBUG_VALUE: wm8994_Init:DeviceAddr <- $r9
+	@DEBUG_VALUE: wm8994_Init:Volume <- $r8
+	@DEBUG_VALUE: wm8994_Init:AudioFreq <- $r7
+	.loc	3 0 18 is_stmt 0        @ ../Drivers/BSP/Components/wm8994/wm8994.c:0:18
+	blx	r5
+	@DEBUG_VALUE: wm8994_Init:counter <- 0
+	mov	r0, r6
+	mov.w	r1, #1088
+	movs	r2, #219
+	blx	r5
+	mov	r0, r6
+	movs	r1, #2
+	movw	r2, #25424
+	blx	r5
+	mov	r0, r6
+	movw	r1, #1542
+	movs	r2, #2
+	blx	r5
+	mov	r0, r6
+	movw	r1, #1543
+	b	.LBB0_22
+.Ltmp31:
+.LBB0_21:
+	@DEBUG_VALUE: wm8994_Init:DeviceAddr <- $r9
+	@DEBUG_VALUE: wm8994_Init:Volume <- $r8
+	@DEBUG_VALUE: wm8994_Init:AudioFreq <- $r7
+	.loc	3 361 18 is_stmt 1      @ ../Drivers/BSP/Components/wm8994/wm8994.c:361:18
+	mov	r0, r6
+	movs	r1, #4
+	movw	r2, #3900
+	blx	r5
+	@DEBUG_VALUE: wm8994_Init:counter <- 0
+	.loc	3 364 18                @ ../Drivers/BSP/Components/wm8994/wm8994.c:364:18
+	mov	r0, r6
+	mov.w	r1, #1104
+	movs	r2, #219
+	blx	r5
+	.loc	3 367 18                @ ../Drivers/BSP/Components/wm8994/wm8994.c:367:18
+	mov	r0, r6
+	mov.w	r1, #1088
+	movs	r2, #219
+	blx	r5
+	.loc	3 370 18                @ ../Drivers/BSP/Components/wm8994/wm8994.c:370:18
+	mov	r0, r6
+	movs	r1, #2
+	movw	r2, #25504
+	blx	r5
+	.loc	3 373 18                @ ../Drivers/BSP/Components/wm8994/wm8994.c:373:18
+	mov	r0, r6
+	movw	r1, #1542
+	movs	r2, #2
+	blx	r5
+	.loc	3 376 18                @ ../Drivers/BSP/Components/wm8994/wm8994.c:376:18
+	mov	r0, r6
+	movw	r1, #1543
+	movs	r2, #2
+	blx	r5
+	.loc	3 379 18                @ ../Drivers/BSP/Components/wm8994/wm8994.c:379:18
+	mov	r0, r6
+	mov.w	r1, #1544
+	movs	r2, #2
+	blx	r5
+	.loc	3 382 18                @ ../Drivers/BSP/Components/wm8994/wm8994.c:382:18
+	mov	r0, r6
+	movw	r1, #1545
+.Ltmp32:
+.LBB0_22:
+	@DEBUG_VALUE: wm8994_Init:DeviceAddr <- $r9
+	@DEBUG_VALUE: wm8994_Init:Volume <- $r8
+	@DEBUG_VALUE: wm8994_Init:AudioFreq <- $r7
+	.loc	3 0 18 is_stmt 0        @ ../Drivers/BSP/Components/wm8994/wm8994.c:0:18
+	movs	r2, #2
+	blx	r5
+	mov	r0, r6
+	mov.w	r1, #1792
+	movs	r2, #13
+.Ltmp33:
+.LBB0_23:
+	@DEBUG_VALUE: wm8994_Init:DeviceAddr <- $r9
+	@DEBUG_VALUE: wm8994_Init:Volume <- $r8
+	@DEBUG_VALUE: wm8994_Init:AudioFreq <- $r7
+	blx	r5
+	mov.w	r11, #0
+.Ltmp34:
+.LBB0_24:
+	@DEBUG_VALUE: wm8994_Init:DeviceAddr <- $r9
+	@DEBUG_VALUE: wm8994_Init:Volume <- $r8
+	@DEBUG_VALUE: wm8994_Init:AudioFreq <- $r7
+	.loc	3 400 3 is_stmt 1       @ ../Drivers/BSP/Components/wm8994/wm8994.c:400:3
+	ldr	r0, __arm_cp.0_3
+	cmp	r7, r0
+	beq	.LBB0_34
+.Ltmp35:
+@ %bb.25:
+	@DEBUG_VALUE: wm8994_Init:DeviceAddr <- $r9
+	@DEBUG_VALUE: wm8994_Init:Volume <- $r8
+	@DEBUG_VALUE: wm8994_Init:AudioFreq <- $r7
+	.loc	3 0 3 is_stmt 0         @ ../Drivers/BSP/Components/wm8994/wm8994.c:0:3
+	movw	r0, #11025
+	.loc	3 400 3                 @ ../Drivers/BSP/Components/wm8994/wm8994.c:400:3
+	cmp	r7, r0
+	beq	.LBB0_35
+.Ltmp36:
+@ %bb.26:
+	@DEBUG_VALUE: wm8994_Init:DeviceAddr <- $r9
+	@DEBUG_VALUE: wm8994_Init:Volume <- $r8
+	@DEBUG_VALUE: wm8994_Init:AudioFreq <- $r7
+	cmp.w	r7, #16000
+	beq	.LBB0_36
+.Ltmp37:
+@ %bb.27:
+	@DEBUG_VALUE: wm8994_Init:DeviceAddr <- $r9
+	@DEBUG_VALUE: wm8994_Init:Volume <- $r8
+	@DEBUG_VALUE: wm8994_Init:AudioFreq <- $r7
+	.loc	3 0 3                   @ ../Drivers/BSP/Components/wm8994/wm8994.c:0:3
+	movw	r0, #22050
+	.loc	3 400 3                 @ ../Drivers/BSP/Components/wm8994/wm8994.c:400:3
+	cmp	r7, r0
+	beq	.LBB0_37
+.Ltmp38:
+@ %bb.28:
+	@DEBUG_VALUE: wm8994_Init:DeviceAddr <- $r9
+	@DEBUG_VALUE: wm8994_Init:Volume <- $r8
+	@DEBUG_VALUE: wm8994_Init:AudioFreq <- $r7
+	cmp.w	r7, #32000
+	beq	.LBB0_38
+.Ltmp39:
+@ %bb.29:
+	@DEBUG_VALUE: wm8994_Init:DeviceAddr <- $r9
+	@DEBUG_VALUE: wm8994_Init:Volume <- $r8
+	@DEBUG_VALUE: wm8994_Init:AudioFreq <- $r7
+	.loc	3 0 3                   @ ../Drivers/BSP/Components/wm8994/wm8994.c:0:3
+	movw	r0, #44100
+	.loc	3 400 3                 @ ../Drivers/BSP/Components/wm8994/wm8994.c:400:3
+	cmp	r7, r0
+	beq	.LBB0_39
+.Ltmp40:
+@ %bb.30:
+	@DEBUG_VALUE: wm8994_Init:DeviceAddr <- $r9
+	@DEBUG_VALUE: wm8994_Init:Volume <- $r8
+	@DEBUG_VALUE: wm8994_Init:AudioFreq <- $r7
+	.loc	3 0 3                   @ ../Drivers/BSP/Components/wm8994/wm8994.c:0:3
+	movw	r0, #48000
+	.loc	3 400 3                 @ ../Drivers/BSP/Components/wm8994/wm8994.c:400:3
+	cmp	r7, r0
+	beq	.LBB0_33
+.Ltmp41:
+@ %bb.31:
+	@DEBUG_VALUE: wm8994_Init:DeviceAddr <- $r9
+	@DEBUG_VALUE: wm8994_Init:Volume <- $r8
+	@DEBUG_VALUE: wm8994_Init:AudioFreq <- $r7
+	cmp.w	r7, #8000
+	bne	.LBB0_33
+.Ltmp42:
+@ %bb.32:
+	@DEBUG_VALUE: wm8994_Init:DeviceAddr <- $r9
+	@DEBUG_VALUE: wm8994_Init:Volume <- $r8
+	@DEBUG_VALUE: wm8994_Init:AudioFreq <- $r7
+	.loc	3 404 16 is_stmt 1      @ ../Drivers/BSP/Components/wm8994/wm8994.c:404:16
+	mov	r0, r6
+	mov.w	r1, #528
+	movs	r2, #3
+	b	.LBB0_40
+.Ltmp43:
+.LBB0_33:
+	@DEBUG_VALUE: wm8994_Init:DeviceAddr <- $r9
+	@DEBUG_VALUE: wm8994_Init:Volume <- $r8
+	@DEBUG_VALUE: wm8994_Init:AudioFreq <- $r7
+	.loc	3 0 16 is_stmt 0        @ ../Drivers/BSP/Components/wm8994/wm8994.c:0:16
+	mov	r0, r6
+	mov.w	r1, #528
+	movs	r2, #131
+	b	.LBB0_40
+.Ltmp44:
+.LBB0_34:
+	@DEBUG_VALUE: wm8994_Init:DeviceAddr <- $r9
+	@DEBUG_VALUE: wm8994_Init:Volume <- $r8
+	@DEBUG_VALUE: wm8994_Init:AudioFreq <- $r7
+	.loc	3 424 16 is_stmt 1      @ ../Drivers/BSP/Components/wm8994/wm8994.c:424:16
+	mov	r0, r6
+	mov.w	r1, #528
+	movs	r2, #163
+	b	.LBB0_40
+.Ltmp45:
+.LBB0_35:
+	@DEBUG_VALUE: wm8994_Init:DeviceAddr <- $r9
+	@DEBUG_VALUE: wm8994_Init:Volume <- $r8
+	@DEBUG_VALUE: wm8994_Init:AudioFreq <- $r7
+	.loc	3 429 16                @ ../Drivers/BSP/Components/wm8994/wm8994.c:429:16
+	mov	r0, r6
+	mov.w	r1, #528
+	movs	r2, #19
+	b	.LBB0_40
+.Ltmp46:
+.LBB0_36:
+	@DEBUG_VALUE: wm8994_Init:DeviceAddr <- $r9
+	@DEBUG_VALUE: wm8994_Init:Volume <- $r8
+	@DEBUG_VALUE: wm8994_Init:AudioFreq <- $r7
+	.loc	3 409 16                @ ../Drivers/BSP/Components/wm8994/wm8994.c:409:16
+	mov	r0, r6
+	mov.w	r1, #528
+	movs	r2, #51
+	b	.LBB0_40
+.Ltmp47:
+.LBB0_37:
+	@DEBUG_VALUE: wm8994_Init:DeviceAddr <- $r9
+	@DEBUG_VALUE: wm8994_Init:Volume <- $r8
+	@DEBUG_VALUE: wm8994_Init:AudioFreq <- $r7
+	.loc	3 434 16                @ ../Drivers/BSP/Components/wm8994/wm8994.c:434:16
+	mov	r0, r6
+	mov.w	r1, #528
+	movs	r2, #67
+	b	.LBB0_40
+.Ltmp48:
+.LBB0_38:
+	@DEBUG_VALUE: wm8994_Init:DeviceAddr <- $r9
+	@DEBUG_VALUE: wm8994_Init:Volume <- $r8
+	@DEBUG_VALUE: wm8994_Init:AudioFreq <- $r7
+	.loc	3 414 16                @ ../Drivers/BSP/Components/wm8994/wm8994.c:414:16
+	mov	r0, r6
+	mov.w	r1, #528
+	movs	r2, #99
+	b	.LBB0_40
+.Ltmp49:
+.LBB0_39:
+	@DEBUG_VALUE: wm8994_Init:DeviceAddr <- $r9
+	@DEBUG_VALUE: wm8994_Init:Volume <- $r8
+	@DEBUG_VALUE: wm8994_Init:AudioFreq <- $r7
+	.loc	3 439 16                @ ../Drivers/BSP/Components/wm8994/wm8994.c:439:16
+	mov	r0, r6
+	mov.w	r1, #528
+	movs	r2, #115
+.Ltmp50:
+.LBB0_40:
+	@DEBUG_VALUE: wm8994_Init:DeviceAddr <- $r9
+	@DEBUG_VALUE: wm8994_Init:Volume <- $r8
+	@DEBUG_VALUE: wm8994_Init:AudioFreq <- $r7
+	.loc	3 0 16 is_stmt 0        @ ../Drivers/BSP/Components/wm8994/wm8994.c:0:16
+	bl	CODEC_IO_Write
+	.loc	3 448 6 is_stmt 1       @ ../Drivers/BSP/Components/wm8994/wm8994.c:448:6
+	cmp.w	r10, #2048
+.Ltmp51:
+	.loc	3 456 14                @ ../Drivers/BSP/Components/wm8994/wm8994.c:456:14
+	mov	r0, r6
+	mov.w	r1, #768
+	ite	ne
+	movwne	r2, #16400
+.Ltmp52:
+	.loc	3 451 14                @ ../Drivers/BSP/Components/wm8994/wm8994.c:451:14
+	movweq	r2, #16408
+	bl	CODEC_IO_Write
+.Ltmp53:
+	@DEBUG_VALUE: wm8994_Init:Volume <- $r8
+	.loc	3 460 14                @ ../Drivers/BSP/Components/wm8994/wm8994.c:460:14
+	mov	r0, r6
+	movw	r1, #770
+	movs	r2, #0
+	movs	r7, #0
+.Ltmp54:
+	blx	r5
+	.loc	3 463 14                @ ../Drivers/BSP/Components/wm8994/wm8994.c:463:14
+	mov	r0, r6
+	mov.w	r1, #520
+	movs	r2, #10
+	blx	r5
+	.loc	3 466 14                @ ../Drivers/BSP/Components/wm8994/wm8994.c:466:14
+	mov	r0, r6
+	mov.w	r1, #512
+	movs	r2, #1
+	blx	r5
+	.loc	3 468 7                 @ ../Drivers/BSP/Components/wm8994/wm8994.c:468:7
+	cmp	r4, #0
+	beq.w	.LBB0_48
+.Ltmp55:
+@ %bb.41:
+	@DEBUG_VALUE: wm8994_Init:DeviceAddr <- $r9
+	@DEBUG_VALUE: wm8994_Init:Volume <- $r8
+	.loc	3 502 18                @ ../Drivers/BSP/Components/wm8994/wm8994.c:502:18
+	mov	r0, r6
+.Ltmp56:
+	.loc	3 470 9                 @ ../Drivers/BSP/Components/wm8994/wm8994.c:470:9
+	cmp	r4, #2
+	bne	.LBB0_44
+.Ltmp57:
+@ %bb.42:
+	@DEBUG_VALUE: wm8994_Init:DeviceAddr <- $r9
+	@DEBUG_VALUE: wm8994_Init:Volume <- $r8
+	.loc	3 473 18                @ ../Drivers/BSP/Components/wm8994/wm8994.c:473:18
+	movs	r1, #45
+	mov.w	r2, #256
+	bl	CODEC_IO_Write
+	.loc	3 476 18                @ ../Drivers/BSP/Components/wm8994/wm8994.c:476:18
+	mov	r0, r6
+	movs	r1, #46
+	mov.w	r2, #256
+	bl	CODEC_IO_Write
+	ldr	r4, __arm_cp.0_4
+	ldrb	r0, [r4]
+	.loc	3 479 10                @ ../Drivers/BSP/Components/wm8994/wm8994.c:479:10
+	cmp	r0, #0
+	beq	.LBB0_45
+.Ltmp58:
+@ %bb.43:
+	@DEBUG_VALUE: wm8994_Init:DeviceAddr <- $r9
+	@DEBUG_VALUE: wm8994_Init:Volume <- $r8
+	.loc	3 489 20                @ ../Drivers/BSP/Components/wm8994/wm8994.c:489:20
+	mov	r0, r6
+	mov.w	r1, #272
+	movw	r2, #33032
+	bl	CODEC_IO_Write
+	.loc	3 491 9                 @ ../Drivers/BSP/Components/wm8994/wm8994.c:491:9
+	movs	r0, #50
+	b	.LBB0_46
+.Ltmp59:
+.LBB0_44:
+	@DEBUG_VALUE: wm8994_Init:DeviceAddr <- $r9
+	@DEBUG_VALUE: wm8994_Init:Volume <- $r8
+	.loc	3 502 18                @ ../Drivers/BSP/Components/wm8994/wm8994.c:502:18
+	movs	r1, #3
+	mov.w	r2, #768
+	blx	r5
+	.loc	3 505 18                @ ../Drivers/BSP/Components/wm8994/wm8994.c:505:18
+	mov	r0, r6
+	movs	r1, #34
+	movs	r2, #0
+	blx	r5
+	.loc	3 508 18                @ ../Drivers/BSP/Components/wm8994/wm8994.c:508:18
+	mov	r0, r6
+	movs	r1, #35
+	movs	r2, #0
+	blx	r5
+	.loc	3 512 18                @ ../Drivers/BSP/Components/wm8994/wm8994.c:512:18
+	mov	r0, r6
+	movs	r1, #54
+	mov.w	r2, #768
+	blx	r5
+	.loc	3 515 18                @ ../Drivers/BSP/Components/wm8994/wm8994.c:515:18
+	mov	r0, r6
+	movs	r1, #1
+	movw	r2, #12291
+	blx	r5
+	.loc	3 519 11                @ ../Drivers/BSP/Components/wm8994/wm8994.c:519:11
+	cmp.w	r10, #2048
+.Ltmp60:
+	.loc	3 527 18                @ ../Drivers/BSP/Components/wm8994/wm8994.c:527:18
+	mov	r0, r6
+	mov.w	r1, #81
+	ite	ne
+	movne	r2, #5
+.Ltmp61:
+	.loc	3 522 18                @ ../Drivers/BSP/Components/wm8994/wm8994.c:522:18
+	movweq	r2, #517
+	bl	CODEC_IO_Write
+.Ltmp62:
+	@DEBUG_VALUE: wm8994_Init:power_mgnt_reg_1 <- 13059
+	.loc	3 533 18                @ ../Drivers/BSP/Components/wm8994/wm8994.c:533:18
+	mov	r0, r6
+	movs	r1, #1
+	movw	r2, #13059
+	movw	r7, #13059
+	blx	r5
+	.loc	3 536 18                @ ../Drivers/BSP/Components/wm8994/wm8994.c:536:18
+	mov	r0, r6
+	movs	r1, #96
+	movs	r2, #34
+	blx	r5
+	.loc	3 539 18                @ ../Drivers/BSP/Components/wm8994/wm8994.c:539:18
+	mov	r0, r6
+	movs	r1, #76
+	movw	r2, #40741
+	blx	r5
+	.loc	3 542 7                 @ ../Drivers/BSP/Components/wm8994/wm8994.c:542:7
+	movs	r0, #15
+	bl	AUDIO_IO_Delay
+	.loc	3 545 18                @ ../Drivers/BSP/Components/wm8994/wm8994.c:545:18
+	mov	r0, r6
+	movs	r1, #45
+	movs	r2, #1
+	blx	r5
+	.loc	3 548 18                @ ../Drivers/BSP/Components/wm8994/wm8994.c:548:18
+	mov	r0, r6
+	movs	r1, #46
+	movs	r2, #1
+	blx	r5
+	.loc	3 552 18                @ ../Drivers/BSP/Components/wm8994/wm8994.c:552:18
+	mov	r0, r6
+	movs	r1, #3
+	mov.w	r2, #816
+	blx	r5
+	.loc	3 555 18                @ ../Drivers/BSP/Components/wm8994/wm8994.c:555:18
+	mov	r0, r6
+	movs	r1, #84
+	movs	r2, #51
+	blx	r5
+	.loc	3 558 7                 @ ../Drivers/BSP/Components/wm8994/wm8994.c:558:7
+	movw	r0, #257
+	bl	AUDIO_IO_Delay
+	.loc	3 561 18                @ ../Drivers/BSP/Components/wm8994/wm8994.c:561:18
+	mov	r0, r6
+	movs	r1, #96
+	movs	r2, #238
+	blx	r5
+	b	.LBB0_47
+.Ltmp63:
+.LBB0_45:
+	@DEBUG_VALUE: wm8994_Init:DeviceAddr <- $r9
+	@DEBUG_VALUE: wm8994_Init:Volume <- $r8
+	.loc	3 481 20                @ ../Drivers/BSP/Components/wm8994/wm8994.c:481:20
+	mov	r0, r6
+	mov.w	r1, #272
+	mov.w	r2, #33024
+	bl	CODEC_IO_Write
+	movs	r0, #1
+	strb	r0, [r4]
+	.loc	3 485 9                 @ ../Drivers/BSP/Components/wm8994/wm8994.c:485:9
+	mov.w	r0, #300
+.Ltmp64:
+.LBB0_46:
+	@DEBUG_VALUE: wm8994_Init:DeviceAddr <- $r9
+	@DEBUG_VALUE: wm8994_Init:Volume <- $r8
+	.loc	3 0 9 is_stmt 0         @ ../Drivers/BSP/Components/wm8994/wm8994.c:0:9
+	bl	AUDIO_IO_Delay
+	.loc	3 495 18 is_stmt 1      @ ../Drivers/BSP/Components/wm8994/wm8994.c:495:18
+	mov	r0, r6
+	mov.w	r1, #1056
+	movs	r2, #0
+	movs	r7, #0
+	bl	CODEC_IO_Write
+.Ltmp65:
+.LBB0_47:
+	@DEBUG_VALUE: wm8994_Init:DeviceAddr <- $r9
+	@DEBUG_VALUE: wm8994_Init:Volume <- $r8
+	.loc	3 567 16                @ ../Drivers/BSP/Components/wm8994/wm8994.c:567:16
+	mov	r0, r6
+	mov.w	r1, #1552
+	movs	r2, #192
+	blx	r5
+	.loc	3 570 16                @ ../Drivers/BSP/Components/wm8994/wm8994.c:570:16
+	mov	r0, r6
+	movw	r1, #1553
+	movs	r2, #192
+	blx	r5
+	.loc	3 573 16                @ ../Drivers/BSP/Components/wm8994/wm8994.c:573:16
+	mov	r0, r6
+	mov.w	r1, #1056
+	movs	r2, #16
+	blx	r5
+	.loc	3 576 16                @ ../Drivers/BSP/Components/wm8994/wm8994.c:576:16
+	mov	r0, r6
+	movw	r1, #1554
+	movs	r2, #192
+	blx	r5
+	.loc	3 579 16                @ ../Drivers/BSP/Components/wm8994/wm8994.c:579:16
+	mov	r0, r6
+	movw	r1, #1555
+	movs	r2, #192
+	blx	r5
+	.loc	3 582 16                @ ../Drivers/BSP/Components/wm8994/wm8994.c:582:16
+	mov	r0, r6
+	movw	r1, #1058
+	movs	r2, #16
+	blx	r5
+	.loc	3 585 5                 @ ../Drivers/BSP/Components/wm8994/wm8994.c:585:5
+	mov	r0, r9
+	mov	r1, r8
+	bl	wm8994_SetVolume
+.Ltmp66:
+.LBB0_48:
+	@DEBUG_VALUE: wm8994_Init:DeviceAddr <- $r9
+	@DEBUG_VALUE: wm8994_Init:Volume <- $r8
+	.loc	3 588 7                 @ ../Drivers/BSP/Components/wm8994/wm8994.c:588:7
+	cmp.w	r10, #0
+	beq	.LBB0_58
+.Ltmp67:
+@ %bb.49:
+	@DEBUG_VALUE: wm8994_Init:DeviceAddr <- $r9
+	@DEBUG_VALUE: wm8994_Init:Volume <- $r8
+	.loc	3 590 61                @ ../Drivers/BSP/Components/wm8994/wm8994.c:590:61
+	cmp.w	r10, #512
+	it	ne
+	cmpne.w	r10, #256
+	bne	.LBB0_51
+.Ltmp68:
+@ %bb.50:
+	@DEBUG_VALUE: wm8994_Init:DeviceAddr <- $r9
+	@DEBUG_VALUE: wm8994_Init:Volume <- $r8
+	.loc	3 593 24                @ ../Drivers/BSP/Components/wm8994/wm8994.c:593:24
+	orr	r0, r7, #19
+	.loc	3 594 18                @ ../Drivers/BSP/Components/wm8994/wm8994.c:594:18
+	movs	r1, #1
+	uxth	r2, r0
+	mov	r0, r6
+	blx	r5
+	.loc	3 597 18                @ ../Drivers/BSP/Components/wm8994/wm8994.c:597:18
+	mov	r0, r6
+	mov.w	r1, #1568
+	movs	r2, #2
+	blx	r5
+	.loc	3 600 18                @ ../Drivers/BSP/Components/wm8994/wm8994.c:600:18
+	mov	r0, r6
+	movw	r1, #1041
+	mov.w	r2, #14336
+	b	.LBB0_56
+.Ltmp69:
+.LBB0_51:
+	@DEBUG_VALUE: wm8994_Init:DeviceAddr <- $r9
+	@DEBUG_VALUE: wm8994_Init:Volume <- $r8
+	.loc	3 602 13                @ ../Drivers/BSP/Components/wm8994/wm8994.c:602:13
+	cmp.w	r10, #2048
+	bne	.LBB0_53
+.Ltmp70:
+@ %bb.52:
+	@DEBUG_VALUE: wm8994_Init:DeviceAddr <- $r9
+	@DEBUG_VALUE: wm8994_Init:Volume <- $r8
+	.loc	3 605 24                @ ../Drivers/BSP/Components/wm8994/wm8994.c:605:24
+	orr	r0, r7, #19
+	.loc	3 606 18                @ ../Drivers/BSP/Components/wm8994/wm8994.c:606:18
+	movs	r1, #1
+	uxth	r2, r0
+	mov	r0, r6
+	blx	r5
+	.loc	3 609 18                @ ../Drivers/BSP/Components/wm8994/wm8994.c:609:18
+	mov	r0, r6
+	mov.w	r1, #1568
+	movs	r2, #2
+	blx	r5
+	.loc	3 612 18                @ ../Drivers/BSP/Components/wm8994/wm8994.c:612:18
+	mov	r0, r6
+	mov.w	r1, #1040
+	mov.w	r2, #6144
+	blx	r5
+	.loc	3 615 18                @ ../Drivers/BSP/Components/wm8994/wm8994.c:615:18
+	mov	r0, r6
+	movw	r1, #1041
+	b	.LBB0_55
+.Ltmp71:
+.LBB0_53:
+	@DEBUG_VALUE: wm8994_Init:DeviceAddr <- $r9
+	@DEBUG_VALUE: wm8994_Init:Volume <- $r8
+	.loc	3 617 58                @ ../Drivers/BSP/Components/wm8994/wm8994.c:617:58
+	cmp.w	r10, #1024
+	it	ne
+	cmpne.w	r10, #768
+	bne	.LBB0_57
+.Ltmp72:
+@ %bb.54:
+	@DEBUG_VALUE: wm8994_Init:DeviceAddr <- $r9
+	@DEBUG_VALUE: wm8994_Init:Volume <- $r8
+	.loc	3 621 18                @ ../Drivers/BSP/Components/wm8994/wm8994.c:621:18
+	mov	r0, r6
+	movs	r1, #24
+	movs	r2, #11
+	blx	r5
+	.loc	3 624 18                @ ../Drivers/BSP/Components/wm8994/wm8994.c:624:18
+	mov	r0, r6
+	movs	r1, #26
+	movs	r2, #11
+	blx	r5
+	.loc	3 627 18                @ ../Drivers/BSP/Components/wm8994/wm8994.c:627:18
+	mov	r0, r6
+	mov.w	r1, #1040
+.Ltmp73:
+.LBB0_55:
+	@DEBUG_VALUE: wm8994_Init:DeviceAddr <- $r9
+	@DEBUG_VALUE: wm8994_Init:Volume <- $r8
+	.loc	3 0 18 is_stmt 0        @ ../Drivers/BSP/Components/wm8994/wm8994.c:0:18
+	mov.w	r2, #6144
+.Ltmp74:
+.LBB0_56:
+	@DEBUG_VALUE: wm8994_Init:DeviceAddr <- $r9
+	@DEBUG_VALUE: wm8994_Init:Volume <- $r8
+	blx	r5
+.Ltmp75:
+.LBB0_57:
+	@DEBUG_VALUE: wm8994_Init:DeviceAddr <- $r9
+	@DEBUG_VALUE: wm8994_Init:Volume <- $r8
+	.loc	3 630 5 is_stmt 1       @ ../Drivers/BSP/Components/wm8994/wm8994.c:630:5
+	mov	r0, r9
+	mov	r1, r8
+	bl	wm8994_SetVolume
+.Ltmp76:
+.LBB0_58:
+	@DEBUG_VALUE: wm8994_Init:DeviceAddr <- $r9
+	@DEBUG_VALUE: wm8994_Init:Volume <- $r8
+	.loc	3 633 3                 @ ../Drivers/BSP/Components/wm8994/wm8994.c:633:3
+	mov	r0, r11
+.Ltmp77:
+	@DEBUG_VALUE: wm8994_Init:counter <- $r11
+	add	sp, #4
+	pop.w	{r4, r5, r6, r7, r8, r9, r10, r11, pc}
+.Ltmp78:
+	.p2align	2
+@ %bb.59:
+	.loc	3 0 3 is_stmt 0         @ ../Drivers/BSP/Components/wm8994/wm8994.c:0:3
+__arm_cp.0_0:
+	.long	CODEC_IO_Write
+.Lcpi_end0:
+	.size	__arm_cp.0_0, .Lcpi_end0-__arm_cp.0_0
+__arm_cp.0_1:
+	.long	outputEnabled
+.Lcpi_end1:
+	.size	__arm_cp.0_1, .Lcpi_end1-__arm_cp.0_1
+__arm_cp.0_2:
+	.long	inputEnabled
+.Lcpi_end2:
+	.size	__arm_cp.0_2, .Lcpi_end2-__arm_cp.0_2
+__arm_cp.0_3:
+	.long	96000                   @ 0x17700
+.Lcpi_end3:
+	.size	__arm_cp.0_3, .Lcpi_end3-__arm_cp.0_3
+__arm_cp.0_4:
+	.long	ColdStartup
+.Lcpi_end4:
+	.size	__arm_cp.0_4, .Lcpi_end4-__arm_cp.0_4
+.Lfunc_end0:
+	.size	wm8994_Init, .Lfunc_end0-wm8994_Init
+	.cfi_endproc
+	.cantunwind
+	.fnend
+                                        @ -- End function
+	.section	.text.wm8994_DeInit,"ax",%progbits
+	.hidden	wm8994_DeInit           @ -- Begin function wm8994_DeInit
+	.globl	wm8994_DeInit
+	.p2align	1
+	.type	wm8994_DeInit,%function
+	.code	16                      @ @wm8994_DeInit
+	.thumb_func
+wm8994_DeInit:
+.Lfunc_begin1:
+	.loc	3 642 0 is_stmt 1       @ ../Drivers/BSP/Components/wm8994/wm8994.c:642:0
+	.fnstart
+	.cfi_startproc
+@ %bb.0:
+	.loc	3 644 3 prologue_end    @ ../Drivers/BSP/Components/wm8994/wm8994.c:644:3
+	b	AUDIO_IO_DeInit
+.Ltmp79:
+.Lfunc_end1:
+	.size	wm8994_DeInit, .Lfunc_end1-wm8994_DeInit
+	.cfi_endproc
+	.cantunwind
+	.fnend
+                                        @ -- End function
+	.section	.text.wm8994_ReadID,"ax",%progbits
+	.hidden	wm8994_ReadID           @ -- Begin function wm8994_ReadID
+	.globl	wm8994_ReadID
+	.p2align	1
+	.type	wm8994_ReadID,%function
+	.code	16                      @ @wm8994_ReadID
+	.thumb_func
+wm8994_ReadID:
+.Lfunc_begin2:
+	.loc	3 653 0                 @ ../Drivers/BSP/Components/wm8994/wm8994.c:653:0
+	.fnstart
+	.cfi_startproc
+@ %bb.0:
+	.save	{r4, lr}
+	push	{r4, lr}
+	.cfi_def_cfa_offset 8
+	.cfi_offset lr, -4
+	.cfi_offset r4, -8
+	@DEBUG_VALUE: wm8994_ReadID:DeviceAddr <- $r0
+	mov	r4, r0
+.Ltmp80:
+	@DEBUG_VALUE: wm8994_ReadID:DeviceAddr <- $r4
+	.loc	3 655 3 prologue_end    @ ../Drivers/BSP/Components/wm8994/wm8994.c:655:3
+	bl	AUDIO_IO_Init
+	.loc	3 657 21                @ ../Drivers/BSP/Components/wm8994/wm8994.c:657:21
+	uxtb	r0, r4
+	movs	r1, #0
+	bl	AUDIO_IO_Read
+	.loc	3 657 3 is_stmt 0       @ ../Drivers/BSP/Components/wm8994/wm8994.c:657:3
+	pop	{r4, pc}
+.Ltmp81:
+.Lfunc_end2:
+	.size	wm8994_ReadID, .Lfunc_end2-wm8994_ReadID
+	.cfi_endproc
+	.cantunwind
+	.fnend
+                                        @ -- End function
+	.section	.text.wm8994_Play,"ax",%progbits
+	.hidden	wm8994_Play             @ -- Begin function wm8994_Play
+	.globl	wm8994_Play
+	.p2align	1
+	.type	wm8994_Play,%function
+	.code	16                      @ @wm8994_Play
+	.thumb_func
+wm8994_Play:
+.Lfunc_begin3:
+	.loc	3 667 0 is_stmt 1       @ ../Drivers/BSP/Components/wm8994/wm8994.c:667:0
+	.fnstart
+	.cfi_startproc
+@ %bb.0:
+	.save	{r7, lr}
+	push	{r7, lr}
+	.cfi_def_cfa_offset 8
+	.cfi_offset lr, -4
+	.cfi_offset r7, -8
+	@DEBUG_VALUE: wm8994_Play:DeviceAddr <- $r0
+	@DEBUG_VALUE: wm8994_Play:DeviceAddr <- $r0
+	@DEBUG_VALUE: wm8994_Play:pBuffer <- $r1
+	@DEBUG_VALUE: wm8994_Play:Size <- $r2
+.Ltmp82:
+	@DEBUG_VALUE: wm8994_Play:counter <- 0
+	@DEBUG_VALUE: wm8994_Play:DeviceAddr <- $r0
+	.loc	3 672 14 prologue_end   @ ../Drivers/BSP/Components/wm8994/wm8994.c:672:14
+	movs	r1, #0
+.Ltmp83:
+	bl	wm8994_SetMute
+.Ltmp84:
+	.loc	3 674 3                 @ ../Drivers/BSP/Components/wm8994/wm8994.c:674:3
+	movs	r0, #0
+	pop	{r7, pc}
+.Ltmp85:
+.Lfunc_end3:
+	.size	wm8994_Play, .Lfunc_end3-wm8994_Play
+	.cfi_endproc
+	.cantunwind
+	.fnend
+                                        @ -- End function
+	.section	.text.wm8994_Pause,"ax",%progbits
+	.hidden	wm8994_Pause            @ -- Begin function wm8994_Pause
+	.globl	wm8994_Pause
+	.p2align	1
+	.type	wm8994_Pause,%function
+	.code	16                      @ @wm8994_Pause
+	.thumb_func
+wm8994_Pause:
+.Lfunc_begin4:
+	.loc	3 683 0                 @ ../Drivers/BSP/Components/wm8994/wm8994.c:683:0
+	.fnstart
+	.cfi_startproc
+@ %bb.0:
+	.save	{r4, lr}
+	push	{r4, lr}
+	.cfi_def_cfa_offset 8
+	.cfi_offset lr, -4
+	.cfi_offset r4, -8
+	@DEBUG_VALUE: wm8994_Pause:DeviceAddr <- $r0
+.Ltmp86:
+	.loc	3 688 14 prologue_end   @ ../Drivers/BSP/Components/wm8994/wm8994.c:688:14
+	movs	r1, #1
+	mov	r4, r0
+.Ltmp87:
+	@DEBUG_VALUE: wm8994_Pause:counter <- 0
+	@DEBUG_VALUE: wm8994_Pause:DeviceAddr <- $r4
+	bl	wm8994_SetMute
+	.loc	3 691 14                @ ../Drivers/BSP/Components/wm8994/wm8994.c:691:14
+	uxtb	r0, r4
+	movs	r1, #2
+	movs	r2, #1
+	bl	CODEC_IO_Write
+	.loc	3 693 3                 @ ../Drivers/BSP/Components/wm8994/wm8994.c:693:3
+	movs	r0, #0
+	pop	{r4, pc}
+.Ltmp88:
+.Lfunc_end4:
+	.size	wm8994_Pause, .Lfunc_end4-wm8994_Pause
+	.cfi_endproc
+	.cantunwind
+	.fnend
+                                        @ -- End function
+	.section	.text.wm8994_Resume,"ax",%progbits
+	.hidden	wm8994_Resume           @ -- Begin function wm8994_Resume
+	.globl	wm8994_Resume
+	.p2align	1
+	.type	wm8994_Resume,%function
+	.code	16                      @ @wm8994_Resume
+	.thumb_func
+wm8994_Resume:
+.Lfunc_begin5:
+	.loc	3 702 0                 @ ../Drivers/BSP/Components/wm8994/wm8994.c:702:0
+	.fnstart
+	.cfi_startproc
+@ %bb.0:
+	.save	{r7, lr}
+	push	{r7, lr}
+	.cfi_def_cfa_offset 8
+	.cfi_offset lr, -4
+	.cfi_offset r7, -8
+	@DEBUG_VALUE: wm8994_Resume:DeviceAddr <- $r0
+	@DEBUG_VALUE: wm8994_Resume:DeviceAddr <- $r0
+.Ltmp89:
+	@DEBUG_VALUE: wm8994_Resume:counter <- 0
+	@DEBUG_VALUE: wm8994_Resume:DeviceAddr <- $r0
+	.loc	3 707 14 prologue_end   @ ../Drivers/BSP/Components/wm8994/wm8994.c:707:14
+	movs	r1, #0
+	bl	wm8994_SetMute
+.Ltmp90:
+	.loc	3 709 3                 @ ../Drivers/BSP/Components/wm8994/wm8994.c:709:3
+	movs	r0, #0
+	pop	{r7, pc}
+.Ltmp91:
+.Lfunc_end5:
+	.size	wm8994_Resume, .Lfunc_end5-wm8994_Resume
+	.cfi_endproc
+	.cantunwind
+	.fnend
+                                        @ -- End function
+	.section	.text.wm8994_Stop,"ax",%progbits
+	.hidden	wm8994_Stop             @ -- Begin function wm8994_Stop
+	.globl	wm8994_Stop
+	.p2align	2
+	.type	wm8994_Stop,%function
+	.code	16                      @ @wm8994_Stop
+	.thumb_func
+wm8994_Stop:
+.Lfunc_begin6:
+	.loc	3 726 0                 @ ../Drivers/BSP/Components/wm8994/wm8994.c:726:0
+	.fnstart
+	.cfi_startproc
+@ %bb.0:
+	.save	{r4, r5, r6, r7, lr}
+	.pad	#4
+	push	{r3, r4, r5, r6, r7, lr}
+	.cfi_def_cfa_offset 24
+	.cfi_offset lr, -4
+	.cfi_offset r7, -8
+	.cfi_offset r6, -12
+	.cfi_offset r5, -16
+	.cfi_offset r4, -20
+	@DEBUG_VALUE: wm8994_Stop:DeviceAddr <- $r0
+	@DEBUG_VALUE: wm8994_Stop:CodecPdwnMode <- $r1
+	ldr	r6, __arm_cp.6_0
+	mov	r4, r0
+	mov	r5, r1
+	ldrb	r0, [r6]
+.Ltmp92:
+	@DEBUG_VALUE: wm8994_Stop:counter <- 0
+	@DEBUG_VALUE: wm8994_Stop:CodecPdwnMode <- $r5
+	@DEBUG_VALUE: wm8994_Stop:DeviceAddr <- $r4
+	.loc	3 729 7 prologue_end    @ ../Drivers/BSP/Components/wm8994/wm8994.c:729:7
+	cmp	r0, #1
+	bne	.LBB6_3
+.Ltmp93:
+@ %bb.1:
+	@DEBUG_VALUE: wm8994_Stop:DeviceAddr <- $r4
+	@DEBUG_VALUE: wm8994_Stop:CodecPdwnMode <- $r5
+	@DEBUG_VALUE: wm8994_Stop:DeviceAddr <- $r4
+	.loc	3 732 16                @ ../Drivers/BSP/Components/wm8994/wm8994.c:732:16
+	mov	r0, r4
+	movs	r1, #1
+	bl	wm8994_SetMute
+	@DEBUG_VALUE: wm8994_Stop:counter <- 0
+	.loc	3 734 9                 @ ../Drivers/BSP/Components/wm8994/wm8994.c:734:9
+	cmp	r5, #2
+	beq	.LBB6_3
+.Ltmp94:
+@ %bb.2:
+	@DEBUG_VALUE: wm8994_Stop:DeviceAddr <- $r4
+	@DEBUG_VALUE: wm8994_Stop:CodecPdwnMode <- $r5
+	.loc	3 741 18                @ ../Drivers/BSP/Components/wm8994/wm8994.c:741:18
+	ldr	r5, __arm_cp.6_1
+.Ltmp95:
+	uxtb	r4, r4
+.Ltmp96:
+	mov.w	r1, #1056
+	mov.w	r2, #512
+	mov	r0, r4
+	blx	r5
+	@DEBUG_VALUE: wm8994_Stop:counter <- 0
+	.loc	3 744 18                @ ../Drivers/BSP/Components/wm8994/wm8994.c:744:18
+	mov	r0, r4
+	movw	r1, #1058
+	mov.w	r2, #512
+	blx	r5
+	.loc	3 747 18                @ ../Drivers/BSP/Components/wm8994/wm8994.c:747:18
+	mov	r0, r4
+	movs	r1, #45
+	movs	r2, #0
+	movs	r7, #0
+	blx	r5
+	.loc	3 750 18                @ ../Drivers/BSP/Components/wm8994/wm8994.c:750:18
+	mov	r0, r4
+	movs	r1, #46
+	movs	r2, #0
+	blx	r5
+	.loc	3 753 18                @ ../Drivers/BSP/Components/wm8994/wm8994.c:753:18
+	mov	r0, r4
+	movs	r1, #5
+	movs	r2, #0
+	blx	r5
+	.loc	3 756 18                @ ../Drivers/BSP/Components/wm8994/wm8994.c:756:18
+	mov	r0, r4
+	movs	r1, #0
+	movs	r2, #0
+	blx	r5
+	strb	r7, [r6]
+.Ltmp97:
+.LBB6_3:
+	@DEBUG_VALUE: wm8994_Stop:counter <- 0
+	.loc	3 761 3                 @ ../Drivers/BSP/Components/wm8994/wm8994.c:761:3
+	movs	r0, #0
+	add	sp, #4
+	pop	{r4, r5, r6, r7, pc}
+.Ltmp98:
+	.p2align	2
+@ %bb.4:
+	.loc	3 0 3 is_stmt 0         @ ../Drivers/BSP/Components/wm8994/wm8994.c:0:3
+__arm_cp.6_0:
+	.long	outputEnabled
+.Lcpi_end5:
+	.size	__arm_cp.6_0, .Lcpi_end5-__arm_cp.6_0
+__arm_cp.6_1:
+	.long	CODEC_IO_Write
+.Lcpi_end6:
+	.size	__arm_cp.6_1, .Lcpi_end6-__arm_cp.6_1
+.Lfunc_end6:
+	.size	wm8994_Stop, .Lfunc_end6-wm8994_Stop
+	.cfi_endproc
+	.cantunwind
+	.fnend
+                                        @ -- End function
+	.section	.text.wm8994_SetFrequency,"ax",%progbits
+	.hidden	wm8994_SetFrequency     @ -- Begin function wm8994_SetFrequency
+	.globl	wm8994_SetFrequency
+	.p2align	2
+	.type	wm8994_SetFrequency,%function
+	.code	16                      @ @wm8994_SetFrequency
+	.thumb_func
+wm8994_SetFrequency:
+.Lfunc_begin7:
+	.loc	3 970 0 is_stmt 1       @ ../Drivers/BSP/Components/wm8994/wm8994.c:970:0
+	.fnstart
+	.cfi_startproc
+@ %bb.0:
+	.save	{r7, lr}
+	push	{r7, lr}
+	.cfi_def_cfa_offset 8
+	.cfi_offset lr, -4
+	.cfi_offset r7, -8
+	@DEBUG_VALUE: wm8994_SetFrequency:DeviceAddr <- $r0
+.Ltmp99:
+	@DEBUG_VALUE: wm8994_SetFrequency:DeviceAddr <- undef
+	@DEBUG_VALUE: wm8994_SetFrequency:AudioFreq <- $r1
+	@DEBUG_VALUE: wm8994_SetFrequency:AudioFreq <- $r1
+	@DEBUG_VALUE: wm8994_SetFrequency:counter <- 0
+	.loc	3 974 3 prologue_end    @ ../Drivers/BSP/Components/wm8994/wm8994.c:974:3
+	ldr	r2, __arm_cp.7_0
+	cmp	r1, r2
+	beq	.LBB7_10
+.Ltmp100:
+@ %bb.1:
+	@DEBUG_VALUE: wm8994_SetFrequency:AudioFreq <- $r1
+	.loc	3 0 3 is_stmt 0         @ ../Drivers/BSP/Components/wm8994/wm8994.c:0:3
+	movw	r2, #11025
+	.loc	3 974 3                 @ ../Drivers/BSP/Components/wm8994/wm8994.c:974:3
+	cmp	r1, r2
+	beq	.LBB7_11
+.Ltmp101:
+@ %bb.2:
+	@DEBUG_VALUE: wm8994_SetFrequency:AudioFreq <- $r1
+	cmp.w	r1, #16000
+	beq	.LBB7_12
+.Ltmp102:
+@ %bb.3:
+	@DEBUG_VALUE: wm8994_SetFrequency:AudioFreq <- $r1
+	.loc	3 0 3                   @ ../Drivers/BSP/Components/wm8994/wm8994.c:0:3
+	movw	r2, #22050
+	.loc	3 974 3                 @ ../Drivers/BSP/Components/wm8994/wm8994.c:974:3
+	cmp	r1, r2
+	beq	.LBB7_13
+.Ltmp103:
+@ %bb.4:
+	@DEBUG_VALUE: wm8994_SetFrequency:AudioFreq <- $r1
+	cmp.w	r1, #32000
+	beq	.LBB7_14
+.Ltmp104:
+@ %bb.5:
+	@DEBUG_VALUE: wm8994_SetFrequency:AudioFreq <- $r1
+	.loc	3 0 3                   @ ../Drivers/BSP/Components/wm8994/wm8994.c:0:3
+	movw	r2, #44100
+	.loc	3 974 3                 @ ../Drivers/BSP/Components/wm8994/wm8994.c:974:3
+	cmp	r1, r2
+	beq	.LBB7_15
+.Ltmp105:
+@ %bb.6:
+	@DEBUG_VALUE: wm8994_SetFrequency:AudioFreq <- $r1
+	.loc	3 0 3                   @ ../Drivers/BSP/Components/wm8994/wm8994.c:0:3
+	movw	r2, #48000
+	.loc	3 974 3                 @ ../Drivers/BSP/Components/wm8994/wm8994.c:974:3
+	cmp	r1, r2
+	beq	.LBB7_9
+.Ltmp106:
+@ %bb.7:
+	@DEBUG_VALUE: wm8994_SetFrequency:AudioFreq <- $r1
+	cmp.w	r1, #8000
+	bne	.LBB7_9
+.Ltmp107:
+@ %bb.8:
+	@DEBUG_VALUE: wm8994_SetFrequency:AudioFreq <- $r1
+	.loc	3 978 16 is_stmt 1      @ ../Drivers/BSP/Components/wm8994/wm8994.c:978:16
+	uxtb	r0, r0
+	mov.w	r1, #528
+.Ltmp108:
+	movs	r2, #3
+	b	.LBB7_16
+.LBB7_9:
+.Ltmp109:
+	@DEBUG_VALUE: wm8994_SetFrequency:AudioFreq <- $r1
+	.loc	3 0 16 is_stmt 0        @ ../Drivers/BSP/Components/wm8994/wm8994.c:0:16
+	uxtb	r0, r0
+	mov.w	r1, #528
+.Ltmp110:
+	movs	r2, #131
+	b	.LBB7_16
+.LBB7_10:
+.Ltmp111:
+	@DEBUG_VALUE: wm8994_SetFrequency:AudioFreq <- $r1
+	.loc	3 998 16 is_stmt 1      @ ../Drivers/BSP/Components/wm8994/wm8994.c:998:16
+	uxtb	r0, r0
+	mov.w	r1, #528
+.Ltmp112:
+	movs	r2, #163
+	b	.LBB7_16
+.LBB7_11:
+.Ltmp113:
+	@DEBUG_VALUE: wm8994_SetFrequency:AudioFreq <- $r1
+	.loc	3 1003 16               @ ../Drivers/BSP/Components/wm8994/wm8994.c:1003:16
+	uxtb	r0, r0
+	mov.w	r1, #528
+.Ltmp114:
+	movs	r2, #19
+	b	.LBB7_16
+.LBB7_12:
+.Ltmp115:
+	@DEBUG_VALUE: wm8994_SetFrequency:AudioFreq <- $r1
+	.loc	3 983 16                @ ../Drivers/BSP/Components/wm8994/wm8994.c:983:16
+	uxtb	r0, r0
+	mov.w	r1, #528
+.Ltmp116:
+	movs	r2, #51
+	b	.LBB7_16
+.LBB7_13:
+.Ltmp117:
+	@DEBUG_VALUE: wm8994_SetFrequency:AudioFreq <- $r1
+	.loc	3 1008 16               @ ../Drivers/BSP/Components/wm8994/wm8994.c:1008:16
+	uxtb	r0, r0
+	mov.w	r1, #528
+.Ltmp118:
+	movs	r2, #67
+	b	.LBB7_16
+.LBB7_14:
+.Ltmp119:
+	@DEBUG_VALUE: wm8994_SetFrequency:AudioFreq <- $r1
+	.loc	3 988 16                @ ../Drivers/BSP/Components/wm8994/wm8994.c:988:16
+	uxtb	r0, r0
+	mov.w	r1, #528
+.Ltmp120:
+	movs	r2, #99
+	b	.LBB7_16
+.LBB7_15:
+.Ltmp121:
+	@DEBUG_VALUE: wm8994_SetFrequency:AudioFreq <- $r1
+	.loc	3 1013 16               @ ../Drivers/BSP/Components/wm8994/wm8994.c:1013:16
+	uxtb	r0, r0
+	mov.w	r1, #528
+.Ltmp122:
+	movs	r2, #115
+.Ltmp123:
+.LBB7_16:
+	.loc	3 0 16 is_stmt 0        @ ../Drivers/BSP/Components/wm8994/wm8994.c:0:16
+	bl	CODEC_IO_Write
+	@DEBUG_VALUE: wm8994_SetFrequency:counter <- 0
+	.loc	3 1021 3 is_stmt 1      @ ../Drivers/BSP/Components/wm8994/wm8994.c:1021:3
+	movs	r0, #0
+	pop	{r7, pc}
+.Ltmp124:
+	.p2align	2
+@ %bb.17:
+	.loc	3 0 3 is_stmt 0         @ ../Drivers/BSP/Components/wm8994/wm8994.c:0:3
+__arm_cp.7_0:
+	.long	96000                   @ 0x17700
+.Lcpi_end7:
+	.size	__arm_cp.7_0, .Lcpi_end7-__arm_cp.7_0
+.Lfunc_end7:
+	.size	wm8994_SetFrequency, .Lfunc_end7-wm8994_SetFrequency
+	.cfi_endproc
+	.cantunwind
+	.fnend
+                                        @ -- End function
+	.section	.text.wm8994_SetVolume,"ax",%progbits
+	.hidden	wm8994_SetVolume        @ -- Begin function wm8994_SetVolume
+	.globl	wm8994_SetVolume
+	.p2align	2
+	.type	wm8994_SetVolume,%function
+	.code	16                      @ @wm8994_SetVolume
+	.thumb_func
+wm8994_SetVolume:
+.Lfunc_begin8:
+	.loc	3 772 0 is_stmt 1       @ ../Drivers/BSP/Components/wm8994/wm8994.c:772:0
+	.fnstart
+	.cfi_startproc
+@ %bb.0:
+	.save	{r4, r5, r6, r7, r8, lr}
+	push.w	{r4, r5, r6, r7, r8, lr}
+	.cfi_def_cfa_offset 24
+	.cfi_offset lr, -4
+	.cfi_offset r8, -8
+	.cfi_offset r7, -12
+	.cfi_offset r6, -16
+	.cfi_offset r5, -20
+	.cfi_offset r4, -24
+	@DEBUG_VALUE: wm8994_SetVolume:DeviceAddr <- $r0
+	@DEBUG_VALUE: wm8994_SetVolume:Volume <- $r1
+	mov	r5, r1
+	movs	r7, #100
+.Ltmp125:
+	@DEBUG_VALUE: wm8994_SetVolume:counter <- 0
+	@DEBUG_VALUE: wm8994_SetVolume:Volume <- $r5
+	@DEBUG_VALUE: wm8994_SetVolume:DeviceAddr <- $r4
+	.loc	3 774 26 prologue_end   @ ../Drivers/BSP/Components/wm8994/wm8994.c:774:26
+	cmp	r1, #100
+	mov	r4, r0
+.Ltmp126:
+	itt	ls
+	rsbls	r0, r5, r5, lsl #6
+	udivls	r7, r0, r7
+	ldr	r0, __arm_cp.8_0
+	ldrb	r0, [r0]
+	.loc	3 777 7                 @ ../Drivers/BSP/Components/wm8994/wm8994.c:777:7
+	cmp	r0, #1
+	bne	.LBB8_6
+.Ltmp127:
+@ %bb.1:
+	@DEBUG_VALUE: wm8994_SetVolume:Volume <- $r5
+	@DEBUG_VALUE: wm8994_SetVolume:DeviceAddr <- $r4
+	.loc	3 804 18                @ ../Drivers/BSP/Components/wm8994/wm8994.c:804:18
+	mov	r0, r4
+.Ltmp128:
+	.loc	3 779 8                 @ ../Drivers/BSP/Components/wm8994/wm8994.c:779:8
+	cmp	r7, #63
+	blo	.LBB8_3
+.Ltmp129:
+@ %bb.2:
+	@DEBUG_VALUE: wm8994_SetVolume:DeviceAddr <- $r4
+	@DEBUG_VALUE: wm8994_SetVolume:Volume <- $r5
+	.loc	3 782 18                @ ../Drivers/BSP/Components/wm8994/wm8994.c:782:18
+	movs	r1, #0
+	bl	wm8994_SetMute
+	@DEBUG_VALUE: wm8994_SetVolume:counter <- 0
+	.loc	3 785 18                @ ../Drivers/BSP/Components/wm8994/wm8994.c:785:18
+	ldr	r7, __arm_cp.8_1
+	uxtb	r6, r4
+	movs	r1, #28
+	movw	r2, #383
+	mov	r0, r6
+	blx	r7
+	.loc	3 788 18                @ ../Drivers/BSP/Components/wm8994/wm8994.c:788:18
+	mov	r0, r6
+	movs	r1, #29
+	movw	r2, #383
+	blx	r7
+	.loc	3 791 18                @ ../Drivers/BSP/Components/wm8994/wm8994.c:791:18
+	mov	r0, r6
+	movs	r1, #38
+	movw	r2, #383
+	blx	r7
+	.loc	3 794 18                @ ../Drivers/BSP/Components/wm8994/wm8994.c:794:18
+	mov	r0, r6
+	movs	r1, #39
+	movw	r2, #383
+	blx	r7
+	b	.LBB8_6
+.Ltmp130:
+.LBB8_3:
+	@DEBUG_VALUE: wm8994_SetVolume:DeviceAddr <- $r4
+	@DEBUG_VALUE: wm8994_SetVolume:Volume <- $r5
+	.loc	3 796 14                @ ../Drivers/BSP/Components/wm8994/wm8994.c:796:14
+	cbz	r5, .LBB8_5
+.Ltmp131:
+@ %bb.4:
+	@DEBUG_VALUE: wm8994_SetVolume:DeviceAddr <- $r4
+	@DEBUG_VALUE: wm8994_SetVolume:Volume <- $r5
+	.loc	3 804 18                @ ../Drivers/BSP/Components/wm8994/wm8994.c:804:18
+	movs	r1, #0
+	bl	wm8994_SetMute
+	@DEBUG_VALUE: wm8994_SetVolume:counter <- 0
+	.loc	3 807 18                @ ../Drivers/BSP/Components/wm8994/wm8994.c:807:18
+	ldr.w	r8, __arm_cp.8_1
+	.loc	3 807 51 is_stmt 0      @ ../Drivers/BSP/Components/wm8994/wm8994.c:807:51
+	orr	r0, r7, #320
+	.loc	3 807 18                @ ../Drivers/BSP/Components/wm8994/wm8994.c:807:18
+	uxtb	r6, r4
+	movs	r1, #28
+	uxth	r7, r0
+	mov	r0, r6
+	mov	r2, r7
+	blx	r8
+	.loc	3 810 18 is_stmt 1      @ ../Drivers/BSP/Components/wm8994/wm8994.c:810:18
+	mov	r0, r6
+	movs	r1, #29
+	mov	r2, r7
+	blx	r8
+	.loc	3 813 18                @ ../Drivers/BSP/Components/wm8994/wm8994.c:813:18
+	mov	r0, r6
+	movs	r1, #38
+	mov	r2, r7
+	blx	r8
+	.loc	3 816 18                @ ../Drivers/BSP/Components/wm8994/wm8994.c:816:18
+	mov	r0, r6
+	movs	r1, #39
+	mov	r2, r7
+	blx	r8
+	b	.LBB8_6
+.Ltmp132:
+.LBB8_5:
+	@DEBUG_VALUE: wm8994_SetVolume:DeviceAddr <- $r4
+	@DEBUG_VALUE: wm8994_SetVolume:Volume <- $r5
+	.loc	3 799 18                @ ../Drivers/BSP/Components/wm8994/wm8994.c:799:18
+	movs	r1, #1
+	bl	wm8994_SetMute
+.Ltmp133:
+	@DEBUG_VALUE: wm8994_SetVolume:counter <- 0
+.LBB8_6:
+	@DEBUG_VALUE: wm8994_SetVolume:Volume <- $r5
+	@DEBUG_VALUE: wm8994_SetVolume:counter <- 0
+	.loc	3 0 18 is_stmt 0        @ ../Drivers/BSP/Components/wm8994/wm8994.c:0:18
+	ldr	r0, __arm_cp.8_2
+	ldrb	r0, [r0]
+	.loc	3 821 7 is_stmt 1       @ ../Drivers/BSP/Components/wm8994/wm8994.c:821:7
+	cmp	r0, #1
+	bne	.LBB8_11
+.Ltmp134:
+@ %bb.7:
+	@DEBUG_VALUE: wm8994_SetVolume:Volume <- $r5
+	.loc	3 823 20                @ ../Drivers/BSP/Components/wm8994/wm8994.c:823:20
+	cmp	r5, #99
+	bls	.LBB8_9
+.Ltmp135:
+@ %bb.8:
+	@DEBUG_VALUE: wm8994_SetVolume:Volume <- $r5
+	.loc	3 0 20 is_stmt 0        @ ../Drivers/BSP/Components/wm8994/wm8994.c:0:20
+	movw	r0, #495
+	b	.LBB8_10
+.Ltmp136:
+.LBB8_9:
+	@DEBUG_VALUE: wm8994_SetVolume:Volume <- $r5
+	.loc	3 823 20                @ ../Drivers/BSP/Components/wm8994/wm8994.c:823:20
+	rsb	r0, r5, r5, lsl #4
+	movs	r1, #100
+	lsls	r0, r0, #4
+	udiv	r0, r0, r1
+	movs	r1, #1
+	bfi	r0, r1, #8, #24
+.Ltmp137:
+.LBB8_10:
+	@DEBUG_VALUE: wm8994_SetVolume:Volume <- $r5
+	.loc	3 826 16 is_stmt 1      @ ../Drivers/BSP/Components/wm8994/wm8994.c:826:16
+	ldr	r6, __arm_cp.8_1
+	uxth	r5, r0
+.Ltmp138:
+	uxtb	r4, r4
+	mov.w	r1, #1024
+	mov	r0, r4
+	mov	r2, r5
+	blx	r6
+	@DEBUG_VALUE: wm8994_SetVolume:counter <- 0
+	.loc	3 829 16                @ ../Drivers/BSP/Components/wm8994/wm8994.c:829:16
+	mov	r0, r4
+	movw	r1, #1025
+	mov	r2, r5
+	blx	r6
+	.loc	3 832 16                @ ../Drivers/BSP/Components/wm8994/wm8994.c:832:16
+	mov	r0, r4
+	movw	r1, #1028
+	mov	r2, r5
+	blx	r6
+	.loc	3 835 16                @ ../Drivers/BSP/Components/wm8994/wm8994.c:835:16
+	mov	r0, r4
+	movw	r1, #1029
+	mov	r2, r5
+	blx	r6
+.Ltmp139:
+.LBB8_11:
+	@DEBUG_VALUE: wm8994_SetVolume:counter <- 0
+	.loc	3 837 3                 @ ../Drivers/BSP/Components/wm8994/wm8994.c:837:3
+	movs	r0, #0
+	pop.w	{r4, r5, r6, r7, r8, pc}
+.Ltmp140:
+	.p2align	2
+@ %bb.12:
+	.loc	3 0 3 is_stmt 0         @ ../Drivers/BSP/Components/wm8994/wm8994.c:0:3
+__arm_cp.8_0:
+	.long	outputEnabled
+.Lcpi_end8:
+	.size	__arm_cp.8_0, .Lcpi_end8-__arm_cp.8_0
+__arm_cp.8_1:
+	.long	CODEC_IO_Write
+.Lcpi_end9:
+	.size	__arm_cp.8_1, .Lcpi_end9-__arm_cp.8_1
+__arm_cp.8_2:
+	.long	inputEnabled
+.Lcpi_end10:
+	.size	__arm_cp.8_2, .Lcpi_end10-__arm_cp.8_2
+.Lfunc_end8:
+	.size	wm8994_SetVolume, .Lfunc_end8-wm8994_SetVolume
+	.cfi_endproc
+	.cantunwind
+	.fnend
+                                        @ -- End function
+	.section	.text.wm8994_SetMute,"ax",%progbits
+	.hidden	wm8994_SetMute          @ -- Begin function wm8994_SetMute
+	.globl	wm8994_SetMute
+	.p2align	2
+	.type	wm8994_SetMute,%function
+	.code	16                      @ @wm8994_SetMute
+	.thumb_func
+wm8994_SetMute:
+.Lfunc_begin9:
+	.loc	3 848 0 is_stmt 1       @ ../Drivers/BSP/Components/wm8994/wm8994.c:848:0
+	.fnstart
+	.cfi_startproc
+@ %bb.0:
+	.save	{r4, lr}
+	push	{r4, lr}
+	.cfi_def_cfa_offset 8
+	.cfi_offset lr, -4
+	.cfi_offset r4, -8
+	@DEBUG_VALUE: wm8994_SetMute:DeviceAddr <- $r0
+	@DEBUG_VALUE: wm8994_SetMute:DeviceAddr <- $r0
+	@DEBUG_VALUE: wm8994_SetMute:Cmd <- $r1
+	ldr	r2, __arm_cp.9_0
+	ldrb	r2, [r2]
+.Ltmp141:
+	@DEBUG_VALUE: wm8994_SetMute:counter <- 0
+	@DEBUG_VALUE: wm8994_SetMute:Cmd <- $r1
+	@DEBUG_VALUE: wm8994_SetMute:DeviceAddr <- undef
+	.loc	3 851 7 prologue_end    @ ../Drivers/BSP/Components/wm8994/wm8994.c:851:7
+	cmp	r2, #1
+	bne	.LBB9_5
+.Ltmp142:
+@ %bb.1:
+	@DEBUG_VALUE: wm8994_SetMute:Cmd <- $r1
+	.loc	3 865 18                @ ../Drivers/BSP/Components/wm8994/wm8994.c:865:18
+	uxtb	r4, r0
+.Ltmp143:
+	.loc	3 854 8                 @ ../Drivers/BSP/Components/wm8994/wm8994.c:854:8
+	cmp	r1, #1
+.Ltmp144:
+	.loc	3 865 18                @ ../Drivers/BSP/Components/wm8994/wm8994.c:865:18
+	mov	r0, r4
+.Ltmp145:
+	.loc	3 854 8                 @ ../Drivers/BSP/Components/wm8994/wm8994.c:854:8
+	bne	.LBB9_3
+.Ltmp146:
+@ %bb.2:
+	@DEBUG_VALUE: wm8994_SetMute:Cmd <- $r1
+	.loc	3 857 18                @ ../Drivers/BSP/Components/wm8994/wm8994.c:857:18
+	mov.w	r1, #1056
+.Ltmp147:
+	mov.w	r2, #512
+	bl	CODEC_IO_Write
+	@DEBUG_VALUE: wm8994_SetMute:counter <- 0
+	.loc	3 860 18                @ ../Drivers/BSP/Components/wm8994/wm8994.c:860:18
+	mov	r0, r4
+	movw	r1, #1058
+	mov.w	r2, #512
+	b	.LBB9_4
+.Ltmp148:
+.LBB9_3:
+	@DEBUG_VALUE: wm8994_SetMute:Cmd <- $r1
+	.loc	3 865 18                @ ../Drivers/BSP/Components/wm8994/wm8994.c:865:18
+	mov.w	r1, #1056
+.Ltmp149:
+	movs	r2, #16
+	bl	CODEC_IO_Write
+	@DEBUG_VALUE: wm8994_SetMute:counter <- 0
+	.loc	3 868 18                @ ../Drivers/BSP/Components/wm8994/wm8994.c:868:18
+	mov	r0, r4
+	movw	r1, #1058
+	movs	r2, #16
+.Ltmp150:
+.LBB9_4:
+	.loc	3 0 18 is_stmt 0        @ ../Drivers/BSP/Components/wm8994/wm8994.c:0:18
+	bl	CODEC_IO_Write
+.LBB9_5:
+	@DEBUG_VALUE: wm8994_SetMute:counter <- 0
+	.loc	3 871 3 is_stmt 1       @ ../Drivers/BSP/Components/wm8994/wm8994.c:871:3
+	movs	r0, #0
+	pop	{r4, pc}
+.Ltmp151:
+	.p2align	2
+@ %bb.6:
+	.loc	3 0 3 is_stmt 0         @ ../Drivers/BSP/Components/wm8994/wm8994.c:0:3
+__arm_cp.9_0:
+	.long	outputEnabled
+.Lcpi_end11:
+	.size	__arm_cp.9_0, .Lcpi_end11-__arm_cp.9_0
+.Lfunc_end9:
+	.size	wm8994_SetMute, .Lfunc_end9-wm8994_SetMute
+	.cfi_endproc
+	.cantunwind
+	.fnend
+                                        @ -- End function
+	.section	.text.wm8994_SetOutputMode,"ax",%progbits
+	.hidden	wm8994_SetOutputMode    @ -- Begin function wm8994_SetOutputMode
+	.globl	wm8994_SetOutputMode
+	.p2align	2
+	.type	wm8994_SetOutputMode,%function
+	.code	16                      @ @wm8994_SetOutputMode
+	.thumb_func
+wm8994_SetOutputMode:
+.Lfunc_begin10:
+	.loc	3 883 0 is_stmt 1       @ ../Drivers/BSP/Components/wm8994/wm8994.c:883:0
+	.fnstart
+	.cfi_startproc
+@ %bb.0:
+	.save	{r4, r5, r7, lr}
+	push	{r4, r5, r7, lr}
+	.cfi_def_cfa_offset 16
+	.cfi_offset lr, -4
+	.cfi_offset r7, -8
+	.cfi_offset r5, -12
+	.cfi_offset r4, -16
+	@DEBUG_VALUE: wm8994_SetOutputMode:DeviceAddr <- $r0
+.Ltmp152:
+	@DEBUG_VALUE: wm8994_SetOutputMode:DeviceAddr <- undef
+	@DEBUG_VALUE: wm8994_SetOutputMode:Output <- $r1
+	@DEBUG_VALUE: wm8994_SetOutputMode:Output <- $r1
+	@DEBUG_VALUE: wm8994_SetOutputMode:counter <- 0
+	.loc	3 886 3 prologue_end    @ ../Drivers/BSP/Components/wm8994/wm8994.c:886:3
+	cmp	r1, #3
+	beq	.LBB10_5
+.Ltmp153:
+@ %bb.1:
+	@DEBUG_VALUE: wm8994_SetOutputMode:Output <- $r1
+	cmp	r1, #2
+	beq	.LBB10_4
+.Ltmp154:
+@ %bb.2:
+	@DEBUG_VALUE: wm8994_SetOutputMode:Output <- $r1
+	cmp	r1, #1
+	bne	.LBB10_4
+.Ltmp155:
+@ %bb.3:
+	@DEBUG_VALUE: wm8994_SetOutputMode:Output <- $r1
+	.loc	3 891 16                @ ../Drivers/BSP/Components/wm8994/wm8994.c:891:16
+	ldr	r5, __arm_cp.10_0
+	uxtb	r4, r0
+	movs	r1, #5
+.Ltmp156:
+	movw	r2, #3084
+	mov	r0, r4
+	blx	r5
+	@DEBUG_VALUE: wm8994_SetOutputMode:counter <- 0
+	.loc	3 894 16                @ ../Drivers/BSP/Components/wm8994/wm8994.c:894:16
+	mov	r0, r4
+	movw	r1, #1537
+	movs	r2, #0
+	blx	r5
+	.loc	3 897 16                @ ../Drivers/BSP/Components/wm8994/wm8994.c:897:16
+	mov	r0, r4
+	movw	r1, #1538
+	movs	r2, #0
+	b	.LBB10_6
+.LBB10_4:
+.Ltmp157:
+	@DEBUG_VALUE: wm8994_SetOutputMode:Output <- $r1
+	.loc	3 0 16 is_stmt 0        @ ../Drivers/BSP/Components/wm8994/wm8994.c:0:16
+	ldr	r5, __arm_cp.10_0
+	uxtb	r4, r0
+	movs	r1, #5
+.Ltmp158:
+	movw	r2, #771
+	mov	r0, r4
+	blx	r5
+	@DEBUG_VALUE: wm8994_SetOutputMode:counter <- 0
+	mov	r0, r4
+	movw	r1, #1537
+	movs	r2, #1
+	blx	r5
+	mov	r0, r4
+	movw	r1, #1538
+	movs	r2, #1
+	blx	r5
+	mov	r0, r4
+	movw	r1, #1540
+	movs	r2, #0
+	blx	r5
+	mov	r0, r4
+	movw	r1, #1541
+	movs	r2, #0
+	b	.LBB10_7
+.LBB10_5:
+.Ltmp159:
+	@DEBUG_VALUE: wm8994_SetOutputMode:Output <- $r1
+	.loc	3 927 16 is_stmt 1      @ ../Drivers/BSP/Components/wm8994/wm8994.c:927:16
+	ldr	r5, __arm_cp.10_0
+	uxtb	r4, r0
+	movs	r1, #5
+.Ltmp160:
+	movw	r2, #3855
+	mov	r0, r4
+	blx	r5
+	@DEBUG_VALUE: wm8994_SetOutputMode:counter <- 0
+	.loc	3 930 16                @ ../Drivers/BSP/Components/wm8994/wm8994.c:930:16
+	mov	r0, r4
+	movw	r1, #1537
+	movs	r2, #1
+	blx	r5
+	.loc	3 933 16                @ ../Drivers/BSP/Components/wm8994/wm8994.c:933:16
+	mov	r0, r4
+	movw	r1, #1538
+	movs	r2, #1
+.Ltmp161:
+.LBB10_6:
+	.loc	3 0 16 is_stmt 0        @ ../Drivers/BSP/Components/wm8994/wm8994.c:0:16
+	blx	r5
+	mov	r0, r4
+	movw	r1, #1540
+	movs	r2, #2
+	blx	r5
+	mov	r0, r4
+	movw	r1, #1541
+	movs	r2, #2
+.LBB10_7:
+	blx	r5
+	@DEBUG_VALUE: wm8994_SetOutputMode:counter <- 0
+	.loc	3 960 3 is_stmt 1       @ ../Drivers/BSP/Components/wm8994/wm8994.c:960:3
+	movs	r0, #0
+	pop	{r4, r5, r7, pc}
+.Ltmp162:
+	.p2align	2
+@ %bb.8:
+	.loc	3 0 3 is_stmt 0         @ ../Drivers/BSP/Components/wm8994/wm8994.c:0:3
+__arm_cp.10_0:
+	.long	CODEC_IO_Write
+.Lcpi_end12:
+	.size	__arm_cp.10_0, .Lcpi_end12-__arm_cp.10_0
+.Lfunc_end10:
+	.size	wm8994_SetOutputMode, .Lfunc_end10-wm8994_SetOutputMode
+	.cfi_endproc
+	.cantunwind
+	.fnend
+                                        @ -- End function
+	.section	.text.wm8994_Reset,"ax",%progbits
+	.hidden	wm8994_Reset            @ -- Begin function wm8994_Reset
+	.globl	wm8994_Reset
+	.p2align	2
+	.type	wm8994_Reset,%function
+	.code	16                      @ @wm8994_Reset
+	.thumb_func
+wm8994_Reset:
+.Lfunc_begin11:
+	.loc	3 1030 0 is_stmt 1      @ ../Drivers/BSP/Components/wm8994/wm8994.c:1030:0
+	.fnstart
+	.cfi_startproc
+@ %bb.0:
+	.save	{r4, lr}
+	push	{r4, lr}
+	.cfi_def_cfa_offset 8
+	.cfi_offset lr, -4
+	.cfi_offset r4, -8
+	@DEBUG_VALUE: wm8994_Reset:DeviceAddr <- $r0
+	@DEBUG_VALUE: wm8994_Reset:DeviceAddr <- $r0
+.Ltmp163:
+	@DEBUG_VALUE: wm8994_Reset:counter <- 0
+	.loc	3 1034 13 prologue_end  @ ../Drivers/BSP/Components/wm8994/wm8994.c:1034:13
+	uxtb	r0, r0
+.Ltmp164:
+	movs	r1, #0
+	movs	r2, #0
+	movs	r4, #0
+	bl	CODEC_IO_Write
+	ldr	r0, __arm_cp.11_0
+	strb	r4, [r0]
+	ldr	r0, __arm_cp.11_1
+	strb	r4, [r0]
+	.loc	3 1038 3                @ ../Drivers/BSP/Components/wm8994/wm8994.c:1038:3
+	movs	r0, #0
+	pop	{r4, pc}
+.Ltmp165:
+	.p2align	2
+@ %bb.1:
+	.loc	3 0 3 is_stmt 0         @ ../Drivers/BSP/Components/wm8994/wm8994.c:0:3
+__arm_cp.11_0:
+	.long	inputEnabled
+.Lcpi_end13:
+	.size	__arm_cp.11_0, .Lcpi_end13-__arm_cp.11_0
+__arm_cp.11_1:
+	.long	outputEnabled
+.Lcpi_end14:
+	.size	__arm_cp.11_1, .Lcpi_end14-__arm_cp.11_1
+.Lfunc_end11:
+	.size	wm8994_Reset, .Lfunc_end11-wm8994_Reset
+	.cfi_endproc
+	.cantunwind
+	.fnend
+                                        @ -- End function
+	.section	.text.CODEC_IO_Write,"ax",%progbits
+	.p2align	1               @ -- Begin function CODEC_IO_Write
+	.type	CODEC_IO_Write,%function
+	.code	16                      @ @CODEC_IO_Write
+	.thumb_func
+CODEC_IO_Write:
+.Lfunc_begin12:
+	.loc	3 1049 0 is_stmt 1      @ ../Drivers/BSP/Components/wm8994/wm8994.c:1049:0
+	.fnstart
+	.cfi_startproc
+@ %bb.0:
+	@DEBUG_VALUE: CODEC_IO_Write:Addr <- $r0
+	@DEBUG_VALUE: CODEC_IO_Write:Addr <- $r0
+	@DEBUG_VALUE: CODEC_IO_Write:Addr <- $r0
+	@DEBUG_VALUE: CODEC_IO_Write:Reg <- $r1
+	@DEBUG_VALUE: CODEC_IO_Write:Reg <- $r1
+	@DEBUG_VALUE: CODEC_IO_Write:Reg <- $r1
+	@DEBUG_VALUE: CODEC_IO_Write:Value <- $r2
+	@DEBUG_VALUE: CODEC_IO_Write:Value <- $r2
+	@DEBUG_VALUE: CODEC_IO_Write:Value <- $r2
+	@DEBUG_VALUE: CODEC_IO_Write:result <- 0
+	.loc	3 1052 2 prologue_end   @ ../Drivers/BSP/Components/wm8994/wm8994.c:1052:2
+	b	AUDIO_IO_Write
+.Ltmp166:
+.Lfunc_end12:
+	.size	CODEC_IO_Write, .Lfunc_end12-CODEC_IO_Write
+	.cfi_endproc
+	.cantunwind
+	.fnend
+                                        @ -- End function
+	.hidden	wm8994_drv              @ @wm8994_drv
+	.type	wm8994_drv,%object
+	.section	.data.wm8994_drv,"aw",%progbits
+	.globl	wm8994_drv
+	.p2align	2
+wm8994_drv:
+	.long	wm8994_Init
+	.long	wm8994_DeInit
+	.long	wm8994_ReadID
+	.long	wm8994_Play
+	.long	wm8994_Pause
+	.long	wm8994_Resume
+	.long	wm8994_Stop
+	.long	wm8994_SetFrequency
+	.long	wm8994_SetVolume
+	.long	wm8994_SetMute
+	.long	wm8994_SetOutputMode
+	.long	wm8994_Reset
+	.size	wm8994_drv, 48
+
+	.type	outputEnabled,%object   @ @outputEnabled
+	.section	.bss.outputEnabled,"aw",%nobits
+	.p2align	2
+outputEnabled:
+	.byte	0                       @ 0x0
+	.size	outputEnabled, 1
+
+	.type	inputEnabled,%object    @ @inputEnabled
+	.section	.bss.inputEnabled,"aw",%nobits
+	.p2align	2
+inputEnabled:
+	.byte	0                       @ 0x0
+	.size	inputEnabled, 1
+
+	.type	ColdStartup,%object     @ @ColdStartup
+	.section	.bss.ColdStartup,"aw",%nobits
+ColdStartup:
+	.byte	0                       @ 0x0
+	.size	ColdStartup, 1
+
+	.section	.debug_str,"MS",%progbits,1
+.Linfo_string0:
+	.asciz	"Component: ARM Compiler 6.10.1 Tool: armclang [5d143200]" @ string offset=0
+.Linfo_string1:
+	.asciz	"../Drivers/BSP/Components/wm8994\\wm8994.c" @ string offset=57
+.Linfo_string2:
+	.asciz	"F:\\SkyDrive\\OtvoreniProjekti\\HotelSaplast\\fw\\RoomThermostat\\DE-170518\\MDK-ARM" @ string offset=99
+.Linfo_string3:
+	.asciz	"wm8994_drv"            @ string offset=177
+.Linfo_string4:
+	.asciz	"Init"                  @ string offset=188
+.Linfo_string5:
+	.asciz	"unsigned int"          @ string offset=193
+.Linfo_string6:
+	.asciz	"uint32_t"              @ string offset=206
+.Linfo_string7:
+	.asciz	"unsigned short"        @ string offset=215
+.Linfo_string8:
+	.asciz	"uint16_t"              @ string offset=230
+.Linfo_string9:
+	.asciz	"unsigned char"         @ string offset=239
+.Linfo_string10:
+	.asciz	"uint8_t"               @ string offset=253
+.Linfo_string11:
+	.asciz	"DeInit"                @ string offset=261
+.Linfo_string12:
+	.asciz	"ReadID"                @ string offset=268
+.Linfo_string13:
+	.asciz	"Play"                  @ string offset=275
+.Linfo_string14:
+	.asciz	"Pause"                 @ string offset=280
+.Linfo_string15:
+	.asciz	"Resume"                @ string offset=286
+.Linfo_string16:
+	.asciz	"Stop"                  @ string offset=293
+.Linfo_string17:
+	.asciz	"SetFrequency"          @ string offset=298
+.Linfo_string18:
+	.asciz	"SetVolume"             @ string offset=311
+.Linfo_string19:
+	.asciz	"SetMute"               @ string offset=321
+.Linfo_string20:
+	.asciz	"SetOutputMode"         @ string offset=329
+.Linfo_string21:
+	.asciz	"Reset"                 @ string offset=343
+.Linfo_string22:
+	.asciz	"AUDIO_DrvTypeDef"      @ string offset=349
+.Linfo_string23:
+	.asciz	"outputEnabled"         @ string offset=366
+.Linfo_string24:
+	.asciz	"inputEnabled"          @ string offset=380
+.Linfo_string25:
+	.asciz	"ColdStartup"           @ string offset=393
+.Linfo_string26:
+	.asciz	"wm8994_Init"           @ string offset=405
+.Linfo_string27:
+	.asciz	"wm8994_DeInit"         @ string offset=417
+.Linfo_string28:
+	.asciz	"wm8994_ReadID"         @ string offset=431
+.Linfo_string29:
+	.asciz	"wm8994_Play"           @ string offset=445
+.Linfo_string30:
+	.asciz	"wm8994_Pause"          @ string offset=457
+.Linfo_string31:
+	.asciz	"wm8994_Resume"         @ string offset=470
+.Linfo_string32:
+	.asciz	"wm8994_Stop"           @ string offset=484
+.Linfo_string33:
+	.asciz	"wm8994_SetFrequency"   @ string offset=496
+.Linfo_string34:
+	.asciz	"wm8994_SetVolume"      @ string offset=516
+.Linfo_string35:
+	.asciz	"wm8994_SetMute"        @ string offset=533
+.Linfo_string36:
+	.asciz	"wm8994_SetOutputMode"  @ string offset=548
+.Linfo_string37:
+	.asciz	"wm8994_Reset"          @ string offset=569
+.Linfo_string38:
+	.asciz	"CODEC_IO_Write"        @ string offset=582
+.Linfo_string39:
+	.asciz	"DeviceAddr"            @ string offset=597
+.Linfo_string40:
+	.asciz	"OutputInputDevice"     @ string offset=608
+.Linfo_string41:
+	.asciz	"Volume"                @ string offset=626
+.Linfo_string42:
+	.asciz	"AudioFreq"             @ string offset=633
+.Linfo_string43:
+	.asciz	"power_mgnt_reg_1"      @ string offset=643
+.Linfo_string44:
+	.asciz	"counter"               @ string offset=660
+.Linfo_string45:
+	.asciz	"output_device"         @ string offset=668
+.Linfo_string46:
+	.asciz	"input_device"          @ string offset=682
+.Linfo_string47:
+	.asciz	"pBuffer"               @ string offset=695
+.Linfo_string48:
+	.asciz	"Size"                  @ string offset=703
+.Linfo_string49:
+	.asciz	"CodecPdwnMode"         @ string offset=708
+.Linfo_string50:
+	.asciz	"convertedvol"          @ string offset=722
+.Linfo_string51:
+	.asciz	"Cmd"                   @ string offset=735
+.Linfo_string52:
+	.asciz	"Output"                @ string offset=739
+.Linfo_string53:
+	.asciz	"Addr"                  @ string offset=746
+.Linfo_string54:
+	.asciz	"Reg"                   @ string offset=751
+.Linfo_string55:
+	.asciz	"Value"                 @ string offset=755
+.Linfo_string56:
+	.asciz	"result"                @ string offset=761
+	.section	.debug_loc,"",%progbits
+.Ldebug_loc0:
+	.long	.Lfunc_begin0
+	.long	.Ltmp0
+	.short	1                       @ Loc expr size
+	.byte	80                      @ DW_OP_reg0
+	.long	.Ltmp0
+	.long	.Ltmp25
+	.short	1                       @ Loc expr size
+	.byte	89                      @ DW_OP_reg9
+	.long	.Ltmp26
+	.long	.Ltmp78
+	.short	1                       @ Loc expr size
+	.byte	89                      @ DW_OP_reg9
+	.long	0
+	.long	0
+.Ldebug_loc1:
+	.long	.Lfunc_begin0
+	.long	.Ltmp0
+	.short	1                       @ Loc expr size
+	.byte	81                      @ DW_OP_reg1
+	.long	.Ltmp0
+	.long	.Ltmp4
+	.short	1                       @ Loc expr size
+	.byte	84                      @ DW_OP_reg4
+	.long	0
+	.long	0
+.Ldebug_loc2:
+	.long	.Lfunc_begin0
+	.long	.Ltmp0
+	.short	1                       @ Loc expr size
+	.byte	82                      @ DW_OP_reg2
+	.long	.Ltmp0
+	.long	.Ltmp25
+	.short	1                       @ Loc expr size
+	.byte	88                      @ DW_OP_reg8
+	.long	.Ltmp26
+	.long	.Ltmp78
+	.short	1                       @ Loc expr size
+	.byte	88                      @ DW_OP_reg8
+	.long	0
+	.long	0
+.Ldebug_loc3:
+	.long	.Lfunc_begin0
+	.long	.Ltmp0
+	.short	1                       @ Loc expr size
+	.byte	83                      @ DW_OP_reg3
+	.long	.Ltmp0
+	.long	.Ltmp25
+	.short	1                       @ Loc expr size
+	.byte	87                      @ DW_OP_reg7
+	.long	.Ltmp26
+	.long	.Ltmp54
+	.short	1                       @ Loc expr size
+	.byte	87                      @ DW_OP_reg7
+	.long	0
+	.long	0
+.Ldebug_loc4:
+	.long	.Ltmp0
+	.long	.Ltmp62
+	.short	2                       @ Loc expr size
+	.byte	16                      @ DW_OP_constu
+	.byte	0                       @ 0
+	.long	.Ltmp62
+	.long	.Lfunc_end0
+	.short	3                       @ Loc expr size
+	.byte	16                      @ DW_OP_constu
+	.byte	131                     @ 13059
+	.byte	102                     @ 
+	.long	0
+	.long	0
+.Ldebug_loc5:
+	.long	.Ltmp1
+	.long	.Ltmp77
+	.short	2                       @ Loc expr size
+	.byte	16                      @ DW_OP_constu
+	.byte	0                       @ 0
+	.long	.Ltmp77
+	.long	.Ltmp78
+	.short	1                       @ Loc expr size
+	.byte	91                      @ DW_OP_reg11
+	.long	0
+	.long	0
+.Ldebug_loc6:
+	.long	.Lfunc_begin2
+	.long	.Ltmp80
+	.short	1                       @ Loc expr size
+	.byte	80                      @ DW_OP_reg0
+	.long	.Ltmp80
+	.long	.Ltmp81
+	.short	1                       @ Loc expr size
+	.byte	84                      @ DW_OP_reg4
+	.long	0
+	.long	0
+.Ldebug_loc7:
+	.long	.Lfunc_begin3
+	.long	.Ltmp84
+	.short	1                       @ Loc expr size
+	.byte	80                      @ DW_OP_reg0
+	.long	0
+	.long	0
+.Ldebug_loc8:
+	.long	.Lfunc_begin3
+	.long	.Ltmp83
+	.short	1                       @ Loc expr size
+	.byte	81                      @ DW_OP_reg1
+	.long	0
+	.long	0
+.Ldebug_loc9:
+	.long	.Lfunc_begin3
+	.long	.Ltmp84
+	.short	1                       @ Loc expr size
+	.byte	82                      @ DW_OP_reg2
+	.long	0
+	.long	0
+.Ldebug_loc10:
+	.long	.Lfunc_begin4
+	.long	.Ltmp87
+	.short	1                       @ Loc expr size
+	.byte	80                      @ DW_OP_reg0
+	.long	.Ltmp87
+	.long	.Ltmp88
+	.short	1                       @ Loc expr size
+	.byte	84                      @ DW_OP_reg4
+	.long	0
+	.long	0
+.Ldebug_loc11:
+	.long	.Ltmp87
+	.long	.Lfunc_end4
+	.short	2                       @ Loc expr size
+	.byte	16                      @ DW_OP_constu
+	.byte	0                       @ 0
+	.long	0
+	.long	0
+.Ldebug_loc12:
+	.long	.Lfunc_begin5
+	.long	.Ltmp90
+	.short	1                       @ Loc expr size
+	.byte	80                      @ DW_OP_reg0
+	.long	0
+	.long	0
+.Ldebug_loc13:
+	.long	.Lfunc_begin6
+	.long	.Ltmp92
+	.short	1                       @ Loc expr size
+	.byte	80                      @ DW_OP_reg0
+	.long	.Ltmp92
+	.long	.Ltmp96
+	.short	1                       @ Loc expr size
+	.byte	84                      @ DW_OP_reg4
+	.long	0
+	.long	0
+.Ldebug_loc14:
+	.long	.Lfunc_begin6
+	.long	.Ltmp92
+	.short	1                       @ Loc expr size
+	.byte	81                      @ DW_OP_reg1
+	.long	.Ltmp92
+	.long	.Ltmp95
+	.short	1                       @ Loc expr size
+	.byte	85                      @ DW_OP_reg5
+	.long	0
+	.long	0
+.Ldebug_loc15:
+	.long	.Lfunc_begin7
+	.long	.Ltmp99
+	.short	1                       @ Loc expr size
+	.byte	80                      @ DW_OP_reg0
+	.long	0
+	.long	0
+.Ldebug_loc16:
+	.long	.Lfunc_begin7
+	.long	.Ltmp108
+	.short	1                       @ Loc expr size
+	.byte	81                      @ DW_OP_reg1
+	.long	.Ltmp109
+	.long	.Ltmp110
+	.short	1                       @ Loc expr size
+	.byte	81                      @ DW_OP_reg1
+	.long	.Ltmp111
+	.long	.Ltmp112
+	.short	1                       @ Loc expr size
+	.byte	81                      @ DW_OP_reg1
+	.long	.Ltmp113
+	.long	.Ltmp114
+	.short	1                       @ Loc expr size
+	.byte	81                      @ DW_OP_reg1
+	.long	.Ltmp115
+	.long	.Ltmp116
+	.short	1                       @ Loc expr size
+	.byte	81                      @ DW_OP_reg1
+	.long	.Ltmp117
+	.long	.Ltmp118
+	.short	1                       @ Loc expr size
+	.byte	81                      @ DW_OP_reg1
+	.long	.Ltmp119
+	.long	.Ltmp120
+	.short	1                       @ Loc expr size
+	.byte	81                      @ DW_OP_reg1
+	.long	.Ltmp121
+	.long	.Ltmp122
+	.short	1                       @ Loc expr size
+	.byte	81                      @ DW_OP_reg1
+	.long	0
+	.long	0
+.Ldebug_loc17:
+	.long	.Lfunc_begin8
+	.long	.Ltmp125
+	.short	1                       @ Loc expr size
+	.byte	80                      @ DW_OP_reg0
+	.long	.Ltmp125
+	.long	.Ltmp126
+	.short	1                       @ Loc expr size
+	.byte	84                      @ DW_OP_reg4
+	.long	.Ltmp127
+	.long	.Ltmp133
+	.short	1                       @ Loc expr size
+	.byte	84                      @ DW_OP_reg4
+	.long	0
+	.long	0
+.Ldebug_loc18:
+	.long	.Lfunc_begin8
+	.long	.Ltmp125
+	.short	1                       @ Loc expr size
+	.byte	81                      @ DW_OP_reg1
+	.long	.Ltmp125
+	.long	.Ltmp138
+	.short	1                       @ Loc expr size
+	.byte	85                      @ DW_OP_reg5
+	.long	0
+	.long	0
+.Ldebug_loc19:
+	.long	.Lfunc_begin9
+	.long	.Ltmp141
+	.short	1                       @ Loc expr size
+	.byte	80                      @ DW_OP_reg0
+	.long	0
+	.long	0
+.Ldebug_loc20:
+	.long	.Lfunc_begin9
+	.long	.Ltmp147
+	.short	1                       @ Loc expr size
+	.byte	81                      @ DW_OP_reg1
+	.long	.Ltmp148
+	.long	.Ltmp149
+	.short	1                       @ Loc expr size
+	.byte	81                      @ DW_OP_reg1
+	.long	0
+	.long	0
+.Ldebug_loc21:
+	.long	.Lfunc_begin10
+	.long	.Ltmp152
+	.short	1                       @ Loc expr size
+	.byte	80                      @ DW_OP_reg0
+	.long	0
+	.long	0
+.Ldebug_loc22:
+	.long	.Lfunc_begin10
+	.long	.Ltmp156
+	.short	1                       @ Loc expr size
+	.byte	81                      @ DW_OP_reg1
+	.long	.Ltmp157
+	.long	.Ltmp158
+	.short	1                       @ Loc expr size
+	.byte	81                      @ DW_OP_reg1
+	.long	.Ltmp159
+	.long	.Ltmp160
+	.short	1                       @ Loc expr size
+	.byte	81                      @ DW_OP_reg1
+	.long	0
+	.long	0
+.Ldebug_loc23:
+	.long	.Lfunc_begin11
+	.long	.Ltmp164
+	.short	1                       @ Loc expr size
+	.byte	80                      @ DW_OP_reg0
+	.long	0
+	.long	0
+	.section	.debug_abbrev,"",%progbits
+	.byte	1                       @ Abbreviation Code
+	.byte	17                      @ DW_TAG_compile_unit
+	.byte	1                       @ DW_CHILDREN_yes
+	.byte	37                      @ DW_AT_producer
+	.byte	14                      @ DW_FORM_strp
+	.byte	19                      @ DW_AT_language
+	.byte	5                       @ DW_FORM_data2
+	.byte	3                       @ DW_AT_name
+	.byte	14                      @ DW_FORM_strp
+	.byte	16                      @ DW_AT_stmt_list
+	.byte	6                       @ DW_FORM_data4
+	.byte	27                      @ DW_AT_comp_dir
+	.byte	14                      @ DW_FORM_strp
+	.ascii	"\264B"                 @ DW_AT_GNU_pubnames
+	.byte	12                      @ DW_FORM_flag
+	.byte	17                      @ DW_AT_low_pc
+	.byte	1                       @ DW_FORM_addr
+	.byte	85                      @ DW_AT_ranges
+	.byte	6                       @ DW_FORM_data4
+	.byte	0                       @ EOM(1)
+	.byte	0                       @ EOM(2)
+	.byte	2                       @ Abbreviation Code
+	.byte	52                      @ DW_TAG_variable
+	.byte	0                       @ DW_CHILDREN_no
+	.byte	3                       @ DW_AT_name
+	.byte	14                      @ DW_FORM_strp
+	.byte	73                      @ DW_AT_type
+	.byte	19                      @ DW_FORM_ref4
+	.byte	63                      @ DW_AT_external
+	.byte	12                      @ DW_FORM_flag
+	.byte	58                      @ DW_AT_decl_file
+	.byte	11                      @ DW_FORM_data1
+	.byte	59                      @ DW_AT_decl_line
+	.byte	11                      @ DW_FORM_data1
+	.byte	2                       @ DW_AT_location
+	.byte	10                      @ DW_FORM_block1
+	.byte	0                       @ EOM(1)
+	.byte	0                       @ EOM(2)
+	.byte	3                       @ Abbreviation Code
+	.byte	22                      @ DW_TAG_typedef
+	.byte	0                       @ DW_CHILDREN_no
+	.byte	73                      @ DW_AT_type
+	.byte	19                      @ DW_FORM_ref4
+	.byte	3                       @ DW_AT_name
+	.byte	14                      @ DW_FORM_strp
+	.byte	58                      @ DW_AT_decl_file
+	.byte	11                      @ DW_FORM_data1
+	.byte	59                      @ DW_AT_decl_line
+	.byte	11                      @ DW_FORM_data1
+	.byte	0                       @ EOM(1)
+	.byte	0                       @ EOM(2)
+	.byte	4                       @ Abbreviation Code
+	.byte	19                      @ DW_TAG_structure_type
+	.byte	1                       @ DW_CHILDREN_yes
+	.byte	11                      @ DW_AT_byte_size
+	.byte	11                      @ DW_FORM_data1
+	.byte	58                      @ DW_AT_decl_file
+	.byte	11                      @ DW_FORM_data1
+	.byte	59                      @ DW_AT_decl_line
+	.byte	11                      @ DW_FORM_data1
+	.byte	0                       @ EOM(1)
+	.byte	0                       @ EOM(2)
+	.byte	5                       @ Abbreviation Code
+	.byte	13                      @ DW_TAG_member
+	.byte	0                       @ DW_CHILDREN_no
+	.byte	3                       @ DW_AT_name
+	.byte	14                      @ DW_FORM_strp
+	.byte	73                      @ DW_AT_type
+	.byte	19                      @ DW_FORM_ref4
+	.byte	58                      @ DW_AT_decl_file
+	.byte	11                      @ DW_FORM_data1
+	.byte	59                      @ DW_AT_decl_line
+	.byte	11                      @ DW_FORM_data1
+	.byte	56                      @ DW_AT_data_member_location
+	.byte	11                      @ DW_FORM_data1
+	.byte	0                       @ EOM(1)
+	.byte	0                       @ EOM(2)
+	.byte	6                       @ Abbreviation Code
+	.byte	15                      @ DW_TAG_pointer_type
+	.byte	0                       @ DW_CHILDREN_no
+	.byte	73                      @ DW_AT_type
+	.byte	19                      @ DW_FORM_ref4
+	.byte	0                       @ EOM(1)
+	.byte	0                       @ EOM(2)
+	.byte	7                       @ Abbreviation Code
+	.byte	21                      @ DW_TAG_subroutine_type
+	.byte	1                       @ DW_CHILDREN_yes
+	.byte	73                      @ DW_AT_type
+	.byte	19                      @ DW_FORM_ref4
+	.byte	39                      @ DW_AT_prototyped
+	.byte	12                      @ DW_FORM_flag
+	.byte	0                       @ EOM(1)
+	.byte	0                       @ EOM(2)
+	.byte	8                       @ Abbreviation Code
+	.byte	5                       @ DW_TAG_formal_parameter
+	.byte	0                       @ DW_CHILDREN_no
+	.byte	73                      @ DW_AT_type
+	.byte	19                      @ DW_FORM_ref4
+	.byte	0                       @ EOM(1)
+	.byte	0                       @ EOM(2)
+	.byte	9                       @ Abbreviation Code
+	.byte	36                      @ DW_TAG_base_type
+	.byte	0                       @ DW_CHILDREN_no
+	.byte	3                       @ DW_AT_name
+	.byte	14                      @ DW_FORM_strp
+	.byte	62                      @ DW_AT_encoding
+	.byte	11                      @ DW_FORM_data1
+	.byte	11                      @ DW_AT_byte_size
+	.byte	11                      @ DW_FORM_data1
+	.byte	0                       @ EOM(1)
+	.byte	0                       @ EOM(2)
+	.byte	10                      @ Abbreviation Code
+	.byte	21                      @ DW_TAG_subroutine_type
+	.byte	0                       @ DW_CHILDREN_no
+	.byte	39                      @ DW_AT_prototyped
+	.byte	12                      @ DW_FORM_flag
+	.byte	0                       @ EOM(1)
+	.byte	0                       @ EOM(2)
+	.byte	11                      @ Abbreviation Code
+	.byte	52                      @ DW_TAG_variable
+	.byte	0                       @ DW_CHILDREN_no
+	.byte	3                       @ DW_AT_name
+	.byte	14                      @ DW_FORM_strp
+	.byte	73                      @ DW_AT_type
+	.byte	19                      @ DW_FORM_ref4
+	.byte	58                      @ DW_AT_decl_file
+	.byte	11                      @ DW_FORM_data1
+	.byte	59                      @ DW_AT_decl_line
+	.byte	11                      @ DW_FORM_data1
+	.byte	2                       @ DW_AT_location
+	.byte	10                      @ DW_FORM_block1
+	.byte	0                       @ EOM(1)
+	.byte	0                       @ EOM(2)
+	.byte	12                      @ Abbreviation Code
+	.byte	46                      @ DW_TAG_subprogram
+	.byte	1                       @ DW_CHILDREN_yes
+	.byte	17                      @ DW_AT_low_pc
+	.byte	1                       @ DW_FORM_addr
+	.byte	18                      @ DW_AT_high_pc
+	.byte	1                       @ DW_FORM_addr
+	.byte	64                      @ DW_AT_frame_base
+	.byte	10                      @ DW_FORM_block1
+	.byte	3                       @ DW_AT_name
+	.byte	14                      @ DW_FORM_strp
+	.byte	58                      @ DW_AT_decl_file
+	.byte	11                      @ DW_FORM_data1
+	.byte	59                      @ DW_AT_decl_line
+	.byte	11                      @ DW_FORM_data1
+	.byte	39                      @ DW_AT_prototyped
+	.byte	12                      @ DW_FORM_flag
+	.byte	73                      @ DW_AT_type
+	.byte	19                      @ DW_FORM_ref4
+	.byte	63                      @ DW_AT_external
+	.byte	12                      @ DW_FORM_flag
+	.byte	0                       @ EOM(1)
+	.byte	0                       @ EOM(2)
+	.byte	13                      @ Abbreviation Code
+	.byte	5                       @ DW_TAG_formal_parameter
+	.byte	0                       @ DW_CHILDREN_no
+	.byte	2                       @ DW_AT_location
+	.byte	6                       @ DW_FORM_data4
+	.byte	3                       @ DW_AT_name
+	.byte	14                      @ DW_FORM_strp
+	.byte	58                      @ DW_AT_decl_file
+	.byte	11                      @ DW_FORM_data1
+	.byte	59                      @ DW_AT_decl_line
+	.byte	11                      @ DW_FORM_data1
+	.byte	73                      @ DW_AT_type
+	.byte	19                      @ DW_FORM_ref4
+	.byte	0                       @ EOM(1)
+	.byte	0                       @ EOM(2)
+	.byte	14                      @ Abbreviation Code
+	.byte	52                      @ DW_TAG_variable
+	.byte	0                       @ DW_CHILDREN_no
+	.byte	2                       @ DW_AT_location
+	.byte	6                       @ DW_FORM_data4
+	.byte	3                       @ DW_AT_name
+	.byte	14                      @ DW_FORM_strp
+	.byte	58                      @ DW_AT_decl_file
+	.byte	11                      @ DW_FORM_data1
+	.byte	59                      @ DW_AT_decl_line
+	.byte	11                      @ DW_FORM_data1
+	.byte	73                      @ DW_AT_type
+	.byte	19                      @ DW_FORM_ref4
+	.byte	0                       @ EOM(1)
+	.byte	0                       @ EOM(2)
+	.byte	15                      @ Abbreviation Code
+	.byte	52                      @ DW_TAG_variable
+	.byte	0                       @ DW_CHILDREN_no
+	.byte	3                       @ DW_AT_name
+	.byte	14                      @ DW_FORM_strp
+	.byte	58                      @ DW_AT_decl_file
+	.byte	11                      @ DW_FORM_data1
+	.byte	59                      @ DW_AT_decl_line
+	.byte	11                      @ DW_FORM_data1
+	.byte	73                      @ DW_AT_type
+	.byte	19                      @ DW_FORM_ref4
+	.byte	0                       @ EOM(1)
+	.byte	0                       @ EOM(2)
+	.byte	16                      @ Abbreviation Code
+	.byte	46                      @ DW_TAG_subprogram
+	.byte	0                       @ DW_CHILDREN_no
+	.byte	17                      @ DW_AT_low_pc
+	.byte	1                       @ DW_FORM_addr
+	.byte	18                      @ DW_AT_high_pc
+	.byte	1                       @ DW_FORM_addr
+	.byte	64                      @ DW_AT_frame_base
+	.byte	10                      @ DW_FORM_block1
+	.byte	3                       @ DW_AT_name
+	.byte	14                      @ DW_FORM_strp
+	.byte	58                      @ DW_AT_decl_file
+	.byte	11                      @ DW_FORM_data1
+	.byte	59                      @ DW_AT_decl_line
+	.byte	5                       @ DW_FORM_data2
+	.byte	39                      @ DW_AT_prototyped
+	.byte	12                      @ DW_FORM_flag
+	.byte	63                      @ DW_AT_external
+	.byte	12                      @ DW_FORM_flag
+	.byte	0                       @ EOM(1)
+	.byte	0                       @ EOM(2)
+	.byte	17                      @ Abbreviation Code
+	.byte	46                      @ DW_TAG_subprogram
+	.byte	1                       @ DW_CHILDREN_yes
+	.byte	17                      @ DW_AT_low_pc
+	.byte	1                       @ DW_FORM_addr
+	.byte	18                      @ DW_AT_high_pc
+	.byte	1                       @ DW_FORM_addr
+	.byte	64                      @ DW_AT_frame_base
+	.byte	10                      @ DW_FORM_block1
+	.byte	3                       @ DW_AT_name
+	.byte	14                      @ DW_FORM_strp
+	.byte	58                      @ DW_AT_decl_file
+	.byte	11                      @ DW_FORM_data1
+	.byte	59                      @ DW_AT_decl_line
+	.byte	5                       @ DW_FORM_data2
+	.byte	39                      @ DW_AT_prototyped
+	.byte	12                      @ DW_FORM_flag
+	.byte	73                      @ DW_AT_type
+	.byte	19                      @ DW_FORM_ref4
+	.byte	63                      @ DW_AT_external
+	.byte	12                      @ DW_FORM_flag
+	.byte	0                       @ EOM(1)
+	.byte	0                       @ EOM(2)
+	.byte	18                      @ Abbreviation Code
+	.byte	5                       @ DW_TAG_formal_parameter
+	.byte	0                       @ DW_CHILDREN_no
+	.byte	2                       @ DW_AT_location
+	.byte	6                       @ DW_FORM_data4
+	.byte	3                       @ DW_AT_name
+	.byte	14                      @ DW_FORM_strp
+	.byte	58                      @ DW_AT_decl_file
+	.byte	11                      @ DW_FORM_data1
+	.byte	59                      @ DW_AT_decl_line
+	.byte	5                       @ DW_FORM_data2
+	.byte	73                      @ DW_AT_type
+	.byte	19                      @ DW_FORM_ref4
+	.byte	0                       @ EOM(1)
+	.byte	0                       @ EOM(2)
+	.byte	19                      @ Abbreviation Code
+	.byte	52                      @ DW_TAG_variable
+	.byte	0                       @ DW_CHILDREN_no
+	.byte	28                      @ DW_AT_const_value
+	.byte	15                      @ DW_FORM_udata
+	.byte	3                       @ DW_AT_name
+	.byte	14                      @ DW_FORM_strp
+	.byte	58                      @ DW_AT_decl_file
+	.byte	11                      @ DW_FORM_data1
+	.byte	59                      @ DW_AT_decl_line
+	.byte	5                       @ DW_FORM_data2
+	.byte	73                      @ DW_AT_type
+	.byte	19                      @ DW_FORM_ref4
+	.byte	0                       @ EOM(1)
+	.byte	0                       @ EOM(2)
+	.byte	20                      @ Abbreviation Code
+	.byte	52                      @ DW_TAG_variable
+	.byte	0                       @ DW_CHILDREN_no
+	.byte	2                       @ DW_AT_location
+	.byte	6                       @ DW_FORM_data4
+	.byte	3                       @ DW_AT_name
+	.byte	14                      @ DW_FORM_strp
+	.byte	58                      @ DW_AT_decl_file
+	.byte	11                      @ DW_FORM_data1
+	.byte	59                      @ DW_AT_decl_line
+	.byte	5                       @ DW_FORM_data2
+	.byte	73                      @ DW_AT_type
+	.byte	19                      @ DW_FORM_ref4
+	.byte	0                       @ EOM(1)
+	.byte	0                       @ EOM(2)
+	.byte	21                      @ Abbreviation Code
+	.byte	52                      @ DW_TAG_variable
+	.byte	0                       @ DW_CHILDREN_no
+	.byte	3                       @ DW_AT_name
+	.byte	14                      @ DW_FORM_strp
+	.byte	58                      @ DW_AT_decl_file
+	.byte	11                      @ DW_FORM_data1
+	.byte	59                      @ DW_AT_decl_line
+	.byte	5                       @ DW_FORM_data2
+	.byte	73                      @ DW_AT_type
+	.byte	19                      @ DW_FORM_ref4
+	.byte	0                       @ EOM(1)
+	.byte	0                       @ EOM(2)
+	.byte	22                      @ Abbreviation Code
+	.byte	46                      @ DW_TAG_subprogram
+	.byte	1                       @ DW_CHILDREN_yes
+	.byte	17                      @ DW_AT_low_pc
+	.byte	1                       @ DW_FORM_addr
+	.byte	18                      @ DW_AT_high_pc
+	.byte	1                       @ DW_FORM_addr
+	.byte	64                      @ DW_AT_frame_base
+	.byte	10                      @ DW_FORM_block1
+	.byte	3                       @ DW_AT_name
+	.byte	14                      @ DW_FORM_strp
+	.byte	58                      @ DW_AT_decl_file
+	.byte	11                      @ DW_FORM_data1
+	.byte	59                      @ DW_AT_decl_line
+	.byte	5                       @ DW_FORM_data2
+	.byte	39                      @ DW_AT_prototyped
+	.byte	12                      @ DW_FORM_flag
+	.byte	73                      @ DW_AT_type
+	.byte	19                      @ DW_FORM_ref4
+	.byte	0                       @ EOM(1)
+	.byte	0                       @ EOM(2)
+	.byte	23                      @ Abbreviation Code
+	.byte	5                       @ DW_TAG_formal_parameter
+	.byte	0                       @ DW_CHILDREN_no
+	.byte	2                       @ DW_AT_location
+	.byte	10                      @ DW_FORM_block1
+	.byte	3                       @ DW_AT_name
+	.byte	14                      @ DW_FORM_strp
+	.byte	58                      @ DW_AT_decl_file
+	.byte	11                      @ DW_FORM_data1
+	.byte	59                      @ DW_AT_decl_line
+	.byte	5                       @ DW_FORM_data2
+	.byte	73                      @ DW_AT_type
+	.byte	19                      @ DW_FORM_ref4
+	.byte	0                       @ EOM(1)
+	.byte	0                       @ EOM(2)
+	.byte	0                       @ EOM(3)
+	.section	.debug_info,"",%progbits
+.Lcu_begin0:
+	.long	1370                    @ Length of Unit
+	.short	3                       @ DWARF version number
+	.long	.debug_abbrev           @ Offset Into Abbrev. Section
+	.byte	4                       @ Address Size (in bytes)
+	.byte	1                       @ Abbrev [1] 0xb:0x553 DW_TAG_compile_unit
+	.long	.Linfo_string0          @ DW_AT_producer
+	.short	12                      @ DW_AT_language
+	.long	.Linfo_string1          @ DW_AT_name
+	.long	.Lline_table_start0     @ DW_AT_stmt_list
+	.long	.Linfo_string2          @ DW_AT_comp_dir
+	.byte	1                       @ DW_AT_GNU_pubnames
+	.long	0                       @ DW_AT_low_pc
+	.long	.Ldebug_ranges0         @ DW_AT_ranges
+	.byte	2                       @ Abbrev [2] 0x27:0x12 DW_TAG_variable
+	.long	.Linfo_string3          @ DW_AT_name
+	.long	57                      @ DW_AT_type
+	.byte	1                       @ DW_AT_external
+	.byte	3                       @ DW_AT_decl_file
+	.byte	86                      @ DW_AT_decl_line
+	.byte	5                       @ DW_AT_location
+	.byte	3
+	.long	wm8994_drv
+	.byte	3                       @ Abbrev [3] 0x39:0xb DW_TAG_typedef
+	.long	68                      @ DW_AT_type
+	.long	.Linfo_string22         @ DW_AT_name
+	.byte	2                       @ DW_AT_decl_file
+	.byte	95                      @ DW_AT_decl_line
+	.byte	4                       @ Abbrev [4] 0x44:0x95 DW_TAG_structure_type
+	.byte	48                      @ DW_AT_byte_size
+	.byte	2                       @ DW_AT_decl_file
+	.byte	81                      @ DW_AT_decl_line
+	.byte	5                       @ Abbrev [5] 0x48:0xc DW_TAG_member
+	.long	.Linfo_string4          @ DW_AT_name
+	.long	217                     @ DW_AT_type
+	.byte	2                       @ DW_AT_decl_file
+	.byte	83                      @ DW_AT_decl_line
+	.byte	0                       @ DW_AT_data_member_location
+	.byte	5                       @ Abbrev [5] 0x54:0xc DW_TAG_member
+	.long	.Linfo_string11         @ DW_AT_name
+	.long	303                     @ DW_AT_type
+	.byte	2                       @ DW_AT_decl_file
+	.byte	84                      @ DW_AT_decl_line
+	.byte	4                       @ DW_AT_data_member_location
+	.byte	5                       @ Abbrev [5] 0x60:0xc DW_TAG_member
+	.long	.Linfo_string12         @ DW_AT_name
+	.long	310                     @ DW_AT_type
+	.byte	2                       @ DW_AT_decl_file
+	.byte	85                      @ DW_AT_decl_line
+	.byte	8                       @ DW_AT_data_member_location
+	.byte	5                       @ Abbrev [5] 0x6c:0xc DW_TAG_member
+	.long	.Linfo_string13         @ DW_AT_name
+	.long	327                     @ DW_AT_type
+	.byte	2                       @ DW_AT_decl_file
+	.byte	86                      @ DW_AT_decl_line
+	.byte	12                      @ DW_AT_data_member_location
+	.byte	5                       @ Abbrev [5] 0x78:0xc DW_TAG_member
+	.long	.Linfo_string14         @ DW_AT_name
+	.long	310                     @ DW_AT_type
+	.byte	2                       @ DW_AT_decl_file
+	.byte	87                      @ DW_AT_decl_line
+	.byte	16                      @ DW_AT_data_member_location
+	.byte	5                       @ Abbrev [5] 0x84:0xc DW_TAG_member
+	.long	.Linfo_string15         @ DW_AT_name
+	.long	310                     @ DW_AT_type
+	.byte	2                       @ DW_AT_decl_file
+	.byte	88                      @ DW_AT_decl_line
+	.byte	20                      @ DW_AT_data_member_location
+	.byte	5                       @ Abbrev [5] 0x90:0xc DW_TAG_member
+	.long	.Linfo_string16         @ DW_AT_name
+	.long	359                     @ DW_AT_type
+	.byte	2                       @ DW_AT_decl_file
+	.byte	89                      @ DW_AT_decl_line
+	.byte	24                      @ DW_AT_data_member_location
+	.byte	5                       @ Abbrev [5] 0x9c:0xc DW_TAG_member
+	.long	.Linfo_string17         @ DW_AT_name
+	.long	359                     @ DW_AT_type
+	.byte	2                       @ DW_AT_decl_file
+	.byte	90                      @ DW_AT_decl_line
+	.byte	28                      @ DW_AT_data_member_location
+	.byte	5                       @ Abbrev [5] 0xa8:0xc DW_TAG_member
+	.long	.Linfo_string18         @ DW_AT_name
+	.long	381                     @ DW_AT_type
+	.byte	2                       @ DW_AT_decl_file
+	.byte	91                      @ DW_AT_decl_line
+	.byte	32                      @ DW_AT_data_member_location
+	.byte	5                       @ Abbrev [5] 0xb4:0xc DW_TAG_member
+	.long	.Linfo_string19         @ DW_AT_name
+	.long	359                     @ DW_AT_type
+	.byte	2                       @ DW_AT_decl_file
+	.byte	92                      @ DW_AT_decl_line
+	.byte	36                      @ DW_AT_data_member_location
+	.byte	5                       @ Abbrev [5] 0xc0:0xc DW_TAG_member
+	.long	.Linfo_string20         @ DW_AT_name
+	.long	381                     @ DW_AT_type
+	.byte	2                       @ DW_AT_decl_file
+	.byte	93                      @ DW_AT_decl_line
+	.byte	40                      @ DW_AT_data_member_location
+	.byte	5                       @ Abbrev [5] 0xcc:0xc DW_TAG_member
+	.long	.Linfo_string21         @ DW_AT_name
+	.long	310                     @ DW_AT_type
+	.byte	2                       @ DW_AT_decl_file
+	.byte	94                      @ DW_AT_decl_line
+	.byte	44                      @ DW_AT_data_member_location
+	.byte	0                       @ End Of Children Mark
+	.byte	6                       @ Abbrev [6] 0xd9:0x5 DW_TAG_pointer_type
+	.long	222                     @ DW_AT_type
+	.byte	7                       @ Abbrev [7] 0xde:0x1b DW_TAG_subroutine_type
+	.long	249                     @ DW_AT_type
+	.byte	1                       @ DW_AT_prototyped
+	.byte	8                       @ Abbrev [8] 0xe4:0x5 DW_TAG_formal_parameter
+	.long	267                     @ DW_AT_type
+	.byte	8                       @ Abbrev [8] 0xe9:0x5 DW_TAG_formal_parameter
+	.long	267                     @ DW_AT_type
+	.byte	8                       @ Abbrev [8] 0xee:0x5 DW_TAG_formal_parameter
+	.long	285                     @ DW_AT_type
+	.byte	8                       @ Abbrev [8] 0xf3:0x5 DW_TAG_formal_parameter
+	.long	249                     @ DW_AT_type
+	.byte	0                       @ End Of Children Mark
+	.byte	3                       @ Abbrev [3] 0xf9:0xb DW_TAG_typedef
+	.long	260                     @ DW_AT_type
+	.long	.Linfo_string6          @ DW_AT_name
+	.byte	1                       @ DW_AT_decl_file
+	.byte	64                      @ DW_AT_decl_line
+	.byte	9                       @ Abbrev [9] 0x104:0x7 DW_TAG_base_type
+	.long	.Linfo_string5          @ DW_AT_name
+	.byte	7                       @ DW_AT_encoding
+	.byte	4                       @ DW_AT_byte_size
+	.byte	3                       @ Abbrev [3] 0x10b:0xb DW_TAG_typedef
+	.long	278                     @ DW_AT_type
+	.long	.Linfo_string8          @ DW_AT_name
+	.byte	1                       @ DW_AT_decl_file
+	.byte	63                      @ DW_AT_decl_line
+	.byte	9                       @ Abbrev [9] 0x116:0x7 DW_TAG_base_type
+	.long	.Linfo_string7          @ DW_AT_name
+	.byte	7                       @ DW_AT_encoding
+	.byte	2                       @ DW_AT_byte_size
+	.byte	3                       @ Abbrev [3] 0x11d:0xb DW_TAG_typedef
+	.long	296                     @ DW_AT_type
+	.long	.Linfo_string10         @ DW_AT_name
+	.byte	1                       @ DW_AT_decl_file
+	.byte	62                      @ DW_AT_decl_line
+	.byte	9                       @ Abbrev [9] 0x128:0x7 DW_TAG_base_type
+	.long	.Linfo_string9          @ DW_AT_name
+	.byte	8                       @ DW_AT_encoding
+	.byte	1                       @ DW_AT_byte_size
+	.byte	6                       @ Abbrev [6] 0x12f:0x5 DW_TAG_pointer_type
+	.long	308                     @ DW_AT_type
+	.byte	10                      @ Abbrev [10] 0x134:0x2 DW_TAG_subroutine_type
+	.byte	1                       @ DW_AT_prototyped
+	.byte	6                       @ Abbrev [6] 0x136:0x5 DW_TAG_pointer_type
+	.long	315                     @ DW_AT_type
+	.byte	7                       @ Abbrev [7] 0x13b:0xc DW_TAG_subroutine_type
+	.long	249                     @ DW_AT_type
+	.byte	1                       @ DW_AT_prototyped
+	.byte	8                       @ Abbrev [8] 0x141:0x5 DW_TAG_formal_parameter
+	.long	267                     @ DW_AT_type
+	.byte	0                       @ End Of Children Mark
+	.byte	6                       @ Abbrev [6] 0x147:0x5 DW_TAG_pointer_type
+	.long	332                     @ DW_AT_type
+	.byte	7                       @ Abbrev [7] 0x14c:0x16 DW_TAG_subroutine_type
+	.long	249                     @ DW_AT_type
+	.byte	1                       @ DW_AT_prototyped
+	.byte	8                       @ Abbrev [8] 0x152:0x5 DW_TAG_formal_parameter
+	.long	267                     @ DW_AT_type
+	.byte	8                       @ Abbrev [8] 0x157:0x5 DW_TAG_formal_parameter
+	.long	354                     @ DW_AT_type
+	.byte	8                       @ Abbrev [8] 0x15c:0x5 DW_TAG_formal_parameter
+	.long	267                     @ DW_AT_type
+	.byte	0                       @ End Of Children Mark
+	.byte	6                       @ Abbrev [6] 0x162:0x5 DW_TAG_pointer_type
+	.long	267                     @ DW_AT_type
+	.byte	6                       @ Abbrev [6] 0x167:0x5 DW_TAG_pointer_type
+	.long	364                     @ DW_AT_type
+	.byte	7                       @ Abbrev [7] 0x16c:0x11 DW_TAG_subroutine_type
+	.long	249                     @ DW_AT_type
+	.byte	1                       @ DW_AT_prototyped
+	.byte	8                       @ Abbrev [8] 0x172:0x5 DW_TAG_formal_parameter
+	.long	267                     @ DW_AT_type
+	.byte	8                       @ Abbrev [8] 0x177:0x5 DW_TAG_formal_parameter
+	.long	249                     @ DW_AT_type
+	.byte	0                       @ End Of Children Mark
+	.byte	6                       @ Abbrev [6] 0x17d:0x5 DW_TAG_pointer_type
+	.long	386                     @ DW_AT_type
+	.byte	7                       @ Abbrev [7] 0x182:0x11 DW_TAG_subroutine_type
+	.long	249                     @ DW_AT_type
+	.byte	1                       @ DW_AT_prototyped
+	.byte	8                       @ Abbrev [8] 0x188:0x5 DW_TAG_formal_parameter
+	.long	267                     @ DW_AT_type
+	.byte	8                       @ Abbrev [8] 0x18d:0x5 DW_TAG_formal_parameter
+	.long	285                     @ DW_AT_type
+	.byte	0                       @ End Of Children Mark
+	.byte	11                      @ Abbrev [11] 0x193:0x18 DW_TAG_variable
+	.long	.Linfo_string23         @ DW_AT_name
+	.long	249                     @ DW_AT_type
+	.byte	3                       @ DW_AT_decl_file
+	.byte	105                     @ DW_AT_decl_line
+	.byte	12                      @ DW_AT_location
+	.byte	3
+	.long	outputEnabled
+	.byte	6
+	.byte	16
+	.byte	1
+	.byte	30
+	.byte	16
+	.byte	0
+	.byte	34
+	.byte	11                      @ Abbrev [11] 0x1ab:0x18 DW_TAG_variable
+	.long	.Linfo_string24         @ DW_AT_name
+	.long	249                     @ DW_AT_type
+	.byte	3                       @ DW_AT_decl_file
+	.byte	106                     @ DW_AT_decl_line
+	.byte	12                      @ DW_AT_location
+	.byte	3
+	.long	inputEnabled
+	.byte	6
+	.byte	16
+	.byte	1
+	.byte	30
+	.byte	16
+	.byte	0
+	.byte	34
+	.byte	11                      @ Abbrev [11] 0x1c3:0x21 DW_TAG_variable
+	.long	.Linfo_string25         @ DW_AT_name
+	.long	285                     @ DW_AT_type
+	.byte	3                       @ DW_AT_decl_file
+	.byte	107                     @ DW_AT_decl_line
+	.byte	21                      @ DW_AT_location
+	.byte	3
+	.long	ColdStartup
+	.byte	6
+	.byte	16
+	.ascii	"\377\377\377\377\377\377\377\377\377\001"
+	.byte	30
+	.byte	16
+	.byte	1
+	.byte	34
+	.byte	12                      @ Abbrev [12] 0x1e4:0x88 DW_TAG_subprogram
+	.long	.Lfunc_begin0           @ DW_AT_low_pc
+	.long	.Lfunc_end0             @ DW_AT_high_pc
+	.byte	1                       @ DW_AT_frame_base
+	.byte	93
+	.long	.Linfo_string26         @ DW_AT_name
+	.byte	3                       @ DW_AT_decl_file
+	.byte	137                     @ DW_AT_decl_line
+	.byte	1                       @ DW_AT_prototyped
+	.long	249                     @ DW_AT_type
+	.byte	1                       @ DW_AT_external
+	.byte	13                      @ Abbrev [13] 0x1fb:0xf DW_TAG_formal_parameter
+	.long	.Ldebug_loc0            @ DW_AT_location
+	.long	.Linfo_string39         @ DW_AT_name
+	.byte	3                       @ DW_AT_decl_file
+	.byte	137                     @ DW_AT_decl_line
+	.long	267                     @ DW_AT_type
+	.byte	13                      @ Abbrev [13] 0x20a:0xf DW_TAG_formal_parameter
+	.long	.Ldebug_loc1            @ DW_AT_location
+	.long	.Linfo_string40         @ DW_AT_name
+	.byte	3                       @ DW_AT_decl_file
+	.byte	137                     @ DW_AT_decl_line
+	.long	267                     @ DW_AT_type
+	.byte	13                      @ Abbrev [13] 0x219:0xf DW_TAG_formal_parameter
+	.long	.Ldebug_loc2            @ DW_AT_location
+	.long	.Linfo_string41         @ DW_AT_name
+	.byte	3                       @ DW_AT_decl_file
+	.byte	137                     @ DW_AT_decl_line
+	.long	285                     @ DW_AT_type
+	.byte	13                      @ Abbrev [13] 0x228:0xf DW_TAG_formal_parameter
+	.long	.Ldebug_loc3            @ DW_AT_location
+	.long	.Linfo_string42         @ DW_AT_name
+	.byte	3                       @ DW_AT_decl_file
+	.byte	137                     @ DW_AT_decl_line
+	.long	249                     @ DW_AT_type
+	.byte	14                      @ Abbrev [14] 0x237:0xf DW_TAG_variable
+	.long	.Ldebug_loc4            @ DW_AT_location
+	.long	.Linfo_string43         @ DW_AT_name
+	.byte	3                       @ DW_AT_decl_file
+	.byte	142                     @ DW_AT_decl_line
+	.long	267                     @ DW_AT_type
+	.byte	14                      @ Abbrev [14] 0x246:0xf DW_TAG_variable
+	.long	.Ldebug_loc5            @ DW_AT_location
+	.long	.Linfo_string44         @ DW_AT_name
+	.byte	3                       @ DW_AT_decl_file
+	.byte	139                     @ DW_AT_decl_line
+	.long	249                     @ DW_AT_type
+	.byte	15                      @ Abbrev [15] 0x255:0xb DW_TAG_variable
+	.long	.Linfo_string45         @ DW_AT_name
+	.byte	3                       @ DW_AT_decl_file
+	.byte	140                     @ DW_AT_decl_line
+	.long	267                     @ DW_AT_type
+	.byte	15                      @ Abbrev [15] 0x260:0xb DW_TAG_variable
+	.long	.Linfo_string46         @ DW_AT_name
+	.byte	3                       @ DW_AT_decl_file
+	.byte	141                     @ DW_AT_decl_line
+	.long	267                     @ DW_AT_type
+	.byte	0                       @ End Of Children Mark
+	.byte	16                      @ Abbrev [16] 0x26c:0x14 DW_TAG_subprogram
+	.long	.Lfunc_begin1           @ DW_AT_low_pc
+	.long	.Lfunc_end1             @ DW_AT_high_pc
+	.byte	1                       @ DW_AT_frame_base
+	.byte	93
+	.long	.Linfo_string27         @ DW_AT_name
+	.byte	3                       @ DW_AT_decl_file
+	.short	641                     @ DW_AT_decl_line
+	.byte	1                       @ DW_AT_prototyped
+	.byte	1                       @ DW_AT_external
+	.byte	17                      @ Abbrev [17] 0x280:0x29 DW_TAG_subprogram
+	.long	.Lfunc_begin2           @ DW_AT_low_pc
+	.long	.Lfunc_end2             @ DW_AT_high_pc
+	.byte	1                       @ DW_AT_frame_base
+	.byte	93
+	.long	.Linfo_string28         @ DW_AT_name
+	.byte	3                       @ DW_AT_decl_file
+	.short	652                     @ DW_AT_decl_line
+	.byte	1                       @ DW_AT_prototyped
+	.long	249                     @ DW_AT_type
+	.byte	1                       @ DW_AT_external
+	.byte	18                      @ Abbrev [18] 0x298:0x10 DW_TAG_formal_parameter
+	.long	.Ldebug_loc6            @ DW_AT_location
+	.long	.Linfo_string39         @ DW_AT_name
+	.byte	3                       @ DW_AT_decl_file
+	.short	652                     @ DW_AT_decl_line
+	.long	267                     @ DW_AT_type
+	.byte	0                       @ End Of Children Mark
+	.byte	17                      @ Abbrev [17] 0x2a9:0x56 DW_TAG_subprogram
+	.long	.Lfunc_begin3           @ DW_AT_low_pc
+	.long	.Lfunc_end3             @ DW_AT_high_pc
+	.byte	1                       @ DW_AT_frame_base
+	.byte	93
+	.long	.Linfo_string29         @ DW_AT_name
+	.byte	3                       @ DW_AT_decl_file
+	.short	666                     @ DW_AT_decl_line
+	.byte	1                       @ DW_AT_prototyped
+	.long	249                     @ DW_AT_type
+	.byte	1                       @ DW_AT_external
+	.byte	18                      @ Abbrev [18] 0x2c1:0x10 DW_TAG_formal_parameter
+	.long	.Ldebug_loc7            @ DW_AT_location
+	.long	.Linfo_string39         @ DW_AT_name
+	.byte	3                       @ DW_AT_decl_file
+	.short	666                     @ DW_AT_decl_line
+	.long	267                     @ DW_AT_type
+	.byte	18                      @ Abbrev [18] 0x2d1:0x10 DW_TAG_formal_parameter
+	.long	.Ldebug_loc8            @ DW_AT_location
+	.long	.Linfo_string47         @ DW_AT_name
+	.byte	3                       @ DW_AT_decl_file
+	.short	666                     @ DW_AT_decl_line
+	.long	354                     @ DW_AT_type
+	.byte	18                      @ Abbrev [18] 0x2e1:0x10 DW_TAG_formal_parameter
+	.long	.Ldebug_loc9            @ DW_AT_location
+	.long	.Linfo_string48         @ DW_AT_name
+	.byte	3                       @ DW_AT_decl_file
+	.short	666                     @ DW_AT_decl_line
+	.long	267                     @ DW_AT_type
+	.byte	19                      @ Abbrev [19] 0x2f1:0xd DW_TAG_variable
+	.byte	0                       @ DW_AT_const_value
+	.long	.Linfo_string44         @ DW_AT_name
+	.byte	3                       @ DW_AT_decl_file
+	.short	668                     @ DW_AT_decl_line
+	.long	249                     @ DW_AT_type
+	.byte	0                       @ End Of Children Mark
+	.byte	17                      @ Abbrev [17] 0x2ff:0x39 DW_TAG_subprogram
+	.long	.Lfunc_begin4           @ DW_AT_low_pc
+	.long	.Lfunc_end4             @ DW_AT_high_pc
+	.byte	1                       @ DW_AT_frame_base
+	.byte	93
+	.long	.Linfo_string30         @ DW_AT_name
+	.byte	3                       @ DW_AT_decl_file
+	.short	682                     @ DW_AT_decl_line
+	.byte	1                       @ DW_AT_prototyped
+	.long	249                     @ DW_AT_type
+	.byte	1                       @ DW_AT_external
+	.byte	18                      @ Abbrev [18] 0x317:0x10 DW_TAG_formal_parameter
+	.long	.Ldebug_loc10           @ DW_AT_location
+	.long	.Linfo_string39         @ DW_AT_name
+	.byte	3                       @ DW_AT_decl_file
+	.short	682                     @ DW_AT_decl_line
+	.long	267                     @ DW_AT_type
+	.byte	20                      @ Abbrev [20] 0x327:0x10 DW_TAG_variable
+	.long	.Ldebug_loc11           @ DW_AT_location
+	.long	.Linfo_string44         @ DW_AT_name
+	.byte	3                       @ DW_AT_decl_file
+	.short	684                     @ DW_AT_decl_line
+	.long	249                     @ DW_AT_type
+	.byte	0                       @ End Of Children Mark
+	.byte	17                      @ Abbrev [17] 0x338:0x36 DW_TAG_subprogram
+	.long	.Lfunc_begin5           @ DW_AT_low_pc
+	.long	.Lfunc_end5             @ DW_AT_high_pc
+	.byte	1                       @ DW_AT_frame_base
+	.byte	93
+	.long	.Linfo_string31         @ DW_AT_name
+	.byte	3                       @ DW_AT_decl_file
+	.short	701                     @ DW_AT_decl_line
+	.byte	1                       @ DW_AT_prototyped
+	.long	249                     @ DW_AT_type
+	.byte	1                       @ DW_AT_external
+	.byte	18                      @ Abbrev [18] 0x350:0x10 DW_TAG_formal_parameter
+	.long	.Ldebug_loc12           @ DW_AT_location
+	.long	.Linfo_string39         @ DW_AT_name
+	.byte	3                       @ DW_AT_decl_file
+	.short	701                     @ DW_AT_decl_line
+	.long	267                     @ DW_AT_type
+	.byte	19                      @ Abbrev [19] 0x360:0xd DW_TAG_variable
+	.byte	0                       @ DW_AT_const_value
+	.long	.Linfo_string44         @ DW_AT_name
+	.byte	3                       @ DW_AT_decl_file
+	.short	703                     @ DW_AT_decl_line
+	.long	249                     @ DW_AT_type
+	.byte	0                       @ End Of Children Mark
+	.byte	17                      @ Abbrev [17] 0x36e:0x46 DW_TAG_subprogram
+	.long	.Lfunc_begin6           @ DW_AT_low_pc
+	.long	.Lfunc_end6             @ DW_AT_high_pc
+	.byte	1                       @ DW_AT_frame_base
+	.byte	93
+	.long	.Linfo_string32         @ DW_AT_name
+	.byte	3                       @ DW_AT_decl_file
+	.short	725                     @ DW_AT_decl_line
+	.byte	1                       @ DW_AT_prototyped
+	.long	249                     @ DW_AT_type
+	.byte	1                       @ DW_AT_external
+	.byte	18                      @ Abbrev [18] 0x386:0x10 DW_TAG_formal_parameter
+	.long	.Ldebug_loc13           @ DW_AT_location
+	.long	.Linfo_string39         @ DW_AT_name
+	.byte	3                       @ DW_AT_decl_file
+	.short	725                     @ DW_AT_decl_line
+	.long	267                     @ DW_AT_type
+	.byte	18                      @ Abbrev [18] 0x396:0x10 DW_TAG_formal_parameter
+	.long	.Ldebug_loc14           @ DW_AT_location
+	.long	.Linfo_string49         @ DW_AT_name
+	.byte	3                       @ DW_AT_decl_file
+	.short	725                     @ DW_AT_decl_line
+	.long	249                     @ DW_AT_type
+	.byte	19                      @ Abbrev [19] 0x3a6:0xd DW_TAG_variable
+	.byte	0                       @ DW_AT_const_value
+	.long	.Linfo_string44         @ DW_AT_name
+	.byte	3                       @ DW_AT_decl_file
+	.short	727                     @ DW_AT_decl_line
+	.long	249                     @ DW_AT_type
+	.byte	0                       @ End Of Children Mark
+	.byte	17                      @ Abbrev [17] 0x3b4:0x46 DW_TAG_subprogram
+	.long	.Lfunc_begin7           @ DW_AT_low_pc
+	.long	.Lfunc_end7             @ DW_AT_high_pc
+	.byte	1                       @ DW_AT_frame_base
+	.byte	93
+	.long	.Linfo_string33         @ DW_AT_name
+	.byte	3                       @ DW_AT_decl_file
+	.short	969                     @ DW_AT_decl_line
+	.byte	1                       @ DW_AT_prototyped
+	.long	249                     @ DW_AT_type
+	.byte	1                       @ DW_AT_external
+	.byte	18                      @ Abbrev [18] 0x3cc:0x10 DW_TAG_formal_parameter
+	.long	.Ldebug_loc15           @ DW_AT_location
+	.long	.Linfo_string39         @ DW_AT_name
+	.byte	3                       @ DW_AT_decl_file
+	.short	969                     @ DW_AT_decl_line
+	.long	267                     @ DW_AT_type
+	.byte	18                      @ Abbrev [18] 0x3dc:0x10 DW_TAG_formal_parameter
+	.long	.Ldebug_loc16           @ DW_AT_location
+	.long	.Linfo_string42         @ DW_AT_name
+	.byte	3                       @ DW_AT_decl_file
+	.short	969                     @ DW_AT_decl_line
+	.long	249                     @ DW_AT_type
+	.byte	19                      @ Abbrev [19] 0x3ec:0xd DW_TAG_variable
+	.byte	0                       @ DW_AT_const_value
+	.long	.Linfo_string44         @ DW_AT_name
+	.byte	3                       @ DW_AT_decl_file
+	.short	971                     @ DW_AT_decl_line
+	.long	249                     @ DW_AT_type
+	.byte	0                       @ End Of Children Mark
+	.byte	17                      @ Abbrev [17] 0x3fa:0x52 DW_TAG_subprogram
+	.long	.Lfunc_begin8           @ DW_AT_low_pc
+	.long	.Lfunc_end8             @ DW_AT_high_pc
+	.byte	1                       @ DW_AT_frame_base
+	.byte	93
+	.long	.Linfo_string34         @ DW_AT_name
+	.byte	3                       @ DW_AT_decl_file
+	.short	771                     @ DW_AT_decl_line
+	.byte	1                       @ DW_AT_prototyped
+	.long	249                     @ DW_AT_type
+	.byte	1                       @ DW_AT_external
+	.byte	18                      @ Abbrev [18] 0x412:0x10 DW_TAG_formal_parameter
+	.long	.Ldebug_loc17           @ DW_AT_location
+	.long	.Linfo_string39         @ DW_AT_name
+	.byte	3                       @ DW_AT_decl_file
+	.short	771                     @ DW_AT_decl_line
+	.long	267                     @ DW_AT_type
+	.byte	18                      @ Abbrev [18] 0x422:0x10 DW_TAG_formal_parameter
+	.long	.Ldebug_loc18           @ DW_AT_location
+	.long	.Linfo_string41         @ DW_AT_name
+	.byte	3                       @ DW_AT_decl_file
+	.short	771                     @ DW_AT_decl_line
+	.long	285                     @ DW_AT_type
+	.byte	19                      @ Abbrev [19] 0x432:0xd DW_TAG_variable
+	.byte	0                       @ DW_AT_const_value
+	.long	.Linfo_string44         @ DW_AT_name
+	.byte	3                       @ DW_AT_decl_file
+	.short	773                     @ DW_AT_decl_line
+	.long	249                     @ DW_AT_type
+	.byte	21                      @ Abbrev [21] 0x43f:0xc DW_TAG_variable
+	.long	.Linfo_string50         @ DW_AT_name
+	.byte	3                       @ DW_AT_decl_file
+	.short	774                     @ DW_AT_decl_line
+	.long	285                     @ DW_AT_type
+	.byte	0                       @ End Of Children Mark
+	.byte	17                      @ Abbrev [17] 0x44c:0x46 DW_TAG_subprogram
+	.long	.Lfunc_begin9           @ DW_AT_low_pc
+	.long	.Lfunc_end9             @ DW_AT_high_pc
+	.byte	1                       @ DW_AT_frame_base
+	.byte	93
+	.long	.Linfo_string35         @ DW_AT_name
+	.byte	3                       @ DW_AT_decl_file
+	.short	847                     @ DW_AT_decl_line
+	.byte	1                       @ DW_AT_prototyped
+	.long	249                     @ DW_AT_type
+	.byte	1                       @ DW_AT_external
+	.byte	18                      @ Abbrev [18] 0x464:0x10 DW_TAG_formal_parameter
+	.long	.Ldebug_loc19           @ DW_AT_location
+	.long	.Linfo_string39         @ DW_AT_name
+	.byte	3                       @ DW_AT_decl_file
+	.short	847                     @ DW_AT_decl_line
+	.long	267                     @ DW_AT_type
+	.byte	18                      @ Abbrev [18] 0x474:0x10 DW_TAG_formal_parameter
+	.long	.Ldebug_loc20           @ DW_AT_location
+	.long	.Linfo_string51         @ DW_AT_name
+	.byte	3                       @ DW_AT_decl_file
+	.short	847                     @ DW_AT_decl_line
+	.long	249                     @ DW_AT_type
+	.byte	19                      @ Abbrev [19] 0x484:0xd DW_TAG_variable
+	.byte	0                       @ DW_AT_const_value
+	.long	.Linfo_string44         @ DW_AT_name
+	.byte	3                       @ DW_AT_decl_file
+	.short	849                     @ DW_AT_decl_line
+	.long	249                     @ DW_AT_type
+	.byte	0                       @ End Of Children Mark
+	.byte	17                      @ Abbrev [17] 0x492:0x46 DW_TAG_subprogram
+	.long	.Lfunc_begin10          @ DW_AT_low_pc
+	.long	.Lfunc_end10            @ DW_AT_high_pc
+	.byte	1                       @ DW_AT_frame_base
+	.byte	93
+	.long	.Linfo_string36         @ DW_AT_name
+	.byte	3                       @ DW_AT_decl_file
+	.short	882                     @ DW_AT_decl_line
+	.byte	1                       @ DW_AT_prototyped
+	.long	249                     @ DW_AT_type
+	.byte	1                       @ DW_AT_external
+	.byte	18                      @ Abbrev [18] 0x4aa:0x10 DW_TAG_formal_parameter
+	.long	.Ldebug_loc21           @ DW_AT_location
+	.long	.Linfo_string39         @ DW_AT_name
+	.byte	3                       @ DW_AT_decl_file
+	.short	882                     @ DW_AT_decl_line
+	.long	267                     @ DW_AT_type
+	.byte	18                      @ Abbrev [18] 0x4ba:0x10 DW_TAG_formal_parameter
+	.long	.Ldebug_loc22           @ DW_AT_location
+	.long	.Linfo_string52         @ DW_AT_name
+	.byte	3                       @ DW_AT_decl_file
+	.short	882                     @ DW_AT_decl_line
+	.long	285                     @ DW_AT_type
+	.byte	19                      @ Abbrev [19] 0x4ca:0xd DW_TAG_variable
+	.byte	0                       @ DW_AT_const_value
+	.long	.Linfo_string44         @ DW_AT_name
+	.byte	3                       @ DW_AT_decl_file
+	.short	884                     @ DW_AT_decl_line
+	.long	249                     @ DW_AT_type
+	.byte	0                       @ End Of Children Mark
+	.byte	17                      @ Abbrev [17] 0x4d8:0x36 DW_TAG_subprogram
+	.long	.Lfunc_begin11          @ DW_AT_low_pc
+	.long	.Lfunc_end11            @ DW_AT_high_pc
+	.byte	1                       @ DW_AT_frame_base
+	.byte	93
+	.long	.Linfo_string37         @ DW_AT_name
+	.byte	3                       @ DW_AT_decl_file
+	.short	1029                    @ DW_AT_decl_line
+	.byte	1                       @ DW_AT_prototyped
+	.long	249                     @ DW_AT_type
+	.byte	1                       @ DW_AT_external
+	.byte	18                      @ Abbrev [18] 0x4f0:0x10 DW_TAG_formal_parameter
+	.long	.Ldebug_loc23           @ DW_AT_location
+	.long	.Linfo_string39         @ DW_AT_name
+	.byte	3                       @ DW_AT_decl_file
+	.short	1029                    @ DW_AT_decl_line
+	.long	267                     @ DW_AT_type
+	.byte	19                      @ Abbrev [19] 0x500:0xd DW_TAG_variable
+	.byte	0                       @ DW_AT_const_value
+	.long	.Linfo_string44         @ DW_AT_name
+	.byte	3                       @ DW_AT_decl_file
+	.short	1031                    @ DW_AT_decl_line
+	.long	249                     @ DW_AT_type
+	.byte	0                       @ End Of Children Mark
+	.byte	22                      @ Abbrev [22] 0x50e:0x4f DW_TAG_subprogram
+	.long	.Lfunc_begin12          @ DW_AT_low_pc
+	.long	.Lfunc_end12            @ DW_AT_high_pc
+	.byte	1                       @ DW_AT_frame_base
+	.byte	93
+	.long	.Linfo_string38         @ DW_AT_name
+	.byte	3                       @ DW_AT_decl_file
+	.short	1048                    @ DW_AT_decl_line
+	.byte	1                       @ DW_AT_prototyped
+	.long	285                     @ DW_AT_type
+	.byte	23                      @ Abbrev [23] 0x525:0xe DW_TAG_formal_parameter
+	.byte	1                       @ DW_AT_location
+	.byte	80
+	.long	.Linfo_string53         @ DW_AT_name
+	.byte	3                       @ DW_AT_decl_file
+	.short	1048                    @ DW_AT_decl_line
+	.long	285                     @ DW_AT_type
+	.byte	23                      @ Abbrev [23] 0x533:0xe DW_TAG_formal_parameter
+	.byte	1                       @ DW_AT_location
+	.byte	81
+	.long	.Linfo_string54         @ DW_AT_name
+	.byte	3                       @ DW_AT_decl_file
+	.short	1048                    @ DW_AT_decl_line
+	.long	267                     @ DW_AT_type
+	.byte	23                      @ Abbrev [23] 0x541:0xe DW_TAG_formal_parameter
+	.byte	1                       @ DW_AT_location
+	.byte	82
+	.long	.Linfo_string55         @ DW_AT_name
+	.byte	3                       @ DW_AT_decl_file
+	.short	1048                    @ DW_AT_decl_line
+	.long	267                     @ DW_AT_type
+	.byte	19                      @ Abbrev [19] 0x54f:0xd DW_TAG_variable
+	.byte	0                       @ DW_AT_const_value
+	.long	.Linfo_string56         @ DW_AT_name
+	.byte	3                       @ DW_AT_decl_file
+	.short	1050                    @ DW_AT_decl_line
+	.long	249                     @ DW_AT_type
+	.byte	0                       @ End Of Children Mark
+	.byte	0                       @ End Of Children Mark
+	.section	.debug_ranges,"",%progbits
+.Ldebug_ranges0:
+	.long	.Lfunc_begin0
+	.long	.Lfunc_end0
+	.long	.Lfunc_begin1
+	.long	.Lfunc_end1
+	.long	.Lfunc_begin2
+	.long	.Lfunc_end2
+	.long	.Lfunc_begin3
+	.long	.Lfunc_end3
+	.long	.Lfunc_begin4
+	.long	.Lfunc_end4
+	.long	.Lfunc_begin5
+	.long	.Lfunc_end5
+	.long	.Lfunc_begin6
+	.long	.Lfunc_end6
+	.long	.Lfunc_begin7
+	.long	.Lfunc_end7
+	.long	.Lfunc_begin8
+	.long	.Lfunc_end8
+	.long	.Lfunc_begin9
+	.long	.Lfunc_end9
+	.long	.Lfunc_begin10
+	.long	.Lfunc_end10
+	.long	.Lfunc_begin11
+	.long	.Lfunc_end11
+	.long	.Lfunc_begin12
+	.long	.Lfunc_end12
+	.long	0
+	.long	0
+	.section	.debug_macinfo,"",%progbits
+.Lcu_macro_begin0:
+	.byte	0                       @ End Of Macro List Mark
+	.section	.debug_pubnames,"",%progbits
+	.long	.LpubNames_end0-.LpubNames_begin0 @ Length of Public Names Info
+.LpubNames_begin0:
+	.short	2                       @ DWARF Version
+	.long	.Lcu_begin0             @ Offset of Compilation Unit Info
+	.long	1374                    @ Compilation Unit Length
+	.long	767                     @ DIE offset
+	.asciz	"wm8994_Pause"          @ External Name
+	.long	1294                    @ DIE offset
+	.asciz	"CODEC_IO_Write"        @ External Name
+	.long	1170                    @ DIE offset
+	.asciz	"wm8994_SetOutputMode"  @ External Name
+	.long	1240                    @ DIE offset
+	.asciz	"wm8994_Reset"          @ External Name
+	.long	1018                    @ DIE offset
+	.asciz	"wm8994_SetVolume"      @ External Name
+	.long	878                     @ DIE offset
+	.asciz	"wm8994_Stop"           @ External Name
+	.long	1100                    @ DIE offset
+	.asciz	"wm8994_SetMute"        @ External Name
+	.long	640                     @ DIE offset
+	.asciz	"wm8994_ReadID"         @ External Name
+	.long	39                      @ DIE offset
+	.asciz	"wm8994_drv"            @ External Name
+	.long	824                     @ DIE offset
+	.asciz	"wm8994_Resume"         @ External Name
+	.long	451                     @ DIE offset
+	.asciz	"ColdStartup"           @ External Name
+	.long	484                     @ DIE offset
+	.asciz	"wm8994_Init"           @ External Name
+	.long	681                     @ DIE offset
+	.asciz	"wm8994_Play"           @ External Name
+	.long	427                     @ DIE offset
+	.asciz	"inputEnabled"          @ External Name
+	.long	403                     @ DIE offset
+	.asciz	"outputEnabled"         @ External Name
+	.long	620                     @ DIE offset
+	.asciz	"wm8994_DeInit"         @ External Name
+	.long	948                     @ DIE offset
+	.asciz	"wm8994_SetFrequency"   @ External Name
+	.long	0                       @ End Mark
+.LpubNames_end0:
+	.section	.debug_pubtypes,"",%progbits
+	.long	.LpubTypes_end0-.LpubTypes_begin0 @ Length of Public Types Info
+.LpubTypes_begin0:
+	.short	2                       @ DWARF Version
+	.long	.Lcu_begin0             @ Offset of Compilation Unit Info
+	.long	1374                    @ Compilation Unit Length
+	.long	249                     @ DIE offset
+	.asciz	"uint32_t"              @ External Name
+	.long	260                     @ DIE offset
+	.asciz	"unsigned int"          @ External Name
+	.long	267                     @ DIE offset
+	.asciz	"uint16_t"              @ External Name
+	.long	285                     @ DIE offset
+	.asciz	"uint8_t"               @ External Name
+	.long	296                     @ DIE offset
+	.asciz	"unsigned char"         @ External Name
+	.long	278                     @ DIE offset
+	.asciz	"unsigned short"        @ External Name
+	.long	57                      @ DIE offset
+	.asciz	"AUDIO_DrvTypeDef"      @ External Name
+	.long	0                       @ End Mark
+.LpubTypes_end0:
+
+	.ident	"Component: ARM Compiler 6.10.1 Tool: armclang [5d143200]"
+	.section	".note.GNU-stack","",%progbits
+	.eabi_attribute	30, 4	@ Tag_ABI_optimization_goals
+	.ARM_attribute	16, 1	@ Tag_AV_eba
+	.section	.debug_line,"",%progbits
+.Lline_table_start0:

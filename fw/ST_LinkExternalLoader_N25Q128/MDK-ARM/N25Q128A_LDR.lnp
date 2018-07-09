@@ -1,0 +1,18 @@
+--cpu Cortex-M7.fp.sp
+".\dev_inf.o"
+".\loader_src.o"
+".\stm32f7xx_hal_msp.o"
+".\stm32f7xx_hal.o"
+".\stm32f7xx_hal_cortex.o"
+".\stm32f7xx_hal_gpio.o"
+".\stm32f7xx_hal_pwr.o"
+".\stm32f7xx_hal_pwr_ex.o"
+".\stm32f7xx_hal_qspi.o"
+".\stm32f7xx_hal_rcc.o"
+".\stm32f7xx_hal_rcc_ex.o"
+".\stm32f7xx_hal_dma.o"
+".\system_stm32f7xx.o"
+--library_type=microlib --strict --scatter ".\Target.sct"
+--diag_suppress=L6244 --summary_stderr --info summarysizes --map --load_addr_map_info --symbols
+--info sizes --info totals --info unused --info veneers
+--list "C:\Users\eldar\OneDrive\Documents\N25Q128A_LDR.map" -o .\N25Q128A_LDR.axf
