@@ -624,26 +624,6 @@
           <GroupName>DisplayResource</GroupName>
           <Files>
             <File>
-              <FileName>Font23S_AA4.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Src\Display\Font23S_AA4.c</FilePath>
-            </File>
-            <File>
-              <FileName>Font23SL_AA4.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Src\Display\Font23SL_AA4.c</FilePath>
-            </File>
-            <File>
-              <FileName>Font32S_AA4.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Src\Display\Font32S_AA4.c</FilePath>
-            </File>
-            <File>
-              <FileName>Font32SL_AA4.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Src\Display\Font32SL_AA4.c</FilePath>
-            </File>
-            <File>
               <FileName>number_0.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\Src\Display\number_0.c</FilePath>
@@ -699,21 +679,6 @@
               <FilePath>..\Src\Display\background_0.c</FilePath>
             </File>
             <File>
-              <FileName>maid_call_assert.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Src\Display\maid_call_assert.c</FilePath>
-            </File>
-            <File>
-              <FileName>reset_sos_assert.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Src\Display\reset_sos_assert.c</FilePath>
-            </File>
-            <File>
-              <FileName>do_not_disturb_assert.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Src\Display\do_not_disturb_assert.c</FilePath>
-            </File>
-            <File>
               <FileName>message_1.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\Src\Display\message_1.c</FilePath>
@@ -722,6 +687,56 @@
               <FileName>message_2.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\Src\Display\message_2.c</FilePath>
+            </File>
+            <File>
+              <FileName>btn_decrease.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Src\Display\btn_decrease.c</FilePath>
+            </File>
+            <File>
+              <FileName>btn_dnd_0.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Src\Display\btn_dnd_0.c</FilePath>
+            </File>
+            <File>
+              <FileName>btn_dnd_1.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Src\Display\btn_dnd_1.c</FilePath>
+            </File>
+            <File>
+              <FileName>btn_increase.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Src\Display\btn_increase.c</FilePath>
+            </File>
+            <File>
+              <FileName>btn_maid_0.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Src\Display\btn_maid_0.c</FilePath>
+            </File>
+            <File>
+              <FileName>btn_maid_1.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Src\Display\btn_maid_1.c</FilePath>
+            </File>
+            <File>
+              <FileName>btn_ok.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Src\Display\btn_ok.c</FilePath>
+            </File>
+            <File>
+              <FileName>btn_open_door.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Src\Display\btn_open_door.c</FilePath>
+            </File>
+            <File>
+              <FileName>btn_rst_sos_0.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Src\Display\btn_rst_sos_0.c</FilePath>
+            </File>
+            <File>
+              <FileName>btn_rst_sos_1.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Src\Display\btn_rst_sos_1.c</FilePath>
             </File>
           </Files>
         </Group>

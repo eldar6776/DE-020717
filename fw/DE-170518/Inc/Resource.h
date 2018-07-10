@@ -31,19 +31,20 @@ Content     : Main resource header file of weather forecast demo
 //
 // 	Font
 //
-extern GUI_CONST_STORAGE GUI_FONT GUI_Font23S_AA4;
-extern GUI_CONST_STORAGE GUI_FONT GUI_Font23SL_AA4;
-extern GUI_CONST_STORAGE GUI_FONT GUI_Font32S_AA4;
-extern GUI_CONST_STORAGE GUI_FONT GUI_Font32SL_AA4;
+
 //
 // 	Image
 //
-extern GUI_CONST_STORAGE GUI_BITMAP bm_maid_1;
-extern GUI_CONST_STORAGE GUI_BITMAP bm_maid_0;
-extern GUI_CONST_STORAGE GUI_BITMAP bm_dnd_1;
-extern GUI_CONST_STORAGE GUI_BITMAP bm_dnd_0;
-extern GUI_CONST_STORAGE GUI_BITMAP bm_rst_sos_1;
-extern GUI_CONST_STORAGE GUI_BITMAP bm_rst_sos_0;
+extern GUI_CONST_STORAGE GUI_BITMAP bmbtn_ok;
+extern GUI_CONST_STORAGE GUI_BITMAP bmbtn_open_door;
+extern GUI_CONST_STORAGE GUI_BITMAP bmbtn_increase;
+extern GUI_CONST_STORAGE GUI_BITMAP bmbtn_decrease;
+extern GUI_CONST_STORAGE GUI_BITMAP bmbtn_dnd_0;
+extern GUI_CONST_STORAGE GUI_BITMAP bmbtn_dnd_1;
+extern GUI_CONST_STORAGE GUI_BITMAP bmbtn_maid_0;
+extern GUI_CONST_STORAGE GUI_BITMAP bmbtn_maid_1;
+extern GUI_CONST_STORAGE GUI_BITMAP bmbtn_rst_sos_0;
+extern GUI_CONST_STORAGE GUI_BITMAP bmbtn_rst_sos_1;
 extern GUI_CONST_STORAGE GUI_BITMAP bmbackground_0;
 extern GUI_CONST_STORAGE GUI_BITMAP bmmessage_1;
 extern GUI_CONST_STORAGE GUI_BITMAP bmmessage_2;

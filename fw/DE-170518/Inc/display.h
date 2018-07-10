@@ -24,8 +24,7 @@ typedef enum	// display screen activ status
 {
 	DISPLAY_INIT,
 	DISPLAY_THERMOSTAT,
-	DISPLAY_FORECAST,
-	DISPLAY_ALARM_CLOCK
+	DISPLAY_MESSAGE
 	
 }eActivDisplayTypeDef;
 
@@ -49,6 +48,8 @@ typedef enum	// display button states
 #define GUI_ID_BUTTON_Maid   			0x803
 #define GUI_ID_BUTTON_Increase          0x804
 #define GUI_ID_BUTTON_Decrease          0x805
+#define GUI_ID_BUTTON_Ok   			    0x806
+#define GUI_ID_BUTTON_DoorOpen          0x807
 
 #define DARK_BLUE   					GUI_MAKE_COLOR(0x613600)
 #define LIGHT_BLUE  					GUI_MAKE_COLOR(0xaa7d67)
@@ -93,7 +94,7 @@ extern uint8_t display_buffer[DISPLAY_BUFFER_SIZE];
 #define IsBUTTON_DndActiv()					((display_flags & (1 << 4)) != 0)
 #define BUTTON_SosActivSet()				(display_flags |= (1 << 5)) 
 #define BUTTON_SosActivReset()				(display_flags &= (~ (1 << 5)))
-#define IsBUTTON_SosActiv()					((display_flags & (1 << 5)) != 0)
+#define IsBUTTON_SosResetActiv()					((display_flags & (1 << 5)) != 0)
 #define BUTTON_CallMaidActivSet()			(display_flags |= (1 << 6)) 
 #define BUTTON_CallMaidActivReset()			(display_flags &= (~ (1 << 6)))
 #define IsBUTTON_CallMaidActiv()			((display_flags & (1 << 6)) != 0)

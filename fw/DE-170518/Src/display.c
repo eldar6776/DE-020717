@@ -30,8 +30,10 @@
 /* Imported Function  --------------------------------------------------------*/
 /* Private Type --------------------------------------------------------------*/
 BUTTON_Handle hBUTTON_Dnd;
-BUTTON_Handle hBUTTON_Sos;
+BUTTON_Handle hBUTTON_SosReset;
 BUTTON_Handle hBUTTON_Maid;
+BUTTON_Handle hBUTTON_Ok;
+BUTTON_Handle hBUTTON_DoorOpen;
 BUTTON_Handle hBUTTON_Increase;
 BUTTON_Handle hBUTTON_Decrease;
 eActivDisplayTypeDef ActivDisplay;
@@ -86,6 +88,7 @@ static void DISPLAY_TemperatureSetPoint(void);
 /* Program Code  -------------------------------------------------------------*/
 void DISPLAY_Init(void)
 {
+  
 	GUI_Initialized = 0;
 	GUI_Init();
 	GUI_PID_SetHook(PID_Hook);
@@ -95,17 +98,21 @@ void DISPLAY_Init(void)
 	GUI_SelectLayer(0);
 	GUI_Clear();
 	GUI_DrawBitmap(&bmbackground_0, 0, 0);
-	hBUTTON_Dnd         = BUTTON_Create( 350,   5, 125, 55, GUI_ID_BUTTON_Dnd,      WM_CF_SHOW);
-	hBUTTON_Maid        = BUTTON_Create( 350,  75, 125, 55, GUI_ID_BUTTON_Maid,     WM_CF_SHOW);
-	hBUTTON_Sos         = BUTTON_Create( 350, 145, 125, 55, GUI_ID_BUTTON_Sos,      WM_CF_SHOW);
-    hBUTTON_Decrease    = BUTTON_Create(   5, 140,  70, 60, GUI_ID_BUTTON_Decrease, WM_CF_SHOW);
-    hBUTTON_Increase    = BUTTON_Create( 260, 140,  70, 60, GUI_ID_BUTTON_Increase, WM_CF_SHOW);
-    BUTTON_SetBitmap(hBUTTON_Dnd, BUTTON_BI_PRESSED, &bm_dnd_1);
-    BUTTON_SetBitmap(hBUTTON_Dnd, BUTTON_BI_UNPRESSED, &bm_dnd_0);
-    BUTTON_SetBitmap(hBUTTON_Maid, BUTTON_BI_PRESSED, &bm_maid_1);
-    BUTTON_SetBitmap(hBUTTON_Maid, BUTTON_BI_UNPRESSED, &bm_maid_0);
-    BUTTON_SetBitmap(hBUTTON_Sos, BUTTON_BI_PRESSED, &bm_rst_sos_1);
-    BUTTON_SetBitmap(hBUTTON_Sos, BUTTON_BI_UNPRESSED, &bm_rst_sos_0);
+	hBUTTON_Dnd         = BUTTON_Create( 355,   5, 120,  50, GUI_ID_BUTTON_Dnd,      WM_CF_SHOW);
+	hBUTTON_Maid        = BUTTON_Create( 355,  75, 120,  50, GUI_ID_BUTTON_Maid,     WM_CF_SHOW);
+	hBUTTON_SosReset         = BUTTON_Create( 355, 145, 120,  50, GUI_ID_BUTTON_Sos,      WM_CF_SHOW);
+    hBUTTON_Decrease    = BUTTON_Create(   3,  87, 103, 160, GUI_ID_BUTTON_Decrease, WM_CF_SHOW);
+    hBUTTON_Increase    = BUTTON_Create( 220,  90, 114, 156, GUI_ID_BUTTON_Increase, WM_CF_SHOW);
+    BUTTON_SetBitmap(hBUTTON_Dnd, BUTTON_BI_PRESSED, &bmbtn_dnd_1);
+    BUTTON_SetBitmap(hBUTTON_Dnd, BUTTON_BI_UNPRESSED, &bmbtn_dnd_0);
+    BUTTON_SetBitmap(hBUTTON_Maid, BUTTON_BI_PRESSED, &bmbtn_maid_1);
+    BUTTON_SetBitmap(hBUTTON_Maid, BUTTON_BI_UNPRESSED, &bmbtn_maid_0);
+    BUTTON_SetBitmap(hBUTTON_SosReset, BUTTON_BI_PRESSED, &bmbtn_rst_sos_0);
+    BUTTON_SetBitmap(hBUTTON_SosReset, BUTTON_BI_UNPRESSED, &bmbtn_rst_sos_0);
+    BUTTON_SetBitmap(hBUTTON_Decrease, BUTTON_BI_PRESSED, &bmbtn_decrease);
+    BUTTON_SetBitmap(hBUTTON_Decrease, BUTTON_BI_UNPRESSED, &bmbtn_decrease);
+    BUTTON_SetBitmap(hBUTTON_Increase, BUTTON_BI_PRESSED, &bmbtn_increase);
+    BUTTON_SetBitmap(hBUTTON_Increase, BUTTON_BI_UNPRESSED, &bmbtn_increase);
 	GUI_Exec();
 	GUI_SelectLayer(1);
 	GUI_SetBkColor(GUI_TRANSPARENT); 
@@ -122,7 +129,7 @@ void DISPLAY_Service(void)
 {
 	uint8_t i;
 	static uint8_t fl = 0;
-	static uint8_t audio_cnt = 0;
+	static uint8_t au_cnt = 0;
 	/** ==========================================================================*/
 	/**    D R A W     D I S P L A Y	G U I	O N	   U P D A T E    E V E N T   */
 	/** ==========================================================================*/
@@ -141,7 +148,67 @@ void DISPLAY_Service(void)
 		DISPLAY_DateTimeStartTimer(DATE_TIME_REFRESH_TIME);
 		GUI_MULTIBUF_BeginEx(1);
 		DISPLAY_DateTime();
-		GUI_MULTIBUF_EndEx(1);
+        GUI_MULTIBUF_EndEx(1);
+        
+        if(++au_cnt == 2)
+        {
+            GUI_SelectLayer(1);
+			GUI_Clear();
+            GUI_SelectLayer(0);
+            WM_DeleteWindow(hBUTTON_Dnd);
+            WM_DeleteWindow(hBUTTON_Maid);
+            WM_DeleteWindow(hBUTTON_SosReset);
+            WM_DeleteWindow(hBUTTON_Decrease);
+            WM_DeleteWindow(hBUTTON_Increase);
+            GUI_SetBkColor(GUI_BLACK);
+			GUI_Clear();
+            GUI_DrawBitmap(&bmmessage_1, 0, 0);
+            hBUTTON_DoorOpen    = BUTTON_Create(  20, 210, 155,  50, GUI_ID_BUTTON_DoorOpen,    WM_CF_SHOW);
+            hBUTTON_Ok          = BUTTON_Create( 320, 200, 133,  55, GUI_ID_BUTTON_Ok,          WM_CF_SHOW);
+            BUTTON_SetBitmap(hBUTTON_DoorOpen, BUTTON_BI_PRESSED, &bmbtn_open_door);
+            BUTTON_SetBitmap(hBUTTON_DoorOpen, BUTTON_BI_UNPRESSED, &bmbtn_open_door);
+            BUTTON_SetBitmap(hBUTTON_Ok, BUTTON_BI_PRESSED, &bmbtn_ok);
+            BUTTON_SetBitmap(hBUTTON_Ok, BUTTON_BI_UNPRESSED, &bmbtn_ok);
+            GUI_Exec();
+            ActivDisplay = DISPLAY_MESSAGE;
+        }
+        else if(au_cnt == 3)
+        {
+            GUI_SelectLayer(0);
+            WM_DeleteWindow(hBUTTON_DoorOpen);
+            WM_DeleteWindow(hBUTTON_Ok);
+            GUI_SetBkColor(GUI_BLACK);
+			GUI_Clear();
+            DISPLAY_Init();
+        }
+        else if(au_cnt == 4)
+        {
+            GUI_SelectLayer(1);
+			GUI_Clear();
+            GUI_SelectLayer(0);
+            WM_DeleteWindow(hBUTTON_Dnd);
+            WM_DeleteWindow(hBUTTON_Maid);
+            WM_DeleteWindow(hBUTTON_SosReset);
+            WM_DeleteWindow(hBUTTON_Decrease);
+            WM_DeleteWindow(hBUTTON_Increase);
+            GUI_SetBkColor(GUI_BLACK);
+			GUI_Clear();
+            GUI_DrawBitmap(&bmmessage_2, 0, 0);
+            hBUTTON_Ok = BUTTON_Create( 320, 200, 133,  55, GUI_ID_BUTTON_Ok, WM_CF_SHOW);
+            BUTTON_SetBitmap(hBUTTON_Ok, BUTTON_BI_PRESSED, &bmbtn_ok);
+            BUTTON_SetBitmap(hBUTTON_Ok, BUTTON_BI_UNPRESSED, &bmbtn_ok);
+            GUI_Exec();
+            ActivDisplay = DISPLAY_MESSAGE;
+        }
+        else if(au_cnt == 5)
+        {
+            GUI_SelectLayer(0);
+            WM_DeleteWindow(hBUTTON_Ok);
+            GUI_SetBkColor(GUI_BLACK);
+			GUI_Clear();
+            DISPLAY_Init();
+            au_cnt = 0;
+        }
 	}
 	
 	if(IsDISPLAY_SetpointUpdated())			// setpoint temperature changed
@@ -174,32 +241,28 @@ void DISPLAY_Service(void)
 				btn_dnd_state = 1;
 				GUI_SelectLayer(1);
 				GUI_MULTIBUF_BeginEx(1);
-				
+                BUTTON_DndActivSet();
+				if(IsBUTTON_CallMaidActiv())  BUTTON_SetNewState(hBUTTON_Maid, RELEASED);
+                BUTTON_SetBitmap(hBUTTON_Dnd, BUTTON_BI_PRESSED, &bmbtn_dnd_0);
+                BUTTON_SetBitmap(hBUTTON_Dnd, BUTTON_BI_UNPRESSED, &bmbtn_dnd_1);
 				GUI_MULTIBUF_EndEx(1);
 				GUI_SelectLayer(0);
-				BUTTON_DndActivSet();
-				//if(IsBUTTON_CallMaidActiv()) BUTTON_SetPressed(hBUTTON_Maid, BUTTON_BI_PRESSED);
-                BUTTON_SetBitmap(hBUTTON_Dnd, BUTTON_BI_PRESSED, &bm_dnd_0);
-                BUTTON_SetBitmap(hBUTTON_Dnd, BUTTON_BI_UNPRESSED, &bm_dnd_1);
-                
 			}
 			else if(btn_dnd_state == 1) 
 			{
 				btn_dnd_state = 0;
 				GUI_SelectLayer(1);
 				GUI_MULTIBUF_BeginEx(1);
-				
+				BUTTON_DndActivReset();
+                BUTTON_SetBitmap(hBUTTON_Dnd, BUTTON_BI_PRESSED, &bmbtn_dnd_1);
+                BUTTON_SetBitmap(hBUTTON_Dnd, BUTTON_BI_UNPRESSED, &bmbtn_dnd_0);
 				GUI_MULTIBUF_EndEx(1);
 				GUI_SelectLayer(0);
-                BUTTON_DndActivReset();
-                BUTTON_SetBitmap(hBUTTON_Dnd, BUTTON_BI_PRESSED, &bm_dnd_1);
-                BUTTON_SetBitmap(hBUTTON_Dnd, BUTTON_BI_UNPRESSED, &bm_dnd_0);
 			}	
-			
 		}
 		else if(!BUTTON_IsPressed(hBUTTON_Dnd) && btn_dnd_old_state)  btn_dnd_old_state = 0;
         
-		if(BUTTON_IsPressed(hBUTTON_Sos) && !btn_sos_old_state && IsBUTTON_SosActiv())
+		if(BUTTON_IsPressed(hBUTTON_SosReset) && !btn_sos_old_state && IsBUTTON_SosResetActiv())
 		{
 			btn_sos_old_state = 1;	
 			
@@ -208,13 +271,14 @@ void DISPLAY_Service(void)
 				btn_sos_state = 0;
 				GUI_SelectLayer(1);
 				GUI_MULTIBUF_BeginEx(1);
-				
+                BUTTON_SetBitmap(hBUTTON_SosReset, BUTTON_BI_PRESSED, &bmbtn_rst_sos_0);
+                BUTTON_SetBitmap(hBUTTON_SosReset, BUTTON_BI_UNPRESSED, &bmbtn_rst_sos_0);
 				GUI_MULTIBUF_EndEx(1);
 				GUI_SelectLayer(0);
 				BUTTON_SosActivReset();
 			}	
 		}
-		else if(!BUTTON_IsPressed(hBUTTON_Sos) && btn_sos_old_state) btn_sos_old_state = 0;
+		else if(!BUTTON_IsPressed(hBUTTON_SosReset) && btn_sos_old_state) btn_sos_old_state = 0;
 		
 		if(BUTTON_IsPressed(hBUTTON_Maid) && !btn_maid_old_state)
 		{
@@ -225,25 +289,25 @@ void DISPLAY_Service(void)
 				btn_maid_state = 1;
 				GUI_SelectLayer(1);
 				GUI_MULTIBUF_BeginEx(1);
-				
+				BUTTON_CallMaidActivSet();
+				if(IsBUTTON_DndActiv()) BUTTON_SetNewState(hBUTTON_Dnd, RELEASED);
+                BUTTON_SetBitmap(hBUTTON_Maid, BUTTON_BI_PRESSED, &bmbtn_maid_0);
+                BUTTON_SetBitmap(hBUTTON_Maid, BUTTON_BI_UNPRESSED, &bmbtn_maid_1);
 				GUI_MULTIBUF_EndEx(1);
 				GUI_SelectLayer(0);
-                BUTTON_CallMaidActivSet();
-				//if(IsBUTTON_DndActiv()) BUTTON_SetPressed(hBUTTON_Dnd, BUTTON_BI_PRESSED);
-                BUTTON_SetBitmap(hBUTTON_Maid, BUTTON_BI_PRESSED, &bm_maid_0);
-                BUTTON_SetBitmap(hBUTTON_Maid, BUTTON_BI_UNPRESSED, &bm_maid_1);
+                
 			}
 			else if(btn_maid_state == 1) 
 			{
 				btn_maid_state = 0;
 				GUI_SelectLayer(1);
 				GUI_MULTIBUF_BeginEx(1);
-				
+				BUTTON_CallMaidActivReset();
+                BUTTON_SetBitmap(hBUTTON_Maid, BUTTON_BI_PRESSED, &bmbtn_maid_1);
+                BUTTON_SetBitmap(hBUTTON_Maid, BUTTON_BI_UNPRESSED, &bmbtn_maid_0);
 				GUI_MULTIBUF_EndEx(1);
 				GUI_SelectLayer(0);
-                BUTTON_CallMaidActivReset();
-                BUTTON_SetBitmap(hBUTTON_Maid, BUTTON_BI_PRESSED, &bm_maid_1);
-                BUTTON_SetBitmap(hBUTTON_Maid, BUTTON_BI_UNPRESSED, &bm_maid_0);
+               
 			}
 		}
 		else if(!BUTTON_IsPressed(hBUTTON_Maid) && btn_maid_old_state) btn_maid_old_state = 0;
@@ -299,11 +363,7 @@ static void DISPLAY_DateTime(void)
 	if(ActivDisplay == DISPLAY_THERMOSTAT)
 	{
 		GUI_ClearRect(240, 230, 480, 270);
-		GUI_SetFont(GUI_FONT_32_1);
-		GUI_SetColor(GUI_YELLOW);
-		GUI_SetTextMode(GUI_TM_TRANS);
-		GUI_SetTextAlign(GUI_TA_LEFT|GUI_TA_VCENTER);
-		
+        
 		buff_bcnt = 0;
 		display_buffer[buff_bcnt++] = (date.Date >> 4) + 48;
 		display_buffer[buff_bcnt++] = (date.Date & 0x0f) + 48;
@@ -324,10 +384,10 @@ static void DISPLAY_DateTime(void)
 		display_buffer[buff_bcnt++] =  (time.Minutes >> 4) + 48;
 		display_buffer[buff_bcnt++] =  (time.Minutes & 0x0f) + 48;	
 		GUI_SetFont(GUI_FONT_24_1);
-		GUI_SetColor(GUI_YELLOW);
+		GUI_SetColor(GUI_WHITE);
 		GUI_SetTextMode(GUI_TM_TRANS);
 		GUI_SetTextAlign(GUI_TA_RIGHT|GUI_TA_VCENTER);
-		GUI_GotoXY(470, 240);
+		GUI_GotoXY(470, 255);
 		GUI_DispString((const char *)display_buffer);
 	}
 
@@ -377,7 +437,8 @@ void BUTTON_SetNewState(uint16_t button_id, BUTTON_StateTypeDef new_state)
 				btn_dnd_state = 0;
 				GUI_SelectLayer(1);
 				GUI_MULTIBUF_BeginEx(1);
-				
+				BUTTON_SetBitmap(hBUTTON_Dnd, BUTTON_BI_PRESSED, &bmbtn_dnd_1);
+                BUTTON_SetBitmap(hBUTTON_Dnd, BUTTON_BI_UNPRESSED, &bmbtn_dnd_0);
 				GUI_MULTIBUF_EndEx(1);
 				GUI_SelectLayer(0);
 				BUTTON_DndActivReset();
@@ -387,7 +448,8 @@ void BUTTON_SetNewState(uint16_t button_id, BUTTON_StateTypeDef new_state)
 				btn_dnd_state = 1;
 				GUI_SelectLayer(1);
 				GUI_MULTIBUF_BeginEx(1);
-				
+				BUTTON_SetBitmap(hBUTTON_Dnd, BUTTON_BI_PRESSED, &bmbtn_dnd_0);
+                BUTTON_SetBitmap(hBUTTON_Dnd, BUTTON_BI_UNPRESSED, &bmbtn_dnd_1);
 				GUI_MULTIBUF_EndEx(1);
 				GUI_SelectLayer(0);
 				BUTTON_DndActivSet();
@@ -413,7 +475,7 @@ void BUTTON_SetNewState(uint16_t button_id, BUTTON_StateTypeDef new_state)
 				btn_sos_state = 1;
 				GUI_SelectLayer(1);
 				GUI_MULTIBUF_BeginEx(1);
-				
+				BUTTON_SetBitmap(hBUTTON_SosReset, BUTTON_BI_PRESSED, &bmbtn_rst_sos_1);
 				GUI_MULTIBUF_EndEx(1);
 				GUI_SelectLayer(0);
 				BUTTON_SosActivSet();
@@ -429,7 +491,8 @@ void BUTTON_SetNewState(uint16_t button_id, BUTTON_StateTypeDef new_state)
 				btn_maid_state = 0;
 				GUI_SelectLayer(1);
 				GUI_MULTIBUF_BeginEx(1);
-				
+				BUTTON_SetBitmap(hBUTTON_Maid, BUTTON_BI_PRESSED, &bmbtn_maid_1);
+                BUTTON_SetBitmap(hBUTTON_Maid, BUTTON_BI_UNPRESSED, &bmbtn_maid_0);
 				GUI_MULTIBUF_EndEx(1);
 				GUI_SelectLayer(0);
 				BUTTON_CallMaidActivReset();
@@ -439,7 +502,8 @@ void BUTTON_SetNewState(uint16_t button_id, BUTTON_StateTypeDef new_state)
 				btn_maid_state = 1;
 				GUI_SelectLayer(1);
 				GUI_MULTIBUF_BeginEx(1);
-				
+				BUTTON_SetBitmap(hBUTTON_Maid, BUTTON_BI_PRESSED, &bmbtn_maid_0);
+                BUTTON_SetBitmap(hBUTTON_Maid, BUTTON_BI_UNPRESSED, &bmbtn_maid_1);
 				GUI_MULTIBUF_EndEx(1);
 				GUI_SelectLayer(0);
 				BUTTON_CallMaidActivSet();
