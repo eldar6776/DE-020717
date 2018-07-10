@@ -644,31 +644,6 @@
               <FilePath>..\Src\Display\Font32SL_AA4.c</FilePath>
             </File>
             <File>
-              <FileName>bckgnd_thermostat.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Src\Display\bckgnd_thermostat.c</FilePath>
-            </File>
-            <File>
-              <FileName>knob_decorate_ring.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Src\Display\knob_decorate_ring.c</FilePath>
-            </File>
-            <File>
-              <FileName>door_bell_animation.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Src\Display\door_bell_animation.c</FilePath>
-            </File>
-            <File>
-              <FileName>do_not_disturb_assert.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Src\Display\do_not_disturb_assert.c</FilePath>
-            </File>
-            <File>
-              <FileName>maid_call_assert.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Src\Display\maid_call_assert.c</FilePath>
-            </File>
-            <File>
               <FileName>number_0.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\Src\Display\number_0.c</FilePath>
@@ -719,9 +694,34 @@
               <FilePath>..\Src\Display\number_9.c</FilePath>
             </File>
             <File>
+              <FileName>background_0.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Src\Display\background_0.c</FilePath>
+            </File>
+            <File>
+              <FileName>maid_call_assert.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Src\Display\maid_call_assert.c</FilePath>
+            </File>
+            <File>
               <FileName>reset_sos_assert.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\Src\Display\reset_sos_assert.c</FilePath>
+            </File>
+            <File>
+              <FileName>do_not_disturb_assert.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Src\Display\do_not_disturb_assert.c</FilePath>
+            </File>
+            <File>
+              <FileName>message_1.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Src\Display\message_1.c</FilePath>
+            </File>
+            <File>
+              <FileName>message_2.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Src\Display\message_2.c</FilePath>
             </File>
           </Files>
         </Group>

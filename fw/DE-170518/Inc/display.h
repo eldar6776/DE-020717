@@ -91,11 +91,9 @@ extern FORECAST_DayTypeDef FORECAST_Sunday;
 /* Exported variables  -------------------------------------------------------*/
 extern uint32_t display_flags;
 extern __IO uint32_t display_timer;
-extern __IO uint32_t display_knob_timer;
 extern __IO uint32_t display_date_time_timer;
-extern __IO uint32_t display_doorbell_animation_timer;
+extern __IO uint32_t display_doorbell_timer;
 extern uint8_t display_buffer[DISPLAY_BUFFER_SIZE];
-extern uint8_t current_outdoor_temperature;
 
 
 /* Exported macros     -------------------------------------------------------*/
@@ -105,9 +103,9 @@ extern uint8_t current_outdoor_temperature;
 #define DISPLAY_DateTimeStartTimer(TIME)	(display_date_time_timer = TIME)
 #define DISPLAY_DateTimeStopTimer()			(display_date_time_timer = 0)
 #define IsDISPLAY_DateTimeTimerExpired()	(display_date_time_timer == 0)
-#define DISPLAY_StartDoorBellTimer(TIME)	(display_doorbell_animation_timer = TIME)
-#define DISPLAY_StopDoorBellTimer()			(display_doorbell_animation_timer = 0)
-#define IsDISPLAY_DoorBellTimerExpired()	(display_doorbell_animation_timer == 0)
+#define DISPLAY_StartDoorBellTimer(TIME)	(display_doorbell_timer = TIME)
+#define DISPLAY_StopDoorBellTimer()			(display_doorbell_timer = 0)
+#define IsDISPLAY_DoorBellTimerExpired()	(display_doorbell_timer == 0)
 
 
 #define DOORBELL_On()						(display_flags |= (1 << 0))
@@ -119,9 +117,9 @@ extern uint8_t current_outdoor_temperature;
 #define DISPLAY_TemperatureUpdateSet()		(display_flags |= (1 << 2))
 #define DISPLAY_TemperatureUpdateReset()	(display_flags &= (~ (1 << 2)))
 #define IsDISPLAY_TemperatureUpdated()		((display_flags & (1 << 2)) != 0)
-#define DISPLAY_DoorBellAnimationSet()		(display_flags |= (1 << 3))
-#define DISPLAY_DoorBellAnimationReset()	(display_flags &= (~ (1 << 3)))
-#define IsDISPLAY_DoorBellAnimationActiv()	((display_flags & (1 << 3)) != 0)
+#define DISPLAY_DoorBellSet()		        (display_flags |= (1 << 3))
+#define DISPLAY_DoorBellReset()	            (display_flags &= (~ (1 << 3)))
+#define IsDISPLAY_DoorBellActiv()	        ((display_flags & (1 << 3)) != 0)
 #define BUTTON_DndActivSet()				(display_flags |= (1 << 4)) 
 #define BUTTON_DndActivReset()				(display_flags &= (~ (1 << 4)))
 #define IsBUTTON_DndActiv()					((display_flags & (1 << 4)) != 0)

@@ -312,7 +312,7 @@ void HAL_SYSTICK_Callback(void)
 	if(thermostat_valve_timer) --thermostat_valve_timer;
 	if(display_timer) --display_timer;
 	if(display_date_time_timer) --display_date_time_timer;
-	if(display_doorbell_animation_timer) --display_doorbell_animation_timer;
+	if(display_doorbell_timer) --display_doorbell_timer;
 	
 	if(++i > 1000)
 	{

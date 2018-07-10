@@ -286,7 +286,7 @@ void ONEWIRE_Service(void)
 				else HANDMAID_TasterOn();
 			}
 			
-			current_outdoor_temperature = onewire_buffer[59];			
+			// onewire_buffer[59];	current_outdoor_temperature		
 			OnewireState = ONEWIRE_PACKET_SEND;
 		}
 		else if(OnewireState == ONEWIRE_PACKET_SEND)
@@ -372,7 +372,7 @@ void ONEWIRE_Service(void)
 			/** ==========================================================================*/
 			/**		S E T		P A C K E T		C R C		A N D		S E N D			  */
 			/** ==========================================================================*/
-			onewire_buffer[59] = current_outdoor_temperature;	//	weathercast info
+			//onewire_buffer[59] = current_outdoor_temperature;	//	weathercast info
 			onewire_buffer[60] = 0x00;	//	RES
 			onewire_buffer[61] = 0x00;	//	RES
 			onewire_buffer[62] = 0x00;	//	RES
