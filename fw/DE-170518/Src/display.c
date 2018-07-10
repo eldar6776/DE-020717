@@ -32,9 +32,8 @@
 BUTTON_Handle hBUTTON_Dnd;
 BUTTON_Handle hBUTTON_Sos;
 BUTTON_Handle hBUTTON_Maid;
-KNOB_Handle hKNOB_Temperature;
-GUI_HSPRITE SPRITE_DoorBell;
-
+BUTTON_Handle hBUTTON_Increase;
+BUTTON_Handle hBUTTON_Decrease;
 eActivDisplayTypeDef ActivDisplay;
 
 
@@ -55,21 +54,9 @@ __IO uint32_t display_doorbell_timer;
 uint32_t display_flags;
 
 uint8_t display_buffer[DISPLAY_BUFFER_SIZE];
-uint8_t btn_alarm_clock_state, btn_alarm_clock_old_state;
-uint8_t btn_alarm_on_off_state, btn_alarm_on_off_old_state;
-uint8_t btn_alarm_set_time_state, btn_alarm_set_time_old_state;
-uint8_t btn_home_state, btn_home_old_state;
-uint8_t btn_weather_state, btn_weather_old_state;
 uint8_t btn_dnd_state, btn_dnd_old_state;
 uint8_t btn_sos_state, btn_sos_old_state;
 uint8_t btn_maid_state, btn_maid_old_state;
-uint8_t btn_fan_mode_state, btn_fan_mode_old_state;
-uint8_t btn_ctrl_mode_state, btn_ctrl_mode_old_state;
-uint8_t alarm_hour, alarm_minute;
-
-GUI_RECT Rect1 = {5,  65, 215, 115};
-GUI_RECT Rect2 = {5, 110, 215, 160};
-GUI_RECT Rect3 = {5, 155, 215, 205};
 
 
 
@@ -96,7 +83,6 @@ static char * _apDays[] = {
 /* Private Function Prototype ------------------------------------------------*/
 static void PID_Hook(GUI_PID_STATE * pState);
 static void DISPLAY_DateTime(void);
-static void DISPLAY_RoomTemperature(void);
 
 
 /* Program Code  -------------------------------------------------------------*/
@@ -111,9 +97,11 @@ void DISPLAY_Init(void)
 	GUI_SelectLayer(0);
 	GUI_Clear();
 	GUI_DrawBitmap(&bmbackground_0, 0, 0);
-	hBUTTON_Dnd  = BUTTON_Create(	5,  65, 210,  45, GUI_ID_BUTTON_Dnd,    WM_CF_SHOW);
-	hBUTTON_Sos  = BUTTON_Create(	5, 110, 210,  45, GUI_ID_BUTTON_Sos,    WM_CF_SHOW);
-	hBUTTON_Maid = BUTTON_Create(	5, 155, 210,  45, GUI_ID_BUTTON_Maid,   WM_CF_SHOW);
+	hBUTTON_Dnd         = BUTTON_Create( 350,   5, 125, 55, GUI_ID_BUTTON_Dnd,      WM_CF_SHOW);
+	hBUTTON_Sos         = BUTTON_Create( 350,  75, 125, 55, GUI_ID_BUTTON_Sos,      WM_CF_SHOW);
+	hBUTTON_Maid        = BUTTON_Create( 350, 145, 125, 55, GUI_ID_BUTTON_Maid,     WM_CF_SHOW);
+    hBUTTON_Increase    = BUTTON_Create(   5, 145,  70, 55, GUI_ID_BUTTON_Increase, WM_CF_SHOW);
+    hBUTTON_Decrease    = BUTTON_Create( 260, 145,  70, 55, GUI_ID_BUTTON_Decrease, WM_CF_SHOW);
 	GUI_Exec();
 	GUI_SelectLayer(1);
 	GUI_SetBkColor(GUI_TRANSPARENT); 
@@ -148,14 +136,6 @@ void DISPLAY_Service(void)
 		DISPLAY_DateTimeStartTimer(DATE_TIME_REFRESH_TIME);
 		GUI_MULTIBUF_BeginEx(1);
 		DISPLAY_DateTime();
-		GUI_MULTIBUF_EndEx(1);
-	}
-	
-	if(IsDISPLAY_TemperatureUpdated())		// room temperature changed
-	{
-		DISPLAY_TemperatureUpdateReset();
-		GUI_MULTIBUF_BeginEx(1);
-		DISPLAY_RoomTemperature();
 		GUI_MULTIBUF_EndEx(1);
 	}
 	
@@ -263,30 +243,6 @@ static void PID_Hook(GUI_PID_STATE * pState)
 }
 
 
-static void DISPLAY_RoomTemperature(void)
-{	
-	if(ActivDisplay == DISPLAY_THERMOSTAT)
-	{
-		GUI_SelectLayer(1);
-		GUI_SetBkColor(GUI_TRANSPARENT); 
-		GUI_ClearRect(320,5,480,40);
-		GUI_GotoXY(370, 20);
-		GUI_SetFont(GUI_FONT_20_1);
-		GUI_SetColor(GUI_YELLOW);
-		GUI_SetTextMode(GUI_TM_TRANS);
-		GUI_SetTextAlign(GUI_TA_RIGHT|GUI_TA_VCENTER);
-		GUI_DispString("INDOOR:");	
-		GUI_GotoXY(400, 20);
-		GUI_SetFont(GUI_FONT_32_1);
-		GUI_SetColor(GUI_YELLOW);
-		GUI_SetTextMode(GUI_TM_TRANS);
-		GUI_SetTextAlign(GUI_TA_LEFT|GUI_TA_VCENTER);
-		if(Thermostat_1.actual_temperature & 0x8000) GUI_DispString("-");
-		GUI_DispDecSpace(((Thermostat_1.actual_temperature & 0x0fff) / 10), 2);
-		GUI_DispString("°C");
-		GUI_SelectLayer(0);
-	}
-}
 
 static void DISPLAY_DateTime(void)
 {
@@ -299,49 +255,12 @@ static void DISPLAY_DateTime(void)
 	
 	if(ActivDisplay == DISPLAY_THERMOSTAT)
 	{
-		GUI_ClearRect(65, 5, 245, 60);
-		GUI_ClearRect(5, 230, 245, 270);
+		GUI_ClearRect(240, 230, 480, 270);
 		GUI_SetFont(GUI_FONT_32_1);
 		GUI_SetColor(GUI_YELLOW);
 		GUI_SetTextMode(GUI_TM_TRANS);
 		GUI_SetTextAlign(GUI_TA_LEFT|GUI_TA_VCENTER);
 		
-		switch (date.WeekDay)
-		{
-			case 1:
-				GUI_DispStringAt("MON", 5, 240);
-				break;
-			
-			case 2:
-				GUI_DispStringAt("TUE", 5, 240);
-				break;
-			
-			case 3:
-				GUI_DispStringAt("WED", 5, 240);
-				break;
-			
-			case 4:
-				GUI_DispStringAt("THU", 5, 240);
-				break;
-			
-			case 5:
-				GUI_DispStringAt("FRI", 5, 240);
-				break;
-			
-			case 6:
-				GUI_DispStringAt("SAT", 5, 240);
-				break;
-			
-			case 7:
-				GUI_DispStringAt("SUN", 5, 240);
-				break;
-			
-			default:
-				date.WeekDay = 7;
-				GUI_DispStringAt("SUN", 5, 240);
-				break;				
-		}
-
 		buff_bcnt = 0;
 		display_buffer[buff_bcnt++] = (date.Date >> 4) + 48;
 		display_buffer[buff_bcnt++] = (date.Date & 0x0f) + 48;
@@ -353,24 +272,19 @@ static void DISPLAY_DateTime(void)
 		display_buffer[buff_bcnt++] = '0';
 		display_buffer[buff_bcnt++] = (date.Year >> 4) + 48;
 		display_buffer[buff_bcnt++] = (date.Year & 0x0f) + 48;
-		GUI_SetFont(GUI_FONT_32_1);
-		GUI_SetColor(GUI_YELLOW);
-		GUI_SetTextMode(GUI_TM_TRANS);
-		GUI_SetTextAlign(GUI_TA_RIGHT|GUI_TA_VCENTER);
-		GUI_GotoXY(220, 240);
-		GUI_DispString((const char *)display_buffer);			
-		ClearBuffer(display_buffer, sizeof(display_buffer));	
-		buff_bcnt = 0;
-		display_buffer[buff_bcnt++] =  (time.Hours >> 4) + 48;
+        display_buffer[buff_bcnt++] = '.';
+        display_buffer[buff_bcnt++] = ' ';
+        display_buffer[buff_bcnt++] = ' ';
+        display_buffer[buff_bcnt++] =  (time.Hours >> 4) + 48;
 		display_buffer[buff_bcnt++] =  (time.Hours & 0x0f) + 48;
 		display_buffer[buff_bcnt++] = ':';
 		display_buffer[buff_bcnt++] =  (time.Minutes >> 4) + 48;
 		display_buffer[buff_bcnt++] =  (time.Minutes & 0x0f) + 48;	
-		GUI_SetFont(GUI_FONT_32_1);
+		GUI_SetFont(GUI_FONT_24_1);
 		GUI_SetColor(GUI_YELLOW);
 		GUI_SetTextMode(GUI_TM_TRANS);
-		GUI_SetTextAlign(GUI_TA_RIGHT);
-		GUI_GotoXY(220, 20);
+		GUI_SetTextAlign(GUI_TA_RIGHT|GUI_TA_VCENTER);
+		GUI_GotoXY(470, 240);
 		GUI_DispString((const char *)display_buffer);
 	}
 

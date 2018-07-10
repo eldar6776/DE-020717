@@ -2199,7 +2199,7 @@ I (..\Drivers\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_uart_ex.h)(0x59F95077)
 I (..\Drivers\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_usart.h)(0x59F95077)
 I (..\Drivers\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_usart_ex.h)(0x59F95078)
 I (..\Inc\thermostat.h)(0x5AB82328)
-I (..\Inc\display.h)(0x5B43F893)
+I (..\Inc\display.h)(0x5B43FD8B)
 I (..\Inc\one_wire.h)(0x5ADAD20A)
 I (..\Inc\common.h)(0x5ABD511F)
 F (..\Src\common.c)(0x5ABD511F)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m7 -mfpu=fpv5-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -O1 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ../Inc -I ../Drivers/STM32F7xx_HAL_Driver/Inc -I ../Drivers/BSP/STM32F746 -I ../Drivers/CMSIS/Device/ST/STM32F7xx/Include -I ../Drivers/BSP/Components -I ../Middlewares/ST/STemWin/inc-I./RTE/_DE-170518-IC:/Keil/ARM/PACK/ARM/CMSIS/5.3.0/CMSIS/Include-IC:/Keil/ARM/PACK/Keil/STM32F7xx_DFP/2.10.0/Drivers/CMSIS/Device/ST/STM32F7xx/Include-D__UVISION_VERSION="526" -D_RTE_ -DSTM32F746xx -DUSE_HAL_DRIVER -DSTM32F746xx-o ./de-170518/exe/common_1.o -MD)
@@ -2305,8 +2305,8 @@ I (..\Drivers\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_usart_ex.h)(0x59F95078)
 I (..\Inc\main.h)(0x5B00AE23)
 I (..\Inc\thermostat.h)(0x5AB82328)
 I (..\Inc\common.h)(0x5ABD511F)
-I (..\Inc\display.h)(0x5B43F893)
-F (..\Src\display.c)(0x5B43F902)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m7 -mfpu=fpv5-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -O1 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ../Inc -I ../Drivers/STM32F7xx_HAL_Driver/Inc -I ../Drivers/BSP/STM32F746 -I ../Drivers/CMSIS/Device/ST/STM32F7xx/Include -I ../Drivers/BSP/Components -I ../Middlewares/ST/STemWin/inc-I./RTE/_DE-170518-IC:/Keil/ARM/PACK/ARM/CMSIS/5.3.0/CMSIS/Include-IC:/Keil/ARM/PACK/Keil/STM32F7xx_DFP/2.10.0/Drivers/CMSIS/Device/ST/STM32F7xx/Include-D__UVISION_VERSION="526" -D_RTE_ -DSTM32F746xx -DUSE_HAL_DRIVER -DSTM32F746xx-o ./de-170518/exe/display.o -MD)
+I (..\Inc\display.h)(0x5B43FD8B)
+F (..\Src\display.c)(0x5B4400EF)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m7 -mfpu=fpv5-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -O1 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ../Inc -I ../Drivers/STM32F7xx_HAL_Driver/Inc -I ../Drivers/BSP/STM32F746 -I ../Drivers/CMSIS/Device/ST/STM32F7xx/Include -I ../Drivers/BSP/Components -I ../Middlewares/ST/STemWin/inc-I./RTE/_DE-170518-IC:/Keil/ARM/PACK/ARM/CMSIS/5.3.0/CMSIS/Include-IC:/Keil/ARM/PACK/Keil/STM32F7xx_DFP/2.10.0/Drivers/CMSIS/Device/ST/STM32F7xx/Include-D__UVISION_VERSION="526" -D_RTE_ -DSTM32F746xx -DUSE_HAL_DRIVER -DSTM32F746xx-o ./de-170518/exe/display.o -MD)
 I (C:\Keil\ARM\ARMCLANG\include\math.h)(0x5AB10CB4)
 I (C:\Keil\ARM\ARMCLANG\include\stdlib.h)(0x5AB10CB0)
 I (C:\Keil\ARM\ARMCLANG\include\string.h)(0x5AB10CB4)
@@ -2359,7 +2359,7 @@ I (..\Drivers\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_uart.h)(0x59F95077)
 I (..\Drivers\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_uart_ex.h)(0x59F95077)
 I (..\Drivers\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_usart.h)(0x59F95077)
 I (..\Drivers\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_usart_ex.h)(0x59F95078)
-I (..\Inc\display.h)(0x5B43F893)
+I (..\Inc\display.h)(0x5B43FD8B)
 I (..\Inc\Resource.h)(0x5B43F418)
 I (..\Middlewares\ST\STemWin\inc\GUI.h)(0x59F9507C)
 I (..\Middlewares\ST\STemWin\inc\GUI_ConfDefaults.h)(0x59F9507C)
@@ -2471,7 +2471,7 @@ I (..\Drivers\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_uart_ex.h)(0x59F95077)
 I (..\Drivers\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_usart.h)(0x59F95077)
 I (..\Drivers\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_usart_ex.h)(0x59F95078)
 I (..\Inc\common.h)(0x5ABD511F)
-I (..\Inc\display.h)(0x5B43F893)
+I (..\Inc\display.h)(0x5B43FD8B)
 I (..\Inc\one_wire.h)(0x5ADAD20A)
 I (..\Inc\thermostat.h)(0x5AB82328)
 I (..\Drivers\BSP\STM32F746\stm32746g.h)(0x5B0FD738)

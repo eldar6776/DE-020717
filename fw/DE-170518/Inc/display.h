@@ -66,22 +66,13 @@ extern FORECAST_DayTypeDef FORECAST_Sunday;
 #define GUI_REFRESH_TIME				33		// refresh gui 30 time in second
 #define DATE_TIME_REFRESH_TIME			60000	// refresh date & time info every 1 min
 #define DISPLAY_DOORBELL_TIME			4321	// 4s doorbell animation activ
-#define KNOB_X0 						250		// temperature set knob touch monitor area x start point
-#define KNOB_Y0 						40		// temperature set knob touch monitor area y start point
-#define GUI_ID_BUTTON_Home   			0x801	
-#define GUI_ID_BUTTON_AlarmClock		0x802
-#define GUI_ID_BUTTON_Dnd   			0x803
-#define GUI_ID_BUTTON_Sos   			0x804
-#define GUI_ID_BUTTON_Maid   			0x805
-#define GUI_ID_BUTTON_Weather   		0x806
-#define GUI_ID_BUTTON_FanSpeed  		0x807
-#define GUI_ID_BUTTON_CtrlMode   		0x808
-#define GUI_ID_BUTTON_AlarmOnOff		0x809
-#define GUI_ID_BUTTON_AlarmSetTime		0x80a
-#define GUI_ID_KNOB_Temperature			0x820
-#define GUI_ID_LISTWHEEL_TimeMinute		0x835
-#define GUI_ID_LISTWHEEL_TimeHour		0x836
-#define GUI_ID_LISTWHEEL_Window			0x837
+
+#define GUI_ID_BUTTON_Dnd   			0x801
+#define GUI_ID_BUTTON_Sos   			0x802
+#define GUI_ID_BUTTON_Maid   			0x803
+#define GUI_ID_BUTTON_Increase          0x804
+#define GUI_ID_BUTTON_Decrease          0x805
+
 #define DARK_BLUE   					GUI_MAKE_COLOR(0x613600)
 #define LIGHT_BLUE  					GUI_MAKE_COLOR(0xaa7d67)
 #define BLUE        					GUI_MAKE_COLOR(0x855a41)
@@ -129,12 +120,7 @@ extern uint8_t display_buffer[DISPLAY_BUFFER_SIZE];
 #define BUTTON_CallMaidActivSet()			(display_flags |= (1 << 6)) 
 #define BUTTON_CallMaidActivReset()			(display_flags &= (~ (1 << 6)))
 #define IsBUTTON_CallMaidActiv()			((display_flags & (1 << 6)) != 0)
-#define ALARM_CLOCK_ActivSet()				(display_flags |= (1 << 7)) 
-#define ALARM_CLOCK_ActivReset()			(display_flags &= (~ (1 << 7)))
-#define IsALARM_CLOCK_Activ()				((display_flags & (1 << 7)) != 0)
-#define BUTTON_AlarmClockActivSet()			(display_flags |= (1 << 8)) 
-#define BUTTON_AlarmClockActivReset()		(display_flags &= (~ (1 << 8)))
-#define IsBUTTON_AlarmClockActiv()			((display_flags & (1 << 8)) != 0)
+
 #define DISPLAY_SetpointUpdateSet()			(display_flags |= (1 << 9)) 
 #define DISPLAY_SetpointUpdateReset()		(display_flags &= (~ (1 << 9)))
 #define IsDISPLAY_SetpointUpdated()			((display_flags & (1 << 9)) != 0)
