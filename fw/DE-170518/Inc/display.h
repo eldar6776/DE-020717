@@ -37,33 +37,10 @@ typedef enum	// display button states
 }BUTTON_StateTypeDef;
 
 
-typedef union	// weather forecast display info
-{
-	uint8_t forecast[5];
-	
-	struct{
-		uint8_t week_day;	// or current temperature 
-		uint8_t low_temp;
-		uint8_t high_temp;
-		uint8_t humidity;
-		uint8_t cloudness;
-	}para;
-	
-}FORECAST_DayTypeDef;
-
-extern eActivDisplayTypeDef ActivDisplay;
-extern FORECAST_DayTypeDef FORECAST_Monday;
-extern FORECAST_DayTypeDef FORECAST_Tuesday;
-extern FORECAST_DayTypeDef FORECAST_Wednesday;
-extern FORECAST_DayTypeDef FORECAST_Thurstday;
-extern FORECAST_DayTypeDef FORECAST_Freeday;
-extern FORECAST_DayTypeDef FORECAST_Saturday;
-extern FORECAST_DayTypeDef FORECAST_Sunday;
-
 
 /* Exported Define -----------------------------------------------------------*/
 #define DISPLAY_BUFFER_SIZE				32		// maximum display string size
-#define GUI_REFRESH_TIME				33		// refresh gui 30 time in second
+#define GUI_REFRESH_TIME				50		// refresh gui 30 time in second
 #define DATE_TIME_REFRESH_TIME			60000	// refresh date & time info every 1 min
 #define DISPLAY_DOORBELL_TIME			4321	// 4s doorbell animation activ
 

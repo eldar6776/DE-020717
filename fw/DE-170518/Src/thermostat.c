@@ -100,41 +100,9 @@ void THERMOSTAT_Init(void)
 
 void THERMOSTAT_Service(void)
 {
-	static uint8_t old_actual_temperature;
 	static uint8_t old_fan_speed = 0;
 	static uint8_t fan_pcnt = 0;
 	
-	/** ============================================================================*/
-	/**		U P D A T E 	D I S P L A Y    O N	V A L U E	C H A N G E		 	*/
-	/** ============================================================================*/
-	if(IsONEWIRE_SensorConnected())	// if ds18b20 digital temperature sensor used
-	{
-		if(Thermostat_1.actual_temperature != ds18b20_1.temperature)
-		{
-			Thermostat_1.actual_temperature = ds18b20_1.temperature;
-			THERMOSTAT_TemperatureUpdateSet();
-			
-			if(old_actual_temperature != (Thermostat_1.actual_temperature / 10))
-			{
-				old_actual_temperature = (Thermostat_1.actual_temperature / 10);
-				DISPLAY_TemperatureUpdateSet();
-			}
-		}
-	}
-	else							// if 10K NTC used for temperature sensor
-	{		
-		if(Thermostat_1.actual_temperature != ntc_temperature)
-		{
-			Thermostat_1.actual_temperature = ntc_temperature;
-			THERMOSTAT_TemperatureUpdateSet();
-			
-			if(old_actual_temperature != (Thermostat_1.actual_temperature / 10))
-			{
-				old_actual_temperature = (Thermostat_1.actual_temperature / 10);
-				DISPLAY_TemperatureUpdateSet();
-			}
-		}
-	}	
 	/** ============================================================================*/
 	/**		S W I T C H		F A N		S P E E D		W I T H		D E L A Y		*/
 	/** ============================================================================*/

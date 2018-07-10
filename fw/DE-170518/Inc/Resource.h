@@ -38,9 +38,12 @@ extern GUI_CONST_STORAGE GUI_FONT GUI_Font32SL_AA4;
 //
 // 	Image
 //
-extern GUI_CONST_STORAGE GUI_BITMAP bmdo_not_disturb_assert;
-extern GUI_CONST_STORAGE GUI_BITMAP bmmaid_call_assert;
-extern GUI_CONST_STORAGE GUI_BITMAP bmreset_sos_assert;
+extern GUI_CONST_STORAGE GUI_BITMAP bm_maid_1;
+extern GUI_CONST_STORAGE GUI_BITMAP bm_maid_0;
+extern GUI_CONST_STORAGE GUI_BITMAP bm_dnd_1;
+extern GUI_CONST_STORAGE GUI_BITMAP bm_dnd_0;
+extern GUI_CONST_STORAGE GUI_BITMAP bm_rst_sos_1;
+extern GUI_CONST_STORAGE GUI_BITMAP bm_rst_sos_0;
 extern GUI_CONST_STORAGE GUI_BITMAP bmbackground_0;
 extern GUI_CONST_STORAGE GUI_BITMAP bmmessage_1;
 extern GUI_CONST_STORAGE GUI_BITMAP bmmessage_2;

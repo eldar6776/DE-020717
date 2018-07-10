@@ -556,7 +556,7 @@ HAL_StatusTypeDef HAL_QSPI_DeInit(QSPI_HandleTypeDef *hqspi)
 void HAL_QSPI_MspInit(QSPI_HandleTypeDef *hqspi)
 {
     GPIO_InitTypeDef GPIO_InitStruct;
-    static DMA_HandleTypeDef hdma;
+//    static DMA_HandleTypeDef hdma;
 
     /*##-1- Enable peripherals and GPIO Clocks #################################*/
     /* Enable the QuadSPI memory interface clock */
@@ -572,7 +572,7 @@ void HAL_QSPI_MspInit(QSPI_HandleTypeDef *hqspi)
     QSPI_D2_GPIO_CLK_ENABLE();
     QSPI_D3_GPIO_CLK_ENABLE();
     /* Enable DMA clock */
-    QSPI_DMA_CLK_ENABLE();   
+//    QSPI_DMA_CLK_ENABLE();   
 
     /*##-2- Configure peripheral GPIO ##########################################*/
     /* QSPI CS GPIO pin configuration  */
@@ -616,25 +616,25 @@ void HAL_QSPI_MspInit(QSPI_HandleTypeDef *hqspi)
 
     /*##-4- Configure the DMA channel ###########################################*/
     /* QSPI DMA channel configuration */
-    hdma.Init.Channel             = QSPI_DMA_CHANNEL;                     
-    hdma.Init.PeriphInc           = DMA_PINC_DISABLE;
-    hdma.Init.MemInc              = DMA_MINC_ENABLE;
-    hdma.Init.PeriphDataAlignment = DMA_PDATAALIGN_BYTE;
-    hdma.Init.MemDataAlignment    = DMA_MDATAALIGN_BYTE;
-    hdma.Init.Mode                = DMA_NORMAL;
-    hdma.Init.Priority            = DMA_PRIORITY_LOW;
-    hdma.Init.FIFOMode            = DMA_FIFOMODE_DISABLE;        /* FIFO mode disabled     */
-    hdma.Init.FIFOThreshold       = DMA_FIFO_THRESHOLD_FULL;
-    hdma.Init.MemBurst            = DMA_MBURST_SINGLE;           /* Memory burst           */
-    hdma.Init.PeriphBurst         = DMA_PBURST_SINGLE;           /* Peripheral burst       */
-    hdma.Instance                 = QSPI_DMA_INSTANCE;
+//    hdma.Init.Channel             = QSPI_DMA_CHANNEL;                     
+//    hdma.Init.PeriphInc           = DMA_PINC_DISABLE;
+//    hdma.Init.MemInc              = DMA_MINC_ENABLE;
+//    hdma.Init.PeriphDataAlignment = DMA_PDATAALIGN_BYTE;
+//    hdma.Init.MemDataAlignment    = DMA_MDATAALIGN_BYTE;
+//    hdma.Init.Mode                = DMA_NORMAL;
+//    hdma.Init.Priority            = DMA_PRIORITY_LOW;
+//    hdma.Init.FIFOMode            = DMA_FIFOMODE_DISABLE;        /* FIFO mode disabled     */
+//    hdma.Init.FIFOThreshold       = DMA_FIFO_THRESHOLD_FULL;
+//    hdma.Init.MemBurst            = DMA_MBURST_SINGLE;           /* Memory burst           */
+//    hdma.Init.PeriphBurst         = DMA_PBURST_SINGLE;           /* Peripheral burst       */
+//    hdma.Instance                 = QSPI_DMA_INSTANCE;
 
-    __HAL_LINKDMA(&QSPIHandle, hdma, hdma);
-    HAL_DMA_Init(&hdma);
+//    __HAL_LINKDMA(&QSPIHandle, hdma, hdma);
+//    HAL_DMA_Init(&hdma);
 
     /* NVIC configuration for DMA interrupt */
-    HAL_NVIC_SetPriority(QSPI_DMA_IRQ, 0x00, 0);
-    HAL_NVIC_EnableIRQ(QSPI_DMA_IRQ);
+//    HAL_NVIC_SetPriority(QSPI_DMA_IRQ, 0x00, 0);
+//    HAL_NVIC_EnableIRQ(QSPI_DMA_IRQ);
 }
 
 
