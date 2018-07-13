@@ -86,6 +86,7 @@ void ONEWIRE_Init(void)
 	
 	if(ONEWIRE_Search(&ds18b20_1, &onewire_sensor_number)) 
 	{
+        THERMOSTAT_SensorErrorReset();
 		ONEWIRE_SensorConnected();
 		if(ONEWIRE_Search(&ds18b20_2, &onewire_sensor_number) == 0) return;
 		if(ONEWIRE_Search(&ds18b20_3, &onewire_sensor_number) == 0) return;
@@ -97,6 +98,7 @@ void ONEWIRE_Init(void)
 	}
 	else 
 	{ 
+        THERMOSTAT_SensorErrorSet();
 		ONEWIRE_SensorNotConnected();
 		ONEWIRE_SetUsart(ONEWIRE_9600);
 		HAL_HalfDuplex_EnableReceiver(&huart2);
@@ -233,16 +235,25 @@ void ONEWIRE_Service(void)
 			/** ==========================================================================*/
 			if(onewire_buffer[27] == ACK)
 			{
-                image_id = onewire_buffer[28];
-                bell_type = onewire_buffer[29];
-                bell_time = onewire_buffer[30];
-                message_time = onewire_buffer[31];
+                display_message_id = onewire_buffer[28];
+                buzzer_mode = onewire_buffer[29];
+                buzzer_repeat_time = onewire_buffer[30];
+                display_message_time = onewire_buffer[31];
                 DISPLAY_UpdateSet();
 			}
             /** ==========================================================================*/
 			/**		                 G E T		    C O M M A N  D		                  */
 			/** ==========================================================================*/
-            // onewire_buffer[32];  // OPEN DOOR COMMAND    (0 = NOTHING; 1 = OPEN)
+//            onewire_buffer[32] = NAK; 								//(ACK = SET; NAK = SKEEP)
+//            
+//            if(IsBUTTON_OpenDoorActiv())
+//            {
+//                BUTTON_OpenDoorReset();
+//                onewire_buffer[32] = ACK;
+//                onewire_buffer[33] = 1;
+//            }
+//            else onewire_buffer[32] = 0;
+            
 			OnewireState = ONEWIRE_PACKET_SEND;
 		}
 		else if(OnewireState == ONEWIRE_PACKET_SEND)
@@ -260,6 +271,7 @@ void ONEWIRE_Service(void)
 			onewire_buffer[3] = BUTTON_GetState(GUI_ID_BUTTON_Dnd);	// DND BUTTON STATE 	(0 = RELEASED; 1 = PRESSED)
 			onewire_buffer[4] = BUTTON_GetState(GUI_ID_BUTTON_Sos);	// SOS BUTTON STATE		(0 = RELEASED; 1 = PRESSED)
 			onewire_buffer[5] = BUTTON_GetState(GUI_ID_BUTTON_Maid);// HM CALL BUTTON STATE	(0 = RELEASED; 1 = PRESSED)
+            if ((onewire_buffer[3] + onewire_buffer[4]+ onewire_buffer[5]) != 0) onewire_buffer[2] = ACK;
 			/** ==========================================================================*/
 			/**			G E T		D A T E 	& 		T I M E				              */
 			/** ==========================================================================*/
@@ -291,32 +303,30 @@ void ONEWIRE_Service(void)
 			/**		G E T		A C T I V		D I S P L A Y    M E S S A G E		      */
 			/** ==========================================================================*/
 			onewire_buffer[27] = NAK; 								//(ACK = SET; NAK = SKEEP)
-            onewire_buffer[28] = image_id;
-            onewire_buffer[29] = bell_type;
-            onewire_buffer[30] = bell_time;
-            onewire_buffer[31] = message_time;
+            onewire_buffer[28] = display_message_id;
+            onewire_buffer[29] = buzzer_mode;
+            onewire_buffer[30] = buzzer_repeat_time;
+            onewire_buffer[31] = display_message_time;
             /** ==========================================================================*/
 			/**		                 G E T		    C O M M A N  D		                  */
 			/** ==========================================================================*/
+            onewire_buffer[32] = NAK; 								//(ACK = SET; NAK = SKEEP)
+            
             if(IsBUTTON_OpenDoorActiv())
             {
                 BUTTON_OpenDoorReset();
-                onewire_buffer[32] = 1;
+                onewire_buffer[32] = ACK;
+                onewire_buffer[33] = 1;
             }
             else onewire_buffer[32] = 0;
 			/** ==========================================================================*/
 			/**		G E T		P A C K E T		C R C		A N D		S E N D			  */
 			/** ==========================================================================*/
-			//onewire_buffer[59] = current_outdoor_temperature;	//	weathercast info
-			onewire_buffer[60] = 0x00;	//	RES
-			onewire_buffer[61] = 0x00;	//	RES
-			onewire_buffer[62] = 0x00;	//	RES
 			onewire_buffer[63] = CalcCRC(onewire_buffer, 63);
 			HAL_Delay(10);
-			HAL_HalfDuplex_EnableTransmitter(&huart2);
 			HAL_UART_Transmit(&huart2, onewire_buffer, ONEWIRE_PACKET_SIZE, ONEWIRE_TRANSFER_TIMEOUT);
 			while (huart2.gState != HAL_UART_STATE_READY) continue;
-			HAL_HalfDuplex_EnableReceiver(&huart2);
+            __HAL_UART_FLUSH_DRREGISTER(&huart2);
 			HAL_UART_Receive_IT(&huart2, onewire_buffer, ONEWIRE_PACKET_SIZE);
 			OnewireState = ONEWIRE_PACKET_PENDING;
 		}
@@ -347,8 +357,9 @@ void ONEWIRE_SetUsart(uint32_t setup)
 	huart2.Init.Mode       		= UART_MODE_TX_RX;
 	huart2.Init.OverSampling	= UART_OVERSAMPLING_16;
 	huart2.AdvancedInit.AdvFeatureInit = UART_ADVFEATURE_NO_INIT;
-	if(HAL_UART_DeInit(&huart2) != HAL_OK) Error_Handler();
-	if(HAL_HalfDuplex_Init(&huart2) != HAL_OK) Error_Handler();
+    
+	if (HAL_UART_DeInit(&huart2) != HAL_OK) Error_Handler();
+	if (HAL_UART_Init(&huart2) != HAL_OK) Error_Handler();
 }
 
 

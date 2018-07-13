@@ -61,9 +61,9 @@ typedef enum	// display button states
 extern uint32_t display_flags;
 extern __IO uint32_t display_timer;
 extern __IO uint32_t display_date_time_timer;
-extern __IO uint32_t display_doorbell_timer;
+extern __IO uint32_t display_message_timer;
 extern uint8_t display_buffer[DISPLAY_BUFFER_SIZE];
-extern uint8_t image_id, bell_type, bell_time, message_time;
+extern uint8_t display_message_id, display_message_time;
 
 /* Exported macros     -------------------------------------------------------*/
 #define DISPLAY_StartTimer(TIME)			(display_timer = TIME)
@@ -72,9 +72,9 @@ extern uint8_t image_id, bell_type, bell_time, message_time;
 #define DISPLAY_DateTimeStartTimer(TIME)	(display_date_time_timer = TIME)
 #define DISPLAY_DateTimeStopTimer()			(display_date_time_timer = 0)
 #define IsDISPLAY_DateTimeTimerExpired()	(display_date_time_timer == 0)
-#define DISPLAY_StartDoorBellTimer(TIME)	(display_doorbell_timer = TIME)
-#define DISPLAY_StopDoorBellTimer()			(display_doorbell_timer = 0)
-#define IsDISPLAY_DoorBellTimerExpired()	(display_doorbell_timer == 0)
+#define DISPLAY_MessageStartTimer(TIME)	    (display_message_timer = TIME)
+#define DISPLAY_StopMessageTimer()			(display_message_timer = 0)
+#define IsDISPLAY_MessageTimerExpired()	    (display_message_timer == 0)
 
 
 #define DISPLAY_UpdateSet()		            (display_flags |= (1 << 0))
@@ -95,6 +95,12 @@ extern uint8_t image_id, bell_type, bell_time, message_time;
 #define BUTTON_OpenDoorSet()                (display_flags |= (1 << 6)) 
 #define BUTTON_OpenDoorReset()              (display_flags &= (~ (1 << 6)))
 #define IsBUTTON_OpenDoorActiv()            ((display_flags & (1 << 6)) != 0)
+#define DISPLAY_InitializedSet()            (display_flags |= (1 << 7)) 
+#define DISPLAY_InitializedReset()          (display_flags &= (~ (1 << 7)))
+#define IsDISPLAY_Initialized()             ((display_flags & (1 << 7)) != 0)
+#define DISPLAY_MessageTimerSet()           (display_flags |= (1 << 8)) 
+#define DISPLAY_MessageTimerReset()         (display_flags &= (~ (1 << 8)))
+#define IsDISPLAY_MessageTimerActiv()       ((display_flags & (1 << 8)) != 0)
 
 /* Exported functions  -------------------------------------------------------*/
 void DISPLAY_Init(void);

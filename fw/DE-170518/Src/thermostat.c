@@ -75,13 +75,13 @@ void THERMOSTAT_Init(void)
 	
     GPIO_InitStruct.Pin = GPIO_PIN_10|GPIO_PIN_11|GPIO_PIN_12;
     GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
-    GPIO_InitStruct.Pull = GPIO_PULLUP;
+    GPIO_InitStruct.Pull = GPIO_NOPULL;
     GPIO_InitStruct.Speed = GPIO_SPEED_LOW;
     HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 	
 	GPIO_InitStruct.Pin = GPIO_PIN_2|GPIO_PIN_4;
     GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
-    GPIO_InitStruct.Pull = GPIO_PULLUP;
+    GPIO_InitStruct.Pull = GPIO_NOPULL;
     GPIO_InitStruct.Speed = GPIO_SPEED_LOW;
     HAL_GPIO_Init(GPIOD, &GPIO_InitStruct);
 	
@@ -95,6 +95,8 @@ void THERMOSTAT_Init(void)
 	Thermostat_1.fan_low_speed_band = 10;		// set point +/- 1,0°C low speed fan zone
 	Thermostat_1.fan_middle_speed_band = 20;	// set point +/- 2,0°C middle speed fan zone
 	Thermostat_1.fan_speed_diff = 3;			// 0,3°C treshold for fan speed change
+    
+    THERMOSTAT_StartTimer(THERMOSTAT_STARTUP_DELAY);
 }
 
 
@@ -103,6 +105,21 @@ void THERMOSTAT_Service(void)
 	static uint8_t old_fan_speed = 0;
 	static uint8_t fan_pcnt = 0;
 	
+    /** ============================================================================*/
+	/**		U P D A T E 	M E A S U R E D    T E M P E R A T U R E 	V A L U E	*/
+	/** ============================================================================*/
+    if(!IsTHERMOSTAT_TimerExpired()) return;
+	else if(IsONEWIRE_SensorConnected())    Thermostat_1.actual_temperature = ds18b20_1.temperature;
+	else if(IsNTC_SensorConnected())        Thermostat_1.actual_temperature = ntc_temperature;	
+    else if(IsTHERMOSTAT_SensorErrorActiv())
+    {
+        if((ntc_temperature & 0x0fff) < 600) 
+        {
+            NTC_SensorConnected();
+            THERMOSTAT_SensorErrorReset();
+        }
+        else return;
+    }
 	/** ============================================================================*/
 	/**		S W I T C H		F A N		S P E E D		W I T H		D E L A Y		*/
 	/** ============================================================================*/

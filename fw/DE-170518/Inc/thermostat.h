@@ -45,6 +45,8 @@ extern THERMOSTAT_TypeDef Thermostat_1;
 #define THERMOSTAT_FAN_MODE_LOW				1
 #define THERMOSTAT_FAN_MODE_MIDDLE			2
 #define THERMOSTAT_FAN_MODE_HIGH			3
+#define THERMOSTAT_STARTUP_DELAY            5000    // 5 sec. power on startup time
+
 
 /* Exported Variable   -------------------------------------------------------*/
 extern __IO uint32_t thermostat_timer;
@@ -63,10 +65,12 @@ extern uint32_t thermostat_flags;
 #define THERMOSTAT_StartValveTimer(TIME)	(thermostat_valve_timer = TIME)
 #define THERMOSTAT_StopValveTimer()			(thermostat_valve_timer = 0)
 #define IsTHERMOSTAT_ValveTimerExpired()	(thermostat_valve_timer == 0)
-#define THERMOSTAT_TemperatureUpdateSet()	(thermostat_flags |= 0x00000001)
-#define THERMOSTAT_TemperatureUpdateReset()	(thermostat_flags &= 0xfffffffe)
-#define IsTHERMOSTAT_TemperatureUpdated()	(thermostat_flags & 0x00000001)
-
+#define NTC_SensorConnected()               (thermostat_flags |= 0x00000001)
+#define NTC_SensorNotConnected()            (thermostat_flags &= 0xfffffffe)
+#define IsNTC_SensorConnected()             (thermostat_flags &  0x00000001)
+#define THERMOSTAT_SensorErrorSet()         (thermostat_flags |= 0x00000002)
+#define THERMOSTAT_SensorErrorReset()       (thermostat_flags &= 0xfffffffd)
+#define IsTHERMOSTAT_SensorErrorActiv()     (thermostat_flags &  0x00000002)
 
 /* Exported Function  ------------------------------------------------------- */
 void THERMOSTAT_Init(void);

@@ -87,11 +87,11 @@ eActivDisplayTypeDef ActivDisplay;
 /* Private Variable ----------------------------------------------------------*/
 __IO uint32_t display_timer;
 __IO uint32_t display_date_time_timer;
-__IO uint32_t display_doorbell_timer;
+__IO uint32_t display_message_timer;
 uint32_t display_flags;
 
 uint8_t display_buffer[DISPLAY_BUFFER_SIZE];
-uint8_t image_id, bell_type, bell_time, message_time;
+uint8_t display_message_id, display_message_time;
 uint8_t btn_dnd_state, btn_dnd_old_state;
 uint8_t btn_sos_state, btn_sos_old_state;
 uint8_t btn_maid_state, btn_maid_old_state;
@@ -129,7 +129,6 @@ static void DISPLAY_TemperatureSetPoint(void);
 /* Program Code  -------------------------------------------------------------*/
 void DISPLAY_Init(void)
 {
-	GUI_Initialized = 0;
 	GUI_Init();
 	GUI_PID_SetHook(PID_Hook);
 	WM_MULTIBUF_Enable(1);
@@ -148,7 +147,7 @@ void DISPLAY_Init(void)
 	ActivDisplay = DISPLAY_THERMOSTAT;
     DISPLAY_SetpointUpdateSet();
 	DISPLAY_DateTime();
-	GUI_Initialized = 1;
+	DISPLAY_InitializedSet();
 }
 
 
@@ -157,6 +156,7 @@ void DISPLAY_Service(void)
 	uint8_t i;
 	static uint8_t fl = 0;
 	static uint8_t au_cnt = 0;
+    static uint16_t actual_temp;
 	/** ==========================================================================*/
 	/**    D R A W     D I S P L A Y	G U I	O N	   U P D A T E    E V E N T   */
 	/** ==========================================================================*/
@@ -174,7 +174,14 @@ void DISPLAY_Service(void)
     {
         DISPLAY_UpdateReset();
         
-        if(image_id == 0)
+        if(display_message_time > 0) 
+        {
+            DISPLAY_MessageStartTimer(display_message_time * 60000);
+            DISPLAY_MessageTimerSet();
+        }
+        else DISPLAY_MessageTimerReset();
+        
+        if(display_message_id == 0)
         {
             GUI_SelectLayer(0);
             GUI_Clear();
@@ -185,12 +192,12 @@ void DISPLAY_Service(void)
             GUI_DrawBitmap(&bm_btn_dnd_0, BTN_DND_X0, BTN_DND_Y0); 
             GUI_DrawBitmap(&bm_btn_maid_0, BTN_CMD_X0, BTN_CMD_Y0); 
             GUI_DrawBitmap(&bm_btn_rst_sos_0, BTN_SOS_X0, BTN_SOS_Y0); 
-            GUI_Exec();
             ActivDisplay = DISPLAY_THERMOSTAT;
             DISPLAY_SetpointUpdateSet();
             DISPLAY_DateTime();
+            BUZZER_SignalOff();
         }
-        else if(image_id == 1)
+        else if(display_message_id == 1)
         {
             GUI_SelectLayer(0);
             GUI_Clear();
@@ -200,9 +207,10 @@ void DISPLAY_Service(void)
             GUI_Clear();
             GUI_DrawBitmap(&bm_btn_open_door, BTN_DOR_X0, BTN_DOR_Y0); 
             GUI_DrawBitmap(&bm_btn_ok, BTN_OK_X0, BTN_OK_Y0);
-            GUI_Exec();
+            ActivDisplay = DISPLAY_MESSAGE;
+            BUZZER_SignalOn();
         }
-        else if(image_id == 2)
+        else if(display_message_id == 2)
         {
             GUI_SelectLayer(0);
             GUI_Clear();
@@ -211,7 +219,8 @@ void DISPLAY_Service(void)
             GUI_SetBkColor(GUI_TRANSPARENT); 
             GUI_Clear();
             GUI_DrawBitmap(&bm_btn_ok, BTN_OK_X0, BTN_OK_Y0);
-            GUI_Exec();
+            ActivDisplay = DISPLAY_MESSAGE;
+            BUZZER_SignalOn();
         }
     }
     else if(IsDISPLAY_DateTimeTimerExpired())	    // date & time info update 
@@ -230,6 +239,20 @@ void DISPLAY_Service(void)
 	}
 	else if(ActivDisplay == DISPLAY_THERMOSTAT)     // check thermostat display button states
 	{
+        if(actual_temp != Thermostat_1.actual_temperature)
+        {
+            actual_temp = Thermostat_1.actual_temperature;
+            GUI_ClearRect(350, 200, 480, 230); 
+            GUI_SetFont(GUI_FONT_20_1);
+            GUI_SetColor(GUI_WHITE);
+            GUI_SetTextMode(GUI_TM_TRANS);
+            GUI_SetTextAlign(GUI_TA_RIGHT|GUI_TA_VCENTER);
+            GUI_GotoXY(430, 220);
+            if(Thermostat_1.actual_temperature & 0x8000) GUI_DispString("-");
+            GUI_DispDecSpace(((Thermostat_1.actual_temperature & 0x0fff) / 10), 2);
+            GUI_DispString("*C");
+        }
+        
 		if(btn_dnd_state && !btn_dnd_old_state)
 		{
 			btn_dnd_old_state = 1;
@@ -304,17 +327,22 @@ void DISPLAY_Service(void)
     }
     else if(ActivDisplay == DISPLAY_MESSAGE)        // check message display button states
 	{
-        if(btn_ok_state)
+        if(IsDISPLAY_MessageTimerActiv() && IsDISPLAY_MessageTimerExpired())
+        {
+            display_message_time = 0;
+            display_message_id = 0;
+            DISPLAY_UpdateSet();
+        }
+        else if(btn_ok_state)
 		{
             btn_ok_state = 0; 
-            image_id = 0;
+            display_message_id = 0;
             DISPLAY_UpdateSet();
 		}
-        
-        if(btn_opendoor_state && !btn_opendoor_old_state)
+        else if(btn_opendoor_state && !btn_opendoor_old_state)
 		{
 			btn_opendoor_old_state = 1;
-            if(image_id == 1) BUTTON_OpenDoorSet();
+            if(display_message_id == 1) BUTTON_OpenDoorSet();
 		}
 		else if(!btn_dnd_state && btn_dnd_old_state)  btn_dnd_old_state = 0;
     }
@@ -422,7 +450,7 @@ static void DISPLAY_DateTime(void)
         HAL_RTC_GetTime(&hrtc, &time, RTC_FORMAT_BCD);
         HAL_RTC_GetDate(&hrtc, &date, RTC_FORMAT_BCD);
         ClearBuffer(display_buffer,  sizeof(display_buffer));
-		GUI_ClearRect(240, 230, 480, 270);   
+		GUI_ClearRect(240, 250, 480, 270);   
 		buff_bcnt = 0;
 		display_buffer[buff_bcnt++] = (date.Date >> 4) + 48;
 		display_buffer[buff_bcnt++] = (date.Date & 0x0f) + 48;

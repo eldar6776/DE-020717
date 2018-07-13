@@ -27,6 +27,7 @@ extern RTC_DateTypeDef date;
 extern LTDC_HandleTypeDef  hltdc;
 extern DMA2D_HandleTypeDef hdma2d;
 
+
 typedef struct 
 {
 	uint8_t seconds;     	/*!< Seconds parameter, from 00 to 59 */
@@ -57,14 +58,45 @@ typedef struct
 #define FAN_SPEED_MIDDLE				47
 #define FAN_SPEED_HIGH					42
 
+#define BUZZER_MODE_OFF                 0
+#define BUZZER_MODE_SHORT               1
+#define BUZZER_MODE_LONG                2
+#define BUZZER_MODE_BIP                 3
+    
 /* Defines related to Clock configuration */
 #define RTC_ASYNCH_PREDIV  0x7F   /* LSE as RTC clock */
 #define RTC_SYNCH_PREDIV   0x00FF /* LSE as RTC clock */
 
+extern __IO uint32_t sys_flags;
+extern __IO uint32_t SystickCnt;
 extern uint16_t ntc_temperature;
 extern uint8_t GUI_Initialized;
-extern __IO uint32_t SystickCnt;
 extern uint32_t triac_on_time;
+extern uint32_t buzzer_repeat_timer;
+extern uint32_t buzzer_mode_timer;
+extern uint8_t buzzer_repeat_time;
+extern uint8_t buzzer_mode;
+extern uint8_t buzzer_pcnt;
+
+
+#define BUZZER_StartRepeatTimer(TIME)   (buzzer_repeat_timer = TIME)
+#define BUZZER_StopRepeatTimer()        (buzzer_repeat_timer = 0)
+#define IsBUZZER_RepeatTimerExpired()   (buzzer_repeat_timer == 0)
+#define BUZZER_StartModeTimer(TIME)     (buzzer_mode_timer = TIME)
+#define BUZZER_StopModeTimer()          (buzzer_mode_timer = 0)
+#define IsBUZZER_ModeTimerExpired()     (buzzer_mode_timer == 0)
+
+#define BUZZER_SignalOn()               (sys_flags |= (1 << 0))
+#define BUZZER_SignalOff()              (sys_flags &= (~ (1 << 0)))
+#define IsBUZZER_SignalActiv()          ((sys_flags & (1 << 0)) != 0)
+#define BUZZER_RepeatTimerSet()         (sys_flags |= (1 << 1)) 
+#define BUZZER_RepeatTimerReset()       (sys_flags &= (~ (1 << 1)))
+#define IsBUZZER_RepeatTimerActiv()     ((sys_flags & (1 << 1)) != 0)
+
+
+#define BUZZER_On()				        (HAL_GPIO_WritePin(GPIOD, GPIO_PIN_4, GPIO_PIN_SET))
+#define BUZZER_Off()				    (HAL_GPIO_WritePin(GPIOD, GPIO_PIN_4, GPIO_PIN_RESET))
+#define IsBUZZER_On()                   (HAL_GPIO_ReadPin(GPIOD, GPIO_PIN_4) == GPIO_PIN_SET)
 
 void Error_Handler(void);
 uint32_t RTC_GetUnixTimeStamp(RTC_t* data);

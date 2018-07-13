@@ -42,26 +42,25 @@ RTC_HandleTypeDef hrtc;
 RTC_TimeTypeDef time;
 RTC_DateTypeDef date;
 
-
 /* Private Define ------------------------------------------------------------*/
 #define LED_STATUS_SYS_RUN_TIME				1234	// 1s led status toggle period
 #define LED_STATUS_SYS_ERROR_TIME			123		// 100ms led status toggle period
-#define TOUCH_SCREEN_UPDATE_TIME			5		// 5ms touch screen update period
+#define TOUCH_SCREEN_UPDATE_TIME			15		// 5ms touch screen update period
+#define TOUCH_SCREEN_LAYER                  1       // touch screen layer event
 #define NTC_RREF 							10000  	// 10k NTC value of at 25 degrees
 #define NTC_B_VALUE 						3977 	// NTC resistance at 100 degrees
 #define NTC_PULLUP							10000	// 10k pullup resistor
+#define NTC_READOUT_PERIOD                  123     // 123 ms ntc conversion rate
+#define FAN_CONTROL_LOOP_PERIOD			    200	    // fan speed control loop 
+#define BUZZER_BIP_TIME                     100
+#define BUZZER_SHORT_TIME                   500 
+#define BUZZER_LONG_TIME                    1000
 
-static enum
-{
-	ZERO_CROSS_TRIGGER_PENDING = 0,
-	TRIAC_ON,
-	TRIAC_OFF
-	
-}TRIAC_ControlState;
 
 
 /* Private Variable ----------------------------------------------------------*/
 __IO uint32_t SystickCnt;
+__IO uint32_t sys_flags;
 
 float ntc_calc;
 
@@ -73,11 +72,13 @@ uint16_t ntc_temperature;
 uint16_t ts_update_timer;
 uint16_t rtc_bckp_tmr;
 uint16_t anin_timer;
-uint16_t led_timer;
 
-uint8_t GUI_Initialized;
-uint8_t uart_baudrate;
-uint8_t SelLayer = 1;
+uint32_t buzzer_repeat_timer;
+uint32_t buzzer_mode_timer;
+uint8_t buzzer_repeat_time;
+uint8_t buzzer_mode;
+uint8_t buzzer_pcnt;
+
 uint8_t ntc_sample_cnt;
 uint8_t zero_cross_cnt;
 
@@ -98,7 +99,6 @@ uint8_t RTC_Months[2][12] = {
 #define RTC_BCD2BIN(x)                  ((((x) >> 4) & 0x0F) * 10 + ((x) & 0x0F))
 #define RTC_CHAR2NUM(x)                 ((x) - '0')
 #define RTC_CHARISNUM(x)                ((x) >= '0' && (x) <= '9')
-#define FAN_CONTROL_LOOP_PERIOD			200	// fan speed control loop 
 
 
 /* Private Function Prototype ------------------------------------------------*/
@@ -269,7 +269,7 @@ void HAL_SYSTICK_Callback(void)
 	
 	if(hadc3.Instance == ADC3)
 	{
-		if (++anin_timer >= 123)
+		if (++anin_timer >= NTC_READOUT_PERIOD)
 		{
 			anin_timer = 0;			
 			HAL_ADC_Start(&hadc3);
@@ -292,12 +292,10 @@ void HAL_SYSTICK_Callback(void)
 	}
 
 	
-	if(GUI_Initialized == 1)
+	if(IsDISPLAY_Initialized())
 	{
 		if(ts_update_timer == 0)
 		{
-//			__HAL_GPIO_EXTI_CLEAR_IT(GPIO_PIN_3);
-//			HAL_NVIC_EnableIRQ(EXTI3_IRQn);
 			TouchUpdate();
 			ts_update_timer = TOUCH_SCREEN_UPDATE_TIME;
 		}
@@ -310,13 +308,99 @@ void HAL_SYSTICK_Callback(void)
 	if(thermostat_valve_timer) --thermostat_valve_timer;
 	if(display_timer) --display_timer;
 	if(display_date_time_timer) --display_date_time_timer;
-	if(display_doorbell_timer) --display_doorbell_timer;
-	
-	if(++i > 1000)
+	if(display_message_timer) --display_message_timer;
+	if(buzzer_mode_timer) --buzzer_mode_timer;
+    if(buzzer_repeat_timer) --buzzer_repeat_timer;
+    
+	if(IsBUZZER_SignalActiv())
 	{
-		i = 0;
-		HAL_GPIO_TogglePin(GPIOD, GPIO_PIN_7);
+        switch (buzzer_mode)
+        {
+            case BUZZER_MODE_OFF:
+            {
+                BUZZER_SignalOff();
+                break;
+            }
+            
+            case BUZZER_MODE_BIP:
+            {
+                if((buzzer_pcnt == 0) && IsBUZZER_ModeTimerExpired())
+                {
+                    if(IsBUZZER_RepeatTimerExpired())
+                    {
+                        BUZZER_On();
+                        BUZZER_StartModeTimer(BUZZER_BIP_TIME);
+                        ++buzzer_pcnt;                        
+                    }
+                }
+                else if((buzzer_pcnt == 1) && IsBUZZER_ModeTimerExpired())
+                {
+                    BUZZER_Off();
+                    buzzer_pcnt = 0;
+                    if(buzzer_repeat_time == 0) BUZZER_StartModeTimer(BUZZER_BIP_TIME);
+                    else BUZZER_StartRepeatTimer(buzzer_repeat_time * 1000);
+                }
+                break;
+            }
+            
+            case BUZZER_MODE_SHORT:
+            {
+                if((buzzer_pcnt == 0) && IsBUZZER_ModeTimerExpired())
+                {
+                    if(IsBUZZER_RepeatTimerExpired())
+                    {
+                        BUZZER_On();
+                        BUZZER_StartModeTimer(BUZZER_SHORT_TIME);
+                        ++buzzer_pcnt;                        
+                    }
+                }
+                else if((buzzer_pcnt == 1) && IsBUZZER_ModeTimerExpired())
+                {
+                    BUZZER_Off();
+                    buzzer_pcnt = 0;
+                    if(buzzer_repeat_time == 0) BUZZER_StartModeTimer(BUZZER_SHORT_TIME);
+                    else BUZZER_StartRepeatTimer(buzzer_repeat_time * 1000);
+                }
+                break;
+            }
+            
+            case BUZZER_MODE_LONG:
+            {
+                if((buzzer_pcnt == 0) && IsBUZZER_ModeTimerExpired())
+                {
+                    if(IsBUZZER_RepeatTimerExpired())
+                    {
+                        BUZZER_On();
+                        BUZZER_StartModeTimer(BUZZER_LONG_TIME);
+                        ++buzzer_pcnt;                        
+                    }
+                }
+                else if((buzzer_pcnt == 1) && IsBUZZER_ModeTimerExpired())
+                {
+                    BUZZER_Off();
+                    buzzer_pcnt = 0;
+                    if(buzzer_repeat_time == 0) BUZZER_StartModeTimer(BUZZER_LONG_TIME);
+                    else BUZZER_StartRepeatTimer(buzzer_repeat_time * 1000);
+                }
+                break;
+            }
+            
+            default:
+            {
+                BUZZER_SignalOff();
+                break;
+            }
+        }
 	}
+    else
+    {
+        BUZZER_StopRepeatTimer();
+        BUZZER_StopModeTimer();
+        BUZZER_SignalOff();
+        BUZZER_RepeatTimerReset();
+        buzzer_pcnt = 0;
+        BUZZER_Off();
+    }
 }
 
 static void SystemClock_Config(void)
@@ -801,8 +885,8 @@ static void MX_UART2_Init(void)
 	HAL_NVIC_EnableIRQ(USART2_IRQn);
 
 	huart2.Instance = USART2;
-	huart2.Init.BaudRate = 115200;
-	huart2.Init.WordLength = UART_WORDLENGTH_7B;
+	huart2.Init.BaudRate = 9600;
+	huart2.Init.WordLength = UART_WORDLENGTH_8B;
 	huart2.Init.StopBits = UART_STOPBITS_1;
 	huart2.Init.Parity = UART_PARITY_NONE;
 	huart2.Init.Mode = UART_MODE_TX_RX;
@@ -811,10 +895,8 @@ static void MX_UART2_Init(void)
 	huart2.Init.OneBitSampling = UART_ONE_BIT_SAMPLE_DISABLE;
 	huart2.AdvancedInit.AdvFeatureInit = UART_ADVFEATURE_NO_INIT;
 	
-	if (HAL_UART_Init(&huart2) != HAL_OK)
-	{
-		Error_Handler();
-	}
+    if (HAL_UART_DeInit(&huart2) != HAL_OK) Error_Handler();
+	if (HAL_UART_Init(&huart2) != HAL_OK) Error_Handler();
 }
 
 
@@ -985,7 +1067,7 @@ void TouchUpdate(void)
 	if((TS_State.Pressed != ts.touchDetected ) || (xDiff > 30 ) || (yDiff > 30))
 	{
 		TS_State.Pressed = ts.touchDetected;
-		TS_State.Layer = SelLayer;
+		TS_State.Layer = TOUCH_SCREEN_LAYER;
 		
 		if(ts.touchDetected) 
 		{
