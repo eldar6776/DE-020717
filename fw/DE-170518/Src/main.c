@@ -54,10 +54,8 @@ RTC_DateTypeDef date;
 static enum
 {
 	ZERO_CROSS_TRIGGER_PENDING = 0,
-	TRIAC_ON_IN_FIRST_HALF_PERIOD,
-	TRIAC_OFF_IN_FIRST_HALF_PERIOD,
-	TRIAC_ON_IN_SECOND_HALF_PERIOD,
-	TRIAC_OFF_IN_SECOND_HALF_PERIOD
+	TRIAC_ON,
+	TRIAC_OFF
 	
 }TRIAC_ControlState;
 
@@ -79,7 +77,7 @@ uint16_t led_timer;
 
 uint8_t GUI_Initialized;
 uint8_t uart_baudrate;
-uint8_t SelLayer = 0;
+uint8_t SelLayer = 1;
 uint8_t ntc_sample_cnt;
 uint8_t zero_cross_cnt;
 
@@ -657,33 +655,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 	}
 	else if(++triac_timer < triac_on_timer) return;
 	
-	triac_timer = 0;
-	triac_on_timer = 1;
-	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_8, GPIO_PIN_RESET);
-		
-	if(TRIAC_ControlState == TRIAC_ON_IN_FIRST_HALF_PERIOD)
-	{
-		HAL_GPIO_WritePin(GPIOC, GPIO_PIN_8, GPIO_PIN_SET);
-		TRIAC_ControlState = TRIAC_OFF_IN_FIRST_HALF_PERIOD;
-	}
-	else if(TRIAC_ControlState == TRIAC_OFF_IN_FIRST_HALF_PERIOD)
-	{
-		triac_on_timer = 99;
-		TRIAC_ControlState = TRIAC_ON_IN_SECOND_HALF_PERIOD;
-	}
-	else if(TRIAC_ControlState == TRIAC_ON_IN_SECOND_HALF_PERIOD)
-	{
-		HAL_GPIO_WritePin(GPIOC, GPIO_PIN_8, GPIO_PIN_SET);
-		TRIAC_ControlState = TRIAC_OFF_IN_SECOND_HALF_PERIOD;
-	}
-	else if(TRIAC_ControlState == TRIAC_OFF_IN_SECOND_HALF_PERIOD)
-	{
-		TRIAC_ControlState = ZERO_CROSS_TRIGGER_PENDING;
-		HAL_TIM_Base_Stop_IT(&htim3);
-		HAL_NVIC_DisableIRQ(TIM3_IRQn);
-		__HAL_GPIO_EXTI_CLEAR_IT(GPIO_PIN_13);
-		HAL_NVIC_EnableIRQ(EXTI15_10_IRQn);
-	}
+    HAL_GPIO_WritePin(GPIOC, GPIO_PIN_8, GPIO_PIN_SET);
 }
 
 
@@ -735,7 +707,7 @@ static void MX_TIM9_Init(void)
 	}
 
 	sConfigOC.OCMode = TIM_OCMODE_PWM1;
-	sConfigOC.Pulse = 300;
+	sConfigOC.Pulse = 500;
 	sConfigOC.OCPolarity = TIM_OCPOLARITY_HIGH;
 	sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;
 	
@@ -927,18 +899,13 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 	}
 	else if(GPIO_Pin == GPIO_PIN_13)
 	{
-		HAL_NVIC_DisableIRQ(EXTI15_10_IRQn);
-		__HAL_GPIO_EXTI_CLEAR_IT(GPIO_PIN_13);
-		
-		if(TRIAC_ControlState == ZERO_CROSS_TRIGGER_PENDING)
-		{	
-			triac_timer = 0;
-			triac_on_timer = triac_on_time;			
-			TRIAC_ControlState = TRIAC_ON_IN_FIRST_HALF_PERIOD;
-			__HAL_TIM_SET_COUNTER(&htim3, 0);
-			HAL_NVIC_EnableIRQ(TIM3_IRQn);
-			HAL_TIM_Base_Start_IT(&htim3);
-		}
+		__HAL_GPIO_EXTI_CLEAR_IT(GPIO_PIN_13);		
+        triac_timer = 0;
+        triac_on_timer = triac_on_time;
+        HAL_GPIO_WritePin(GPIOC, GPIO_PIN_8, GPIO_PIN_RESET);
+        __HAL_TIM_SET_COUNTER(&htim3, 0);
+        HAL_NVIC_EnableIRQ(TIM3_IRQn);
+        HAL_TIM_Base_Start_IT(&htim3);
 	}
 	else if(GPIO_Pin == GPIO_PIN_14)
 	{
@@ -1070,7 +1037,6 @@ void FAN_SetSpeed(uint8_t fan_speed)
 		__HAL_GPIO_EXTI_CLEAR_IT(GPIO_PIN_13);
 		HAL_TIM_Base_Stop_IT(&htim3);
 		HAL_GPIO_WritePin(GPIOC, GPIO_PIN_8, GPIO_PIN_RESET);
-		TRIAC_ControlState = ZERO_CROSS_TRIGGER_PENDING;
 		triac_on_timer = 0;
 		triac_on_time = 0;
 		triac_timer = 0;
@@ -1083,7 +1049,6 @@ void FAN_SetSpeed(uint8_t fan_speed)
 		__HAL_GPIO_EXTI_CLEAR_IT(GPIO_PIN_13);
 		__HAL_TIM_CLEAR_FLAG(&htim3, TIM_FLAG_UPDATE);
 		HAL_GPIO_WritePin(GPIOC, GPIO_PIN_8, GPIO_PIN_RESET);
-		TRIAC_ControlState = ZERO_CROSS_TRIGGER_PENDING;
 		triac_on_time = fan_speed;
 		triac_on_timer = 0;		
 		triac_timer = 0;
@@ -1107,7 +1072,6 @@ float NTC_GetTemperature(float ntc_resistance)
 	temperature = (1.0 / ((log (ntc_resistance / NTC_RREF)) / NTC_B_VALUE  + 1.0 / 298.0)) - 273.0; 
 	return(temperature);
 }
-
 
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

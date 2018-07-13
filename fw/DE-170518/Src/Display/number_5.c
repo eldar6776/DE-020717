@@ -28,7 +28,7 @@
   #define GUI_CONST_STORAGE const
 #endif
 
-extern GUI_CONST_STORAGE GUI_BITMAP bmnumber_5;
+extern GUI_CONST_STORAGE GUI_BITMAP bm_number_5;
 
 #if defined ( __ICCARM__ )
 #pragma location="ExtQSPIFlashSection" 
@@ -36,7 +36,7 @@ extern GUI_CONST_STORAGE GUI_BITMAP bmnumber_5;
 __attribute__((section(".ExtQSPIFlashSection")))  
 #endif
 
-static GUI_CONST_STORAGE unsigned long _acnumber_5[] = {
+static GUI_CONST_STORAGE unsigned long _ac_number_5[] = {
   0xFF000000, 0xFF000000, 0xFF000000, 0xFF000000, 0xFF000000, 0xFEFFFFFF, 0xFEFFFFFF, 0xFEFFFFFF, 0xFEFFFFFF, 0xFEFFFFFF, 0xFEFFFFFF, 0xFEFFFFFF, 0xFEFFFFFF, 0xFEFFFFFF, 0xFEFFFFFF, 0xFEFFFFFF, 0xFEFFFFFF, 0xFEFFFFFF, 0xFEFFFFFF, 0xFEFFFFFF, 0xFEFFFFFF, 
         0xFEFFFFFF, 0xFEFFFFFF, 0xFEFFFFFF, 0xFEFFFFFF, 0xFEFFFFFF, 0xFF000000, 0xFF000000, 0xFF000000, 0xFF000000, 0xFF000000,
   0xFF000000, 0xFF000000, 0xFF000000, 0xFF000000, 0xCFFFFFFF, 0x8FFEFEFE, 0x8FFEFEFE, 0x8FFEFEFE, 0x8FFEFEFE, 0x8FFEFEFE, 0x8FFEFEFE, 0x8FFEFEFE, 0x8FFEFEFE, 0x8FFEFEFE, 0x8FFEFEFE, 0x8FFEFEFE, 0x8FFEFEFE, 0x8FFEFEFE, 0x8FFEFEFE, 0x8FFEFEFE, 0x8FFEFEFE, 
@@ -145,12 +145,12 @@ static GUI_CONST_STORAGE unsigned long _acnumber_5[] = {
         0xF2FEFEFE, 0xFDFFFFFF, 0xFF000000, 0xFF000000, 0xFF000000, 0xFF000000, 0xFF000000, 0xFF000000, 0xFF000000, 0xFF000000
 };
 
-GUI_CONST_STORAGE GUI_BITMAP bmnumber_5 = {
+GUI_CONST_STORAGE GUI_BITMAP bm_number_5 = {
   31, // xSize
   53, // ySize
   124, // BytesPerLine
   32, // BitsPerPixel
-  (unsigned char *)_acnumber_5,  // Pointer to picture data
+  (unsigned char *)_ac_number_5,  // Pointer to picture data
   NULL,  // Pointer to palette
   GUI_DRAW_BMP8888
 };

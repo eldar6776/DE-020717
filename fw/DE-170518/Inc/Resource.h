@@ -35,29 +35,27 @@ Content     : Main resource header file of weather forecast demo
 //
 // 	Image
 //
-extern GUI_CONST_STORAGE GUI_BITMAP bmbtn_ok;
-extern GUI_CONST_STORAGE GUI_BITMAP bmbtn_open_door;
-extern GUI_CONST_STORAGE GUI_BITMAP bmbtn_increase;
-extern GUI_CONST_STORAGE GUI_BITMAP bmbtn_decrease;
-extern GUI_CONST_STORAGE GUI_BITMAP bmbtn_dnd_0;
-extern GUI_CONST_STORAGE GUI_BITMAP bmbtn_dnd_1;
-extern GUI_CONST_STORAGE GUI_BITMAP bmbtn_maid_0;
-extern GUI_CONST_STORAGE GUI_BITMAP bmbtn_maid_1;
-extern GUI_CONST_STORAGE GUI_BITMAP bmbtn_rst_sos_0;
-extern GUI_CONST_STORAGE GUI_BITMAP bmbtn_rst_sos_1;
-extern GUI_CONST_STORAGE GUI_BITMAP bmbackground_0;
-extern GUI_CONST_STORAGE GUI_BITMAP bmmessage_1;
-extern GUI_CONST_STORAGE GUI_BITMAP bmmessage_2;
-extern GUI_CONST_STORAGE GUI_BITMAP bmnumber_0;
-extern GUI_CONST_STORAGE GUI_BITMAP bmnumber_1;
-extern GUI_CONST_STORAGE GUI_BITMAP bmnumber_2;
-extern GUI_CONST_STORAGE GUI_BITMAP bmnumber_3;
-extern GUI_CONST_STORAGE GUI_BITMAP bmnumber_4;
-extern GUI_CONST_STORAGE GUI_BITMAP bmnumber_5;
-extern GUI_CONST_STORAGE GUI_BITMAP bmnumber_6;
-extern GUI_CONST_STORAGE GUI_BITMAP bmnumber_7;
-extern GUI_CONST_STORAGE GUI_BITMAP bmnumber_8;
-extern GUI_CONST_STORAGE GUI_BITMAP bmnumber_9;
+extern GUI_CONST_STORAGE GUI_BITMAP bm_btn_ok;
+extern GUI_CONST_STORAGE GUI_BITMAP bm_btn_open_door;
+extern GUI_CONST_STORAGE GUI_BITMAP bm_btn_dnd_0;
+extern GUI_CONST_STORAGE GUI_BITMAP bm_btn_dnd_1;
+extern GUI_CONST_STORAGE GUI_BITMAP bm_btn_maid_0;
+extern GUI_CONST_STORAGE GUI_BITMAP bm_btn_maid_1;
+extern GUI_CONST_STORAGE GUI_BITMAP bm_btn_rst_sos_0;
+extern GUI_CONST_STORAGE GUI_BITMAP bm_btn_rst_sos_1;
+extern GUI_CONST_STORAGE GUI_BITMAP bm_display_0;
+extern GUI_CONST_STORAGE GUI_BITMAP bm_display_1;
+extern GUI_CONST_STORAGE GUI_BITMAP bm_display_2;
+extern GUI_CONST_STORAGE GUI_BITMAP bm_number_0;
+extern GUI_CONST_STORAGE GUI_BITMAP bm_number_1;
+extern GUI_CONST_STORAGE GUI_BITMAP bm_number_2;
+extern GUI_CONST_STORAGE GUI_BITMAP bm_number_3;
+extern GUI_CONST_STORAGE GUI_BITMAP bm_number_4;
+extern GUI_CONST_STORAGE GUI_BITMAP bm_number_5;
+extern GUI_CONST_STORAGE GUI_BITMAP bm_number_6;
+extern GUI_CONST_STORAGE GUI_BITMAP bm_number_7;
+extern GUI_CONST_STORAGE GUI_BITMAP bm_number_8;
+extern GUI_CONST_STORAGE GUI_BITMAP bm_number_9;
 //
 //	Animation
 //

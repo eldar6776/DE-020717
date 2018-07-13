@@ -63,7 +63,7 @@ extern __IO uint32_t display_timer;
 extern __IO uint32_t display_date_time_timer;
 extern __IO uint32_t display_doorbell_timer;
 extern uint8_t display_buffer[DISPLAY_BUFFER_SIZE];
-
+extern uint8_t image_id, bell_type, bell_time, message_time;
 
 /* Exported macros     -------------------------------------------------------*/
 #define DISPLAY_StartTimer(TIME)			(display_timer = TIME)
@@ -77,32 +77,24 @@ extern uint8_t display_buffer[DISPLAY_BUFFER_SIZE];
 #define IsDISPLAY_DoorBellTimerExpired()	(display_doorbell_timer == 0)
 
 
-#define DOORBELL_On()						(display_flags |= (1 << 0))
-#define DOORBELL_Off()						(display_flags &= (~ (1 << 0)))
-#define IsDOORBELL_Activ()					((display_flags & (1 << 0)) != 0)
-#define HANDMAID_TasterOn()					(display_flags |= (1 << 1))
-#define HANDMAID_TasterOff()				(display_flags &= (~ (1 << 1)))
-#define IsHANDMAID_TasterActiv()			((display_flags & (1 << 1)) != 0)
-#define DISPLAY_TemperatureUpdateSet()		(display_flags |= (1 << 2))
-#define DISPLAY_TemperatureUpdateReset()	(display_flags &= (~ (1 << 2)))
-#define IsDISPLAY_TemperatureUpdated()		((display_flags & (1 << 2)) != 0)
-#define DISPLAY_DoorBellSet()		        (display_flags |= (1 << 3))
-#define DISPLAY_DoorBellReset()	            (display_flags &= (~ (1 << 3)))
-#define IsDISPLAY_DoorBellActiv()	        ((display_flags & (1 << 3)) != 0)
-#define BUTTON_DndActivSet()				(display_flags |= (1 << 4)) 
-#define BUTTON_DndActivReset()				(display_flags &= (~ (1 << 4)))
-#define IsBUTTON_DndActiv()					((display_flags & (1 << 4)) != 0)
-#define BUTTON_SosActivSet()				(display_flags |= (1 << 5)) 
-#define BUTTON_SosActivReset()				(display_flags &= (~ (1 << 5)))
-#define IsBUTTON_SosResetActiv()					((display_flags & (1 << 5)) != 0)
-#define BUTTON_CallMaidActivSet()			(display_flags |= (1 << 6)) 
-#define BUTTON_CallMaidActivReset()			(display_flags &= (~ (1 << 6)))
-#define IsBUTTON_CallMaidActiv()			((display_flags & (1 << 6)) != 0)
-
-#define DISPLAY_SetpointUpdateSet()			(display_flags |= (1 << 9)) 
-#define DISPLAY_SetpointUpdateReset()		(display_flags &= (~ (1 << 9)))
-#define IsDISPLAY_SetpointUpdated()			((display_flags & (1 << 9)) != 0)
-
+#define DISPLAY_UpdateSet()		            (display_flags |= (1 << 0))
+#define DISPLAY_UpdateReset()	            (display_flags &= (~ (1 << 0)))
+#define IsDISPLAY_UpdateActiv()		        ((display_flags & (1 << 0)) != 0)
+#define BUTTON_DndActivSet()				(display_flags |= (1 << 2)) 
+#define BUTTON_DndActivReset()				(display_flags &= (~ (1 << 2)))
+#define IsBUTTON_DndActiv()					((display_flags & (1 << 2)) != 0)
+#define BUTTON_SosActivSet()				(display_flags |= (1 << 3)) 
+#define BUTTON_SosActivReset()				(display_flags &= (~ (1 << 3)))
+#define IsBUTTON_SosResetActiv()			((display_flags & (1 << 3)) != 0)
+#define BUTTON_CallMaidActivSet()			(display_flags |= (1 << 4)) 
+#define BUTTON_CallMaidActivReset()			(display_flags &= (~ (1 << 4)))
+#define IsBUTTON_CallMaidActiv()			((display_flags & (1 << 4)) != 0)
+#define DISPLAY_SetpointUpdateSet()			(display_flags |= (1 << 5)) 
+#define DISPLAY_SetpointUpdateReset()		(display_flags &= (~ (1 << 5)))
+#define IsDISPLAY_SetpointUpdated()			((display_flags & (1 << 5)) != 0)
+#define BUTTON_OpenDoorSet()                (display_flags |= (1 << 6)) 
+#define BUTTON_OpenDoorReset()              (display_flags &= (~ (1 << 6)))
+#define IsBUTTON_OpenDoorActiv()            ((display_flags & (1 << 6)) != 0)
 
 /* Exported functions  -------------------------------------------------------*/
 void DISPLAY_Init(void);

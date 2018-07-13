@@ -45,6 +45,44 @@ eActivDisplayTypeDef ActivDisplay;
 #define FACTOR_MIN   				100
 #define FACTOR_MAX 					20000
 
+#define BTN_INC_X0                  220
+#define BTN_INC_Y0                  90
+#define BTN_INC_X1                  334
+#define BTN_INC_Y1                  246
+
+#define BTN_DEC_X0                  3
+#define BTN_DEC_Y0                  87
+#define BTN_DEC_X1                  106
+#define BTN_DEC_Y1                  247
+
+#define BTN_DND_X0                  355
+#define BTN_DND_Y0                  5
+#define BTN_DND_X1                  475
+#define BTN_DND_Y1                  55
+
+#define BTN_CMD_X0                  355
+#define BTN_CMD_Y0                  75
+#define BTN_CMD_X1                  475    
+#define BTN_CMD_Y1                  125
+
+#define BTN_SOS_X0                  355
+#define BTN_SOS_Y0                  145
+#define BTN_SOS_X1                  475
+#define BTN_SOS_Y1                  195
+
+#define BTN_DOR_X0                  25
+#define BTN_DOR_Y0                  215
+#define BTN_DOR_X1                  180
+#define BTN_DOR_Y1                  265
+
+#define BTN_OK_X0                   355
+#define BTN_OK_Y0                   215
+#define BTN_OK_X1                   180
+#define BTN_OK_Y1                   265
+
+#define SP_TEMP_DEC_POS             125
+#define SP_TEMP_UNIT_POS            165 
+#define SP_TEMP_V_POS               145 
 
 /* Private Variable ----------------------------------------------------------*/
 __IO uint32_t display_timer;
@@ -53,9 +91,12 @@ __IO uint32_t display_doorbell_timer;
 uint32_t display_flags;
 
 uint8_t display_buffer[DISPLAY_BUFFER_SIZE];
+uint8_t image_id, bell_type, bell_time, message_time;
 uint8_t btn_dnd_state, btn_dnd_old_state;
 uint8_t btn_sos_state, btn_sos_old_state;
 uint8_t btn_maid_state, btn_maid_old_state;
+uint8_t btn_ok_state, btn_ok_old_state;
+uint8_t btn_opendoor_state, btn_opendoor_old_state;
 uint8_t btn_increase_state, btn_increase_old_state, btn_increase_timer, btn_increase_rate;
 uint8_t btn_decrease_state, btn_decrease_old_state, btn_decrease_timer, btn_decrease_rate;
 
@@ -88,7 +129,6 @@ static void DISPLAY_TemperatureSetPoint(void);
 /* Program Code  -------------------------------------------------------------*/
 void DISPLAY_Init(void)
 {
-  
 	GUI_Initialized = 0;
 	GUI_Init();
 	GUI_PID_SetHook(PID_Hook);
@@ -97,31 +137,18 @@ void DISPLAY_Init(void)
 	LCD_SetVisEx(1, 1);
 	GUI_SelectLayer(0);
 	GUI_Clear();
-	GUI_DrawBitmap(&bmbackground_0, 0, 0);
-	hBUTTON_Dnd         = BUTTON_Create( 355,   5, 120,  50, GUI_ID_BUTTON_Dnd,      WM_CF_SHOW);
-	hBUTTON_Maid        = BUTTON_Create( 355,  75, 120,  50, GUI_ID_BUTTON_Maid,     WM_CF_SHOW);
-	hBUTTON_SosReset         = BUTTON_Create( 355, 145, 120,  50, GUI_ID_BUTTON_Sos,      WM_CF_SHOW);
-    hBUTTON_Decrease    = BUTTON_Create(   3,  87, 103, 160, GUI_ID_BUTTON_Decrease, WM_CF_SHOW);
-    hBUTTON_Increase    = BUTTON_Create( 220,  90, 114, 156, GUI_ID_BUTTON_Increase, WM_CF_SHOW);
-    BUTTON_SetBitmap(hBUTTON_Dnd, BUTTON_BI_PRESSED, &bmbtn_dnd_1);
-    BUTTON_SetBitmap(hBUTTON_Dnd, BUTTON_BI_UNPRESSED, &bmbtn_dnd_0);
-    BUTTON_SetBitmap(hBUTTON_Maid, BUTTON_BI_PRESSED, &bmbtn_maid_1);
-    BUTTON_SetBitmap(hBUTTON_Maid, BUTTON_BI_UNPRESSED, &bmbtn_maid_0);
-    BUTTON_SetBitmap(hBUTTON_SosReset, BUTTON_BI_PRESSED, &bmbtn_rst_sos_0);
-    BUTTON_SetBitmap(hBUTTON_SosReset, BUTTON_BI_UNPRESSED, &bmbtn_rst_sos_0);
-    BUTTON_SetBitmap(hBUTTON_Decrease, BUTTON_BI_PRESSED, &bmbtn_decrease);
-    BUTTON_SetBitmap(hBUTTON_Decrease, BUTTON_BI_UNPRESSED, &bmbtn_decrease);
-    BUTTON_SetBitmap(hBUTTON_Increase, BUTTON_BI_PRESSED, &bmbtn_increase);
-    BUTTON_SetBitmap(hBUTTON_Increase, BUTTON_BI_UNPRESSED, &bmbtn_increase);
-	GUI_Exec();
-	GUI_SelectLayer(1);
+	GUI_DrawBitmap(&bm_display_0, 0, 0);
+    GUI_SelectLayer(1);
 	GUI_SetBkColor(GUI_TRANSPARENT); 
 	GUI_Clear();
-    DISPLAY_SetpointUpdateSet();
+    GUI_DrawBitmap(&bm_btn_dnd_0, BTN_DND_X0, BTN_DND_Y0); 
+    GUI_DrawBitmap(&bm_btn_maid_0, BTN_CMD_X0, BTN_CMD_Y0); 
+    GUI_DrawBitmap(&bm_btn_rst_sos_0, BTN_SOS_X0, BTN_SOS_Y0); 
+	GUI_Exec();
 	ActivDisplay = DISPLAY_THERMOSTAT;
+    DISPLAY_SetpointUpdateSet();
 	DISPLAY_DateTime();
 	GUI_Initialized = 1;
-	GUI_SelectLayer(0);
 }
 
 
@@ -133,220 +160,256 @@ void DISPLAY_Service(void)
 	/** ==========================================================================*/
 	/**    D R A W     D I S P L A Y	G U I	O N	   U P D A T E    E V E N T   */
 	/** ==========================================================================*/
-	if(IsDISPLAY_TimerExpired())			// display gui update
+	if(IsDISPLAY_TimerExpired())			        // display gui update
 	{
 		DISPLAY_StartTimer(GUI_REFRESH_TIME);
 		GUI_Exec();
 	}
-	else 									// wait for gui refresh timer
+	else 									        // wait for gui refresh timer
 	{
 		return;
 	}
 	
-	if(IsDISPLAY_DateTimeTimerExpired())	// date & time info update 
+    if(IsDISPLAY_UpdateActiv())                     // display message request
+    {
+        DISPLAY_UpdateReset();
+        
+        if(image_id == 0)
+        {
+            GUI_SelectLayer(0);
+            GUI_Clear();
+            GUI_DrawBitmap(&bm_display_0, 0, 0);
+            GUI_SelectLayer(1);
+            GUI_SetBkColor(GUI_TRANSPARENT); 
+            GUI_Clear();
+            GUI_DrawBitmap(&bm_btn_dnd_0, BTN_DND_X0, BTN_DND_Y0); 
+            GUI_DrawBitmap(&bm_btn_maid_0, BTN_CMD_X0, BTN_CMD_Y0); 
+            GUI_DrawBitmap(&bm_btn_rst_sos_0, BTN_SOS_X0, BTN_SOS_Y0); 
+            GUI_Exec();
+            ActivDisplay = DISPLAY_THERMOSTAT;
+            DISPLAY_SetpointUpdateSet();
+            DISPLAY_DateTime();
+        }
+        else if(image_id == 1)
+        {
+            GUI_SelectLayer(0);
+            GUI_Clear();
+            GUI_DrawBitmap(&bm_display_1, 0, 0);
+            GUI_SelectLayer(1);
+            GUI_SetBkColor(GUI_TRANSPARENT); 
+            GUI_Clear();
+            GUI_DrawBitmap(&bm_btn_open_door, BTN_DOR_X0, BTN_DOR_Y0); 
+            GUI_DrawBitmap(&bm_btn_ok, BTN_OK_X0, BTN_OK_Y0);
+            GUI_Exec();
+        }
+        else if(image_id == 2)
+        {
+            GUI_SelectLayer(0);
+            GUI_Clear();
+            GUI_DrawBitmap(&bm_display_2, 0, 0); 
+            GUI_SelectLayer(1);
+            GUI_SetBkColor(GUI_TRANSPARENT); 
+            GUI_Clear();
+            GUI_DrawBitmap(&bm_btn_ok, BTN_OK_X0, BTN_OK_Y0);
+            GUI_Exec();
+        }
+        
+    }
+    else if(IsDISPLAY_DateTimeTimerExpired())	    // date & time info update 
 	{
 		DISPLAY_DateTimeStartTimer(DATE_TIME_REFRESH_TIME);
-		GUI_MULTIBUF_BeginEx(1);
+        GUI_MULTIBUF_BeginEx(1);
 		DISPLAY_DateTime();
         GUI_MULTIBUF_EndEx(1);
-        
-        if(++au_cnt == 2)
-        {
-            GUI_SelectLayer(1);
-			GUI_Clear();
-            GUI_SelectLayer(0);
-            WM_DeleteWindow(hBUTTON_Dnd);
-            WM_DeleteWindow(hBUTTON_Maid);
-            WM_DeleteWindow(hBUTTON_SosReset);
-            WM_DeleteWindow(hBUTTON_Decrease);
-            WM_DeleteWindow(hBUTTON_Increase);
-            GUI_SetBkColor(GUI_BLACK);
-			GUI_Clear();
-            GUI_DrawBitmap(&bmmessage_1, 0, 0);
-            hBUTTON_DoorOpen    = BUTTON_Create(  20, 210, 155,  50, GUI_ID_BUTTON_DoorOpen,    WM_CF_SHOW);
-            hBUTTON_Ok          = BUTTON_Create( 320, 200, 133,  55, GUI_ID_BUTTON_Ok,          WM_CF_SHOW);
-            BUTTON_SetBitmap(hBUTTON_DoorOpen, BUTTON_BI_PRESSED, &bmbtn_open_door);
-            BUTTON_SetBitmap(hBUTTON_DoorOpen, BUTTON_BI_UNPRESSED, &bmbtn_open_door);
-            BUTTON_SetBitmap(hBUTTON_Ok, BUTTON_BI_PRESSED, &bmbtn_ok);
-            BUTTON_SetBitmap(hBUTTON_Ok, BUTTON_BI_UNPRESSED, &bmbtn_ok);
-            GUI_Exec();
-            ActivDisplay = DISPLAY_MESSAGE;
-        }
-        else if(au_cnt == 3)
-        {
-            GUI_SelectLayer(0);
-            WM_DeleteWindow(hBUTTON_DoorOpen);
-            WM_DeleteWindow(hBUTTON_Ok);
-            GUI_SetBkColor(GUI_BLACK);
-			GUI_Clear();
-            DISPLAY_Init();
-        }
-        else if(au_cnt == 4)
-        {
-            GUI_SelectLayer(1);
-			GUI_Clear();
-            GUI_SelectLayer(0);
-            WM_DeleteWindow(hBUTTON_Dnd);
-            WM_DeleteWindow(hBUTTON_Maid);
-            WM_DeleteWindow(hBUTTON_SosReset);
-            WM_DeleteWindow(hBUTTON_Decrease);
-            WM_DeleteWindow(hBUTTON_Increase);
-            GUI_SetBkColor(GUI_BLACK);
-			GUI_Clear();
-            GUI_DrawBitmap(&bmmessage_2, 0, 0);
-            hBUTTON_Ok = BUTTON_Create( 320, 200, 133,  55, GUI_ID_BUTTON_Ok, WM_CF_SHOW);
-            BUTTON_SetBitmap(hBUTTON_Ok, BUTTON_BI_PRESSED, &bmbtn_ok);
-            BUTTON_SetBitmap(hBUTTON_Ok, BUTTON_BI_UNPRESSED, &bmbtn_ok);
-            GUI_Exec();
-            ActivDisplay = DISPLAY_MESSAGE;
-        }
-        else if(au_cnt == 5)
-        {
-            GUI_SelectLayer(0);
-            WM_DeleteWindow(hBUTTON_Ok);
-            GUI_SetBkColor(GUI_BLACK);
-			GUI_Clear();
-            DISPLAY_Init();
-            au_cnt = 0;
-        }
 	}
-	
-	if(IsDISPLAY_SetpointUpdated())			// setpoint temperature changed
+	else if(IsDISPLAY_SetpointUpdated())			// setpoint temperature changed
 	{
 		DISPLAY_SetpointUpdateReset();
-		GUI_MULTIBUF_BeginEx(1);
+        GUI_MULTIBUF_BeginEx(1);
         DISPLAY_TemperatureSetPoint();
 		GUI_MULTIBUF_EndEx(1);
 	}
-	
-	if(IsDOORBELL_Activ() && (!IsDISPLAY_DoorBellActiv()) && (!IsBUTTON_DndActiv()))
+	else if(ActivDisplay == DISPLAY_THERMOSTAT)     // check thermostat display button states
 	{
-		
-	}
-	else if(!IsDOORBELL_Activ() && (IsDISPLAY_DoorBellActiv()) && (IsDISPLAY_DoorBellTimerExpired()))
-	{
-		
-	}
-	/** ==========================================================================*/
-	/**		C H E C K   S O F T W A R E   B U T T O N   T O U C H   E V E N T	  */
-	/** ==========================================================================*/
-	if(ActivDisplay == DISPLAY_THERMOSTAT)
-	{
-		if(BUTTON_IsPressed(hBUTTON_Dnd) && !btn_dnd_old_state)
+		if(btn_dnd_state && !btn_dnd_old_state)
 		{
 			btn_dnd_old_state = 1;
-			
-			if(btn_dnd_state == 0) 
-			{
-				btn_dnd_state = 1;
-				GUI_SelectLayer(1);
-				GUI_MULTIBUF_BeginEx(1);
-                BUTTON_DndActivSet();
-				if(IsBUTTON_CallMaidActiv())  BUTTON_SetNewState(hBUTTON_Maid, RELEASED);
-                BUTTON_SetBitmap(hBUTTON_Dnd, BUTTON_BI_PRESSED, &bmbtn_dnd_0);
-                BUTTON_SetBitmap(hBUTTON_Dnd, BUTTON_BI_UNPRESSED, &bmbtn_dnd_1);
-				GUI_MULTIBUF_EndEx(1);
-				GUI_SelectLayer(0);
-			}
-			else if(btn_dnd_state == 1) 
-			{
-				btn_dnd_state = 0;
-				GUI_SelectLayer(1);
-				GUI_MULTIBUF_BeginEx(1);
-				BUTTON_DndActivReset();
-                BUTTON_SetBitmap(hBUTTON_Dnd, BUTTON_BI_PRESSED, &bmbtn_dnd_1);
-                BUTTON_SetBitmap(hBUTTON_Dnd, BUTTON_BI_UNPRESSED, &bmbtn_dnd_0);
-				GUI_MULTIBUF_EndEx(1);
-				GUI_SelectLayer(0);
-			}	
+            
+            if(!IsBUTTON_DndActiv())
+            {
+                BUTTON_SetNewState(GUI_ID_BUTTON_Dnd, PRESSED);
+                BUTTON_SetNewState(GUI_ID_BUTTON_Maid, RELEASED);
+            }
+            else
+            {
+                BUTTON_SetNewState(GUI_ID_BUTTON_Dnd, RELEASED);
+            }
 		}
-		else if(!BUTTON_IsPressed(hBUTTON_Dnd) && btn_dnd_old_state)  btn_dnd_old_state = 0;
+		else if(!btn_dnd_state && btn_dnd_old_state)  btn_dnd_old_state = 0;
         
-		if(BUTTON_IsPressed(hBUTTON_SosReset) && !btn_sos_old_state && IsBUTTON_SosResetActiv())
-		{
-			btn_sos_old_state = 1;	
-			
-			if(btn_sos_state == 1) 
-			{
-				btn_sos_state = 0;
-				GUI_SelectLayer(1);
-				GUI_MULTIBUF_BeginEx(1);
-                BUTTON_SetBitmap(hBUTTON_SosReset, BUTTON_BI_PRESSED, &bmbtn_rst_sos_0);
-                BUTTON_SetBitmap(hBUTTON_SosReset, BUTTON_BI_UNPRESSED, &bmbtn_rst_sos_0);
-				GUI_MULTIBUF_EndEx(1);
-				GUI_SelectLayer(0);
-				BUTTON_SosActivReset();
-			}	
-		}
-		else if(!BUTTON_IsPressed(hBUTTON_SosReset) && btn_sos_old_state) btn_sos_old_state = 0;
 		
-		if(BUTTON_IsPressed(hBUTTON_Maid) && !btn_maid_old_state)
+		if(btn_maid_state && !btn_maid_old_state)
 		{
-			btn_maid_old_state = 1;	
-			
-			if(btn_maid_state == 0) 
-			{
-				btn_maid_state = 1;
-				GUI_SelectLayer(1);
-				GUI_MULTIBUF_BeginEx(1);
-				BUTTON_CallMaidActivSet();
-				if(IsBUTTON_DndActiv()) BUTTON_SetNewState(hBUTTON_Dnd, RELEASED);
-                BUTTON_SetBitmap(hBUTTON_Maid, BUTTON_BI_PRESSED, &bmbtn_maid_0);
-                BUTTON_SetBitmap(hBUTTON_Maid, BUTTON_BI_UNPRESSED, &bmbtn_maid_1);
-				GUI_MULTIBUF_EndEx(1);
-				GUI_SelectLayer(0);
-                
-			}
-			else if(btn_maid_state == 1) 
-			{
-				btn_maid_state = 0;
-				GUI_SelectLayer(1);
-				GUI_MULTIBUF_BeginEx(1);
-				BUTTON_CallMaidActivReset();
-                BUTTON_SetBitmap(hBUTTON_Maid, BUTTON_BI_PRESSED, &bmbtn_maid_1);
-                BUTTON_SetBitmap(hBUTTON_Maid, BUTTON_BI_UNPRESSED, &bmbtn_maid_0);
-				GUI_MULTIBUF_EndEx(1);
-				GUI_SelectLayer(0);
-               
-			}
+			btn_maid_old_state = 1;
+            
+			if(!IsBUTTON_CallMaidActiv())
+            {
+                BUTTON_SetNewState(GUI_ID_BUTTON_Maid, PRESSED);
+                BUTTON_SetNewState(GUI_ID_BUTTON_Dnd, RELEASED);
+            }
+            else
+            {
+                BUTTON_SetNewState(GUI_ID_BUTTON_Maid, RELEASED);
+            }
 		}
-		else if(!BUTTON_IsPressed(hBUTTON_Maid) && btn_maid_old_state) btn_maid_old_state = 0;
+		else if(!btn_maid_state && btn_maid_old_state) btn_maid_old_state = 0;
         
-	
-        if(BUTTON_IsPressed(hBUTTON_Increase) && !btn_increase_old_state)
+        
+        if(IsBUTTON_SosResetActiv() && btn_sos_state && !btn_sos_old_state)
+		{
+			btn_sos_old_state = 1;
+			BUTTON_SetNewState(GUI_ID_BUTTON_Sos, RELEASED);
+		}
+		else if(!btn_sos_state && btn_sos_old_state) btn_sos_old_state = 0;
+        
+        
+        if(btn_increase_state && !btn_increase_old_state)
 		{
 			btn_increase_old_state = 1;
-			
+			GUI_MULTIBUF_BeginEx(1);
+            
             if(Thermostat_1.set_temperature < THERMOSTAT_MAX_TEMPERATURE) 
             {
                 Thermostat_1.set_temperature += 10;
-                GUI_MULTIBUF_BeginEx(1);
                 DISPLAY_TemperatureSetPoint();
-                GUI_MULTIBUF_EndEx(1);
             }
+            
+            GUI_MULTIBUF_EndEx(1);
 		}
-		else if(!BUTTON_IsPressed(hBUTTON_Increase) && btn_increase_old_state) btn_increase_old_state = 0;
+		else if(!btn_increase_state && btn_increase_old_state) btn_increase_old_state = 0;
         
-        if(BUTTON_IsPressed(hBUTTON_Decrease) && !btn_decrease_old_state)
+        if(btn_decrease_state && !btn_decrease_old_state)
 		{
 			btn_decrease_old_state = 1;
-			
+			GUI_MULTIBUF_BeginEx(1);
+            
             if(Thermostat_1.set_temperature > THERMOSTAT_MIN_TEMPERATURE) 
             {
                 Thermostat_1.set_temperature -= 10;
-                GUI_MULTIBUF_BeginEx(1);
                 DISPLAY_TemperatureSetPoint();
-                GUI_MULTIBUF_EndEx(1);
             }
+            
+            GUI_MULTIBUF_EndEx(1);
 		}
-		else if(!BUTTON_IsPressed(hBUTTON_Decrease) && btn_decrease_old_state) btn_decrease_old_state = 0;
+		else if(!btn_decrease_state && btn_decrease_old_state) btn_decrease_old_state = 0;
+    }
+    else if(ActivDisplay == DISPLAY_MESSAGE)        // check message display button states
+	{
+        if(btn_ok_state)
+		{
+            btn_ok_state = 0; 
+            image_id = 0;
+            DISPLAY_UpdateSet();
+		}
+        
+        if(btn_opendoor_state && !btn_opendoor_old_state)
+		{
+			btn_opendoor_old_state = 1;
+            if(image_id == 1) BUTTON_OpenDoorSet();
+		}
+		else if(!btn_dnd_state && btn_dnd_old_state)  btn_dnd_old_state = 0;
     }
 }
 
 
 static void PID_Hook(GUI_PID_STATE * pState) 
 {
+    if(ActivDisplay == DISPLAY_THERMOSTAT)
+	{
+        if(pState->Pressed  == 1)
+        {
+            pState->Layer = 1;
+            
+            if ((pState->x >= BTN_INC_X0) && 
+                (pState->y >= BTN_INC_Y0) && 
+                (pState->x < BTN_INC_X1) && 
+                (pState->y < BTN_INC_Y1)) 
+            {	
+                btn_increase_state = 1;   
+            }
+            
+            if ((pState->x >= BTN_DEC_X0) && 
+                (pState->y >= BTN_DEC_Y0) && 
+                (pState->x < BTN_DEC_X1) && 
+                (pState->y < BTN_DEC_Y1)) 
+            {	
+                btn_decrease_state = 1;
+            }  
 
+            if ((pState->x >= BTN_DND_X0) && 
+                (pState->y >= BTN_DND_Y0) && 
+                (pState->x < BTN_DND_X1) && 
+                (pState->y < BTN_DND_Y1)) 
+            {
+                btn_dnd_state = 1;
+            }
+               
+            if ((pState->x >= BTN_CMD_X0) && 
+                (pState->y >= BTN_CMD_Y0) && 
+                (pState->x < BTN_CMD_X1) && 
+                (pState->y < BTN_CMD_Y1)) 
+            {
+                btn_maid_state = 1;
+            } 
+            
+            if ((pState->x >= BTN_SOS_X0) && 
+                (pState->y >= BTN_SOS_Y0) && 
+                (pState->x < BTN_SOS_X1) && 
+                (pState->y < BTN_SOS_Y1)) 
+            {
+                btn_sos_state = 1;
+            } 
+        }
+        else
+        {
+            btn_decrease_state = 0;   
+            btn_increase_state = 0;
+            btn_dnd_state = 0;
+            btn_maid_state = 0;
+            btn_sos_state = 0;
+            btn_opendoor_state = 0;   
+            btn_ok_state = 0;             
+        }
+	}
+    else  if(ActivDisplay == DISPLAY_MESSAGE)
+	{
+        if(pState->Pressed  == 1)
+        {
+            pState->Layer = 1;
+            
+           if ((pState->x >= BTN_DOR_X0) && 
+                (pState->y >= BTN_DOR_Y0) && 
+                (pState->x < BTN_DOR_X1) && 
+                (pState->y < BTN_DOR_Y1)) 
+            {
+                btn_opendoor_state = 1;
+            }
+               
+            if ((pState->x >= BTN_OK_X0) && 
+                (pState->y >= BTN_OK_Y0) && 
+                (pState->x < BTN_OK_X1) && 
+                (pState->y < BTN_OK_Y1)) 
+            {
+                btn_ok_state = 1;
+            } 
+        }
+        else
+        {
+            btn_opendoor_state = 0;   
+            btn_ok_state = 0;          
+        }
+	}
+    
 }
 
 
@@ -355,15 +418,12 @@ static void DISPLAY_DateTime(void)
 {
 	uint8_t	buff_bcnt;
 	
-	HAL_RTC_GetTime(&hrtc, &time, RTC_FORMAT_BCD);
-	HAL_RTC_GetDate(&hrtc, &date, RTC_FORMAT_BCD);
-	ClearBuffer(display_buffer,  sizeof(display_buffer));
-	GUI_SelectLayer(1);
-	
 	if(ActivDisplay == DISPLAY_THERMOSTAT)
 	{
-		GUI_ClearRect(240, 230, 480, 270);
-        
+        HAL_RTC_GetTime(&hrtc, &time, RTC_FORMAT_BCD);
+        HAL_RTC_GetDate(&hrtc, &date, RTC_FORMAT_BCD);
+        ClearBuffer(display_buffer,  sizeof(display_buffer));
+		GUI_ClearRect(240, 230, 480, 270);   
 		buff_bcnt = 0;
 		display_buffer[buff_bcnt++] = (date.Date >> 4) + 48;
 		display_buffer[buff_bcnt++] = (date.Date & 0x0f) + 48;
@@ -390,39 +450,34 @@ static void DISPLAY_DateTime(void)
 		GUI_GotoXY(470, 255);
 		GUI_DispString((const char *)display_buffer);
 	}
-
-	GUI_SelectLayer(0);
 }
 
 
 static void DISPLAY_TemperatureSetPoint(void)
 {
-#define DEC_POS     125
-#define UNIT_POS    165 
-#define V_POS       145  
-    
     uint8_t dec, unit;
     
-    GUI_SelectLayer(1);
-    dec = (Thermostat_1.set_temperature / 100);
-    unit = ((Thermostat_1.set_temperature - (dec * 100)) / 10);
-    GUI_ClearRect(120, 140, 250, 220);
-    
-    if(dec == 1) GUI_DrawBitmap(&bmnumber_1, DEC_POS, V_POS);
-    else if(dec == 2) GUI_DrawBitmap(&bmnumber_2, DEC_POS, V_POS);
-    else if(dec == 3) GUI_DrawBitmap(&bmnumber_3, DEC_POS, V_POS);
-    
-    if(unit == 0) GUI_DrawBitmap(&bmnumber_0, UNIT_POS, V_POS);
-    else if(unit == 1) GUI_DrawBitmap(&bmnumber_1, UNIT_POS, V_POS);
-    else if(unit == 2) GUI_DrawBitmap(&bmnumber_2, UNIT_POS, V_POS);
-    else if(unit == 3) GUI_DrawBitmap(&bmnumber_3, UNIT_POS, V_POS);
-    else if(unit == 4) GUI_DrawBitmap(&bmnumber_4, UNIT_POS, V_POS);
-    else if(unit == 5) GUI_DrawBitmap(&bmnumber_5, UNIT_POS, V_POS);
-    else if(unit == 6) GUI_DrawBitmap(&bmnumber_6, UNIT_POS, V_POS);
-    else if(unit == 7) GUI_DrawBitmap(&bmnumber_7, UNIT_POS, V_POS);
-    else if(unit == 8) GUI_DrawBitmap(&bmnumber_8, UNIT_POS, V_POS);
-    else if(unit == 9) GUI_DrawBitmap(&bmnumber_9, UNIT_POS, V_POS);
-    GUI_SelectLayer(0);
+    if(ActivDisplay == DISPLAY_THERMOSTAT)
+	{
+        dec = (Thermostat_1.set_temperature / 100);
+        unit = ((Thermostat_1.set_temperature - (dec * 100)) / 10);
+        GUI_ClearRect(120, 140, 250, 220);
+        
+        if(dec == 1) GUI_DrawBitmap(&bm_number_1, SP_TEMP_DEC_POS, SP_TEMP_V_POS);
+        else if(dec == 2) GUI_DrawBitmap(&bm_number_2, SP_TEMP_DEC_POS, SP_TEMP_V_POS);
+        else if(dec == 3) GUI_DrawBitmap(&bm_number_3, SP_TEMP_DEC_POS, SP_TEMP_V_POS);
+        
+        if(unit == 0) GUI_DrawBitmap(&bm_number_0, SP_TEMP_UNIT_POS, SP_TEMP_V_POS);
+        else if(unit == 1) GUI_DrawBitmap(&bm_number_1, SP_TEMP_UNIT_POS, SP_TEMP_V_POS);
+        else if(unit == 2) GUI_DrawBitmap(&bm_number_2, SP_TEMP_UNIT_POS, SP_TEMP_V_POS);
+        else if(unit == 3) GUI_DrawBitmap(&bm_number_3, SP_TEMP_UNIT_POS, SP_TEMP_V_POS);
+        else if(unit == 4) GUI_DrawBitmap(&bm_number_4, SP_TEMP_UNIT_POS, SP_TEMP_V_POS);
+        else if(unit == 5) GUI_DrawBitmap(&bm_number_5, SP_TEMP_UNIT_POS, SP_TEMP_V_POS);
+        else if(unit == 6) GUI_DrawBitmap(&bm_number_6, SP_TEMP_UNIT_POS, SP_TEMP_V_POS);
+        else if(unit == 7) GUI_DrawBitmap(&bm_number_7, SP_TEMP_UNIT_POS, SP_TEMP_V_POS);
+        else if(unit == 8) GUI_DrawBitmap(&bm_number_8, SP_TEMP_UNIT_POS, SP_TEMP_V_POS);
+        else if(unit == 9) GUI_DrawBitmap(&bm_number_9, SP_TEMP_UNIT_POS, SP_TEMP_V_POS);
+    }
 }
 
 
@@ -432,82 +487,60 @@ void BUTTON_SetNewState(uint16_t button_id, BUTTON_StateTypeDef new_state)
 	{
 		case  GUI_ID_BUTTON_Dnd:
 		{
+			GUI_MULTIBUF_BeginEx(1);
+            
 			if(new_state == RELEASED)
 			{
-				btn_dnd_state = 0;
-				GUI_SelectLayer(1);
-				GUI_MULTIBUF_BeginEx(1);
-				BUTTON_SetBitmap(hBUTTON_Dnd, BUTTON_BI_PRESSED, &bmbtn_dnd_1);
-                BUTTON_SetBitmap(hBUTTON_Dnd, BUTTON_BI_UNPRESSED, &bmbtn_dnd_0);
-				GUI_MULTIBUF_EndEx(1);
-				GUI_SelectLayer(0);
 				BUTTON_DndActivReset();
+                GUI_DrawBitmap(&bm_btn_dnd_0, BTN_DND_X0, BTN_DND_Y0);
 			}
 			else if(new_state == PRESSED)
 			{
-				btn_dnd_state = 1;
-				GUI_SelectLayer(1);
-				GUI_MULTIBUF_BeginEx(1);
-				BUTTON_SetBitmap(hBUTTON_Dnd, BUTTON_BI_PRESSED, &bmbtn_dnd_0);
-                BUTTON_SetBitmap(hBUTTON_Dnd, BUTTON_BI_UNPRESSED, &bmbtn_dnd_1);
-				GUI_MULTIBUF_EndEx(1);
-				GUI_SelectLayer(0);
 				BUTTON_DndActivSet();
+                GUI_DrawBitmap(&bm_btn_dnd_1, BTN_DND_X0, BTN_DND_Y0);
 			}
+            
+            GUI_MULTIBUF_EndEx(1);
 			break;
 		}
 		
 		
 		case  GUI_ID_BUTTON_Sos:
 		{
+			GUI_MULTIBUF_BeginEx(1);
+            
 			if(new_state == RELEASED)
 			{
-				btn_sos_state = 0;
-				GUI_SelectLayer(1);
-				GUI_MULTIBUF_BeginEx(1);
-				
-				GUI_MULTIBUF_EndEx(1);
-				GUI_SelectLayer(0);
 				BUTTON_SosActivReset();
+                GUI_DrawBitmap(&bm_btn_rst_sos_0, BTN_SOS_X0, BTN_SOS_Y0);
 			}
 			else if(new_state == PRESSED)
 			{
-				btn_sos_state = 1;
-				GUI_SelectLayer(1);
-				GUI_MULTIBUF_BeginEx(1);
-				BUTTON_SetBitmap(hBUTTON_SosReset, BUTTON_BI_PRESSED, &bmbtn_rst_sos_1);
-				GUI_MULTIBUF_EndEx(1);
-				GUI_SelectLayer(0);
-				BUTTON_SosActivSet();
+                BUTTON_SosActivSet();
+				GUI_DrawBitmap(&bm_btn_rst_sos_1, BTN_SOS_X0, BTN_SOS_Y0);
 			}
+            
+            GUI_MULTIBUF_EndEx(1);
 			break;
 		}
 		
 		
 		case  GUI_ID_BUTTON_Maid:
 		{
+			GUI_MULTIBUF_BeginEx(1);
+            
 			if(new_state == RELEASED)
 			{
-				btn_maid_state = 0;
-				GUI_SelectLayer(1);
-				GUI_MULTIBUF_BeginEx(1);
-				BUTTON_SetBitmap(hBUTTON_Maid, BUTTON_BI_PRESSED, &bmbtn_maid_1);
-                BUTTON_SetBitmap(hBUTTON_Maid, BUTTON_BI_UNPRESSED, &bmbtn_maid_0);
-				GUI_MULTIBUF_EndEx(1);
-				GUI_SelectLayer(0);
-				BUTTON_CallMaidActivReset();
+                BUTTON_CallMaidActivReset();
+				GUI_DrawBitmap(&bm_btn_maid_0, BTN_CMD_X0, BTN_CMD_Y0);
 			}
 			else if(new_state == PRESSED)
 			{
-				btn_maid_state = 1;
-				GUI_SelectLayer(1);
-				GUI_MULTIBUF_BeginEx(1);
-				BUTTON_SetBitmap(hBUTTON_Maid, BUTTON_BI_PRESSED, &bmbtn_maid_0);
-                BUTTON_SetBitmap(hBUTTON_Maid, BUTTON_BI_UNPRESSED, &bmbtn_maid_1);
-				GUI_MULTIBUF_EndEx(1);
-				GUI_SelectLayer(0);
-				BUTTON_CallMaidActivSet();
+                BUTTON_CallMaidActivSet();
+				GUI_DrawBitmap(&bm_btn_maid_1, BTN_CMD_X0, BTN_CMD_Y0);
 			}
+            
+            GUI_MULTIBUF_EndEx(1);
 			break;
 		}
 	}
@@ -519,14 +552,21 @@ BUTTON_StateTypeDef BUTTON_GetState(uint16_t button_id)
 	switch(button_id)
 	{
 		case  GUI_ID_BUTTON_Dnd:
-			return (btn_dnd_state);
+            if(IsBUTTON_DndActiv()) return (1);
+			else return (0);
+            break;
 		
 		case  GUI_ID_BUTTON_Sos:
-			return (btn_sos_state);
+			if(IsBUTTON_SosResetActiv()) return (1);
+			else return (0);
+            break;
 		
 		case  GUI_ID_BUTTON_Maid:
-			return (btn_maid_state);
+			if(IsBUTTON_CallMaidActiv()) return (1);
+			else return (0);
+            break;
 	}
+    
 	return(2);
 }
 

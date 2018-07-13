@@ -226,86 +226,42 @@ void ONEWIRE_Service(void)
 				Thermostat_1.fan_low_speed_band = onewire_buffer[24];
 				Thermostat_1.fan_middle_speed_band = onewire_buffer[25];
 				Thermostat_1.fan_speed_diff = onewire_buffer[26];
+                DISPLAY_SetpointUpdateSet();
 			}
 			/** ==========================================================================*/
-			/**		S E T		N E W		W E E K		F O R E C A S T		D A T A		  */
+			/**		S E T		N E W		D I S P L A Y    M E S S A G E		          */
 			/** ==========================================================================*/
 			if(onewire_buffer[27] == ACK)
 			{
-//				FORECAST_Monday.para.week_day = 0x01;
-//				FORECAST_Monday.para.low_temp = onewire_buffer[28];
-//				FORECAST_Monday.para.high_temp = onewire_buffer[29];
-//				FORECAST_Monday.para.humidity = onewire_buffer[30];
-//				FORECAST_Monday.para.cloudness = onewire_buffer[31];
-//				
-//				FORECAST_Tuesday.para.week_day = 0x02;
-//				FORECAST_Tuesday.para.low_temp = onewire_buffer[32];
-//				FORECAST_Tuesday.para.high_temp = onewire_buffer[33];
-//				FORECAST_Tuesday.para.humidity = onewire_buffer[34];
-//				FORECAST_Tuesday.para.cloudness = onewire_buffer[35];
-//				
-//				FORECAST_Wednesday.para.week_day = 0x03;
-//				FORECAST_Wednesday.para.low_temp = onewire_buffer[36];
-//				FORECAST_Wednesday.para.high_temp = onewire_buffer[37];
-//				FORECAST_Wednesday.para.humidity = onewire_buffer[38];
-//				FORECAST_Wednesday.para.cloudness = onewire_buffer[39];
-//				
-//				FORECAST_Thurstday.para.week_day = 0x04;
-//				FORECAST_Thurstday.para.low_temp = onewire_buffer[40];
-//				FORECAST_Thurstday.para.high_temp = onewire_buffer[41];
-//				FORECAST_Thurstday.para.humidity = onewire_buffer[42];
-//				FORECAST_Thurstday.para.cloudness = onewire_buffer[43];
-//				
-//				FORECAST_Freeday.para.week_day = 0x05;
-//				FORECAST_Freeday.para.low_temp = onewire_buffer[44];
-//				FORECAST_Freeday.para.high_temp = onewire_buffer[45];
-//				FORECAST_Freeday.para.humidity = onewire_buffer[46];
-//				FORECAST_Freeday.para.cloudness = onewire_buffer[47];
-//				
-//				FORECAST_Saturday.para.week_day = 0x06;
-//				FORECAST_Saturday.para.low_temp = onewire_buffer[48];
-//				FORECAST_Saturday.para.high_temp = onewire_buffer[49];
-//				FORECAST_Saturday.para.humidity = onewire_buffer[50];
-//				FORECAST_Saturday.para.cloudness = onewire_buffer[51];
-//				
-//				FORECAST_Sunday.para.week_day = 0x07;
-//				FORECAST_Sunday.para.low_temp = onewire_buffer[52];
-//				FORECAST_Sunday.para.high_temp = onewire_buffer[53];
-//				FORECAST_Sunday.para.humidity = onewire_buffer[54];
-//				FORECAST_Sunday.para.cloudness = onewire_buffer[55];
+                image_id = onewire_buffer[28];
+                bell_type = onewire_buffer[29];
+                bell_time = onewire_buffer[30];
+                message_time = onewire_buffer[31];
+                DISPLAY_UpdateSet();
 			}
+            /** ==========================================================================*/
+			/**		                 G E T		    C O M M A N  D		                  */
 			/** ==========================================================================*/
-			/**		S E T		N E W		D O O R		T A S T E R		 S T A T U S	 */
-			/** ==========================================================================*/
-			if(onewire_buffer[56] == ACK) 							// SET NEW TASTER STATE
-			{	
-				if(onewire_buffer[57] == 0)  DOORBELL_Off(); 		// DORBELL TASTER STATE
-				else DOORBELL_On();
-				
-				if(onewire_buffer[58] == 0)  HANDMAID_TasterOff();	// CALL MAID SWITCH STATE
-				else HANDMAID_TasterOn();
-			}
-			
-			// onewire_buffer[59];	current_outdoor_temperature		
+            // onewire_buffer[32];  // OPEN DOOR COMMAND    (0 = NOTHING; 1 = OPEN)
 			OnewireState = ONEWIRE_PACKET_SEND;
 		}
 		else if(OnewireState == ONEWIRE_PACKET_SEND)
 		{
 			ClearBuffer(onewire_buffer,  ONEWIRE_BUF_SIZE);
 			/** ==========================================================================*/
-			/**			   S E T			P A C K E T			H E A D E R			  	  */
+			/**			   G E T			P A C K E T			H E A D E R			  	  */
 			/** ==========================================================================*/
 			onewire_buffer[0] = ONEWIRE_CONTROLLER_ADDRESS;
 			onewire_buffer[1] = ONEWIRE_THERMOSTAT_ADDRESS;
 			/** ==========================================================================*/
-			/**			S E T		N E W		B U T T O N 		S T A T E			  */
+			/**			G E T		 B U T T O N 		S T A T E			              */
 			/** ==========================================================================*/
-			onewire_buffer[2] = NAK;	// 						(ACK = SET; NAK = SKEEP)
+			onewire_buffer[2] = NAK;	// 						                            (ACK = SET; NAK = SKEEP)
 			onewire_buffer[3] = BUTTON_GetState(GUI_ID_BUTTON_Dnd);	// DND BUTTON STATE 	(0 = RELEASED; 1 = PRESSED)
 			onewire_buffer[4] = BUTTON_GetState(GUI_ID_BUTTON_Sos);	// SOS BUTTON STATE		(0 = RELEASED; 1 = PRESSED)
 			onewire_buffer[5] = BUTTON_GetState(GUI_ID_BUTTON_Maid);// HM CALL BUTTON STATE	(0 = RELEASED; 1 = PRESSED)
 			/** ==========================================================================*/
-			/**			S E T		N E W		D A T E 	& 		T I M E				  */
+			/**			G E T		D A T E 	& 		T I M E				              */
 			/** ==========================================================================*/
 			onewire_buffer[6] = NAK;			// (ACK = SET; NAK = SKEEP)
 			onewire_buffer[7] = date.Date;		// DATE DAY		(0x01 - 0x31)
@@ -316,7 +272,7 @@ void ONEWIRE_Service(void)
 			onewire_buffer[12] = time.Minutes;	// TIME MINUTE	(0x00 - 0x59)
 			onewire_buffer[13] = time.Seconds;	// TIME SECONDS	(0x00 - 0x59)
 			/** ==========================================================================*/
-			/**			S E T		T H E R M O S T A T 	P A R A M E T E R S			  */
+			/**			G E T		T H E R M O S T A T 	P A R A M E T E R S			  */
 			/** ==========================================================================*/
 			onewire_buffer[14] = NAK;						//				(ACK = SET; NAK = SKEEP)
 			onewire_buffer[15] = Thermostat_1.valve;		// VALVE		(0 = OFF; 1 = COOLING VALVE ON)
@@ -332,45 +288,24 @@ void ONEWIRE_Service(void)
 			onewire_buffer[25] = Thermostat_1.fan_middle_speed_band;		// FAN MIDDLE SPEED BAND DIFFERENCE		
 			onewire_buffer[26] = Thermostat_1.fan_speed_diff;				// FAN SPEED TRESHOLD DIFFERENCE	
 			/** ==========================================================================*/
-			/**		S E T		N E W		W E E K		F O R E C A S T		D A T A		  */
+			/**		G E T		A C T I V		D I S P L A Y    M E S S A G E		      */
 			/** ==========================================================================*/
 			onewire_buffer[27] = NAK; 								//(ACK = SET; NAK = SKEEP)
-//			onewire_buffer[28] = FORECAST_Monday.para.low_temp;		// FORECAST MONDAY LOW TEMPERATURE
-//			onewire_buffer[29] = FORECAST_Monday.para.high_temp;	// FORECAST MONDAY HIGH TEMPERATURE
-//			onewire_buffer[30] = FORECAST_Monday.para.humidity;		// FORECAST MONDAY HUMIDITY
-//			onewire_buffer[31] = FORECAST_Monday.para.cloudness;	// FORECAST MONDAY CLOUDNESS AND WIND
-//			onewire_buffer[32] = FORECAST_Tuesday.para.low_temp;	// FORECAST TUESDAY LOW TEMPERATURE
-//			onewire_buffer[33] = FORECAST_Tuesday.para.high_temp;	// FORECAST TUESDAY HIGH TEMPERATURE
-//			onewire_buffer[34] = FORECAST_Tuesday.para.humidity;	// FORECAST TUESDAY HUMIDITY
-//			onewire_buffer[35] = FORECAST_Tuesday.para.cloudness;	// FORECAST TUESDAY CLOUDNESS AND WIND
-//			onewire_buffer[36] = FORECAST_Wednesday.para.low_temp;	// FORECAST WEDNESDAY LOW TEMPERATURE
-//			onewire_buffer[37] = FORECAST_Wednesday.para.high_temp;	// FORECAST WEDNESDAY HIGH TEMPERATURE
-//			onewire_buffer[38] = FORECAST_Wednesday.para.humidity;	// FORECAST WEDNESDAY HUMIDITY
-//			onewire_buffer[39] = FORECAST_Wednesday.para.cloudness;	// FORECAST WEDNESDAY CLOUDNESS AND WIND
-//			onewire_buffer[40] = FORECAST_Thurstday.para.low_temp;	// FORECAST THURSTDAY LOW TEMPERATURE
-//			onewire_buffer[41] = FORECAST_Thurstday.para.high_temp;	// FORECAST THURSTDAY HIGH TEMPERATURE
-//			onewire_buffer[42] = FORECAST_Thurstday.para.humidity;	// FORECAST THURSTDAY HUMIDITY
-//			onewire_buffer[43] = FORECAST_Thurstday.para.cloudness;	// FORECAST THURSTDAY CLOUDNESS AND WIND
-//			onewire_buffer[44] = FORECAST_Freeday.para.low_temp;	// FORECAST FREEDAY LOW TEMPERATURE
-//			onewire_buffer[45] = FORECAST_Freeday.para.high_temp;	// FORECAST FREEDAY HIGH TEMPERATURE
-//			onewire_buffer[46] = FORECAST_Freeday.para.humidity;	// FORECAST FREEDAY HUMIDITY
-//			onewire_buffer[47] = FORECAST_Freeday.para.cloudness;	// FORECAST FREEDAY CLOUDNESS AND WIND
-//			onewire_buffer[48] = FORECAST_Saturday.para.low_temp;	// FORECAST SATURDAY LOW TEMPERATURE
-//			onewire_buffer[49] = FORECAST_Saturday.para.high_temp;	// FORECAST SATURDAY HIGH TEMPERATURE
-//			onewire_buffer[50] = FORECAST_Saturday.para.humidity;	// FORECAST SATURDAY HUMIDITY
-//			onewire_buffer[51] = FORECAST_Saturday.para.cloudness;	// FORECAST SATURDAY CLOUDNESS AND WIND
-//			onewire_buffer[52] = FORECAST_Sunday.para.low_temp;		// FORECAST SUNDAY LOW TEMPERATURE
-//			onewire_buffer[53] = FORECAST_Sunday.para.high_temp;	// FORECAST SUNDAY HIGH TEMPERATURE
-//			onewire_buffer[54] = FORECAST_Sunday.para.humidity;		// FORECAST SUNDAY HUMIDITY
-//			onewire_buffer[55] = FORECAST_Sunday.para.cloudness;	// FORECAST SUNDAY CLOUDNESS AND WIND
+            onewire_buffer[28] = image_id;
+            onewire_buffer[29] = bell_type;
+            onewire_buffer[30] = bell_time;
+            onewire_buffer[31] = message_time;
+            /** ==========================================================================*/
+			/**		                 G E T		    C O M M A N  D		                  */
 			/** ==========================================================================*/
-			/**		G E T		N E W		D O O R		T A S T E R		 S T A T U S	 */
+            if(IsBUTTON_OpenDoorActiv())
+            {
+                BUTTON_OpenDoorReset();
+                onewire_buffer[32] = 1;
+            }
+            else onewire_buffer[32] = 0;
 			/** ==========================================================================*/
-			onewire_buffer[56] = NAK;						// SET NEW TASTER STATE		(ACK = SET; NAK = SKEEP)
-			onewire_buffer[57] = IsDOORBELL_Activ();		// DORBELL TASTER STATE		(0 = RELEASED; 1 = PRESSED)
-			onewire_buffer[58] = IsHANDMAID_TasterActiv();	// CALL MAID SWITCH STATE  	(0 = RELEASED; 1 = PRESSED)
-			/** ==========================================================================*/
-			/**		S E T		P A C K E T		C R C		A N D		S E N D			  */
+			/**		G E T		P A C K E T		C R C		A N D		S E N D			  */
 			/** ==========================================================================*/
 			//onewire_buffer[59] = current_outdoor_temperature;	//	weathercast info
 			onewire_buffer[60] = 0x00;	//	RES

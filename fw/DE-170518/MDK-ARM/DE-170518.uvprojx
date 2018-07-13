@@ -674,21 +674,6 @@
               <FilePath>..\Src\Display\number_9.c</FilePath>
             </File>
             <File>
-              <FileName>background_0.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Src\Display\background_0.c</FilePath>
-            </File>
-            <File>
-              <FileName>message_1.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Src\Display\message_1.c</FilePath>
-            </File>
-            <File>
-              <FileName>message_2.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Src\Display\message_2.c</FilePath>
-            </File>
-            <File>
               <FileName>btn_decrease.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\Src\Display\btn_decrease.c</FilePath>
@@ -737,6 +722,21 @@
               <FileName>btn_rst_sos_1.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\Src\Display\btn_rst_sos_1.c</FilePath>
+            </File>
+            <File>
+              <FileName>display_0.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Src\Display\display_0.c</FilePath>
+            </File>
+            <File>
+              <FileName>display_1.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Src\Display\display_1.c</FilePath>
+            </File>
+            <File>
+              <FileName>display_2.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Src\Display\display_2.c</FilePath>
             </File>
           </Files>
         </Group>
