@@ -934,7 +934,7 @@ static void MX_GPIO_Init(void)
 	
 	/*Configure GPIO pin : FAN_SPEED_SENSOR_Pin and FANCOIL_MAINS_ZERO_CROSS*/
 	GPIO_InitStruct.Pin = GPIO_PIN_13|GPIO_PIN_14;
-	GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING;
+	GPIO_InitStruct.Mode = GPIO_MODE_IT_FALLING;
 	GPIO_InitStruct.Pull = GPIO_NOPULL;
 	HAL_GPIO_Init(GPIOG, &GPIO_InitStruct);
 
@@ -957,7 +957,7 @@ static void MX_GPIO_Init(void)
 //	HAL_GPIO_Init(GPIOE, &GPIO_InitStruct);
 	
 	/* EXTI interrupt init*/
-	HAL_NVIC_SetPriority(EXTI15_10_IRQn, 0, 0);
+	HAL_NVIC_SetPriority(EXTI15_10_IRQn, 1, 0);
 	HAL_NVIC_EnableIRQ(EXTI15_10_IRQn);
 
 }
@@ -1029,30 +1029,19 @@ void Error_Handler(void)
 
 void FAN_SetSpeed(uint8_t fan_speed)
 {
-	if(fan_speed == FAN_OFF)
+    HAL_TIM_Base_Stop_IT(&htim3);
+    HAL_NVIC_DisableIRQ(TIM3_IRQn);
+	HAL_NVIC_DisableIRQ(EXTI15_10_IRQn);
+    __HAL_GPIO_EXTI_CLEAR_IT(GPIO_PIN_13);
+	__HAL_TIM_CLEAR_FLAG(&htim3, TIM_FLAG_UPDATE);
+    HAL_GPIO_WritePin(GPIOC, GPIO_PIN_8, GPIO_PIN_RESET);
+    triac_on_timer = 0;	
+	triac_on_time = 0;
+	triac_timer = 0;
+    
+	if(fan_speed != FAN_OFF)
 	{
-		HAL_NVIC_DisableIRQ(EXTI15_10_IRQn);
-		HAL_NVIC_DisableIRQ(TIM3_IRQn);
-		__HAL_TIM_CLEAR_FLAG(&htim3, TIM_FLAG_UPDATE);
-		__HAL_GPIO_EXTI_CLEAR_IT(GPIO_PIN_13);
-		HAL_TIM_Base_Stop_IT(&htim3);
-		HAL_GPIO_WritePin(GPIOC, GPIO_PIN_8, GPIO_PIN_RESET);
-		triac_on_timer = 0;
-		triac_on_time = 0;
-		triac_timer = 0;
-	}
-	else 
-	{
-		HAL_TIM_Base_Stop_IT(&htim3);
-		HAL_NVIC_DisableIRQ(TIM3_IRQn);
-		HAL_NVIC_DisableIRQ(EXTI15_10_IRQn);
-		__HAL_GPIO_EXTI_CLEAR_IT(GPIO_PIN_13);
-		__HAL_TIM_CLEAR_FLAG(&htim3, TIM_FLAG_UPDATE);
-		HAL_GPIO_WritePin(GPIOC, GPIO_PIN_8, GPIO_PIN_RESET);
 		triac_on_time = fan_speed;
-		triac_on_timer = 0;		
-		triac_timer = 0;
-		__HAL_GPIO_EXTI_CLEAR_IT(GPIO_PIN_13);
 		HAL_NVIC_EnableIRQ(EXTI15_10_IRQn);
 	}
 }

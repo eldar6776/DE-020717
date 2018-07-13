@@ -213,7 +213,6 @@ void DISPLAY_Service(void)
             GUI_DrawBitmap(&bm_btn_ok, BTN_OK_X0, BTN_OK_Y0);
             GUI_Exec();
         }
-        
     }
     else if(IsDISPLAY_DateTimeTimerExpired())	    // date & time info update 
 	{
