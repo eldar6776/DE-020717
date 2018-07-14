@@ -42,6 +42,9 @@ typedef enum	// display button states
 #define GUI_REFRESH_TIME				50		// refresh gui 30 time in second
 #define DATE_TIME_REFRESH_TIME			60000	// refresh date & time info every 1 min
 #define DISPLAY_DOORBELL_TIME			4321	// 4s doorbell animation activ
+#define DISPLAY_SCREENSAVER_TIME        30000   // 30 sec display low brigntnes timeout
+#define DISPLAY_BRIGHTNESS_HIGH         500
+#define DISPLAY_BRIGHTNESS_LOW          100
 
 #define GUI_ID_BUTTON_Dnd   			0x801
 #define GUI_ID_BUTTON_Sos   			0x802
@@ -62,6 +65,7 @@ extern uint32_t display_flags;
 extern __IO uint32_t display_timer;
 extern __IO uint32_t display_date_time_timer;
 extern __IO uint32_t display_message_timer;
+extern __IO uint32_t display_screensaver_timer;
 extern uint8_t display_buffer[DISPLAY_BUFFER_SIZE];
 extern uint8_t display_message_id, display_message_time;
 
@@ -75,6 +79,9 @@ extern uint8_t display_message_id, display_message_time;
 #define DISPLAY_MessageStartTimer(TIME)	    (display_message_timer = TIME)
 #define DISPLAY_StopMessageTimer()			(display_message_timer = 0)
 #define IsDISPLAY_MessageTimerExpired()	    (display_message_timer == 0)
+#define DISPLAY_StartScreenSaverTimer(TIME) (display_screensaver_timer = TIME)
+#define DISPLAY_StopScreenSaverTimer()      (display_screensaver_timer = 0)
+#define IsDISPLAY_ScreenSaverTimerExpirerd()(display_screensaver_timer == 0)
 
 
 #define DISPLAY_UpdateSet()		            (display_flags |= (1 << 0))
@@ -101,6 +108,9 @@ extern uint8_t display_message_id, display_message_time;
 #define DISPLAY_MessageTimerSet()           (display_flags |= (1 << 8)) 
 #define DISPLAY_MessageTimerReset()         (display_flags &= (~ (1 << 8)))
 #define IsDISPLAY_MessageTimerActiv()       ((display_flags & (1 << 8)) != 0)
+#define DISPLAY_BrightnessSet()             (display_flags |= (1 << 9)) 
+#define DISPLAY_BrightnessReset()           (display_flags &= (~ (1 << 9)))
+#define IsDISPLAY_BrightnessSet()          ((display_flags & (1 << 9)) != 0)
 
 /* Exported functions  -------------------------------------------------------*/
 void DISPLAY_Init(void);

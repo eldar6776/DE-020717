@@ -21,6 +21,7 @@
 /* Exported types ------------------------------------------------------------*/
 extern UART_HandleTypeDef huart2;
 extern TIM_HandleTypeDef htim3;
+extern TIM_HandleTypeDef htim9;
 extern RTC_HandleTypeDef hrtc;
 extern RTC_TimeTypeDef time;
 extern RTC_DateTypeDef date;

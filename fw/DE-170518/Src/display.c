@@ -88,6 +88,7 @@ eActivDisplayTypeDef ActivDisplay;
 __IO uint32_t display_timer;
 __IO uint32_t display_date_time_timer;
 __IO uint32_t display_message_timer;
+__IO uint32_t display_screensaver_timer;
 uint32_t display_flags;
 
 uint8_t display_buffer[DISPLAY_BUFFER_SIZE];
@@ -147,6 +148,7 @@ void DISPLAY_Init(void)
 	ActivDisplay = DISPLAY_THERMOSTAT;
     DISPLAY_SetpointUpdateSet();
 	DISPLAY_DateTime();
+    DISPLAY_StartScreenSaverTimer(DISPLAY_SCREENSAVER_TIME);
 	DISPLAY_InitializedSet();
 }
 
@@ -170,6 +172,12 @@ void DISPLAY_Service(void)
 		return;
 	}
 	
+    if(IsDISPLAY_ScreenSaverTimerExpirerd() && !IsDISPLAY_BrightnessSet())   
+    {
+        DISPLAY_BrightnessSet();
+        __HAL_TIM_SET_COMPARE(&htim9, TIM_CHANNEL_1, DISPLAY_BRIGHTNESS_LOW); 
+    }
+    
     if(IsDISPLAY_UpdateActiv())                     // display message request
     {
         DISPLAY_UpdateReset();
@@ -241,6 +249,7 @@ void DISPLAY_Service(void)
 	{
         if(actual_temp != Thermostat_1.actual_temperature)
         {
+            GUI_MULTIBUF_BeginEx(1);
             actual_temp = Thermostat_1.actual_temperature;
             GUI_ClearRect(350, 200, 480, 230); 
             GUI_SetFont(GUI_FONT_20_1);
@@ -251,6 +260,7 @@ void DISPLAY_Service(void)
             if(Thermostat_1.actual_temperature & 0x8000) GUI_DispString("-");
             GUI_DispDecSpace(((Thermostat_1.actual_temperature & 0x0fff) / 10), 2);
             GUI_DispString("*C");
+            GUI_MULTIBUF_EndEx(1);
         }
         
 		if(btn_dnd_state && !btn_dnd_old_state)
@@ -351,6 +361,13 @@ void DISPLAY_Service(void)
 
 static void PID_Hook(GUI_PID_STATE * pState) 
 {
+    if(pState->Pressed  == 1) 
+    {
+        __HAL_TIM_SET_COMPARE(&htim9, TIM_CHANNEL_1, DISPLAY_BRIGHTNESS_HIGH);
+        DISPLAY_StartScreenSaverTimer(DISPLAY_SCREENSAVER_TIME);
+        DISPLAY_BrightnessReset();
+    }
+      
     if(ActivDisplay == DISPLAY_THERMOSTAT)
 	{
         if(pState->Pressed  == 1)
@@ -436,7 +453,6 @@ static void PID_Hook(GUI_PID_STATE * pState)
             btn_ok_state = 0;          
         }
 	}
-    
 }
 
 

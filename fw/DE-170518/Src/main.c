@@ -308,6 +308,7 @@ void HAL_SYSTICK_Callback(void)
 	if(thermostat_valve_timer) --thermostat_valve_timer;
 	if(display_timer) --display_timer;
 	if(display_date_time_timer) --display_date_time_timer;
+    if(display_screensaver_timer) --display_screensaver_timer;
 	if(display_message_timer) --display_message_timer;
 	if(buzzer_mode_timer) --buzzer_mode_timer;
     if(buzzer_repeat_timer) --buzzer_repeat_timer;
@@ -791,7 +792,7 @@ static void MX_TIM9_Init(void)
 	}
 
 	sConfigOC.OCMode = TIM_OCMODE_PWM1;
-	sConfigOC.Pulse = 500;
+	sConfigOC.Pulse = DISPLAY_BRIGHTNESS_HIGH;
 	sConfigOC.OCPolarity = TIM_OCPOLARITY_HIGH;
 	sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;
 	
