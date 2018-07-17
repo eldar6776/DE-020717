@@ -145,7 +145,7 @@ static uint8_t  I2cAddress;
   */
 uint8_t TOUCH_SCREEN_Init(uint16_t ts_SizeX, uint16_t ts_SizeY)
 {	
-	uint8_t status = TS_OK;
+	//uint8_t status = TS_OK;
 	tsXBoundary = ts_SizeX;
 	tsYBoundary = ts_SizeY;
 

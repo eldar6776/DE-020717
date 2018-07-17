@@ -56,9 +56,9 @@ uint32_t thermostat_flags;
 /**   F A N C O I L   C O N T O L   W I T H   T R I A C   A N D		D O U T     */
 /** ============================================================================*/
 #define FANCOIL_SetFanOff()					(FAN_SetSpeed(FAN_OFF))
-#define FANCOIL_SetFanLowSpeed()			(FAN_SetSpeed(FAN_SPEED_LOW))
-#define FANCOIL_SetFanMiddleSpeed()			(FAN_SetSpeed(FAN_SPEED_MIDDLE))
-#define FANCOIL_SetFanHighSpeed()			(FAN_SetSpeed(FAN_SPEED_HIGH))
+#define FANCOIL_SetFanLowSpeed()			(FAN_SetSpeed(FAN_CONST_SPEED_LOW))
+#define FANCOIL_SetFanMiddleSpeed()			(FAN_SetSpeed(FAN_CONST_SPEED_MIDDLE))
+#define FANCOIL_SetFanHighSpeed()			(FAN_SetSpeed(FAN_CONST_SPEED_HIGH))
 
 
 /* Private Function Prototype ------------------------------------------------*/
@@ -85,16 +85,16 @@ void THERMOSTAT_Init(void)
     GPIO_InitStruct.Speed = GPIO_SPEED_LOW;
     HAL_GPIO_Init(GPIOD, &GPIO_InitStruct);
 	
-	Thermostat_1.valve = 0;						// cooling/heating valve on/off/proportion
-	Thermostat_1.fan_mode = 0;					// fan auto control
-	Thermostat_1.fan_speed = 0;					// fan off
-	Thermostat_1.ctrl_mode = 0;					// thermostat off
-	Thermostat_1.actual_temperature = 210;		// proces variable
-	Thermostat_1.set_temperature = 210;			// thermostat set point 23,0°C
-	Thermostat_1.set_temperature_diff = 15;		// actual = set point => controller off, actual = set point +/- difference => controller on
-	Thermostat_1.fan_low_speed_band = 10;		// set point +/- 1,0°C low speed fan zone
-	Thermostat_1.fan_middle_speed_band = 20;	// set point +/- 2,0°C middle speed fan zone
-	Thermostat_1.fan_speed_diff = 3;			// 0,3°C treshold for fan speed change
+	Thermostat_1.valve = 0;						                // cooling/heating valve on/off/proportion
+	Thermostat_1.fan_mode = THERMOSTAT_FAN_MODE_AUTO;           // fan auto control
+	Thermostat_1.fan_speed = 0;					                // fancoil fan at startup off
+	Thermostat_1.ctrl_mode = THERMOSTAT_CONTROL_MODE_OFF;       // thermostat cooling mode
+	Thermostat_1.actual_temperature = 220;		                // proces variable
+	Thermostat_1.set_temperature = 120;			                // thermostat set point 23,0°C
+	Thermostat_1.set_temperature_diff = 15;		                // actual = set point => controller off, actual = set point +/- difference => controller on
+	Thermostat_1.fan_low_speed_band = 10;		                // set point +/- 1,0°C low speed fan zone
+	Thermostat_1.fan_middle_speed_band = 20;	                // set point +/- 2,0°C middle speed fan zone
+	Thermostat_1.fan_speed_diff = 3;			                // 0,3°C treshold for fan speed change
     
     THERMOSTAT_StartTimer(THERMOSTAT_STARTUP_DELAY);
 }
@@ -106,19 +106,42 @@ void THERMOSTAT_Service(void)
 	static uint8_t fan_pcnt = 0;
 	
     /** ============================================================================*/
+	/**		C H E C K       T I M E R    A N D      S Y S T E M     F L A G S	    */
+	/** ============================================================================*/
+    if(!IsTHERMOSTAT_TimerExpired() && !IsTHERMOSTAT_Activ()) return;
+    else THERMOSTAT_ActivSet();
+    /** ============================================================================*/
 	/**		U P D A T E 	M E A S U R E D    T E M P E R A T U R E 	V A L U E	*/
 	/** ============================================================================*/
-    if(!IsTHERMOSTAT_TimerExpired()) return;
-	else if(IsONEWIRE_SensorConnected())    Thermostat_1.actual_temperature = ds18b20_1.temperature;
-	else if(IsNTC_SensorConnected())        Thermostat_1.actual_temperature = ntc_temperature;	
-    else if(IsTHERMOSTAT_SensorErrorActiv())
+    if(IsONEWIRE_SensorConnected())         Thermostat_1.actual_temperature = ds18b20_1.temperature;
+	else if(IsAMBIENT_NTC_SensorConnected())Thermostat_1.actual_temperature = ambient_ntc_temperature;
+    else return;
+    /** ============================================================================*/
+	/**		    R U N       O N C E     R P M       S E N S O R     C H E C K	    */
+	/** ============================================================================*/
+    if(IsSYSTEM_StartupActiv())
     {
-        if((ntc_temperature & 0x0fff) < 600) 
+        Thermostat_1.actual_temperature = 220;
+        
+        if(Thermostat_1.set_temperature == 120)
         {
-            NTC_SensorConnected();
-            THERMOSTAT_SensorErrorReset();
+            Thermostat_1.set_temperature = 130;
+            Thermostat_1.ctrl_mode = THERMOSTAT_CONTROL_MODE_COOLING; 
+            THERMOSTAT_StartTimer(FAN_RPM_MEASURE_TIME * 2);
+            DISPLAY_SetpointUpdateSet();
         }
-        else return;
+        else if((Thermostat_1.set_temperature == 130) && IsTHERMOSTAT_TimerExpired()) 
+        {
+            Thermostat_1.set_temperature = 140;
+            Thermostat_1.ctrl_mode = THERMOSTAT_CONTROL_MODE_OFF;
+            DISPLAY_SetpointUpdateSet();
+        }
+    }
+    else if(!IsSYSTEM_StartupActiv() && (Thermostat_1.set_temperature == 140)) 
+    {
+        Thermostat_1.set_temperature = Thermostat_1.actual_temperature;
+        Thermostat_1.ctrl_mode = THERMOSTAT_CONTROL_MODE_COOLING; 
+        DISPLAY_SetpointUpdateSet();
     }
 	/** ============================================================================*/
 	/**		S W I T C H		F A N		S P E E D		W I T H		D E L A Y		*/
@@ -171,7 +194,7 @@ void THERMOSTAT_Service(void)
 	/** ============================================================================*/
 	/**				T E M P E R A T U R E		C O N T R O L L E R					*/
 	/** ============================================================================*/
-	if(Thermostat_1.ctrl_mode == THERMOSTAT_CONTROL_MODE_OFF)
+	if((Thermostat_1.ctrl_mode == THERMOSTAT_CONTROL_MODE_OFF) || (Thermostat_1.ctrl_mode > 2))
 	{
 		Thermostat_1.valve = 0;
 		Thermostat_1.fan_speed = 0;

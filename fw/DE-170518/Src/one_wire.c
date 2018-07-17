@@ -86,7 +86,6 @@ void ONEWIRE_Init(void)
 	
 	if(ONEWIRE_Search(&ds18b20_1, &onewire_sensor_number)) 
 	{
-        THERMOSTAT_SensorErrorReset();
 		ONEWIRE_SensorConnected();
 		if(ONEWIRE_Search(&ds18b20_2, &onewire_sensor_number) == 0) return;
 		if(ONEWIRE_Search(&ds18b20_3, &onewire_sensor_number) == 0) return;
@@ -98,7 +97,6 @@ void ONEWIRE_Init(void)
 	}
 	else 
 	{ 
-        THERMOSTAT_SensorErrorSet();
 		ONEWIRE_SensorNotConnected();
 		ONEWIRE_SetUsart(ONEWIRE_9600);
 		HAL_HalfDuplex_EnableReceiver(&huart2);
@@ -193,9 +191,9 @@ void ONEWIRE_Service(void)
 			/** ==========================================================================*/
 			if(onewire_buffer[2] == ACK)
 			{
-				BUTTON_SetNewState(GUI_ID_BUTTON_Dnd, onewire_buffer[3]);
-				BUTTON_SetNewState(GUI_ID_BUTTON_Sos, onewire_buffer[4]);
-				BUTTON_SetNewState(GUI_ID_BUTTON_Maid, onewire_buffer[5]);
+				BUTTON_SetNewState(GUI_ID_BUTTON_Dnd, (BUTTON_StateTypeDef)onewire_buffer[3]);
+				BUTTON_SetNewState(GUI_ID_BUTTON_Sos, (BUTTON_StateTypeDef)onewire_buffer[4]);
+				BUTTON_SetNewState(GUI_ID_BUTTON_Maid,(BUTTON_StateTypeDef)onewire_buffer[5]);
 			}
 			/** ==========================================================================*/
 			/**			S E T		N E W		D A T E 	& 		T I M E				  */
@@ -230,50 +228,84 @@ void ONEWIRE_Service(void)
 				Thermostat_1.fan_speed_diff = onewire_buffer[26];
                 DISPLAY_SetpointUpdateSet();
 			}
+            /** ==========================================================================*/
+			/**			    S E T	    	N T C        C O N S T A N T S		          */
 			/** ==========================================================================*/
-			/**		S E T		N E W		D I S P L A Y    M E S S A G E		          */
+            if(onewire_buffer[27] == ACK)                           //(ACK = SET; NAK = SKEEP)
+            {
+                ambient_ntc_b_value = ((onewire_buffer[28] << 8) + onewire_buffer[29]);
+                fancoil_ntc_b_value = ((onewire_buffer[30] << 8) + onewire_buffer[31]);
+                
+                if (onewire_buffer[32] == 1) 
+                {
+                    FANCOIL_RelayTypeReset();
+                    FANCOIL_TriacTypeSet();
+                }
+                else if (onewire_buffer[32] == 2) 
+                {
+                    FANCOIL_TriacTypeReset();
+                    FANCOIL_RelayTypeSet();
+                }
+            }
 			/** ==========================================================================*/
-			if(onewire_buffer[27] == ACK)
+			/**		    S E T		N E W		D I S P L A Y    M E S S A G E            */
+			/** ==========================================================================*/
+			if(onewire_buffer[33] == ACK)                           //(ACK = SET; NAK = SKEEP)
 			{
-                display_message_id = onewire_buffer[28];
-                buzzer_mode = onewire_buffer[29];
-                buzzer_repeat_time = onewire_buffer[30];
-                display_message_time = onewire_buffer[31];
+                display_message_id = onewire_buffer[34];
+                buzzer_mode = onewire_buffer[35];
+                buzzer_repeat_time = onewire_buffer[36];
+                display_message_time = onewire_buffer[37];
                 DISPLAY_UpdateSet();
 			}
             /** ==========================================================================*/
-			/**		                 G E T		    C O M M A N  D		                  */
+			/**             S E T       S E N S O R         S T A T U S                   */
 			/** ==========================================================================*/
-//            onewire_buffer[32] = NAK; 								//(ACK = SET; NAK = SKEEP)
-//            
-//            if(IsBUTTON_OpenDoorActiv())
-//            {
-//                BUTTON_OpenDoorReset();
-//                onewire_buffer[32] = ACK;
-//                onewire_buffer[33] = 1;
-//            }
-//            else onewire_buffer[32] = 0;
-            
+            if(onewire_buffer[38] == ACK)                           //(ACK = SET; NAK = SKEEP)
+			{
+                if (onewire_buffer[39] == 0) FANCOIL_NTC_SensorNotConnected();
+                else if (onewire_buffer[39] == 1) FANCOIL_NTC_SensorConnected();
+                
+                if (onewire_buffer[40] == 0) AMBIENT_NTC_SensorNotConnected();
+                else if (onewire_buffer[40] == 1) AMBIENT_NTC_SensorConnected();
+                
+                if (onewire_buffer[41] == 0) AMBIENT_LIGHT_SensorNotConnected();
+                else if (onewire_buffer[41] == 1) AMBIENT_LIGHT_SensorConnected();
+                
+                if (onewire_buffer[42] == 0) ONEWIRE_SensorNotConnected();
+                else if (onewire_buffer[42] == 1) ONEWIRE_SensorConnected();
+                
+                if (onewire_buffer[43] == 0) FAN_RPM_SensorNotConnected();
+                else if (onewire_buffer[43] == 1) FAN_RPM_SensorConnected();
+            }
+            /** ==========================================================================*/
+			/**                     S E T		    C O M M A N  D		                  */
+			/** ==========================================================================*/
+            // onewire_buffer[44] == ACK)                           //(ACK = SET; NAK = SKEEP)
+            // onewire_buffer[45] = IsBUTTON_OpenDoorActiv()
+            //
 			OnewireState = ONEWIRE_PACKET_SEND;
 		}
 		else if(OnewireState == ONEWIRE_PACKET_SEND)
 		{
 			ClearBuffer(onewire_buffer,  ONEWIRE_BUF_SIZE);
 			/** ==========================================================================*/
-			/**			   G E T			P A C K E T			H E A D E R			  	  */
+			/**			   S E T			P A C K E T			H E A D E R			  	  */
 			/** ==========================================================================*/
 			onewire_buffer[0] = ONEWIRE_CONTROLLER_ADDRESS;
 			onewire_buffer[1] = ONEWIRE_THERMOSTAT_ADDRESS;
 			/** ==========================================================================*/
-			/**			G E T		 B U T T O N 		S T A T E			              */
+			/**			S E T		 B U T T O N 		S T A T E			              */
 			/** ==========================================================================*/
 			onewire_buffer[2] = NAK;	// 						                            (ACK = SET; NAK = SKEEP)
 			onewire_buffer[3] = BUTTON_GetState(GUI_ID_BUTTON_Dnd);	// DND BUTTON STATE 	(0 = RELEASED; 1 = PRESSED)
 			onewire_buffer[4] = BUTTON_GetState(GUI_ID_BUTTON_Sos);	// SOS BUTTON STATE		(0 = RELEASED; 1 = PRESSED)
 			onewire_buffer[5] = BUTTON_GetState(GUI_ID_BUTTON_Maid);// HM CALL BUTTON STATE	(0 = RELEASED; 1 = PRESSED)
-            if ((onewire_buffer[3] + onewire_buffer[4]+ onewire_buffer[5]) != 0) onewire_buffer[2] = ACK;
+            if ((onewire_buffer[3] + 
+                 onewire_buffer[4] + 
+                 onewire_buffer[5]) != 0)       onewire_buffer[2] = ACK;
 			/** ==========================================================================*/
-			/**			G E T		D A T E 	& 		T I M E				              */
+			/**			S E T		D A T E 	& 		T I M E				              */
 			/** ==========================================================================*/
 			onewire_buffer[6] = NAK;			// (ACK = SET; NAK = SKEEP)
 			onewire_buffer[7] = date.Date;		// DATE DAY		(0x01 - 0x31)
@@ -284,7 +316,7 @@ void ONEWIRE_Service(void)
 			onewire_buffer[12] = time.Minutes;	// TIME MINUTE	(0x00 - 0x59)
 			onewire_buffer[13] = time.Seconds;	// TIME SECONDS	(0x00 - 0x59)
 			/** ==========================================================================*/
-			/**			G E T		T H E R M O S T A T 	P A R A M E T E R S			  */
+			/**			S E T		T H E R M O S T A T 	P A R A M E T E R S			  */
 			/** ==========================================================================*/
 			onewire_buffer[14] = NAK;						//				(ACK = SET; NAK = SKEEP)
 			onewire_buffer[15] = Thermostat_1.valve;		// VALVE		(0 = OFF; 1 = COOLING VALVE ON)
@@ -298,27 +330,50 @@ void ONEWIRE_Service(void)
 			onewire_buffer[23] = Thermostat_1.set_temperature_diff;			// SETPOINT TEMPERATURE DIFFERENCE			
 			onewire_buffer[24] = Thermostat_1.fan_low_speed_band;			// FAN LOW SPEED BAND DIFFERENCE			
 			onewire_buffer[25] = Thermostat_1.fan_middle_speed_band;		// FAN MIDDLE SPEED BAND DIFFERENCE		
-			onewire_buffer[26] = Thermostat_1.fan_speed_diff;				// FAN SPEED TRESHOLD DIFFERENCE	
-			/** ==========================================================================*/
-			/**		G E T		A C T I V		D I S P L A Y    M E S S A G E		      */
-			/** ==========================================================================*/
-			onewire_buffer[27] = NAK; 								//(ACK = SET; NAK = SKEEP)
-            onewire_buffer[28] = display_message_id;
-            onewire_buffer[29] = buzzer_mode;
-            onewire_buffer[30] = buzzer_repeat_time;
-            onewire_buffer[31] = display_message_time;
+			onewire_buffer[26] = Thermostat_1.fan_speed_diff;				// FAN SPEED TRESHOLD DIFFERENCE
             /** ==========================================================================*/
-			/**		                 G E T		    C O M M A N  D		                  */
+			/**			    S E T	    	N T C        C O N S T A N T S		          */
 			/** ==========================================================================*/
-            onewire_buffer[32] = NAK; 								//(ACK = SET; NAK = SKEEP)
+            onewire_buffer[27] = NAK;                       //				(ACK = SET; NAK = SKEEP)
+            onewire_buffer[28] = (ambient_ntc_b_value >> 8);
+            onewire_buffer[29] = (ambient_ntc_b_value & 0xff);
+            onewire_buffer[30] = (fancoil_ntc_b_value >> 8);
+            onewire_buffer[31] = (fancoil_ntc_b_value & 0xff);
+            if (IsFANCOIL_TriacTypeActiv())         onewire_buffer[32] = 1;
+            else if (IsFANCOIL_RelayTypeActiv())    onewire_buffer[32] = 2;
+			/** ==========================================================================*/
+			/**		S E T		A C T I V		D I S P L A Y    M E S S A G E		      */
+			/** ==========================================================================*/
+			onewire_buffer[33] = NAK; 								//(ACK = SET; NAK = SKEEP)
+            onewire_buffer[34] = display_message_id;
+            onewire_buffer[35] = buzzer_mode;
+            onewire_buffer[36] = buzzer_repeat_time;
+            onewire_buffer[37] = display_message_time;
+            /** ==========================================================================*/
+			/**             S E T       S E N S O R         S T A T U S                   */
+			/** ==========================================================================*/
+            onewire_buffer[38] = NAK; 								//(ACK = SET; NAK = SKEEP)
+            if (IsFANCOIL_NTC_SensorConnected())    onewire_buffer[39] = 1;
+            if (IsAMBIENT_NTC_SensorConnected())    onewire_buffer[40] = 1;
+            if (IsAMBIENT_LIGHT_SensorConnected())  onewire_buffer[41] = 1;
+            if (IsONEWIRE_SensorConnected())        onewire_buffer[42] = 1;
+            if (IsFAN_RPM_SensorConnected())        onewire_buffer[43] = 1;
+            if ((onewire_buffer[39] + 
+                 onewire_buffer[40] + 
+                 onewire_buffer[41] + 
+                 onewire_buffer[42] +
+                 onewire_buffer[43]) != 0)          onewire_buffer[38] = ACK;
+            /** ==========================================================================*/
+			/**                     S E T		    C O M M A N  D		                  */
+			/** ==========================================================================*/
+            onewire_buffer[44] = NAK; 								//(ACK = SET; NAK = SKEEP)
             
             if(IsBUTTON_OpenDoorActiv())
             {
                 BUTTON_OpenDoorReset();
-                onewire_buffer[32] = ACK;
-                onewire_buffer[33] = 1;
+                onewire_buffer[44] = ACK;
+                onewire_buffer[45] = 1;
             }
-            else onewire_buffer[32] = 0;
 			/** ==========================================================================*/
 			/**		G E T		P A C K E T		C R C		A N D		S E N D			  */
 			/** ==========================================================================*/

@@ -55,9 +55,12 @@ typedef struct
 #define RTC_SECONDS_PER_MINUTE          60
 
 #define FAN_OFF							0
-#define FAN_SPEED_LOW					52
-#define FAN_SPEED_MIDDLE				47
-#define FAN_SPEED_HIGH					42
+#define FAN_CONST_SPEED_LOW				70
+#define FAN_CONST_SPEED_MIDDLE			70
+#define FAN_CONST_SPEED_HIGH			70
+#define FAN_PID_SPEED_MIN               78
+#define FAN_PID_SPEED_MAX               20
+#define FAN_RPM_MEASURE_TIME            2000
 
 #define BUZZER_MODE_OFF                 0
 #define BUZZER_MODE_SHORT               1
@@ -69,35 +72,59 @@ typedef struct
 #define RTC_SYNCH_PREDIV   0x00FF /* LSE as RTC clock */
 
 extern __IO uint32_t sys_flags;
+extern __IO uint32_t sys_timer;
 extern __IO uint32_t SystickCnt;
-extern uint16_t ntc_temperature;
-extern uint8_t GUI_Initialized;
+
+extern uint16_t ambient_ntc_b_value;
+extern uint16_t fancoil_ntc_b_value;
+extern uint16_t fancoil_ntc_temperature;
+extern uint16_t ambient_ntc_temperature;
+extern uint16_t ambient_light;
+
 extern uint32_t triac_on_time;
 extern uint32_t buzzer_repeat_timer;
 extern uint32_t buzzer_mode_timer;
 extern uint8_t buzzer_repeat_time;
 extern uint8_t buzzer_mode;
 extern uint8_t buzzer_pcnt;
+extern uint32_t fan_rpm_timer;
+extern uint32_t fan_rpm_pulse;
+extern uint32_t fan_rpm_actual;
 
 
-#define BUZZER_StartRepeatTimer(TIME)   (buzzer_repeat_timer = TIME)
-#define BUZZER_StopRepeatTimer()        (buzzer_repeat_timer = 0)
-#define IsBUZZER_RepeatTimerExpired()   (buzzer_repeat_timer == 0)
-#define BUZZER_StartModeTimer(TIME)     (buzzer_mode_timer = TIME)
-#define BUZZER_StopModeTimer()          (buzzer_mode_timer = 0)
-#define IsBUZZER_ModeTimerExpired()     (buzzer_mode_timer == 0)
+#define SYSTEM_StartTimer(TIME)             (sys_timer = TIME)
+#define SYSTEM_StopTimer()                  (sys_timer = 0)
+#define IsSYSTEM_TimerExpired()             (sys_timer == 0)
+#define FAN_RPM_StartTimer(TIME)            (fan_rpm_timer = TIME)
+#define FAN_RPM_StopTimer()                 (fan_rpm_timer = 0)
+#define IsFAN_RPM_TimerExpired()            (fan_rpm_timer == 0)
+#define BUZZER_StartRepeatTimer(TIME)       (buzzer_repeat_timer = TIME)
+#define BUZZER_StopRepeatTimer()            (buzzer_repeat_timer = 0)
+#define IsBUZZER_RepeatTimerExpired()       (buzzer_repeat_timer == 0)
+#define BUZZER_StartModeTimer(TIME)         (buzzer_mode_timer = TIME)
+#define BUZZER_StopModeTimer()              (buzzer_mode_timer = 0)
+#define IsBUZZER_ModeTimerExpired()         (buzzer_mode_timer == 0)
 
-#define BUZZER_SignalOn()               (sys_flags |= (1 << 0))
-#define BUZZER_SignalOff()              (sys_flags &= (~ (1 << 0)))
-#define IsBUZZER_SignalActiv()          ((sys_flags & (1 << 0)) != 0)
-#define BUZZER_RepeatTimerSet()         (sys_flags |= (1 << 1)) 
-#define BUZZER_RepeatTimerReset()       (sys_flags &= (~ (1 << 1)))
-#define IsBUZZER_RepeatTimerActiv()     ((sys_flags & (1 << 1)) != 0)
+#define BUZZER_SignalOn()                   (sys_flags |= (1 << 0))
+#define BUZZER_SignalOff()                  (sys_flags &= (~ (1 << 0)))
+#define IsBUZZER_SignalActiv()              ((sys_flags & (1 << 0)) != 0)
+#define BUZZER_RepeatTimerSet()             (sys_flags |= (1 << 1)) 
+#define BUZZER_RepeatTimerReset()           (sys_flags &= (~ (1 << 1)))
+#define IsBUZZER_RepeatTimerActiv()         ((sys_flags & (1 << 1)) != 0)
+#define FAN_RPM_SensorConnected()           (sys_flags |= (1 << 2)) 
+#define FAN_RPM_SensorNotConnected()        (sys_flags &= (~ (1 << 2)))
+#define IsFAN_RPM_SensorConnected()         ((sys_flags & (1 << 2)) != 0)
+#define AMBIENT_LIGHT_SensorConnected()     (sys_flags |= (1 << 3)) 
+#define AMBIENT_LIGHT_SensorNotConnected()  (sys_flags &= (~ (1 << 3)))
+#define IsAMBIENT_LIGHT_SensorConnected()   ((sys_flags & (1 << 3)) != 0)
+#define SYSTEM_StartupReset()               (sys_flags |= (1 << 4)) 
+#define SYSTEM_StartupSet()                 (sys_flags &= (~ (1 << 4)))
+#define IsSYSTEM_StartupActiv()             ((sys_flags & (1 << 4)) == 0)
 
 
-#define BUZZER_On()				        (HAL_GPIO_WritePin(GPIOD, GPIO_PIN_4, GPIO_PIN_SET))
-#define BUZZER_Off()				    (HAL_GPIO_WritePin(GPIOD, GPIO_PIN_4, GPIO_PIN_RESET))
-#define IsBUZZER_On()                   (HAL_GPIO_ReadPin(GPIOD, GPIO_PIN_4) == GPIO_PIN_SET)
+#define BUZZER_On()                         (HAL_GPIO_WritePin(GPIOD, GPIO_PIN_4, GPIO_PIN_SET))
+#define BUZZER_Off()				        (HAL_GPIO_WritePin(GPIOD, GPIO_PIN_4, GPIO_PIN_RESET))
+#define IsBUZZER_On()                       (HAL_GPIO_ReadPin(GPIOD, GPIO_PIN_4) == GPIO_PIN_SET)
 
 void Error_Handler(void);
 uint32_t RTC_GetUnixTimeStamp(RTC_t* data);

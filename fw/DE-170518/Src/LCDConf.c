@@ -464,12 +464,12 @@ static const LCD_API_COLOR_CONV * _apColorConvAPI[] = {
 //
 // Array of orientations for each layer
 //
-static const int _aOrientation[] = {
-  ORIENTATION_0,
-#if GUI_NUM_LAYERS > 1
-  ORIENTATION_1,
-#endif
-};
+//static const int _aOrientation[] = {
+//  ORIENTATION_0,
+//#if GUI_NUM_LAYERS > 1
+//  ORIENTATION_1,
+//#endif
+//};
 
 
 /*********************************************************************
@@ -1592,7 +1592,7 @@ int LCD_X_DisplayDriver(unsigned LayerIndex, unsigned Cmd, void * p)
 void LCD_X_Config(void) 
 {
 	int i;
-	U32 PixelFormat;
+	//U32 PixelFormat;
 
 	HAL_LTDC_DeInit(&hltdc);
 

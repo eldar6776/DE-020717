@@ -30,8 +30,9 @@ typedef enum	// display screen activ status
 
 typedef enum	// display button states
 {
-	RELEASED = 0,
-	PRESSED
+	RELEASED    = 0,
+	PRESSED     = 1,
+    BUTTON_SHIT = 2
 	
 }BUTTON_StateTypeDef;
 
@@ -44,7 +45,7 @@ typedef enum	// display button states
 #define DISPLAY_DOORBELL_TIME			4321	// 4s doorbell animation activ
 #define DISPLAY_SCREENSAVER_TIME        30000   // 30 sec display low brigntnes timeout
 #define DISPLAY_BRIGHTNESS_HIGH         500
-#define DISPLAY_BRIGHTNESS_LOW          100
+#define DISPLAY_BRIGHTNESS_LOW          50
 
 #define GUI_ID_BUTTON_Dnd   			0x801
 #define GUI_ID_BUTTON_Sos   			0x802

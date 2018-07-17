@@ -47,28 +47,36 @@ RTC_DateTypeDef date;
 #define LED_STATUS_SYS_ERROR_TIME			123		// 100ms led status toggle period
 #define TOUCH_SCREEN_UPDATE_TIME			15		// 5ms touch screen update period
 #define TOUCH_SCREEN_LAYER                  1       // touch screen layer event
-#define NTC_RREF 							10000  	// 10k NTC value of at 25 degrees
-#define NTC_B_VALUE 						3977 	// NTC resistance at 100 degrees
-#define NTC_PULLUP							10000	// 10k pullup resistor
-#define NTC_READOUT_PERIOD                  123     // 123 ms ntc conversion rate
+#define AMBIENT_NTC_RREF                    10000  	// 10k NTC value of at 25 degrees
+#define AMBIENT_NTC_B_VALUE                 3977 	// NTC beta parameter
+#define AMBIENT_NTC_PULLUP                  10000	// 10k pullup resistor
+#define FANCOIL_NTC_RREF                    2000  	// 2k fancoil NTC value of at 25 degrees
+#define FANCOIL_NTC_B_VALUE                 3950 	// NTC beta parameter
+#define FANCOIL_NTC_PULLUP                  2200	// 2k2 pullup resistor
+#define ADC_READOUT_PERIOD                  123     // 123 ms ntc conversion rate
 #define FAN_CONTROL_LOOP_PERIOD			    200	    // fan speed control loop 
 #define BUZZER_BIP_TIME                     100
 #define BUZZER_SHORT_TIME                   500 
 #define BUZZER_LONG_TIME                    1000
-
-
+#define TRIAC_ON_PULSE                      5       // 500 us triac on pulse duration
+#define SYSTEM_STARTUP_TIME                 30000   // 10s system startup config check
 
 /* Private Variable ----------------------------------------------------------*/
 __IO uint32_t SystickCnt;
 __IO uint32_t sys_flags;
-
-float ntc_calc;
+__IO uint32_t sys_timer;
 
 uint32_t triac_timer;
-uint32_t triac_on_timer;
 uint32_t triac_on_time;
+uint32_t fan_rpm_timer;
+uint32_t fan_rpm_pulse;
+uint32_t fan_rpm_actual;
 
-uint16_t ntc_temperature;
+uint16_t ambient_ntc_b_value = AMBIENT_NTC_B_VALUE;
+uint16_t fancoil_ntc_b_value = FANCOIL_NTC_B_VALUE;
+uint16_t fancoil_ntc_temperature;
+uint16_t ambient_ntc_temperature;
+uint16_t ambient_light;
 uint16_t ts_update_timer;
 uint16_t rtc_bckp_tmr;
 uint16_t anin_timer;
@@ -79,10 +87,22 @@ uint8_t buzzer_repeat_time;
 uint8_t buzzer_mode;
 uint8_t buzzer_pcnt;
 
-uint8_t ntc_sample_cnt;
+uint8_t ambient_ntc_temperature_sample_cnt;
+uint8_t fancoil_ntc_temperature_sample_cnt;
+uint8_t ambient_light_sample_cnt;
 uint8_t zero_cross_cnt;
 
-uint16_t ntc_sample_value[10] = {
+uint16_t ambient_ntc_temperature_sample_value[10] = {
+	2100, 2100, 2100, 2100, 2100, 
+	2100, 2100, 2100, 2100, 2100
+};
+
+uint16_t fancoil_ntc_temperature_sample_value[10] = {
+	2100, 2100, 2100, 2100, 2100, 
+	2100, 2100, 2100, 2100, 2100
+};
+
+uint16_t ambient_light_sample_value[10] = {
 	2100, 2100, 2100, 2100, 2100, 
 	2100, 2100, 2100, 2100, 2100
 };
@@ -112,15 +132,19 @@ static void MX_TIM3_Init(void);
 static void MX_TIM9_Init(void);
 static void MX_UART2_Init(void);
 static void MX_ADC3_Init(void);
+static void ADC3_Read(void);
 void TouchUpdate(void);
 void BootloaderExe(void);
 void Error_Handler(void);
-float NTC_GetResistance(uint16_t adc_value);
-float NTC_GetTemperature(float ntc_resistance);
+float AMBIENT_NTC_GetResistance(uint16_t adc_value);
+float AMBIENT_NTC_GetTemperature(float ntc_resistance);
+float FANCOIL_NTC_GetResistance(uint16_t adc_value);
+float FANCOIL_NTC_GetTemperature(float ntc_resistance);
 
 /* Program Code  -------------------------------------------------------------*/
 int main(void)
 {
+    SYSTEM_StartTimer(SYSTEM_STARTUP_TIME);
 	MPU_Config();
 	CACHE_Config();
 	HAL_Init(); 
@@ -138,7 +162,7 @@ int main(void)
 	ONEWIRE_Init();
 	THERMOSTAT_Init();
 	DISPLAY_Init();
-	
+    
 	while(1)
 	{
 		ONEWIRE_Service();
@@ -240,80 +264,17 @@ static void MPU_Config(void)
 
 static void CACHE_Config(void)
 {
-//	SCB_InvalidateICache();
-//	SCB->CCR |= (1 <<18);
-//	__DSB();
-//	SCB_InvalidateICache();
 	SCB_EnableICache();
-//	SCB_InvalidateDCache();
 	SCB_EnableDCache();	
-	
-//	__HAL_RCC_BKPSRAM_CLK_ENABLE();
 }
 
 
 void HAL_SYSTICK_Callback(void)
 {
-	uint8_t t;
-	static int i = 0;
-	
-	if(++rtc_bckp_tmr > 999U)
-	{
-		rtc_bckp_tmr = 0;
-		HAL_RTC_GetDate(&hrtc, &date, RTC_FORMAT_BCD);
-		HAL_RTCEx_BKUPWrite(&hrtc, RTC_BKP_DR2, date.Date);
-		HAL_RTCEx_BKUPWrite(&hrtc, RTC_BKP_DR3, date.Month);
-		HAL_RTCEx_BKUPWrite(&hrtc, RTC_BKP_DR4, date.WeekDay);
-		HAL_RTCEx_BKUPWrite(&hrtc, RTC_BKP_DR5, date.Year);
-	}
-	
-	if(hadc3.Instance == ADC3)
-	{
-		if (++anin_timer >= NTC_READOUT_PERIOD)
-		{
-			anin_timer = 0;			
-			HAL_ADC_Start(&hadc3);
-			HAL_ADC_PollForConversion(&hadc3, 10);
-			ntc_sample_value[ntc_sample_cnt] = HAL_ADC_GetValue(&hadc3);
-			if(++ntc_sample_cnt >  9) ntc_sample_cnt = 0;
-			ntc_temperature = 0;
-			for(t = 0; t < 10; t++) ntc_temperature += ntc_sample_value[t];
-			ntc_temperature = ntc_temperature / 10;
-			ntc_calc = NTC_GetResistance(ntc_temperature);
-			ntc_calc = NTC_GetTemperature(ntc_calc);
-			if(ntc_calc < 0) 
-			{
-				ntc_calc *= -1;
-				ntc_temperature = (uint16_t) ntc_calc * 10;
-				ntc_temperature |= 0x8000;
-			}
-			else ntc_temperature = (uint16_t) ntc_calc * 10;
-		}
-	}
-
-	
-	if(IsDISPLAY_Initialized())
-	{
-		if(ts_update_timer == 0)
-		{
-			TouchUpdate();
-			ts_update_timer = TOUCH_SCREEN_UPDATE_TIME;
-		}
-        else --ts_update_timer;
-	}	
-	
-	if(onewire_timer) --onewire_timer;
-	if(thermostat_timer) --thermostat_timer;
-	if(thermostat_fan_timer) --thermostat_fan_timer;
-	if(thermostat_valve_timer) --thermostat_valve_timer;
-	if(display_timer) --display_timer;
-	if(display_date_time_timer) --display_date_time_timer;
-    if(display_screensaver_timer) --display_screensaver_timer;
-	if(display_message_timer) --display_message_timer;
-	if(buzzer_mode_timer) --buzzer_mode_timer;
-    if(buzzer_repeat_timer) --buzzer_repeat_timer;
+    if(sys_timer) --sys_timer;
+    else SYSTEM_StartupReset();
     
-	if(IsBUZZER_SignalActiv())
+    if(IsBUZZER_SignalActiv())
 	{
         switch (buzzer_mode)
         {
@@ -401,6 +362,61 @@ void HAL_SYSTICK_Callback(void)
         BUZZER_RepeatTimerReset();
         buzzer_pcnt = 0;
         BUZZER_Off();
+    }
+    
+    
+	if(++rtc_bckp_tmr > 999U)
+	{
+		rtc_bckp_tmr = 0;
+		HAL_RTC_GetDate(&hrtc, &date, RTC_FORMAT_BCD);
+		HAL_RTCEx_BKUPWrite(&hrtc, RTC_BKP_DR2, date.Date);
+		HAL_RTCEx_BKUPWrite(&hrtc, RTC_BKP_DR3, date.Month);
+		HAL_RTCEx_BKUPWrite(&hrtc, RTC_BKP_DR4, date.WeekDay);
+		HAL_RTCEx_BKUPWrite(&hrtc, RTC_BKP_DR5, date.Year);
+	}
+	
+	if(hadc3.Instance == ADC3)
+	{
+		if (anin_timer) --anin_timer;
+		else 
+        {
+            anin_timer = ADC_READOUT_PERIOD;
+            ADC3_Read();
+		}
+	}
+
+	
+	if(IsDISPLAY_Initialized())
+	{
+		if(ts_update_timer == 0)
+		{
+			TouchUpdate();
+			ts_update_timer = TOUCH_SCREEN_UPDATE_TIME;
+		}
+        else --ts_update_timer;
+	}	
+	
+	if(onewire_timer) --onewire_timer;
+	if(thermostat_timer) --thermostat_timer;
+	if(thermostat_fan_timer) --thermostat_fan_timer;
+	if(thermostat_valve_timer) --thermostat_valve_timer;
+	if(display_timer) --display_timer;
+	if(display_date_time_timer) --display_date_time_timer;
+    if(display_screensaver_timer) --display_screensaver_timer;
+	if(display_message_timer) --display_message_timer;
+	if(buzzer_mode_timer) --buzzer_mode_timer;
+    if(buzzer_repeat_timer) --buzzer_repeat_timer;
+    
+    if(IsTHERMOSTAT_Activ() && triac_on_time) 
+    {
+        if(fan_rpm_timer) --fan_rpm_timer;
+        else
+        {
+            if(IsSYSTEM_StartupActiv() && (fan_rpm_pulse > 5)) FAN_RPM_SensorConnected();
+            else if(IsFAN_RPM_SensorConnected() && (fan_rpm_pulse < 10)) Thermostat_1.ctrl_mode = FANCOIL_FAN_RPM_ERROR;
+            FAN_RPM_StartTimer(FAN_RPM_MEASURE_TIME);
+            fan_rpm_pulse = 0;
+        }        
     }
 }
 
@@ -732,15 +748,11 @@ static void MX_RTC_Init(void)
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
 	__HAL_TIM_CLEAR_FLAG(&htim3, TIM_FLAG_UPDATE);
-	
-	if(triac_on_time == 0) 
-	{
-		HAL_GPIO_WritePin(GPIOC, GPIO_PIN_8, GPIO_PIN_RESET);
-		return;
-	}
-	else if(++triac_timer < triac_on_timer) return;
-	
-    HAL_GPIO_WritePin(GPIOC, GPIO_PIN_8, GPIO_PIN_SET);
+	++triac_timer;
+	if(triac_on_time == 0) HAL_GPIO_WritePin(GPIOC, GPIO_PIN_8, GPIO_PIN_RESET);
+	else if(triac_timer < triac_on_time) HAL_GPIO_WritePin(GPIOC, GPIO_PIN_8, GPIO_PIN_RESET);
+    else if(triac_timer > (triac_on_time + TRIAC_ON_PULSE)) HAL_GPIO_WritePin(GPIOC, GPIO_PIN_8, GPIO_PIN_RESET);
+	else HAL_GPIO_WritePin(GPIOC, GPIO_PIN_8, GPIO_PIN_SET);
 }
 
 
@@ -772,7 +784,7 @@ static void MX_TIM3_Init(void)
 
 static void MX_TIM9_Init(void)
 {
-	TIM_ClockConfigTypeDef sClockSourceConfig;
+	//TIM_ClockConfigTypeDef sClockSourceConfig;
 	TIM_OC_InitTypeDef sConfigOC;
 	GPIO_InitTypeDef GPIO_InitStruct;
 	
@@ -929,6 +941,98 @@ static void MX_CRC_Init(void)
 }
 
 
+static void ADC3_Read(void)
+{
+    ADC_ChannelConfTypeDef sConfig;
+	static uint8_t adc_cnt = 0;
+    float adc_calc;
+    
+    if(adc_cnt == 0)
+    {
+        sConfig.Channel = ADC_CHANNEL_11;
+        sConfig.Rank = ADC_REGULAR_RANK_1;
+        sConfig.SamplingTime = ADC_SAMPLETIME_15CYCLES;
+        HAL_ADC_ConfigChannel(&hadc3, &sConfig);
+        HAL_ADC_Start(&hadc3);
+        HAL_ADC_PollForConversion(&hadc3, 10);
+        ambient_ntc_temperature_sample_value[ambient_ntc_temperature_sample_cnt] = HAL_ADC_GetValue(&hadc3);
+        if(++ambient_ntc_temperature_sample_cnt >  9) ambient_ntc_temperature_sample_cnt = 0;
+        ambient_ntc_temperature = 0;
+        for(uint8_t t = 0; t < 10; t++) ambient_ntc_temperature += ambient_ntc_temperature_sample_value[t];
+        ambient_ntc_temperature = ambient_ntc_temperature / 10;
+        
+        if((ambient_ntc_temperature > 4000) || (ambient_ntc_temperature < 100)) AMBIENT_NTC_SensorNotConnected();
+        else 
+        {
+            AMBIENT_NTC_SensorConnected();
+            adc_calc = AMBIENT_NTC_GetResistance(ambient_ntc_temperature);
+            adc_calc = AMBIENT_NTC_GetTemperature(adc_calc);
+            
+            if(adc_calc < 0) 
+            {
+                adc_calc *= -1;
+                ambient_ntc_temperature = (uint16_t) (adc_calc * 10);
+                ambient_ntc_temperature |= 0x8000;
+            }
+            else ambient_ntc_temperature = (uint16_t) (adc_calc * 10);
+        }
+        
+        ++adc_cnt;
+    }
+    else if(adc_cnt == 1)
+    {
+        sConfig.Channel = ADC_CHANNEL_12;
+        sConfig.Rank = ADC_REGULAR_RANK_1;
+        sConfig.SamplingTime = ADC_SAMPLETIME_15CYCLES;
+        HAL_ADC_ConfigChannel(&hadc3, &sConfig);
+        HAL_ADC_Start(&hadc3);
+        HAL_ADC_PollForConversion(&hadc3, 10);
+        fancoil_ntc_temperature_sample_value[fancoil_ntc_temperature_sample_cnt] = HAL_ADC_GetValue(&hadc3);
+        if(++fancoil_ntc_temperature_sample_cnt >  9) fancoil_ntc_temperature_sample_cnt = 0;
+        fancoil_ntc_temperature = 0;
+        for(uint8_t t = 0; t < 10; t++) fancoil_ntc_temperature += fancoil_ntc_temperature_sample_value[t];
+        fancoil_ntc_temperature = fancoil_ntc_temperature / 10;
+        
+        if((fancoil_ntc_temperature > 4000) || (fancoil_ntc_temperature < 100)) FANCOIL_NTC_SensorNotConnected();
+        else 
+        {
+            FANCOIL_NTC_SensorConnected();
+            adc_calc = FANCOIL_NTC_GetResistance(fancoil_ntc_temperature);
+            adc_calc = FANCOIL_NTC_GetTemperature(adc_calc);
+            
+            if(adc_calc < 0) 
+            {
+                adc_calc *= -1;
+                fancoil_ntc_temperature = (uint16_t) (adc_calc * 10);
+                fancoil_ntc_temperature |= 0x8000;
+            }
+            else fancoil_ntc_temperature = (uint16_t) (adc_calc * 10);
+        }
+        
+        ++adc_cnt;
+    }
+    else if(adc_cnt == 2)
+    {
+        sConfig.Channel = ADC_CHANNEL_13;
+        sConfig.Rank = ADC_REGULAR_RANK_1;
+        sConfig.SamplingTime = ADC_SAMPLETIME_15CYCLES;
+        HAL_ADC_ConfigChannel(&hadc3, &sConfig);
+        HAL_ADC_Start(&hadc3);
+        HAL_ADC_PollForConversion(&hadc3, 10);
+        ambient_light_sample_value[ambient_light_sample_cnt] = HAL_ADC_GetValue(&hadc3);
+        if(++ambient_light_sample_cnt >  9) ambient_light_sample_cnt = 0;
+        ambient_light = 0;
+        for(uint8_t t = 0; t < 10; t++) ambient_light += ambient_light_sample_value[t];
+        ambient_light = ambient_light / 10;
+        
+        if((ambient_light > 4000) || (ambient_light < 100)) AMBIENT_LIGHT_SensorNotConnected();
+        else AMBIENT_LIGHT_SensorConnected();
+        
+        adc_cnt = 0;
+    }
+}
+
+
 static void MX_ADC3_Init(void)
 {
 	ADC_ChannelConfTypeDef sConfig;
@@ -952,7 +1056,7 @@ static void MX_ADC3_Init(void)
 	hadc3.Init.NbrOfDiscConversion = 0;
 	hadc3.Init.ExternalTrigConvEdge = ADC_EXTERNALTRIGCONVEDGE_NONE;
 	hadc3.Init.DataAlign = ADC_DATAALIGN_RIGHT;
-	hadc3.Init.NbrOfConversion = 1;
+	hadc3.Init.NbrOfConversion = 3;
 	hadc3.Init.DMAContinuousRequests = DISABLE;
 	hadc3.Init.EOCSelection = ADC_EOC_SINGLE_CONV;
 
@@ -976,27 +1080,23 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 	{
 		HAL_NVIC_DisableIRQ(EXTI3_IRQn);
 		__HAL_GPIO_EXTI_CLEAR_IT(GPIO_PIN_3);
-		
-//		if(GUI_Initialized == 1) TouchUpdate();
-//		ts_update_timer = TOUCH_SCREEN_UPDATE_TIME;
 	}
 	else if(GPIO_Pin == GPIO_PIN_13)
 	{
-		__HAL_GPIO_EXTI_CLEAR_IT(GPIO_PIN_13);		
-        triac_timer = 0;
-        triac_on_timer = triac_on_time;
+        HAL_TIM_Base_Stop_IT(&htim3);
+        HAL_NVIC_DisableIRQ(TIM3_IRQn);
+		__HAL_GPIO_EXTI_CLEAR_IT(GPIO_PIN_13);
         HAL_GPIO_WritePin(GPIOC, GPIO_PIN_8, GPIO_PIN_RESET);
+        triac_timer = 0;
         __HAL_TIM_SET_COUNTER(&htim3, 0);
         HAL_NVIC_EnableIRQ(TIM3_IRQn);
         HAL_TIM_Base_Start_IT(&htim3);
 	}
 	else if(GPIO_Pin == GPIO_PIN_14)
 	{
-		HAL_NVIC_DisableIRQ(EXTI15_10_IRQn);
 		__HAL_GPIO_EXTI_CLEAR_IT(GPIO_PIN_14);
-		
-		// fancoil rpm
-	}
+		++fan_rpm_pulse;
+	}  
 }
 
 
@@ -1118,7 +1218,8 @@ void FAN_SetSpeed(uint8_t fan_speed)
     __HAL_GPIO_EXTI_CLEAR_IT(GPIO_PIN_13);
 	__HAL_TIM_CLEAR_FLAG(&htim3, TIM_FLAG_UPDATE);
     HAL_GPIO_WritePin(GPIOC, GPIO_PIN_8, GPIO_PIN_RESET);
-    triac_on_timer = 0;	
+    FAN_RPM_StartTimer(FAN_RPM_MEASURE_TIME);
+    fan_rpm_pulse = 0;
 	triac_on_time = 0;
 	triac_timer = 0;
     
@@ -1130,20 +1231,35 @@ void FAN_SetSpeed(uint8_t fan_speed)
 }
 
 
-float NTC_GetResistance(uint16_t adc_value)
+float AMBIENT_NTC_GetResistance(uint16_t adc_value)
 {
 	float ntc_res;
-	ntc_res = NTC_PULLUP *  (float) adc_value / ( 4095.0  - (float) adc_value);
+	ntc_res = (float) (AMBIENT_NTC_PULLUP * adc_value / (4095.0  - adc_value));
 	return(ntc_res);
 }
 
 
-float NTC_GetTemperature(float ntc_resistance)
+float AMBIENT_NTC_GetTemperature(float ntc_resistance)
 {
 	float temperature;
-	temperature = (1.0 / ((log (ntc_resistance / NTC_RREF)) / NTC_B_VALUE  + 1.0 / 298.0)) - 273.0; 
+	temperature = (1.0 / ((log (ntc_resistance / AMBIENT_NTC_RREF)) / ambient_ntc_b_value  + 1.0 / 298.0)) - 273.0; 
 	return(temperature);
 }
 
+
+float FANCOIL_NTC_GetResistance(uint16_t adc_value)
+{
+	float ntc_res;
+	ntc_res = (float) (FANCOIL_NTC_PULLUP * adc_value / (4095.0  - adc_value));
+	return(ntc_res);
+}
+
+
+float FANCOIL_NTC_GetTemperature(float ntc_resistance)
+{
+	float temperature;
+	temperature = (1.0 / ((log (ntc_resistance / FANCOIL_NTC_RREF)) / fancoil_ntc_b_value  + 1.0 / 298.0)) - 273.0; 
+	return(temperature);
+}
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

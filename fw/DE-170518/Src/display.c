@@ -101,24 +101,24 @@ uint8_t btn_opendoor_state, btn_opendoor_old_state;
 uint8_t btn_increase_state, btn_increase_old_state, btn_increase_timer, btn_increase_rate;
 uint8_t btn_decrease_state, btn_decrease_old_state, btn_decrease_timer, btn_decrease_rate;
 
-static char * _apMinute[] = {
-	"00", "01", "02", "03", "04", "05", "06", "07", "08", "09",  
-	"10", "11", "12", "13", "14", "15", "16", "17", "18", "19",  
-	"20", "21", "22", "23", "24", "25", "26", "27", "28", "29", 
-	"30", "31", "32", "33", "34", "35", "36", "37", "38", "39", 
-	"40", "41", "42", "43", "44", "45", "46", "47", "48", "49", 
-	"50", "51", "52", "53", "54", "55", "56", "57", "58", "59",
-};
+//static char * _apMinute[] = {
+//	"00", "01", "02", "03", "04", "05", "06", "07", "08", "09",  
+//	"10", "11", "12", "13", "14", "15", "16", "17", "18", "19",  
+//	"20", "21", "22", "23", "24", "25", "26", "27", "28", "29", 
+//	"30", "31", "32", "33", "34", "35", "36", "37", "38", "39", 
+//	"40", "41", "42", "43", "44", "45", "46", "47", "48", "49", 
+//	"50", "51", "52", "53", "54", "55", "56", "57", "58", "59",
+//};
 
-static char * _apHour[] = {
-	"00", "01", "02", "03", "04", "05", "06", "07", "08", "09",  
-	"10", "11", "12", "13", "14", "15", "16", "17", "18", "19",  
-	"20", "21", "22", "23" 
-};
+//static char * _apHour[] = {
+//	"00", "01", "02", "03", "04", "05", "06", "07", "08", "09",  
+//	"10", "11", "12", "13", "14", "15", "16", "17", "18", "19",  
+//	"20", "21", "22", "23" 
+//};
 
-static char * _apDays[] = {
-	"0", "MON", "TUE", "WED", "THU", "FRE", "SAT", "SUN"
-};
+//static char * _apDays[] = {
+//	"0", "MON", "TUE", "WED", "THU", "FRE", "SAT", "SUN"
+//};
 
 /* Private Macro -------------------------------------------------------------*/
 /* Private Function Prototype ------------------------------------------------*/
@@ -155,9 +155,9 @@ void DISPLAY_Init(void)
 
 void DISPLAY_Service(void)
 {
-	uint8_t i;
-	static uint8_t fl = 0;
-	static uint8_t au_cnt = 0;
+	//uint8_t i;
+	//static uint8_t fl = 0;
+	//static uint8_t au_cnt = 0;
     static uint16_t actual_temp;
 	/** ==========================================================================*/
 	/**    D R A W     D I S P L A Y	G U I	O N	   U P D A T E    E V E N T   */
@@ -595,22 +595,19 @@ BUTTON_StateTypeDef BUTTON_GetState(uint16_t button_id)
 	switch(button_id)
 	{
 		case  GUI_ID_BUTTON_Dnd:
-            if(IsBUTTON_DndActiv()) return (1);
-			else return (0);
-            break;
+            if(IsBUTTON_DndActiv()) return (PRESSED);
+			else return (RELEASED);
 		
 		case  GUI_ID_BUTTON_Sos:
-			if(IsBUTTON_SosResetActiv()) return (1);
-			else return (0);
-            break;
+			if(IsBUTTON_SosResetActiv()) return (PRESSED);
+			else return (RELEASED);
 		
 		case  GUI_ID_BUTTON_Maid:
-			if(IsBUTTON_CallMaidActiv()) return (1);
-			else return (0);
-            break;
+			if(IsBUTTON_CallMaidActiv()) return (PRESSED);
+			else return (RELEASED);
 	}
     
-	return(2);
+	return(BUTTON_SHIT);
 }
 
 

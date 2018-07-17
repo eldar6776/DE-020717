@@ -153,7 +153,17 @@ void EXTI3_IRQHandler(void)
 
 void EXTI15_10_IRQHandler(void)
 {
-	HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_13);
+    if(HAL_GPIO_ReadPin(GPIOG, GPIO_PIN_13) == GPIO_PIN_RESET) HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_13);
+    else if(HAL_GPIO_ReadPin(GPIOG, GPIO_PIN_14) == GPIO_PIN_RESET) HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_14);
+    else 
+	{
+        __HAL_GPIO_EXTI_CLEAR_IT(GPIO_PIN_10);
+        __HAL_GPIO_EXTI_CLEAR_IT(GPIO_PIN_11);
+        __HAL_GPIO_EXTI_CLEAR_IT(GPIO_PIN_12);
+        __HAL_GPIO_EXTI_CLEAR_IT(GPIO_PIN_13);
+        __HAL_GPIO_EXTI_CLEAR_IT(GPIO_PIN_14);
+        __HAL_GPIO_EXTI_CLEAR_IT(GPIO_PIN_15);
+    }
 }
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
