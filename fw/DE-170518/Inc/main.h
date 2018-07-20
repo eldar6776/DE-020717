@@ -17,17 +17,39 @@
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f7xx.h"
 
+/* Code switch define --------------------------------------------------------*/
+//#define USE_FULL_ASSERT	1U	// use for full assert and debug of hal parameters 
+#define USE_DEBUGGER		2U	// if using serial wire debugger remap PA13 & PA14 to swdio & swclk 
+//#define WRITE_DEFAULT		3U	// used for firs time flash and eeprom initialization
+//#define DEMO_MODE			4U	// used for room controller demo presentation
+
+#define EE_THERMOSTAT_SET_POINT                 0x0010
+#define EE_THERMOSTAT_SET_POINT_DIFF            0x0012
+#define EE_THERMOSTAT_CTRL_MODE                 0x0013
+#define EE_THERMOSTAT_FAN_LOW_SPEED_BAND        0x0014
+#define EE_THERMOSTAT_FAN_MIDDLE_SPEED_BAND     0x0015
+#define EE_THERMOSTAT_FAN_SPEED_DIFF            0x0016
+#define EE_FANCOIL_CONTROL_TYPE                 0x0017
+#define EE_AMBIENT_TEMPERATURE_NTC_BETA         0x0020
+#define EE_FANCOIL_TEMPERATURE_NTC_BETA         0x0022
+#define EE_DND_BUTTON_STATE                     0x0024
+#define EE_MAID_BUTTON_STATE                    0x0025
+#define EE_SOS_BUTTON_STATE                     0x0026
 
 /* Exported types ------------------------------------------------------------*/
 extern UART_HandleTypeDef huart2;
 extern TIM_HandleTypeDef htim3;
 extern TIM_HandleTypeDef htim9;
+extern I2C_HandleTypeDef hi2c4;
+extern I2C_HandleTypeDef hi2c3;
 extern RTC_HandleTypeDef hrtc;
 extern RTC_TimeTypeDef time;
 extern RTC_DateTypeDef date;
 extern LTDC_HandleTypeDef  hltdc;
 extern DMA2D_HandleTypeDef hdma2d;
-
+#ifndef	USE_DEBUGGER
+extern IWDG_HandleTypeDef hiwdg;
+#endif
 
 typedef struct 
 {
@@ -55,9 +77,9 @@ typedef struct
 #define RTC_SECONDS_PER_MINUTE          60
 
 #define FAN_OFF							0
-#define FAN_CONST_SPEED_LOW				70
+#define FAN_CONST_SPEED_LOW				75
 #define FAN_CONST_SPEED_MIDDLE			70
-#define FAN_CONST_SPEED_HIGH			70
+#define FAN_CONST_SPEED_HIGH			60
 #define FAN_PID_SPEED_MIN               78
 #define FAN_PID_SPEED_MAX               20
 #define FAN_RPM_MEASURE_TIME            2000

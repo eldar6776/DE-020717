@@ -11,11 +11,12 @@
  
  
 /* Includes ------------------------------------------------------------------*/
-#include "one_wire.h"
 #include "main.h"
-#include "thermostat.h"
 #include "common.h"
 #include "display.h"
+#include "one_wire.h"
+#include "thermostat.h"
+#include "stm32746g.h"
 
 
 /* Imported Type  ------------------------------------------------------------*/
@@ -99,7 +100,6 @@ void ONEWIRE_Init(void)
 	{ 
 		ONEWIRE_SensorNotConnected();
 		ONEWIRE_SetUsart(ONEWIRE_9600);
-		HAL_HalfDuplex_EnableReceiver(&huart2);
 		__HAL_UART_FLUSH_DRREGISTER(&huart2);
 		HAL_UART_Receive_IT(&huart2, onewire_buffer, ONEWIRE_PACKET_SIZE);
 		OnewireState = ONEWIRE_PACKET_PENDING;
@@ -111,6 +111,7 @@ void ONEWIRE_Service(void)
 {
 	static uint8_t ow_pcnt = 0;
 	static uint8_t ds18b20_cnt = 0;
+    static uint8_t sens_flag;
 	uint16_t sensor_temp;
 	uint8_t e;
 	
@@ -210,6 +211,7 @@ void ONEWIRE_Service(void)
 				HAL_RTC_SetTime(&hrtc, &time, RTC_FORMAT_BCD);
 				HAL_RTC_SetDate(&hrtc, &date, RTC_FORMAT_BCD);
 				HAL_RTC_WaitForSynchro(&hrtc);
+                DISPLAY_DateTimeStopTimer();
 			}
 			/** ==========================================================================*/
 			/**			S E T		T H E R M O S T A T 	P A R A M E T E R S			  */
@@ -226,36 +228,59 @@ void ONEWIRE_Service(void)
 				Thermostat_1.fan_low_speed_band = onewire_buffer[24];
 				Thermostat_1.fan_middle_speed_band = onewire_buffer[25];
 				Thermostat_1.fan_speed_diff = onewire_buffer[26];
+                
+                HAL_I2C_Mem_Write(&hi2c4, EEPROM_I2C_ADDRESS_A01,EE_THERMOSTAT_SET_POINT, I2C_MEMADD_SIZE_16BIT,  &onewire_buffer[21], 2, 100);
+                HAL_I2C_IsDeviceReady(&hi2c4, EEPROM_I2C_ADDRESS_A01, 1000, 1);
+                HAL_I2C_Mem_Write(&hi2c4, EEPROM_I2C_ADDRESS_A01,EE_THERMOSTAT_SET_POINT_DIFF, I2C_MEMADD_SIZE_16BIT,  &onewire_buffer[23], 1, 100);
+                HAL_I2C_IsDeviceReady(&hi2c4, EEPROM_I2C_ADDRESS_A01, 1000, 1);
+                HAL_I2C_Mem_Write(&hi2c4, EEPROM_I2C_ADDRESS_A01,EE_THERMOSTAT_CTRL_MODE, I2C_MEMADD_SIZE_16BIT,  &onewire_buffer[18], 1, 100);
+                HAL_I2C_IsDeviceReady(&hi2c4, EEPROM_I2C_ADDRESS_A01, 1000, 1);
+                HAL_I2C_Mem_Write(&hi2c4, EEPROM_I2C_ADDRESS_A01,EE_THERMOSTAT_FAN_LOW_SPEED_BAND, I2C_MEMADD_SIZE_16BIT,  &onewire_buffer[24], 1, 100);
+                HAL_I2C_IsDeviceReady(&hi2c4, EEPROM_I2C_ADDRESS_A01, 1000, 1);
+                HAL_I2C_Mem_Write(&hi2c4, EEPROM_I2C_ADDRESS_A01,EE_THERMOSTAT_FAN_MIDDLE_SPEED_BAND, I2C_MEMADD_SIZE_16BIT,  &onewire_buffer[25], 1, 100);
+                HAL_I2C_IsDeviceReady(&hi2c4, EEPROM_I2C_ADDRESS_A01, 1000, 1);
+                HAL_I2C_Mem_Write(&hi2c4, EEPROM_I2C_ADDRESS_A01,EE_THERMOSTAT_FAN_SPEED_DIFF, I2C_MEMADD_SIZE_16BIT,  &onewire_buffer[26], 1, 100);
+                HAL_I2C_IsDeviceReady(&hi2c4, EEPROM_I2C_ADDRESS_A01, 1000, 1);
+                
                 DISPLAY_SetpointUpdateSet();
 			}
             /** ==========================================================================*/
 			/**			    S E T	    	N T C        C O N S T A N T S		          */
 			/** ==========================================================================*/
-            if(onewire_buffer[27] == ACK)                           //(ACK = SET; NAK = SKEEP)
+            if(onewire_buffer[27] == ACK)                       //(ACK = SET; NAK = SKEEP)
             {
                 ambient_ntc_b_value = ((onewire_buffer[28] << 8) + onewire_buffer[29]);
                 fancoil_ntc_b_value = ((onewire_buffer[30] << 8) + onewire_buffer[31]);
+                
+                HAL_I2C_Mem_Write(&hi2c4, EEPROM_I2C_ADDRESS_A01, EE_AMBIENT_TEMPERATURE_NTC_BETA, I2C_MEMADD_SIZE_16BIT,  &onewire_buffer[28], 2, 100);
+                HAL_I2C_IsDeviceReady(&hi2c4, EEPROM_I2C_ADDRESS_A01, 1000, 1);
+                HAL_I2C_Mem_Write(&hi2c4, EEPROM_I2C_ADDRESS_A01, EE_FANCOIL_TEMPERATURE_NTC_BETA, I2C_MEMADD_SIZE_16BIT,  &onewire_buffer[30], 2, 100);
+                HAL_I2C_IsDeviceReady(&hi2c4, EEPROM_I2C_ADDRESS_A01, 1000, 1);
                 
                 if (onewire_buffer[32] == 1) 
                 {
                     FANCOIL_RelayTypeReset();
                     FANCOIL_TriacTypeSet();
+                    
                 }
                 else if (onewire_buffer[32] == 2) 
                 {
                     FANCOIL_TriacTypeReset();
                     FANCOIL_RelayTypeSet();
                 }
+                
+                HAL_I2C_Mem_Write(&hi2c4, EEPROM_I2C_ADDRESS_A01, EE_FANCOIL_CONTROL_TYPE, I2C_MEMADD_SIZE_16BIT,  &onewire_buffer[32], 1, 100);
+                HAL_I2C_IsDeviceReady(&hi2c4, EEPROM_I2C_ADDRESS_A01, 1000, 1);
             }
 			/** ==========================================================================*/
 			/**		    S E T		N E W		D I S P L A Y    M E S S A G E            */
 			/** ==========================================================================*/
-			if(onewire_buffer[33] == ACK)                           //(ACK = SET; NAK = SKEEP)
+			if(onewire_buffer[33] == ACK)                       //(ACK = SET; NAK = SKEEP)
 			{
-                display_message_id = onewire_buffer[34];
-                buzzer_mode = onewire_buffer[35];
-                buzzer_repeat_time = onewire_buffer[36];
-                display_message_time = onewire_buffer[37];
+                display_message_id = onewire_buffer[34];        // DISPLAY IMAGE ID
+                display_message_time = onewire_buffer[35];      // DISPLAY_IMAGE TIME
+                buzzer_mode = onewire_buffer[36];               // BUZZER MODE
+                buzzer_repeat_time = onewire_buffer[37];        // BUZZER REPEAT TIME
                 DISPLAY_UpdateSet();
 			}
             /** ==========================================================================*/
@@ -292,18 +317,18 @@ void ONEWIRE_Service(void)
 			/** ==========================================================================*/
 			/**			   S E T			P A C K E T			H E A D E R			  	  */
 			/** ==========================================================================*/
-			onewire_buffer[0] = ONEWIRE_CONTROLLER_ADDRESS;
+			onewire_buffer[0] = ONEWIRE_INTERFACE_ADDRESS;
 			onewire_buffer[1] = ONEWIRE_THERMOSTAT_ADDRESS;
 			/** ==========================================================================*/
 			/**			S E T		 B U T T O N 		S T A T E			              */
 			/** ==========================================================================*/
-			onewire_buffer[2] = NAK;	// 						                            (ACK = SET; NAK = SKEEP)
+			if (IsBUTTON_StateChangedActiv())  onewire_buffer[2] = ACK; // (ACK = SET; NAK = SKEEP)
+            else onewire_buffer[2] = NAK;	
+            BUTTON_StateChangedReset();                   
 			onewire_buffer[3] = BUTTON_GetState(GUI_ID_BUTTON_Dnd);	// DND BUTTON STATE 	(0 = RELEASED; 1 = PRESSED)
 			onewire_buffer[4] = BUTTON_GetState(GUI_ID_BUTTON_Sos);	// SOS BUTTON STATE		(0 = RELEASED; 1 = PRESSED)
 			onewire_buffer[5] = BUTTON_GetState(GUI_ID_BUTTON_Maid);// HM CALL BUTTON STATE	(0 = RELEASED; 1 = PRESSED)
-            if ((onewire_buffer[3] + 
-                 onewire_buffer[4] + 
-                 onewire_buffer[5]) != 0)       onewire_buffer[2] = ACK;
+            
 			/** ==========================================================================*/
 			/**			S E T		D A T E 	& 		T I M E				              */
 			/** ==========================================================================*/
@@ -334,7 +359,7 @@ void ONEWIRE_Service(void)
             /** ==========================================================================*/
 			/**			    S E T	    	N T C        C O N S T A N T S		          */
 			/** ==========================================================================*/
-            onewire_buffer[27] = NAK;                       //				(ACK = SET; NAK = SKEEP)
+            onewire_buffer[27] = NAK;                           // (ACK = SET; NAK = SKEEP)
             onewire_buffer[28] = (ambient_ntc_b_value >> 8);
             onewire_buffer[29] = (ambient_ntc_b_value & 0xff);
             onewire_buffer[30] = (fancoil_ntc_b_value >> 8);
@@ -346,23 +371,18 @@ void ONEWIRE_Service(void)
 			/** ==========================================================================*/
 			onewire_buffer[33] = NAK; 								//(ACK = SET; NAK = SKEEP)
             onewire_buffer[34] = display_message_id;
-            onewire_buffer[35] = buzzer_mode;
-            onewire_buffer[36] = buzzer_repeat_time;
-            onewire_buffer[37] = display_message_time;
+            onewire_buffer[35] = display_message_time;
+            onewire_buffer[36] = buzzer_mode;
+            onewire_buffer[37] = buzzer_repeat_time;
             /** ==========================================================================*/
 			/**             S E T       S E N S O R         S T A T U S                   */
 			/** ==========================================================================*/
-            onewire_buffer[38] = NAK; 								//(ACK = SET; NAK = SKEEP)
+            onewire_buffer[38] = NAK;
             if (IsFANCOIL_NTC_SensorConnected())    onewire_buffer[39] = 1;
             if (IsAMBIENT_NTC_SensorConnected())    onewire_buffer[40] = 1;
             if (IsAMBIENT_LIGHT_SensorConnected())  onewire_buffer[41] = 1;
             if (IsONEWIRE_SensorConnected())        onewire_buffer[42] = 1;
             if (IsFAN_RPM_SensorConnected())        onewire_buffer[43] = 1;
-            if ((onewire_buffer[39] + 
-                 onewire_buffer[40] + 
-                 onewire_buffer[41] + 
-                 onewire_buffer[42] +
-                 onewire_buffer[43]) != 0)          onewire_buffer[38] = ACK;
             /** ==========================================================================*/
 			/**                     S E T		    C O M M A N  D		                  */
 			/** ==========================================================================*/

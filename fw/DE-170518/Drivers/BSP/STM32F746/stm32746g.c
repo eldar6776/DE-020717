@@ -44,7 +44,7 @@ EndDependencies */
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm32746g.h"
-
+#include "main.h"
 /** @addtogroup BSP
   * @{
   */ 
@@ -471,44 +471,54 @@ static void I2Cx_MspInit(I2C_HandleTypeDef *i2c_handler)
 
 	/*** Configure the GPIOs ***/
 	/* Enable GPIO clock */
-	__HAL_RCC_GPIOA_CLK_ENABLE();
-	__HAL_RCC_GPIOC_CLK_ENABLE();
+	__HAL_RCC_GPIOD_CLK_ENABLE();
+	__HAL_RCC_GPIOG_CLK_ENABLE();
 
 	/**I2C3 GPIO Configuration    
-	PC9     ------> I2C3_SDA
-	PA8     ------> I2C3_SCL 
+	PD13     ------> I2C4_SDA
+	PD12     ------> I2C4_SCL 
 	*/
-	GPIO_InitStruct.Pin = GPIO_PIN_9;
+	GPIO_InitStruct.Pin = GPIO_PIN_12;
 	GPIO_InitStruct.Mode = GPIO_MODE_AF_OD;
 	GPIO_InitStruct.Pull = GPIO_PULLUP;
 	GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
-	GPIO_InitStruct.Alternate = GPIO_AF4_I2C3;
-	HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
+	GPIO_InitStruct.Alternate = GPIO_AF4_I2C4;
+	HAL_GPIO_Init(GPIOD, &GPIO_InitStruct);
 
-	GPIO_InitStruct.Pin = GPIO_PIN_8;
+	GPIO_InitStruct.Pin = GPIO_PIN_13;
 	GPIO_InitStruct.Mode = GPIO_MODE_AF_OD;
 	GPIO_InitStruct.Pull = GPIO_PULLUP;
 	GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
-	GPIO_InitStruct.Alternate = GPIO_AF4_I2C3;
-	HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+	GPIO_InitStruct.Alternate = GPIO_AF4_I2C4;
+	HAL_GPIO_Init(GPIOD, &GPIO_InitStruct);
+    
+    HAL_GPIO_WritePin(GPIOG, GPIO_PIN_2, GPIO_PIN_RESET);
+    
+    GPIO_InitStruct.Pin = GPIO_PIN_2;
+	GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+	GPIO_InitStruct.Pull = GPIO_NOPULL;
+	GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
+	HAL_GPIO_Init(GPIOG, &GPIO_InitStruct);
 
 	/* Peripheral clock enable */
-	__HAL_RCC_I2C3_CLK_ENABLE();
+	__HAL_RCC_I2C4_CLK_ENABLE();
 
 	/* Force the I2C peripheral clock reset */
-	__HAL_RCC_I2C3_FORCE_RESET();
+	__HAL_RCC_I2C4_FORCE_RESET();
 
 	/* Release the I2C peripheral clock reset */
-	__HAL_RCC_I2C3_RELEASE_RESET();
+	__HAL_RCC_I2C4_RELEASE_RESET();
 
 	/* Enable and set I2Cx Interrupt to a lower priority */
-	HAL_NVIC_SetPriority(I2C3_EV_IRQn, 0x0F, 0);
-	HAL_NVIC_EnableIRQ(I2C3_EV_IRQn);
+//	HAL_NVIC_SetPriority(I2C4_EV_IRQn, 0x0F, 0);
+//	HAL_NVIC_EnableIRQ(I2C4_EV_IRQn);
 
 	/* Enable and set I2Cx Interrupt to a lower priority */
-	HAL_NVIC_SetPriority(I2C3_ER_IRQn, 0x0F, 0);
-	HAL_NVIC_EnableIRQ(I2C3_ER_IRQn);
+//	HAL_NVIC_SetPriority(I2C4_ER_IRQn, 0x0F, 0);
+//	HAL_NVIC_EnableIRQ(I2C4_ER_IRQn);
 }
+
+
 
 /**
   * @brief  Initializes I2C HAL.
@@ -519,7 +529,7 @@ static void I2Cx_Init(I2C_HandleTypeDef *i2c_handler)
 {
 	if(HAL_I2C_GetState(i2c_handler) == HAL_I2C_STATE_RESET)
 	{
-		i2c_handler->Instance = I2C3;
+		i2c_handler->Instance = I2C4;
 		i2c_handler->Init.Timing           = DISCOVERY_I2Cx_TIMING;
 		i2c_handler->Init.OwnAddress1      = 0;
 		i2c_handler->Init.AddressingMode   = I2C_ADDRESSINGMODE_7BIT;
@@ -633,7 +643,7 @@ static void I2Cx_Error(I2C_HandleTypeDef *i2c_handler, uint8_t Addr)
   */
 void AUDIO_IO_Init(void) 
 {
-  I2Cx_Init(&hI2cAudioHandler);
+    I2Cx_Init(&hI2cAudioHandler);
 }
 
 /**
@@ -701,7 +711,7 @@ void AUDIO_IO_Delay(uint32_t Delay)
   */
 void CAMERA_IO_Init(void) 
 {
-  I2Cx_Init(&hI2cExtHandler);
+    I2Cx_Init(&hI2cExtHandler);
 }
 
 /**
@@ -749,7 +759,7 @@ void CAMERA_Delay(uint32_t Delay)
   */
 void EEPROM_IO_Init(void)
 {
-  I2Cx_Init(&hI2cExtHandler);
+  I2Cx_Init(&hi2c4);
 }
 
 /**
@@ -798,7 +808,63 @@ HAL_StatusTypeDef EEPROM_IO_IsDeviceReady(uint16_t DevAddress, uint32_t Trials)
   */
 void TS_IO_Init(void)
 {
-  I2Cx_Init(&hI2cAudioHandler);
+    GPIO_InitTypeDef  GPIO_InitStruct;
+    
+    if(HAL_I2C_GetState(&hi2c3) == HAL_I2C_STATE_RESET)
+    {
+        hi2c3.Instance = I2C3;
+        hi2c3.Init.Timing           = DISCOVERY_I2Cx_TIMING;
+        hi2c3.Init.OwnAddress1      = 0;
+        hi2c3.Init.AddressingMode   = I2C_ADDRESSINGMODE_7BIT;
+        hi2c3.Init.DualAddressMode  = I2C_DUALADDRESS_DISABLE;
+        hi2c3.Init.OwnAddress2      = 0;
+        hi2c3.Init.GeneralCallMode  = I2C_GENERALCALL_DISABLE;
+        hi2c3.Init.NoStretchMode    = I2C_NOSTRETCH_DISABLE;
+        /* Init the I2C */
+        /* AUDIO and LCD I2C MSP init */
+
+        /*** Configure the GPIOs ***/
+        /* Enable GPIO clock */
+        __HAL_RCC_GPIOC_CLK_ENABLE();
+        __HAL_RCC_GPIOA_CLK_ENABLE();
+
+        /**I2C3 GPIO Configuration    
+        PC9     ------> I2C3_SDA
+        PA8     ------> I2C3_SCL 
+        */
+        GPIO_InitStruct.Pin = GPIO_PIN_9;
+        GPIO_InitStruct.Mode = GPIO_MODE_AF_OD;
+        GPIO_InitStruct.Pull = GPIO_PULLUP;
+        GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
+        GPIO_InitStruct.Alternate = GPIO_AF4_I2C3;
+        HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
+
+        GPIO_InitStruct.Pin = GPIO_PIN_8;
+        GPIO_InitStruct.Mode = GPIO_MODE_AF_OD;
+        GPIO_InitStruct.Pull = GPIO_PULLUP;
+        GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
+        GPIO_InitStruct.Alternate = GPIO_AF4_I2C3;
+        HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+
+        /* Peripheral clock enable */
+        __HAL_RCC_I2C3_CLK_ENABLE();
+
+        /* Force the I2C peripheral clock reset */
+        __HAL_RCC_I2C3_FORCE_RESET();
+
+        /* Release the I2C peripheral clock reset */
+        __HAL_RCC_I2C3_RELEASE_RESET();
+
+        /* Enable and set I2Cx Interrupt to a lower priority */
+        HAL_NVIC_SetPriority(I2C3_EV_IRQn, 0x0F, 0);
+        HAL_NVIC_EnableIRQ(I2C3_EV_IRQn);
+
+        /* Enable and set I2Cx Interrupt to a lower priority */
+        HAL_NVIC_SetPriority(I2C3_ER_IRQn, 0x0F, 0);
+        HAL_NVIC_EnableIRQ(I2C3_ER_IRQn);
+        
+        HAL_I2C_Init(&hi2c3);
+    }
 }
 
 /**
@@ -810,7 +876,7 @@ void TS_IO_Init(void)
   */
 void TS_IO_Write(uint8_t Addr, uint8_t Reg, uint8_t Value)
 {
-  I2Cx_WriteMultiple(&hI2cAudioHandler, Addr, (uint16_t)Reg, I2C_MEMADD_SIZE_8BIT,(uint8_t*)&Value, 1);
+    I2Cx_WriteMultiple(&hi2c3, Addr, (uint16_t)Reg, I2C_MEMADD_SIZE_8BIT,(uint8_t*)&Value, 1);
 }
 
 /**
@@ -821,11 +887,11 @@ void TS_IO_Write(uint8_t Addr, uint8_t Reg, uint8_t Value)
   */
 uint8_t TS_IO_Read(uint8_t Addr, uint8_t Reg)
 {
-  uint8_t read_value = 0;
+    uint8_t read_value = 0;
 
-  I2Cx_ReadMultiple(&hI2cAudioHandler, Addr, Reg, I2C_MEMADD_SIZE_8BIT, (uint8_t*)&read_value, 1);
+    I2Cx_ReadMultiple(&hi2c3, Addr, Reg, I2C_MEMADD_SIZE_8BIT, (uint8_t*)&read_value, 1);
 
-  return read_value;
+    return read_value;
 }
 
 /**
@@ -835,7 +901,7 @@ uint8_t TS_IO_Read(uint8_t Addr, uint8_t Reg)
   */
 void TS_IO_Delay(uint32_t Delay)
 {
-  HAL_Delay(Delay);
+    HAL_Delay(Delay);
 }
 
 /**

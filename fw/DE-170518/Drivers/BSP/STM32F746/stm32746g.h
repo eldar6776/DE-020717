@@ -239,23 +239,23 @@ typedef enum
 /* User can use this section to tailor I2Cx/I2Cx instance used and associated 
    resources */
 /* Definition for AUDIO and LCD I2Cx resources */
-#define DISCOVERY_AUDIO_I2Cxa                             I2C4
-#define DISCOVERY_AUDIO_I2Cx_CLK_ENABLEa()                __HAL_RCC_I2C4_CLK_ENABLE()
-#define DISCOVERY_AUDIO_DMAx_CLK_ENABLEa()                __HAL_RCC_DMA1_CLK_ENABLE()
-#define DISCOVERY_AUDIO_I2Cx_SCL_SDA_GPIO_CLK_ENABLEa()   __HAL_RCC_GPIOD_CLK_ENABLE()
+#define I2C_EEPROM_I2Cxa                             I2C4
+#define I2C_EEPROM_I2Cx_CLK_ENABLEa()                __HAL_RCC_I2C4_CLK_ENABLE()
+#define I2C_EEPROM_DMAx_CLK_ENABLEa()                __HAL_RCC_DMA1_CLK_ENABLE()
+#define I2C_EEPROM_I2Cx_SCL_SDA_GPIO_CLK_ENABLEa()   __HAL_RCC_GPIOD_CLK_ENABLE()
 
-#define DISCOVERY_AUDIO_I2Cx_FORCE_RESETa()               __HAL_RCC_I2C4_FORCE_RESET()
-#define DISCOVERY_AUDIO_I2Cx_RELEASE_RESETa()             __HAL_RCC_I2C4_RELEASE_RESET()
+#define I2C_EEPROM_I2Cx_FORCE_RESETa()               __HAL_RCC_I2C4_FORCE_RESET()
+#define I2C_EEPROM_I2Cx_RELEASE_RESETa()             __HAL_RCC_I2C4_RELEASE_RESET()
 
 /* Definition for I2Cx Pins */
-#define DISCOVERY_AUDIO_I2Cx_SCL_PINa                     GPIO_PIN_12
-#define DISCOVERY_AUDIO_I2Cx_SCL_SDA_GPIO_PORTa           GPIOD
-#define DISCOVERY_AUDIO_I2Cx_SCL_SDA_AFa                  GPIO_AF4_I2C4
-#define DISCOVERY_AUDIO_I2Cx_SDA_PINa                     GPIO_PIN_13
+#define I2C_EEPROM_I2Cx_SCL_PINa                     GPIO_PIN_12
+#define I2C_EEPROM_I2Cx_SCL_SDA_GPIO_PORTa           GPIOD
+#define I2C_EEPROM_I2Cx_SCL_SDA_AFa                  GPIO_AF4_I2C4
+#define I2C_EEPROM_I2Cx_SDA_PINa                     GPIO_PIN_13
 
 /* I2C interrupt requests */
-#define DISCOVERY_AUDIO_I2Cx_EV_IRQna                     I2C4_EV_IRQn
-#define DISCOVERY_AUDIO_I2Cx_ER_IRQna                     I2C4_ER_IRQn
+#define I2C_EEPROM_I2Cx_EV_IRQna                     I2C4_EV_IRQn
+#define I2C_EEPROM_I2Cx_ER_IRQna                     I2C4_ER_IRQn
 
 /* Definition for external, camera and Arduino connector I2Cx resources */
 #define DISCOVERY_EXT_I2Cx                               I2C1

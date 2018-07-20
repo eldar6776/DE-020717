@@ -16,6 +16,7 @@
 #include "display.h"
 #include "one_wire.h"
 #include "common.h"
+#include "stm32746g.h"
 
 
 /* Imported Type  ------------------------------------------------------------*/
@@ -66,7 +67,7 @@ uint32_t thermostat_flags;
 void THERMOSTAT_Init(void)
 {
 	GPIO_InitTypeDef  GPIO_InitStruct;
-	
+	  
 	__HAL_RCC_GPIOC_CLK_ENABLE();
 	__HAL_RCC_GPIOD_CLK_ENABLE();
 	
@@ -84,11 +85,11 @@ void THERMOSTAT_Init(void)
     GPIO_InitStruct.Pull = GPIO_NOPULL;
     GPIO_InitStruct.Speed = GPIO_SPEED_LOW;
     HAL_GPIO_Init(GPIOD, &GPIO_InitStruct);
-	
+	   
 	Thermostat_1.valve = 0;						                // cooling/heating valve on/off/proportion
-	Thermostat_1.fan_mode = THERMOSTAT_FAN_MODE_AUTO;           // fan auto control
+	Thermostat_1.fan_mode = 0;                                  // fan auto control
 	Thermostat_1.fan_speed = 0;					                // fancoil fan at startup off
-	Thermostat_1.ctrl_mode = THERMOSTAT_CONTROL_MODE_OFF;       // thermostat cooling mode
+	Thermostat_1.ctrl_mode = 0;                                 // thermostat cooling mode
 	Thermostat_1.actual_temperature = 220;		                // proces variable
 	Thermostat_1.set_temperature = 120;			                // thermostat set point 23,0°C
 	Thermostat_1.set_temperature_diff = 15;		                // actual = set point => controller off, actual = set point +/- difference => controller on
@@ -194,14 +195,14 @@ void THERMOSTAT_Service(void)
 	/** ============================================================================*/
 	/**				T E M P E R A T U R E		C O N T R O L L E R					*/
 	/** ============================================================================*/
-	if((Thermostat_1.ctrl_mode == THERMOSTAT_CONTROL_MODE_OFF) || (Thermostat_1.ctrl_mode > 2))
+	if((Thermostat_1.ctrl_mode == THERMOSTAT_CONTROL_MODE_OFF) || (Thermostat_1.ctrl_mode > 4))
 	{
 		Thermostat_1.valve = 0;
 		Thermostat_1.fan_speed = 0;
 		FANCOIL_FanOff();
 		FANCOIL_SetFanOff();
 	}
-	else if(Thermostat_1.ctrl_mode == THERMOSTAT_CONTROL_MODE_COOLING)
+	else if((Thermostat_1.ctrl_mode == THERMOSTAT_CONTROL_MODE_COOLING) || (Thermostat_1.ctrl_mode == THERMOSTAT_CONTROL_MODE_COOL_ONE_CYCLE))
 	{
 		if(Thermostat_1.fan_mode == 0)		// automatic fan speed with 3 band proportional temperature controller
 		{
@@ -225,6 +226,13 @@ void THERMOSTAT_Service(void)
 					 Thermostat_1.set_temperature)
 				{
 					Thermostat_1.fan_speed = 0;
+                    
+                    if(Thermostat_1.ctrl_mode == THERMOSTAT_CONTROL_MODE_COOL_ONE_CYCLE) 
+                    {
+                        Thermostat_1.ctrl_mode = THERMOSTAT_CONTROL_MODE_OFF;
+                        HAL_I2C_Mem_Write(&hi2c4, EEPROM_I2C_ADDRESS_A01,EE_THERMOSTAT_CTRL_MODE, I2C_MEMADD_SIZE_16BIT,  &Thermostat_1.ctrl_mode, 1, 100);
+                        HAL_I2C_IsDeviceReady(&hi2c4, EEPROM_I2C_ADDRESS_A01, 1000, 1);
+                    }
 				}
 			}
 			
@@ -266,7 +274,7 @@ void THERMOSTAT_Service(void)
 			}
 		}
 	}
-	else if(Thermostat_1.ctrl_mode == THERMOSTAT_CONTROL_MODE_HEATING)
+	else if((Thermostat_1.ctrl_mode == THERMOSTAT_CONTROL_MODE_HEATING) || (Thermostat_1.ctrl_mode == THERMOSTAT_CONTROL_MODE_HEAT_ONE_CYCLE))
 	{
 		if(Thermostat_1.fan_mode == 0) 		// automatic fan speed with 3 band proportional temperature controller 
 		{
@@ -290,6 +298,13 @@ void THERMOSTAT_Service(void)
 					 Thermostat_1.set_temperature)
 				{
 					Thermostat_1.fan_speed = 0;
+                    
+                    if(Thermostat_1.ctrl_mode == THERMOSTAT_CONTROL_MODE_HEAT_ONE_CYCLE) 
+                    {
+                        Thermostat_1.ctrl_mode = THERMOSTAT_CONTROL_MODE_OFF;
+                        HAL_I2C_Mem_Write(&hi2c4, EEPROM_I2C_ADDRESS_A01,EE_THERMOSTAT_CTRL_MODE, I2C_MEMADD_SIZE_16BIT,  &Thermostat_1.ctrl_mode, 1, 100);
+                        HAL_I2C_IsDeviceReady(&hi2c4, EEPROM_I2C_ADDRESS_A01, 1000, 1);
+                    }
 				}
 			}
 			

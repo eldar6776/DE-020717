@@ -25,6 +25,7 @@
 #include "stm32746g_qspi.h"
 #include "stm32746g_sdram.h"
 #include "stm32746g_audio.h"
+#include "stm32746g_eeprom.h"
 
 
 /* Imported Type  ------------------------------------------------------------*/
@@ -35,12 +36,17 @@ ADC_HandleTypeDef hadc3;
 UART_HandleTypeDef huart2;
 TIM_HandleTypeDef htim3;
 TIM_HandleTypeDef htim9;
-LTDC_HandleTypeDef  hltdc;
+I2C_HandleTypeDef hi2c4;
+I2C_HandleTypeDef hi2c3;
+LTDC_HandleTypeDef hltdc;
 DMA2D_HandleTypeDef hdma2d;
 CRC_HandleTypeDef hcrc;
 RTC_HandleTypeDef hrtc;
 RTC_TimeTypeDef time;
 RTC_DateTypeDef date;
+#ifndef	USE_DEBUGGER
+IWDG_HandleTypeDef hiwdg;
+#endif
 
 /* Private Define ------------------------------------------------------------*/
 #define LED_STATUS_SYS_RUN_TIME				1234	// 1s led status toggle period
@@ -59,7 +65,8 @@ RTC_DateTypeDef date;
 #define BUZZER_SHORT_TIME                   500 
 #define BUZZER_LONG_TIME                    1000
 #define TRIAC_ON_PULSE                      5       // 500 us triac on pulse duration
-#define SYSTEM_STARTUP_TIME                 30000   // 10s system startup config check
+#define SYSTEM_STARTUP_TIME                 10000   // 10s system startup config check
+
 
 /* Private Variable ----------------------------------------------------------*/
 __IO uint32_t SystickCnt;
@@ -125,6 +132,9 @@ uint8_t RTC_Months[2][12] = {
 static void MPU_Config(void);
 static void CACHE_Config(void);
 static void SystemClock_Config(void);
+#ifndef	USE_DEBUGGER
+void MX_IWDG_Init(void);
+#endif
 static void MX_GPIO_Init(void);
 static void MX_CRC_Init(void);
 static void MX_RTC_Init(void);
@@ -133,6 +143,7 @@ static void MX_TIM9_Init(void);
 static void MX_UART2_Init(void);
 static void MX_ADC3_Init(void);
 static void ADC3_Read(void);
+static void RAM_Init(void);
 void TouchUpdate(void);
 void BootloaderExe(void);
 void Error_Handler(void);
@@ -149,6 +160,9 @@ int main(void)
 	CACHE_Config();
 	HAL_Init(); 
 	SystemClock_Config();
+#ifndef	USE_DEBUGGER
+	MX_IWDG_Init();
+#endif	
 	MX_RTC_Init();
 	MX_ADC3_Init();
 	MX_UART2_Init();
@@ -158,16 +172,24 @@ int main(void)
 	MX_QSPI_Init();
 	SDRAM_Init();
 	MX_CRC_Init();
+    BSP_EEPROM_Init();
+    RAM_Init();
 	TOUCH_SCREEN_Init(480, 272);
 	ONEWIRE_Init();
 	THERMOSTAT_Init();
 	DISPLAY_Init();
-    
+#ifndef	USE_DEBUGGER
+	HAL_IWDG_Refresh(&hiwdg);
+#endif
+
 	while(1)
 	{
 		ONEWIRE_Service();
 		THERMOSTAT_Service();
 		DISPLAY_Service();
+#ifndef	USE_DEBUGGER
+        HAL_IWDG_Refresh(&hiwdg);
+#endif
 	}
 }
 
@@ -505,7 +527,48 @@ static void SystemClock_Config(void)
 }
 
 
+static void RAM_Init(void)
+{
+    uint8_t tmp_buf[8];
+    
+    HAL_I2C_Mem_Read(&hi2c4, EEPROM_I2C_ADDRESS_A01, EE_THERMOSTAT_SET_POINT_DIFF, I2C_MEMADD_SIZE_16BIT,  &Thermostat_1.set_temperature_diff, 1, 100);
+    HAL_I2C_Mem_Read(&hi2c4, EEPROM_I2C_ADDRESS_A01, EE_THERMOSTAT_CTRL_MODE, I2C_MEMADD_SIZE_16BIT,  &Thermostat_1.ctrl_mode, 1, 100);
+    HAL_I2C_Mem_Read(&hi2c4, EEPROM_I2C_ADDRESS_A01, EE_THERMOSTAT_FAN_LOW_SPEED_BAND, I2C_MEMADD_SIZE_16BIT,  &Thermostat_1.fan_low_speed_band, 1, 100);
+    HAL_I2C_Mem_Read(&hi2c4, EEPROM_I2C_ADDRESS_A01, EE_THERMOSTAT_FAN_MIDDLE_SPEED_BAND, I2C_MEMADD_SIZE_16BIT,  &Thermostat_1.fan_middle_speed_band, 1, 100);
+    HAL_I2C_Mem_Read(&hi2c4, EEPROM_I2C_ADDRESS_A01, EE_THERMOSTAT_FAN_SPEED_DIFF, I2C_MEMADD_SIZE_16BIT,  &Thermostat_1.fan_speed_diff, 1, 100);
+    HAL_I2C_Mem_Read(&hi2c4, EEPROM_I2C_ADDRESS_A01, EE_THERMOSTAT_SET_POINT, I2C_MEMADD_SIZE_16BIT, tmp_buf, 2, 100);
+    Thermostat_1.set_temperature = ((tmp_buf[0] << 8) + tmp_buf[1]);
+    
+//    HAL_I2C_Mem_Read(&hi2c4, EEPROM_I2C_ADDRESS_A01, EE_AMBIENT_TEMPERATURE_NTC_BETA, I2C_MEMADD_SIZE_16BIT, tmp_buf, 2, 100);
+//    ambient_ntc_b_value = ((tmp_buf[0] << 8) + tmp_buf[1]);
+//    
+//    HAL_I2C_Mem_Read(&hi2c4, EEPROM_I2C_ADDRESS_A01, EE_FANCOIL_TEMPERATURE_NTC_BETA, I2C_MEMADD_SIZE_16BIT, tmp_buf, 2, 100);
+//    fancoil_ntc_b_value = ((tmp_buf[0] << 8) + tmp_buf[1]);
+    
+    HAL_I2C_Mem_Read(&hi2c4, EEPROM_I2C_ADDRESS_A01, EE_FANCOIL_CONTROL_TYPE, I2C_MEMADD_SIZE_16BIT, tmp_buf, 1, 100);
+    
+    if (tmp_buf[0] == 1) 
+    {
+        FANCOIL_RelayTypeReset();
+        FANCOIL_TriacTypeSet();
+    }
+    else if (tmp_buf[0] == 2) 
+    {
+        FANCOIL_TriacTypeReset();
+        FANCOIL_RelayTypeSet();
+    }
+}
 
+
+#ifndef	USE_DEBUGGER
+void MX_IWDG_Init(void)
+{
+    hiwdg.Instance = IWDG;
+    hiwdg.Init.Prescaler = IWDG_PRESCALER_32;
+    hiwdg.Init.Reload = 4095;
+    HAL_IWDG_Init(&hiwdg);
+}
+#endif
 void RTC_GetDateTime(RTC_t* data, uint32_t format) 
 {
 	uint32_t unix;
@@ -841,7 +904,7 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef* huart)
 	if(huart->Instance == USART2)
 	{
 		if	((onewire_buffer[0] == ONEWIRE_THERMOSTAT_ADDRESS) &&
-			(onewire_buffer[1] == ONEWIRE_CONTROLLER_ADDRESS) &&
+			(onewire_buffer[1] == ONEWIRE_INTERFACE_ADDRESS) &&
 			(onewire_buffer[63] == CalcCRC(onewire_buffer, 63)))
 		{
 			onewire_buffer[64] = CalcCRC(onewire_buffer, 63);

@@ -22,7 +22,8 @@
 #include "thermostat.h"
 #include "LCDConf.h"
 #include "DIALOG.h"
-#include "waveplayer.h"
+#include "stm32746g.h"
+
 
 
 /* Imported Type  ------------------------------------------------------------*/
@@ -37,7 +38,6 @@ BUTTON_Handle hBUTTON_DoorOpen;
 BUTTON_Handle hBUTTON_Increase;
 BUTTON_Handle hBUTTON_Decrease;
 eActivDisplayTypeDef ActivDisplay;
-
 
 
 /* Private Define ------------------------------------------------------------*/
@@ -75,20 +75,22 @@ eActivDisplayTypeDef ActivDisplay;
 #define BTN_DOR_X1                  180
 #define BTN_DOR_Y1                  265
 
-#define BTN_OK_X0                   355
+#define BTN_OK_X0                   340
 #define BTN_OK_Y0                   215
-#define BTN_OK_X1                   180
-#define BTN_OK_Y1                   265
+#define BTN_OK_X1                   473
+#define BTN_OK_Y1                   270
 
 #define SP_TEMP_DEC_POS             125
 #define SP_TEMP_UNIT_POS            165 
 #define SP_TEMP_V_POS               145 
+
 
 /* Private Variable ----------------------------------------------------------*/
 __IO uint32_t display_timer;
 __IO uint32_t display_date_time_timer;
 __IO uint32_t display_message_timer;
 __IO uint32_t display_screensaver_timer;
+
 uint32_t display_flags;
 
 uint8_t display_buffer[DISPLAY_BUFFER_SIZE];
@@ -98,27 +100,9 @@ uint8_t btn_sos_state, btn_sos_old_state;
 uint8_t btn_maid_state, btn_maid_old_state;
 uint8_t btn_ok_state, btn_ok_old_state;
 uint8_t btn_opendoor_state, btn_opendoor_old_state;
-uint8_t btn_increase_state, btn_increase_old_state, btn_increase_timer, btn_increase_rate;
-uint8_t btn_decrease_state, btn_decrease_old_state, btn_decrease_timer, btn_decrease_rate;
-
-//static char * _apMinute[] = {
-//	"00", "01", "02", "03", "04", "05", "06", "07", "08", "09",  
-//	"10", "11", "12", "13", "14", "15", "16", "17", "18", "19",  
-//	"20", "21", "22", "23", "24", "25", "26", "27", "28", "29", 
-//	"30", "31", "32", "33", "34", "35", "36", "37", "38", "39", 
-//	"40", "41", "42", "43", "44", "45", "46", "47", "48", "49", 
-//	"50", "51", "52", "53", "54", "55", "56", "57", "58", "59",
-//};
-
-//static char * _apHour[] = {
-//	"00", "01", "02", "03", "04", "05", "06", "07", "08", "09",  
-//	"10", "11", "12", "13", "14", "15", "16", "17", "18", "19",  
-//	"20", "21", "22", "23" 
-//};
-
-//static char * _apDays[] = {
-//	"0", "MON", "TUE", "WED", "THU", "FRE", "SAT", "SUN"
-//};
+uint8_t btn_increase_state, btn_increase_old_state;
+uint8_t btn_decrease_state, btn_decrease_old_state;
+uint8_t btn_last_state;
 
 /* Private Macro -------------------------------------------------------------*/
 /* Private Function Prototype ------------------------------------------------*/
@@ -141,24 +125,24 @@ void DISPLAY_Init(void)
     GUI_SelectLayer(1);
 	GUI_SetBkColor(GUI_TRANSPARENT); 
 	GUI_Clear();
-    GUI_DrawBitmap(&bm_btn_dnd_0, BTN_DND_X0, BTN_DND_Y0); 
-    GUI_DrawBitmap(&bm_btn_maid_0, BTN_CMD_X0, BTN_CMD_Y0); 
-    GUI_DrawBitmap(&bm_btn_rst_sos_0, BTN_SOS_X0, BTN_SOS_Y0); 
+    HAL_I2C_Mem_Read(&hi2c4, EEPROM_I2C_ADDRESS_A01, EE_DND_BUTTON_STATE, I2C_MEMADD_SIZE_16BIT, &btn_last_state, 1, 100);
+    BUTTON_SetNewState(GUI_ID_BUTTON_Dnd, btn_last_state);
+    HAL_I2C_Mem_Read(&hi2c4, EEPROM_I2C_ADDRESS_A01, EE_MAID_BUTTON_STATE, I2C_MEMADD_SIZE_16BIT, &btn_last_state, 1, 100);
+    BUTTON_SetNewState(GUI_ID_BUTTON_Maid, btn_last_state);
+    HAL_I2C_Mem_Read(&hi2c4, EEPROM_I2C_ADDRESS_A01, EE_SOS_BUTTON_STATE, I2C_MEMADD_SIZE_16BIT, &btn_last_state, 1, 100);
+    BUTTON_SetNewState(GUI_ID_BUTTON_Sos, btn_last_state);
 	GUI_Exec();
 	ActivDisplay = DISPLAY_THERMOSTAT;
     DISPLAY_SetpointUpdateSet();
 	DISPLAY_DateTime();
+    DISPLAY_InitializedSet();
     DISPLAY_StartScreenSaverTimer(DISPLAY_SCREENSAVER_TIME);
-	DISPLAY_InitializedSet();
 }
 
 
 void DISPLAY_Service(void)
 {
-	//uint8_t i;
-	//static uint8_t fl = 0;
-	//static uint8_t au_cnt = 0;
-    static uint16_t actual_temp;
+	static uint16_t actual_temp;
 	/** ==========================================================================*/
 	/**    D R A W     D I S P L A Y	G U I	O N	   U P D A T E    E V E N T   */
 	/** ==========================================================================*/
@@ -167,10 +151,8 @@ void DISPLAY_Service(void)
 		DISPLAY_StartTimer(GUI_REFRESH_TIME);
 		GUI_Exec();
 	}
-	else 									        // wait for gui refresh timer
-	{
-		return;
-	}
+	else return;									        // wait for gui refresh timer
+
 	
     if(IsDISPLAY_ScreenSaverTimerExpirerd() && !IsDISPLAY_BrightnessSet())   
     {
@@ -181,6 +163,9 @@ void DISPLAY_Service(void)
     if(IsDISPLAY_UpdateActiv())                     // display message request
     {
         DISPLAY_UpdateReset();
+        __HAL_TIM_SET_COMPARE(&htim9, TIM_CHANNEL_1, DISPLAY_BRIGHTNESS_HIGH);
+        DISPLAY_StartScreenSaverTimer(DISPLAY_SCREENSAVER_TIME);
+        DISPLAY_BrightnessReset();
         
         if(display_message_time > 0) 
         {
@@ -310,7 +295,7 @@ void DISPLAY_Service(void)
 			btn_increase_old_state = 1;
 			GUI_MULTIBUF_BeginEx(1);
             
-            if(Thermostat_1.set_temperature < THERMOSTAT_MAX_TEMPERATURE) 
+            if(Thermostat_1.set_temperature <= (THERMOSTAT_MAX_TEMPERATURE - 10)) 
             {
                 Thermostat_1.set_temperature += 10;
                 DISPLAY_TemperatureSetPoint();
@@ -325,7 +310,7 @@ void DISPLAY_Service(void)
 			btn_decrease_old_state = 1;
 			GUI_MULTIBUF_BeginEx(1);
             
-            if(Thermostat_1.set_temperature > THERMOSTAT_MIN_TEMPERATURE) 
+            if(Thermostat_1.set_temperature >= (THERMOSTAT_MIN_TEMPERATURE + 10)) 
             {
                 Thermostat_1.set_temperature -= 10;
                 DISPLAY_TemperatureSetPoint();
@@ -354,7 +339,7 @@ void DISPLAY_Service(void)
 			btn_opendoor_old_state = 1;
             if(display_message_id == 1) BUTTON_OpenDoorSet();
 		}
-		else if(!btn_dnd_state && btn_dnd_old_state)  btn_dnd_old_state = 0;
+		else if(!btn_opendoor_state && btn_opendoor_old_state)  btn_opendoor_old_state = 0;
     }
 }
 
@@ -425,7 +410,7 @@ static void PID_Hook(GUI_PID_STATE * pState)
             btn_ok_state = 0;             
         }
 	}
-    else  if(ActivDisplay == DISPLAY_MESSAGE)
+    else if(ActivDisplay == DISPLAY_MESSAGE)
 	{
         if(pState->Pressed  == 1)
         {
@@ -526,6 +511,8 @@ static void DISPLAY_TemperatureSetPoint(void)
 
 void BUTTON_SetNewState(uint16_t button_id, BUTTON_StateTypeDef new_state)
 {
+    BUTTON_StateChangedSet();
+    
 	switch(button_id)
 	{
 		case  GUI_ID_BUTTON_Dnd:
@@ -544,6 +531,8 @@ void BUTTON_SetNewState(uint16_t button_id, BUTTON_StateTypeDef new_state)
 			}
             
             GUI_MULTIBUF_EndEx(1);
+            HAL_I2C_Mem_Write(&hi2c4, EEPROM_I2C_ADDRESS_A01, EE_DND_BUTTON_STATE, I2C_MEMADD_SIZE_16BIT,  &new_state, 1, 100);
+            HAL_I2C_IsDeviceReady(&hi2c4, EEPROM_I2C_ADDRESS_A01, 1000, 1);
 			break;
 		}
 		
@@ -564,6 +553,8 @@ void BUTTON_SetNewState(uint16_t button_id, BUTTON_StateTypeDef new_state)
 			}
             
             GUI_MULTIBUF_EndEx(1);
+            HAL_I2C_Mem_Write(&hi2c4, EEPROM_I2C_ADDRESS_A01, EE_SOS_BUTTON_STATE, I2C_MEMADD_SIZE_16BIT,  &new_state, 1, 100);
+            HAL_I2C_IsDeviceReady(&hi2c4, EEPROM_I2C_ADDRESS_A01, 1000, 1);
 			break;
 		}
 		
@@ -584,6 +575,8 @@ void BUTTON_SetNewState(uint16_t button_id, BUTTON_StateTypeDef new_state)
 			}
             
             GUI_MULTIBUF_EndEx(1);
+            HAL_I2C_Mem_Write(&hi2c4, EEPROM_I2C_ADDRESS_A01, EE_MAID_BUTTON_STATE, I2C_MEMADD_SIZE_16BIT,  &new_state, 1, 100);
+            HAL_I2C_IsDeviceReady(&hi2c4, EEPROM_I2C_ADDRESS_A01, 1000, 1);
 			break;
 		}
 	}

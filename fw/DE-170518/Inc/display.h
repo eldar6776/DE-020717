@@ -112,6 +112,9 @@ extern uint8_t display_message_id, display_message_time;
 #define DISPLAY_BrightnessSet()             (display_flags |= (1 << 9)) 
 #define DISPLAY_BrightnessReset()           (display_flags &= (~ (1 << 9)))
 #define IsDISPLAY_BrightnessSet()          ((display_flags & (1 << 9)) != 0)
+#define BUTTON_StateChangedSet()            (display_flags |= (1 << 10)) 
+#define BUTTON_StateChangedReset()          (display_flags &= (~ (1 << 10)))
+#define IsBUTTON_StateChangedActiv()        ((display_flags & (1 << 10)) != 0)
 
 /* Exported functions  -------------------------------------------------------*/
 void DISPLAY_Init(void);

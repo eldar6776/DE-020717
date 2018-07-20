@@ -53,8 +53,8 @@ extern TempSensorTypeDef ds18b20_8;
 #define ONEWIRE_PENDING_TIMEOUT						6789
 #define ONEWIRE_RX_TX_DELAY							5
 #define ONEWIRE_UPDATE_TIME							3450
-#define ONEWIRE_THERMOSTAT_ADDRESS					0x11
-#define ONEWIRE_CONTROLLER_ADDRESS					0x22
+#define ONEWIRE_INTERFACE_ADDRESS					21
+#define ONEWIRE_THERMOSTAT_ADDRESS					22
 #define ONEWIRE_2400								((uint32_t)2400)
 #define ONEWIRE_4800								((uint32_t)4800)
 #define ONEWIRE_9600								((uint32_t)9600)

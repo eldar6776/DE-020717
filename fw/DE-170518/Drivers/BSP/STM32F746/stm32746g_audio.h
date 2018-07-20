@@ -35,8 +35,8 @@
   */
 
 /* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef __STM32746G_DISCOVERY_AUDIO_H
-#define __STM32746G_DISCOVERY_AUDIO_H
+#ifndef __STM32746G_I2C_EEPROM_H
+#define __STM32746G_I2C_EEPROM_H
 
 #ifdef __cplusplus
  extern "C" {
@@ -56,18 +56,18 @@
   * @{
   */
     
-/** @defgroup STM32746G_DISCOVERY_AUDIO STM32746G_DISCOVERY_AUDIO
+/** @defgroup STM32746G_I2C_EEPROM STM32746G_I2C_EEPROM
   * @{
   */
 
-/** @defgroup STM32746G_DISCOVERY_AUDIO_Exported_Types STM32746G_DISCOVERY_AUDIO Exported Types
+/** @defgroup STM32746G_I2C_EEPROM_Exported_Types STM32746G_I2C_EEPROM Exported Types
   * @{
   */
 /**
   * @}
   */ 
 
-/** @defgroup STM32746G_DISCOVERY_AUDIO_Exported_Constants STM32746G_DISCOVERY_AUDIO Exported Constants
+/** @defgroup STM32746G_I2C_EEPROM_Exported_Constants STM32746G_I2C_EEPROM Exported Constants
   * @{
   */
  
@@ -188,7 +188,7 @@
   * @}
   */
  
-/** @defgroup STM32746G_DISCOVERY_AUDIO_Exported_Variables STM32746G_DISCOVERY_AUDIO Exported Variables
+/** @defgroup STM32746G_I2C_EEPROM_Exported_Variables STM32746G_I2C_EEPROM Exported Variables
   * @{
   */
 extern __IO uint16_t AudioInVolume;
@@ -196,7 +196,7 @@ extern __IO uint16_t AudioInVolume;
   * @}
   */
    
-/** @defgroup STM32746G_DISCOVERY_AUDIO_Exported_Macros STM32746G_DISCOVERY_AUDIO Exported Macros
+/** @defgroup STM32746G_I2C_EEPROM_Exported_Macros STM32746G_I2C_EEPROM Exported Macros
   * @{
   */
 #define DMA_MAX(x)           (((x) <= DMA_MAX_SZE)? (x):DMA_MAX_SZE)
@@ -204,7 +204,7 @@ extern __IO uint16_t AudioInVolume;
   * @}
   */ 
 
-/** @addtogroup STM32746G_DISCOVERY_AUDIO_OUT_Exported_Functions
+/** @addtogroup STM32746G_I2C_EEPROM_OUT_Exported_Functions
   * @{
   */
 uint8_t BSP_AUDIO_OUT_Init(uint16_t OutputDevice, uint8_t Volume, uint32_t AudioFreq);
@@ -241,7 +241,7 @@ void  BSP_AUDIO_OUT_MspDeInit(SAI_HandleTypeDef *hsai, void *Params);
   * @}
   */ 
 
-/** @defgroup STM32746G_DISCOVERY_AUDIO_IN_Exported_Functions STM32746G_DISCOVERY_AUDIO_IN Exported Functions
+/** @defgroup STM32746G_I2C_EEPROM_IN_Exported_Functions STM32746G_I2C_EEPROM_IN Exported Functions
   * @{
   */
 uint8_t BSP_AUDIO_IN_Init(uint32_t AudioFreq, uint32_t BitRes, uint32_t ChnlNbr);
@@ -289,6 +289,6 @@ void  BSP_AUDIO_IN_MspDeInit(SAI_HandleTypeDef *hsai, void *Params);
 }
 #endif
 
-#endif /* __STM32746G_DISCOVERY_AUDIO_H */
+#endif /* __STM32746G_I2C_EEPROM_H */
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

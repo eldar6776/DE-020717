@@ -36,19 +36,17 @@ extern THERMOSTAT_TypeDef Thermostat_1;
 
 
 /* Exported Define  ----------------------------------------------------------*/
-#define THERMOSTAT_CONTROL_MODE_OFF			0
-#define THERMOSTAT_CONTROL_MODE_COOLING		1
-#define THERMOSTAT_CONTROL_MODE_HEATING		2
-#define FANCOIL_FAN_RPM_ERROR               3
-#define FANCOIL_PIPE_TEMPERATURE_LOW_ERROR  4
-#define FANCOIL_PIPE_TEMPERATURE_HIGH_ERROR 5
-#define THERMOSTAT_MAX_TEMPERATURE			320		// 32,0°C max. thermostat setup temperature
-#define THERMOSTAT_MIN_TEMPERATURE			140		// 14,0°C min. thermostat setup temperature
-#define THERMOSTAT_FAN_MODE_AUTO			0
-#define THERMOSTAT_FAN_MODE_LOW				1
-#define THERMOSTAT_FAN_MODE_MIDDLE			2
-#define THERMOSTAT_FAN_MODE_HIGH			3
-#define THERMOSTAT_STARTUP_DELAY            5000    // 5 sec. power on startup time
+#define THERMOSTAT_CONTROL_MODE_OFF			        0
+#define THERMOSTAT_CONTROL_MODE_COOLING		        1
+#define THERMOSTAT_CONTROL_MODE_HEATING		        2
+#define THERMOSTAT_CONTROL_MODE_COOL_ONE_CYCLE      3
+#define THERMOSTAT_CONTROL_MODE_HEAT_ONE_CYCLE      4
+#define FANCOIL_FAN_RPM_ERROR                       5
+#define FANCOIL_PIPE_TEMPERATURE_LOW_ERROR          6
+#define FANCOIL_PIPE_TEMPERATURE_HIGH_ERROR         7
+#define THERMOSTAT_MAX_TEMPERATURE			        320		// 32,0°C max. thermostat setup temperature
+#define THERMOSTAT_MIN_TEMPERATURE			        140		// 14,0°C min. thermostat setup temperature
+#define THERMOSTAT_STARTUP_DELAY                    5000    // 5 sec. power on startup time
 
 
 /* Exported Variable   -------------------------------------------------------*/

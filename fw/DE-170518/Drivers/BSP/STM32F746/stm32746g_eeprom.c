@@ -90,7 +90,7 @@ EndDependencies */
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm32746g_eeprom.h"
-
+#include "main.h"
 /** @addtogroup BSP
   * @{
   */

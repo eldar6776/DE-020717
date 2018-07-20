@@ -10,9 +10,8 @@
       <TargetName>DE-170518</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
-      <pArmCC>6100001::V6.10.1::.\ARMCLANG</pArmCC>
-      <pCCUsed>6100001::V6.10.1::.\ARMCLANG</pCCUsed>
-      <uAC6>1</uAC6>
+      <pCCUsed>5060750::V5.06 update 6 (build 750)::ARMCC</pCCUsed>
+      <uAC6>0</uAC6>
       <TargetOption>
         <TargetCommonOption>
           <Device>STM32F746ZETx</Device>
@@ -313,7 +312,7 @@
           </ArmAdsMisc>
           <Cads>
             <interw>1</interw>
-            <Optim>7</Optim>
+            <Optim>1</Optim>
             <oTime>0</oTime>
             <SplitLS>0</SplitLS>
             <OneElfS>1</OneElfS>
@@ -322,7 +321,7 @@
             <PlainCh>0</PlainCh>
             <Ropi>0</Ropi>
             <Rwpi>0</Rwpi>
-            <wLevel>3</wLevel>
+            <wLevel>2</wLevel>
             <uThumb>0</uThumb>
             <uSurpInc>0</uSurpInc>
             <uC99>1</uC99>
@@ -409,9 +408,9 @@
               <FilePath>..\Drivers\BSP\STM32F746\stm32746g.c</FilePath>
             </File>
             <File>
-              <FileName>stm32746g_eeprom.c</FileName>
+              <FileName>stm32746g_ts.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\Drivers\BSP\STM32F746\stm32746g_eeprom.c</FilePath>
+              <FilePath>..\Drivers\BSP\STM32F746\stm32746g_ts.c</FilePath>
             </File>
             <File>
               <FileName>stm32746g_qspi.c</FileName>
@@ -424,9 +423,9 @@
               <FilePath>..\Drivers\BSP\STM32F746\stm32746g_sdram.c</FilePath>
             </File>
             <File>
-              <FileName>stm32746g_ts.c</FileName>
+              <FileName>stm32746g_eeprom.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\Drivers\BSP\STM32F746\stm32746g_ts.c</FilePath>
+              <FilePath>..\Drivers\BSP\STM32F746\stm32746g_eeprom.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -587,6 +586,11 @@
               <FileName>stm32f7xx_hal_i2s.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_i2s.c</FilePath>
+            </File>
+            <File>
+              <FileName>stm32f7xx_hal_iwdg.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_iwdg.c</FilePath>
             </File>
           </Files>
         </Group>
