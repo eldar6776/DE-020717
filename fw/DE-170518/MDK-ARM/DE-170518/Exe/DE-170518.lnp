@@ -69,7 +69,7 @@
 ".\de-170518\exe\startup_stm32f746xx.o"
 ".\de-170518\exe\stm32f7xx_it.o"
 ".\de-170518\exe\thermostat.o"
-".\de-170518\exe\common_1.o"
+".\de-170518\exe\common.o"
 ".\de-170518\exe\one_wire.o"
 ".\de-170518\exe\display.o"
 ".\de-170518\exe\main.o"

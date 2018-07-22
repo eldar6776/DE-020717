@@ -49,9 +49,7 @@ IWDG_HandleTypeDef hiwdg;
 #endif
 
 /* Private Define ------------------------------------------------------------*/
-#define LED_STATUS_SYS_RUN_TIME				1234	// 1s led status toggle period
-#define LED_STATUS_SYS_ERROR_TIME			123		// 100ms led status toggle period
-#define TOUCH_SCREEN_UPDATE_TIME			15		// 5ms touch screen update period
+#define TOUCH_SCREEN_UPDATE_TIME			22		// 5ms touch screen update period
 #define TOUCH_SCREEN_LAYER                  1       // touch screen layer event
 #define AMBIENT_NTC_RREF                    10000  	// 10k NTC value of at 25 degrees
 #define AMBIENT_NTC_B_VALUE                 3977 	// NTC beta parameter
@@ -59,19 +57,21 @@ IWDG_HandleTypeDef hiwdg;
 #define FANCOIL_NTC_RREF                    2000  	// 2k fancoil NTC value of at 25 degrees
 #define FANCOIL_NTC_B_VALUE                 3950 	// NTC beta parameter
 #define FANCOIL_NTC_PULLUP                  2200	// 2k2 pullup resistor
-#define ADC_READOUT_PERIOD                  123     // 123 ms ntc conversion rate
+#define ADC_READOUT_PERIOD                  123      // 89 ms ntc conversion rate
 #define FAN_CONTROL_LOOP_PERIOD			    200	    // fan speed control loop 
+#define BUZZER_BUTTON_TIME                  50
 #define BUZZER_BIP_TIME                     100
 #define BUZZER_SHORT_TIME                   500 
 #define BUZZER_LONG_TIME                    1000
 #define TRIAC_ON_PULSE                      5       // 500 us triac on pulse duration
-#define SYSTEM_STARTUP_TIME                 10000   // 10s system startup config check
+#define SYSTEM_STARTUP_TIME                 10000    // 12s system startup config check
 
 
 /* Private Variable ----------------------------------------------------------*/
 __IO uint32_t SystickCnt;
 __IO uint32_t sys_flags;
 __IO uint32_t sys_timer;
+__IO uint32_t anin_timer;
 
 uint32_t triac_timer;
 uint32_t triac_on_time;
@@ -86,7 +86,7 @@ uint16_t ambient_ntc_temperature;
 uint16_t ambient_light;
 uint16_t ts_update_timer;
 uint16_t rtc_bckp_tmr;
-uint16_t anin_timer;
+
 
 uint32_t buzzer_repeat_timer;
 uint32_t buzzer_mode_timer;
@@ -98,6 +98,7 @@ uint8_t ambient_ntc_temperature_sample_cnt;
 uint8_t fancoil_ntc_temperature_sample_cnt;
 uint8_t ambient_light_sample_cnt;
 uint8_t zero_cross_cnt;
+
 
 uint16_t ambient_ntc_temperature_sample_value[10] = {
 	2100, 2100, 2100, 2100, 2100, 
@@ -143,7 +144,6 @@ static void MX_TIM9_Init(void);
 static void MX_UART2_Init(void);
 static void MX_ADC3_Init(void);
 static void ADC3_Read(void);
-static void RAM_Init(void);
 void TouchUpdate(void);
 void BootloaderExe(void);
 void Error_Handler(void);
@@ -163,6 +163,7 @@ int main(void)
 #ifndef	USE_DEBUGGER
 	MX_IWDG_Init();
 #endif	
+    MX_CRC_Init();
 	MX_RTC_Init();
 	MX_ADC3_Init();
 	MX_UART2_Init();
@@ -170,20 +171,21 @@ int main(void)
 	MX_TIM9_Init();
 	MX_GPIO_Init();
 	MX_QSPI_Init();
-	SDRAM_Init();
-	MX_CRC_Init();
     BSP_EEPROM_Init();
-    RAM_Init();
-	TOUCH_SCREEN_Init(480, 272);
+    TOUCH_SCREEN_Init(480, 272);
+	SDRAM_Init();
+	DISPLAY_Init();
 	ONEWIRE_Init();
 	THERMOSTAT_Init();
-	DISPLAY_Init();
+    
+    
 #ifndef	USE_DEBUGGER
 	HAL_IWDG_Refresh(&hiwdg);
 #endif
 
 	while(1)
 	{
+        ADC3_Read();
 		ONEWIRE_Service();
 		THERMOSTAT_Service();
 		DISPLAY_Service();
@@ -302,6 +304,7 @@ void HAL_SYSTICK_Callback(void)
         {
             case BUZZER_MODE_OFF:
             {
+                buzzer_pcnt = 0;
                 BUZZER_SignalOff();
                 break;
             }
@@ -369,6 +372,21 @@ void HAL_SYSTICK_Callback(void)
                 break;
             }
             
+            case BUZZER_BUTTON_PRESSED:
+            {
+                if(buzzer_pcnt == 0)
+                {
+                    BUZZER_On();
+                    BUZZER_StartModeTimer(BUZZER_BUTTON_TIME);
+                    ++buzzer_pcnt;
+                }
+                else if((buzzer_pcnt == 1) && IsBUZZER_ModeTimerExpired())
+                {
+                    BUZZER_Off();
+                    buzzer_mode = BUZZER_MODE_OFF;
+                }
+                break;
+            }
             default:
             {
                 BUZZER_SignalOff();
@@ -386,7 +404,6 @@ void HAL_SYSTICK_Callback(void)
         BUZZER_Off();
     }
     
-    
 	if(++rtc_bckp_tmr > 999U)
 	{
 		rtc_bckp_tmr = 0;
@@ -400,15 +417,9 @@ void HAL_SYSTICK_Callback(void)
 	if(hadc3.Instance == ADC3)
 	{
 		if (anin_timer) --anin_timer;
-		else 
-        {
-            anin_timer = ADC_READOUT_PERIOD;
-            ADC3_Read();
-		}
 	}
-
 	
-	if(IsDISPLAY_Initialized())
+	if(IsTOUCH_SCREEN_Enabled())
 	{
 		if(ts_update_timer == 0)
 		{
@@ -428,6 +439,11 @@ void HAL_SYSTICK_Callback(void)
 	if(display_message_timer) --display_message_timer;
 	if(buzzer_mode_timer) --buzzer_mode_timer;
     if(buzzer_repeat_timer) --buzzer_repeat_timer;
+    
+    if(onewire_timeout_timer)
+    {
+        if(--onewire_timeout_timer == 0) OnewireState = ONEWIRE_RECEIVE;
+    }
     
     if(IsTHERMOSTAT_Activ() && triac_on_time) 
     {
@@ -524,39 +540,6 @@ static void SystemClock_Config(void)
 
 	/* SysTick_IRQn interrupt configuration */
 	HAL_NVIC_SetPriority(SysTick_IRQn, 0, 0);
-}
-
-
-static void RAM_Init(void)
-{
-    uint8_t tmp_buf[8];
-    
-    HAL_I2C_Mem_Read(&hi2c4, EEPROM_I2C_ADDRESS_A01, EE_THERMOSTAT_SET_POINT_DIFF, I2C_MEMADD_SIZE_16BIT,  &Thermostat_1.set_temperature_diff, 1, 100);
-    HAL_I2C_Mem_Read(&hi2c4, EEPROM_I2C_ADDRESS_A01, EE_THERMOSTAT_CTRL_MODE, I2C_MEMADD_SIZE_16BIT,  &Thermostat_1.ctrl_mode, 1, 100);
-    HAL_I2C_Mem_Read(&hi2c4, EEPROM_I2C_ADDRESS_A01, EE_THERMOSTAT_FAN_LOW_SPEED_BAND, I2C_MEMADD_SIZE_16BIT,  &Thermostat_1.fan_low_speed_band, 1, 100);
-    HAL_I2C_Mem_Read(&hi2c4, EEPROM_I2C_ADDRESS_A01, EE_THERMOSTAT_FAN_MIDDLE_SPEED_BAND, I2C_MEMADD_SIZE_16BIT,  &Thermostat_1.fan_middle_speed_band, 1, 100);
-    HAL_I2C_Mem_Read(&hi2c4, EEPROM_I2C_ADDRESS_A01, EE_THERMOSTAT_FAN_SPEED_DIFF, I2C_MEMADD_SIZE_16BIT,  &Thermostat_1.fan_speed_diff, 1, 100);
-    HAL_I2C_Mem_Read(&hi2c4, EEPROM_I2C_ADDRESS_A01, EE_THERMOSTAT_SET_POINT, I2C_MEMADD_SIZE_16BIT, tmp_buf, 2, 100);
-    Thermostat_1.set_temperature = ((tmp_buf[0] << 8) + tmp_buf[1]);
-    
-//    HAL_I2C_Mem_Read(&hi2c4, EEPROM_I2C_ADDRESS_A01, EE_AMBIENT_TEMPERATURE_NTC_BETA, I2C_MEMADD_SIZE_16BIT, tmp_buf, 2, 100);
-//    ambient_ntc_b_value = ((tmp_buf[0] << 8) + tmp_buf[1]);
-//    
-//    HAL_I2C_Mem_Read(&hi2c4, EEPROM_I2C_ADDRESS_A01, EE_FANCOIL_TEMPERATURE_NTC_BETA, I2C_MEMADD_SIZE_16BIT, tmp_buf, 2, 100);
-//    fancoil_ntc_b_value = ((tmp_buf[0] << 8) + tmp_buf[1]);
-    
-    HAL_I2C_Mem_Read(&hi2c4, EEPROM_I2C_ADDRESS_A01, EE_FANCOIL_CONTROL_TYPE, I2C_MEMADD_SIZE_16BIT, tmp_buf, 1, 100);
-    
-    if (tmp_buf[0] == 1) 
-    {
-        FANCOIL_RelayTypeReset();
-        FANCOIL_TriacTypeSet();
-    }
-    else if (tmp_buf[0] == 2) 
-    {
-        FANCOIL_TriacTypeReset();
-        FANCOIL_RelayTypeSet();
-    }
 }
 
 
@@ -894,29 +877,30 @@ void HAL_UART_TxCpltCallback(UART_HandleTypeDef* huart)
 {
 	if(huart->Instance == USART2)
 	{
-
+        OnewireState = ONEWIRE_RECEIVE;
 	}
 }
 
 
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef* huart)
 {
-	if(huart->Instance == USART2)
+    if(huart->Instance == USART2)
 	{
 		if	((onewire_buffer[0] == ONEWIRE_THERMOSTAT_ADDRESS) &&
-			(onewire_buffer[1] == ONEWIRE_INTERFACE_ADDRESS) &&
-			(onewire_buffer[63] == CalcCRC(onewire_buffer, 63)))
+			(onewire_buffer[1] == ONEWIRE_ROOM_CONTROLLER_ADDRESS) &&
+			(onewire_buffer[24] == CalcCRC(onewire_buffer, 24)))
 		{
-			onewire_buffer[64] = CalcCRC(onewire_buffer, 63);
 			OnewireState = ONEWIRE_PACKET_RECEIVED;
+            ONEWIRE_StopTimer();
 		}
 		else 
 		{
-			HAL_Delay(50);
-			__HAL_UART_FLUSH_DRREGISTER(&huart2);
-			HAL_UART_Receive_IT(&huart2, onewire_buffer, ONEWIRE_PACKET_SIZE);
-			OnewireState = ONEWIRE_PACKET_PENDING;
-		}			
+            OnewireState = ONEWIRE_RECEIVE;
+			ONEWIRE_StartTimer(ONEWIRE_UPDATE_TIME);
+            
+		}
+        
+        ONEWIRE_StartTimeoutTimer(ONEWIRE_PENDING_TIMEOUT);
 	}
 }
 
@@ -925,15 +909,9 @@ void HAL_UART_ErrorCallback(UART_HandleTypeDef* huart)
 {
 	if(huart->Instance == USART2)
 	{
-		__HAL_UART_CLEAR_PEFLAG(&huart2);
-		__HAL_UART_CLEAR_FEFLAG(&huart2);
-		__HAL_UART_CLEAR_NEFLAG(&huart2);
-		__HAL_UART_CLEAR_IDLEFLAG(&huart2);
-		__HAL_UART_CLEAR_OREFLAG(&huart2);
-		HAL_Delay(50);
-		__HAL_UART_FLUSH_DRREGISTER(&huart2);
-		HAL_UART_Receive_IT(&huart2, onewire_buffer, ONEWIRE_PACKET_SIZE);
-		OnewireState = ONEWIRE_PACKET_PENDING;
+		OnewireState = ONEWIRE_RECEIVE;
+        ONEWIRE_StartTimer(ONEWIRE_UPDATE_TIME);
+        ONEWIRE_StartTimeoutTimer(ONEWIRE_PENDING_TIMEOUT);
 	}
 }
 
@@ -968,7 +946,7 @@ static void MX_UART2_Init(void)
 	huart2.Init.Mode = UART_MODE_TX_RX;
 	huart2.Init.HwFlowCtl = UART_HWCONTROL_NONE;
 	huart2.Init.OverSampling = UART_OVERSAMPLING_16;
-	huart2.Init.OneBitSampling = UART_ONE_BIT_SAMPLE_DISABLE;
+	huart2.Init.OneBitSampling = UART_ONE_BIT_SAMPLE_ENABLE;
 	huart2.AdvancedInit.AdvFeatureInit = UART_ADVFEATURE_NO_INIT;
 	
     if (HAL_UART_DeInit(&huart2) != HAL_OK) Error_Handler();
@@ -1009,6 +987,9 @@ static void ADC3_Read(void)
     ADC_ChannelConfTypeDef sConfig;
 	static uint8_t adc_cnt = 0;
     float adc_calc;
+    
+    if(!IsADC_TimerExpired()) return;
+    else ADC_StartTimer(ADC_READOUT_PERIOD);
     
     if(adc_cnt == 0)
     {
@@ -1083,13 +1064,39 @@ static void ADC3_Read(void)
         HAL_ADC_Start(&hadc3);
         HAL_ADC_PollForConversion(&hadc3, 10);
         ambient_light_sample_value[ambient_light_sample_cnt] = HAL_ADC_GetValue(&hadc3);
-        if(++ambient_light_sample_cnt >  9) ambient_light_sample_cnt = 0;
+        if(++ambient_light_sample_cnt >  5) ambient_light_sample_cnt = 0;
         ambient_light = 0;
-        for(uint8_t t = 0; t < 10; t++) ambient_light += ambient_light_sample_value[t];
-        ambient_light = ambient_light / 10;
+        for(uint8_t t = 0; t < 5; t++) ambient_light += ambient_light_sample_value[t];
+        ambient_light = ambient_light / 5;
         
-        if((ambient_light > 4000) || (ambient_light < 100)) AMBIENT_LIGHT_SensorNotConnected();
-        else AMBIENT_LIGHT_SensorConnected();
+        if(!IsTHERMOSTAT_Activ())
+        {
+            FANCOIL_TriacTypeReset();
+            FANCOIL_RelayTypeReset();
+        } 
+        else if(ambient_light >= 4000)  
+        {
+            AMBIENT_LIGHT_SensorNotConnected();
+            FANCOIL_RelayTypeReset();
+            FANCOIL_TriacTypeSet();
+        }
+        else if(ambient_light <= 100)  
+        {
+            AMBIENT_LIGHT_SensorNotConnected();
+            FANCOIL_TriacTypeReset();
+            FANCOIL_RelayTypeSet();
+        }
+        else if((ambient_light > 100) && (ambient_light < 4000)) 
+        {
+            AMBIENT_LIGHT_SensorConnected();
+            
+            if (adc_cnt == 0)
+            {
+                HAL_I2C_Mem_Read(&hi2c4, EEPROM_I2C_ADDRESS_A01, EE_FANCOIL_CONTROL_TYPE, I2C_MEMADD_SIZE_16BIT,  &adc_cnt, 1, 100);
+                if (adc_cnt == 1) FANCOIL_TriacTypeSet();
+                else if (adc_cnt == 2) FANCOIL_RelayTypeSet();
+            }
+        }
         
         adc_cnt = 0;
     }
@@ -1133,7 +1140,6 @@ static void MX_ADC3_Init(void)
 	sConfig.SamplingTime = ADC_SAMPLETIME_15CYCLES;
 	sConfig.Offset = 0;
 	HAL_ADC_ConfigChannel(&hadc3, &sConfig);
-
 }
 
 
@@ -1205,16 +1211,15 @@ static void MX_GPIO_Init(void)
 	/* EXTI interrupt init*/
 	HAL_NVIC_SetPriority(EXTI15_10_IRQn, 1, 0);
 	HAL_NVIC_EnableIRQ(EXTI15_10_IRQn);
-
 }
 
 
 void TouchUpdate(void)
 {
-	static GUI_PID_STATE TS_State = {0, 0, 0, 0};
-	__IO TS_StateTypeDef  ts;
-	uint16_t xDiff, yDiff;  
-
+    static GUI_PID_STATE TS_State = {0, 0, 0, 0};
+    __IO TS_StateTypeDef  ts;
+    uint16_t xDiff, yDiff; 
+    
 	BSP_TS_GetState((TS_StateTypeDef *)&ts);
 
 	if((ts.touchX[0] >= LCD_GetXSize()) ||(ts.touchY[0] >= LCD_GetYSize()) ) 
@@ -1250,9 +1255,9 @@ void TouchUpdate(void)
 
 void BootloaderExe(void)
 {
-//    HAL_ADC_MspDeInit(&hadc1);
+    HAL_ADC_MspDeInit(&hadc3);
 	HAL_CRC_MspDeInit(&hcrc);
-//    HAL_I2C_MspDeInit(&hi2c1);
+    HAL_I2C_MspDeInit(&hi2c4);
     HAL_RTC_MspDeInit(&hrtc);
 //    HAL_SPI_MspDeInit(&hspi2);
 //    HAL_TIM_PWM_MspDeInit(&htim1);
@@ -1260,7 +1265,7 @@ void BootloaderExe(void)
 	HAL_TIM_PWM_MspDeInit(&htim3);
 //    HAL_UART_MspDeInit(&huart1);
     HAL_UART_MspDeInit(&huart2);	
-    HAL_NVIC_DisableIRQ(USART1_IRQn);
+    HAL_NVIC_DisableIRQ(USART2_IRQn);
 	HAL_NVIC_DisableIRQ(PVD_IRQn);
     HAL_DeInit();
     HAL_FLASH_OB_Launch();

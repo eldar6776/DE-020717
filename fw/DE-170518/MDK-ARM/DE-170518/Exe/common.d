@@ -1,10 +1,4 @@
-./de-170518/exe/stm32746g_qspi.o: \
-  ../Drivers/BSP/STM32F746/stm32746g_qspi.c \
-  ../Drivers/BSP/STM32F746/stm32746g_qspi.h \
-  ../Drivers/STM32F7xx_HAL_Driver/Inc\stm32f7xx_hal.h \
-  ../Inc\stm32f7xx_hal_conf.h \
-  ../Drivers/STM32F7xx_HAL_Driver/Inc\stm32f7xx_hal_rcc.h \
-  ../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_def.h \
+./de-170518/exe/common.o: ../Src/common.c ../Inc\common.h \
   ../Drivers/CMSIS/Device/ST/STM32F7xx/Include\stm32f7xx.h \
   ../Drivers/CMSIS/Device/ST/STM32F7xx/Include/stm32f746xx.h \
   C:/Keil/ARM/PACK/ARM/CMSIS/5.3.0/CMSIS/Include\core_cm7.h \
@@ -16,6 +10,10 @@
   C:\Keil\ARM\ARMCLANG\Bin\..\include\arm_acle.h \
   C:/Keil/ARM/PACK/ARM/CMSIS/5.3.0/CMSIS/Include/mpu_armv7.h \
   ../Drivers/CMSIS/Device/ST/STM32F7xx/Include/system_stm32f7xx.h \
+  ../Drivers/STM32F7xx_HAL_Driver/Inc\stm32f7xx_hal.h \
+  ../Inc\stm32f7xx_hal_conf.h \
+  ../Drivers/STM32F7xx_HAL_Driver/Inc\stm32f7xx_hal_rcc.h \
+  ../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_def.h \
   ../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy/stm32_hal_legacy.h \
   C:\Keil\ARM\ARMCLANG\Bin\..\include\stdio.h \
   ../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_rcc_ex.h \
@@ -49,6 +47,4 @@
   ../Drivers/STM32F7xx_HAL_Driver/Inc\stm32f7xx_hal_uart.h \
   ../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_uart_ex.h \
   ../Drivers/STM32F7xx_HAL_Driver/Inc\stm32f7xx_hal_usart.h \
-  ../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_usart_ex.h \
-  ../Drivers/BSP/STM32F746/../Components/n25q128a/n25q128a.h \
-  C:\Keil\ARM\ARMCLANG\Bin\..\include\string.h
+  ../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_usart_ex.h

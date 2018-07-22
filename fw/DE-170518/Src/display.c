@@ -125,24 +125,20 @@ void DISPLAY_Init(void)
     GUI_SelectLayer(1);
 	GUI_SetBkColor(GUI_TRANSPARENT); 
 	GUI_Clear();
-    HAL_I2C_Mem_Read(&hi2c4, EEPROM_I2C_ADDRESS_A01, EE_DND_BUTTON_STATE, I2C_MEMADD_SIZE_16BIT, &btn_last_state, 1, 100);
-    BUTTON_SetNewState(GUI_ID_BUTTON_Dnd, btn_last_state);
-    HAL_I2C_Mem_Read(&hi2c4, EEPROM_I2C_ADDRESS_A01, EE_MAID_BUTTON_STATE, I2C_MEMADD_SIZE_16BIT, &btn_last_state, 1, 100);
-    BUTTON_SetNewState(GUI_ID_BUTTON_Maid, btn_last_state);
-    HAL_I2C_Mem_Read(&hi2c4, EEPROM_I2C_ADDRESS_A01, EE_SOS_BUTTON_STATE, I2C_MEMADD_SIZE_16BIT, &btn_last_state, 1, 100);
-    BUTTON_SetNewState(GUI_ID_BUTTON_Sos, btn_last_state);
+    BUTTON_SetNewState(GUI_ID_BUTTON_Dnd, RELEASED);
+    BUTTON_SetNewState(GUI_ID_BUTTON_Maid, RELEASED);
+    BUTTON_SetNewState(GUI_ID_BUTTON_Sos, RELEASED);
 	GUI_Exec();
 	ActivDisplay = DISPLAY_THERMOSTAT;
     DISPLAY_SetpointUpdateSet();
 	DISPLAY_DateTime();
-    DISPLAY_InitializedSet();
     DISPLAY_StartScreenSaverTimer(DISPLAY_SCREENSAVER_TIME);
 }
 
 
 void DISPLAY_Service(void)
 {
-	static uint16_t actual_temp;
+	//static uint16_t actual_temp;
 	/** ==========================================================================*/
 	/**    D R A W     D I S P L A Y	G U I	O N	   U P D A T E    E V E N T   */
 	/** ==========================================================================*/
@@ -153,7 +149,6 @@ void DISPLAY_Service(void)
 	}
 	else return;									        // wait for gui refresh timer
 
-	
     if(IsDISPLAY_ScreenSaverTimerExpirerd() && !IsDISPLAY_BrightnessSet())   
     {
         DISPLAY_BrightnessSet();
@@ -169,7 +164,7 @@ void DISPLAY_Service(void)
         
         if(display_message_time > 0) 
         {
-            DISPLAY_MessageStartTimer(display_message_time * 60000);
+            DISPLAY_MessageStartTimer(display_message_time * 30000);
             DISPLAY_MessageTimerSet();
         }
         else DISPLAY_MessageTimerReset();
@@ -178,13 +173,17 @@ void DISPLAY_Service(void)
         {
             GUI_SelectLayer(0);
             GUI_Clear();
+            GUI_MULTIBUF_BeginEx(0);
             GUI_DrawBitmap(&bm_display_0, 0, 0);
+            GUI_MULTIBUF_EndEx(0);
             GUI_SelectLayer(1);
             GUI_SetBkColor(GUI_TRANSPARENT); 
             GUI_Clear();
-            GUI_DrawBitmap(&bm_btn_dnd_0, BTN_DND_X0, BTN_DND_Y0); 
-            GUI_DrawBitmap(&bm_btn_maid_0, BTN_CMD_X0, BTN_CMD_Y0); 
-            GUI_DrawBitmap(&bm_btn_rst_sos_0, BTN_SOS_X0, BTN_SOS_Y0); 
+            GUI_MULTIBUF_BeginEx(1);
+            BUTTON_SetNewState(GUI_ID_BUTTON_Dnd, BUTTON_GetState(GUI_ID_BUTTON_Dnd));
+            BUTTON_SetNewState(GUI_ID_BUTTON_Maid, BUTTON_GetState(GUI_ID_BUTTON_Maid));
+            BUTTON_SetNewState(GUI_ID_BUTTON_Sos, BUTTON_GetState(GUI_ID_BUTTON_Sos));
+            GUI_MULTIBUF_EndEx(1);
             ActivDisplay = DISPLAY_THERMOSTAT;
             DISPLAY_SetpointUpdateSet();
             DISPLAY_DateTime();
@@ -194,12 +193,16 @@ void DISPLAY_Service(void)
         {
             GUI_SelectLayer(0);
             GUI_Clear();
+            GUI_MULTIBUF_BeginEx(0);
             GUI_DrawBitmap(&bm_display_1, 0, 0);
+            GUI_MULTIBUF_EndEx(0);
             GUI_SelectLayer(1);
             GUI_SetBkColor(GUI_TRANSPARENT); 
             GUI_Clear();
+            GUI_MULTIBUF_BeginEx(1);
             GUI_DrawBitmap(&bm_btn_open_door, BTN_DOR_X0, BTN_DOR_Y0); 
             GUI_DrawBitmap(&bm_btn_ok, BTN_OK_X0, BTN_OK_Y0);
+            GUI_MULTIBUF_EndEx(1);
             ActivDisplay = DISPLAY_MESSAGE;
             BUZZER_SignalOn();
         }
@@ -207,11 +210,15 @@ void DISPLAY_Service(void)
         {
             GUI_SelectLayer(0);
             GUI_Clear();
-            GUI_DrawBitmap(&bm_display_2, 0, 0); 
+            GUI_MULTIBUF_BeginEx(0);
+            GUI_DrawBitmap(&bm_display_2, 0, 0);
+            GUI_MULTIBUF_EndEx(0);
             GUI_SelectLayer(1);
             GUI_SetBkColor(GUI_TRANSPARENT); 
             GUI_Clear();
+            GUI_MULTIBUF_BeginEx(1);
             GUI_DrawBitmap(&bm_btn_ok, BTN_OK_X0, BTN_OK_Y0);
+            GUI_MULTIBUF_EndEx(1);
             ActivDisplay = DISPLAY_MESSAGE;
             BUZZER_SignalOn();
         }
@@ -219,35 +226,15 @@ void DISPLAY_Service(void)
     else if(IsDISPLAY_DateTimeTimerExpired())	    // date & time info update 
 	{
 		DISPLAY_DateTimeStartTimer(DATE_TIME_REFRESH_TIME);
-        GUI_MULTIBUF_BeginEx(1);
 		DISPLAY_DateTime();
-        GUI_MULTIBUF_EndEx(1);
 	}
 	else if(IsDISPLAY_SetpointUpdated())			// setpoint temperature changed
 	{
 		DISPLAY_SetpointUpdateReset();
-        GUI_MULTIBUF_BeginEx(1);
         DISPLAY_TemperatureSetPoint();
-		GUI_MULTIBUF_EndEx(1);
 	}
 	else if(ActivDisplay == DISPLAY_THERMOSTAT)     // check thermostat display button states
 	{
-        if(actual_temp != Thermostat_1.actual_temperature)
-        {
-            GUI_MULTIBUF_BeginEx(1);
-            actual_temp = Thermostat_1.actual_temperature;
-            GUI_ClearRect(350, 200, 480, 230); 
-            GUI_SetFont(GUI_FONT_20_1);
-            GUI_SetColor(GUI_WHITE);
-            GUI_SetTextMode(GUI_TM_TRANS);
-            GUI_SetTextAlign(GUI_TA_RIGHT|GUI_TA_VCENTER);
-            GUI_GotoXY(430, 220);
-            if(Thermostat_1.actual_temperature & 0x8000) GUI_DispString("-");
-            GUI_DispDecSpace(((Thermostat_1.actual_temperature & 0x0fff) / 10), 2);
-            GUI_DispString("*C");
-            GUI_MULTIBUF_EndEx(1);
-        }
-        
 		if(btn_dnd_state && !btn_dnd_old_state)
 		{
 			btn_dnd_old_state = 1;
@@ -263,8 +250,7 @@ void DISPLAY_Service(void)
             }
 		}
 		else if(!btn_dnd_state && btn_dnd_old_state)  btn_dnd_old_state = 0;
-        
-		
+        		
 		if(btn_maid_state && !btn_maid_old_state)
 		{
 			btn_maid_old_state = 1;
@@ -280,8 +266,7 @@ void DISPLAY_Service(void)
             }
 		}
 		else if(!btn_maid_state && btn_maid_old_state) btn_maid_old_state = 0;
-        
-        
+              
         if(IsBUTTON_SosResetActiv() && btn_sos_state && !btn_sos_old_state)
 		{
 			btn_sos_old_state = 1;
@@ -289,34 +274,37 @@ void DISPLAY_Service(void)
 		}
 		else if(!btn_sos_state && btn_sos_old_state) btn_sos_old_state = 0;
         
-        
         if(btn_increase_state && !btn_increase_old_state)
 		{
 			btn_increase_old_state = 1;
-			GUI_MULTIBUF_BeginEx(1);
             
             if(Thermostat_1.set_temperature <= (THERMOSTAT_MAX_TEMPERATURE - 10)) 
             {
                 Thermostat_1.set_temperature += 10;
                 DISPLAY_TemperatureSetPoint();
             }
+            else Thermostat_1.set_temperature = THERMOSTAT_MAX_TEMPERATURE;
             
-            GUI_MULTIBUF_EndEx(1);
+            ONEWIRE_UpdateThermostatParameterSet();
+            buzzer_mode = BUZZER_BUTTON_PRESSED;
+            BUZZER_SignalOn();
 		}
 		else if(!btn_increase_state && btn_increase_old_state) btn_increase_old_state = 0;
         
         if(btn_decrease_state && !btn_decrease_old_state)
 		{
 			btn_decrease_old_state = 1;
-			GUI_MULTIBUF_BeginEx(1);
             
             if(Thermostat_1.set_temperature >= (THERMOSTAT_MIN_TEMPERATURE + 10)) 
             {
                 Thermostat_1.set_temperature -= 10;
                 DISPLAY_TemperatureSetPoint();
             }
+            else Thermostat_1.set_temperature = THERMOSTAT_MIN_TEMPERATURE;
             
-            GUI_MULTIBUF_EndEx(1);
+            ONEWIRE_UpdateThermostatParameterSet();
+            buzzer_mode = BUZZER_BUTTON_PRESSED;
+            BUZZER_SignalOn();
 		}
 		else if(!btn_decrease_state && btn_decrease_old_state) btn_decrease_old_state = 0;
     }
@@ -326,20 +314,24 @@ void DISPLAY_Service(void)
         {
             display_message_time = 0;
             display_message_id = 0;
+            ONEWIRE_UpdateDisplayImageSet();
             DISPLAY_UpdateSet();
         }
         else if(btn_ok_state)
 		{
             btn_ok_state = 0; 
             display_message_id = 0;
+            ONEWIRE_UpdateDisplayImageSet();
             DISPLAY_UpdateSet();
 		}
-        else if(btn_opendoor_state && !btn_opendoor_old_state)
+        else if(btn_opendoor_state)
 		{
-			btn_opendoor_old_state = 1;
             if(display_message_id == 1) BUTTON_OpenDoorSet();
+            btn_opendoor_state = 0;
+            display_message_id = 0;
+            ONEWIRE_UpdateDisplayImageSet();
+            DISPLAY_UpdateSet();
 		}
-		else if(!btn_opendoor_state && btn_opendoor_old_state)  btn_opendoor_old_state = 0;
     }
 }
 
@@ -405,9 +397,7 @@ static void PID_Hook(GUI_PID_STATE * pState)
             btn_increase_state = 0;
             btn_dnd_state = 0;
             btn_maid_state = 0;
-            btn_sos_state = 0;
-            btn_opendoor_state = 0;   
-            btn_ok_state = 0;             
+            btn_sos_state = 0;           
         }
 	}
     else if(ActivDisplay == DISPLAY_MESSAGE)
@@ -451,6 +441,7 @@ static void DISPLAY_DateTime(void)
         HAL_RTC_GetTime(&hrtc, &time, RTC_FORMAT_BCD);
         HAL_RTC_GetDate(&hrtc, &date, RTC_FORMAT_BCD);
         ClearBuffer(display_buffer,  sizeof(display_buffer));
+        GUI_MULTIBUF_BeginEx(1);
 		GUI_ClearRect(240, 250, 480, 270);   
 		buff_bcnt = 0;
 		display_buffer[buff_bcnt++] = (date.Date >> 4) + 48;
@@ -477,6 +468,7 @@ static void DISPLAY_DateTime(void)
 		GUI_SetTextAlign(GUI_TA_RIGHT|GUI_TA_VCENTER);
 		GUI_GotoXY(470, 255);
 		GUI_DispString((const char *)display_buffer);
+        GUI_MULTIBUF_EndEx(1);
 	}
 }
 
@@ -489,6 +481,8 @@ static void DISPLAY_TemperatureSetPoint(void)
 	{
         dec = (Thermostat_1.set_temperature / 100);
         unit = ((Thermostat_1.set_temperature - (dec * 100)) / 10);
+        
+        GUI_MULTIBUF_BeginEx(1);
         GUI_ClearRect(120, 140, 250, 220);
         
         if(dec == 1) GUI_DrawBitmap(&bm_number_1, SP_TEMP_DEC_POS, SP_TEMP_V_POS);
@@ -505,6 +499,7 @@ static void DISPLAY_TemperatureSetPoint(void)
         else if(unit == 7) GUI_DrawBitmap(&bm_number_7, SP_TEMP_UNIT_POS, SP_TEMP_V_POS);
         else if(unit == 8) GUI_DrawBitmap(&bm_number_8, SP_TEMP_UNIT_POS, SP_TEMP_V_POS);
         else if(unit == 9) GUI_DrawBitmap(&bm_number_9, SP_TEMP_UNIT_POS, SP_TEMP_V_POS);
+        GUI_MULTIBUF_EndEx(1);
     }
 }
 
@@ -512,13 +507,12 @@ static void DISPLAY_TemperatureSetPoint(void)
 void BUTTON_SetNewState(uint16_t button_id, BUTTON_StateTypeDef new_state)
 {
     BUTTON_StateChangedSet();
+    GUI_MULTIBUF_BeginEx(1);
     
 	switch(button_id)
 	{
 		case  GUI_ID_BUTTON_Dnd:
 		{
-			GUI_MULTIBUF_BeginEx(1);
-            
 			if(new_state == RELEASED)
 			{
 				BUTTON_DndActivReset();
@@ -529,18 +523,12 @@ void BUTTON_SetNewState(uint16_t button_id, BUTTON_StateTypeDef new_state)
 				BUTTON_DndActivSet();
                 GUI_DrawBitmap(&bm_btn_dnd_1, BTN_DND_X0, BTN_DND_Y0);
 			}
-            
-            GUI_MULTIBUF_EndEx(1);
-            HAL_I2C_Mem_Write(&hi2c4, EEPROM_I2C_ADDRESS_A01, EE_DND_BUTTON_STATE, I2C_MEMADD_SIZE_16BIT,  &new_state, 1, 100);
-            HAL_I2C_IsDeviceReady(&hi2c4, EEPROM_I2C_ADDRESS_A01, 1000, 1);
-			break;
+            break;
 		}
 		
 		
 		case  GUI_ID_BUTTON_Sos:
 		{
-			GUI_MULTIBUF_BeginEx(1);
-            
 			if(new_state == RELEASED)
 			{
 				BUTTON_SosActivReset();
@@ -551,18 +539,12 @@ void BUTTON_SetNewState(uint16_t button_id, BUTTON_StateTypeDef new_state)
                 BUTTON_SosActivSet();
 				GUI_DrawBitmap(&bm_btn_rst_sos_1, BTN_SOS_X0, BTN_SOS_Y0);
 			}
-            
-            GUI_MULTIBUF_EndEx(1);
-            HAL_I2C_Mem_Write(&hi2c4, EEPROM_I2C_ADDRESS_A01, EE_SOS_BUTTON_STATE, I2C_MEMADD_SIZE_16BIT,  &new_state, 1, 100);
-            HAL_I2C_IsDeviceReady(&hi2c4, EEPROM_I2C_ADDRESS_A01, 1000, 1);
 			break;
 		}
 		
 		
 		case  GUI_ID_BUTTON_Maid:
 		{
-			GUI_MULTIBUF_BeginEx(1);
-            
 			if(new_state == RELEASED)
 			{
                 BUTTON_CallMaidActivReset();
@@ -573,13 +555,13 @@ void BUTTON_SetNewState(uint16_t button_id, BUTTON_StateTypeDef new_state)
                 BUTTON_CallMaidActivSet();
 				GUI_DrawBitmap(&bm_btn_maid_1, BTN_CMD_X0, BTN_CMD_Y0);
 			}
-            
-            GUI_MULTIBUF_EndEx(1);
-            HAL_I2C_Mem_Write(&hi2c4, EEPROM_I2C_ADDRESS_A01, EE_MAID_BUTTON_STATE, I2C_MEMADD_SIZE_16BIT,  &new_state, 1, 100);
-            HAL_I2C_IsDeviceReady(&hi2c4, EEPROM_I2C_ADDRESS_A01, 1000, 1);
 			break;
 		}
 	}
+    
+    GUI_MULTIBUF_EndEx(1);
+    buzzer_mode = BUZZER_BUTTON_PRESSED;
+    BUZZER_SignalOn();
 }
 
 

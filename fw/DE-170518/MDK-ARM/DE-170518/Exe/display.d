@@ -1,106 +1,99 @@
-.\de-170518\exe\display.o: ..\Src\display.c
-.\de-170518\exe\display.o: C:\Keil\ARM\ARMCC\Bin\..\include\math.h
-.\de-170518\exe\display.o: C:\Keil\ARM\ARMCC\Bin\..\include\stdlib.h
-.\de-170518\exe\display.o: C:\Keil\ARM\ARMCC\Bin\..\include\string.h
-.\de-170518\exe\display.o: ..\Inc\main.h
-.\de-170518\exe\display.o: ..\Drivers\CMSIS\Device\ST\STM32F7xx\Include\stm32f7xx.h
-.\de-170518\exe\display.o: ..\Drivers\CMSIS\Device\ST\STM32F7xx\Include\stm32f746xx.h
-.\de-170518\exe\display.o: C:\Keil\ARM\PACK\ARM\CMSIS\5.3.0\CMSIS\Include\core_cm7.h
-.\de-170518\exe\display.o: C:\Keil\ARM\ARMCC\Bin\..\include\stdint.h
-.\de-170518\exe\display.o: C:\Keil\ARM\PACK\ARM\CMSIS\5.3.0\CMSIS\Include\cmsis_version.h
-.\de-170518\exe\display.o: C:\Keil\ARM\PACK\ARM\CMSIS\5.3.0\CMSIS\Include\cmsis_compiler.h
-.\de-170518\exe\display.o: C:\Keil\ARM\PACK\ARM\CMSIS\5.3.0\CMSIS\Include\cmsis_armcc.h
-.\de-170518\exe\display.o: C:\Keil\ARM\PACK\ARM\CMSIS\5.3.0\CMSIS\Include\mpu_armv7.h
-.\de-170518\exe\display.o: ..\Drivers\CMSIS\Device\ST\STM32F7xx\Include\system_stm32f7xx.h
-.\de-170518\exe\display.o: ..\Drivers\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal.h
-.\de-170518\exe\display.o: ..\Inc\stm32f7xx_hal_conf.h
-.\de-170518\exe\display.o: ..\Drivers\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_rcc.h
-.\de-170518\exe\display.o: ..\Drivers\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_def.h
-.\de-170518\exe\display.o: ..\Drivers\CMSIS\Device\ST\STM32F7xx\Include\stm32f7xx.h
-.\de-170518\exe\display.o: ..\Drivers\STM32F7xx_HAL_Driver\Inc\Legacy/stm32_hal_legacy.h
-.\de-170518\exe\display.o: C:\Keil\ARM\ARMCC\Bin\..\include\stdio.h
-.\de-170518\exe\display.o: ..\Drivers\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_rcc_ex.h
-.\de-170518\exe\display.o: ..\Drivers\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_gpio.h
-.\de-170518\exe\display.o: ..\Drivers\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_gpio_ex.h
-.\de-170518\exe\display.o: ..\Drivers\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_dma.h
-.\de-170518\exe\display.o: ..\Drivers\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_dma_ex.h
-.\de-170518\exe\display.o: ..\Drivers\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_cortex.h
-.\de-170518\exe\display.o: ..\Drivers\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_adc.h
-.\de-170518\exe\display.o: ..\Drivers\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_adc_ex.h
-.\de-170518\exe\display.o: ..\Drivers\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_crc.h
-.\de-170518\exe\display.o: ..\Drivers\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_crc_ex.h
-.\de-170518\exe\display.o: ..\Drivers\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_dma2d.h
-.\de-170518\exe\display.o: ..\Drivers\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_flash.h
-.\de-170518\exe\display.o: ..\Drivers\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_flash_ex.h
-.\de-170518\exe\display.o: ..\Drivers\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_sdram.h
-.\de-170518\exe\display.o: ..\Drivers\STM32F7xx_HAL_Driver\Inc\stm32f7xx_ll_fmc.h
-.\de-170518\exe\display.o: ..\Drivers\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_i2c.h
-.\de-170518\exe\display.o: ..\Drivers\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_i2c_ex.h
-.\de-170518\exe\display.o: ..\Drivers\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_i2s.h
-.\de-170518\exe\display.o: ..\Drivers\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_iwdg.h
-.\de-170518\exe\display.o: ..\Drivers\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_ltdc.h
-.\de-170518\exe\display.o: ..\Drivers\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_pwr.h
-.\de-170518\exe\display.o: ..\Drivers\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_pwr_ex.h
-.\de-170518\exe\display.o: ..\Drivers\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_qspi.h
-.\de-170518\exe\display.o: ..\Drivers\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_rtc.h
-.\de-170518\exe\display.o: ..\Drivers\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_rtc_ex.h
-.\de-170518\exe\display.o: ..\Drivers\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_sai.h
-.\de-170518\exe\display.o: ..\Drivers\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_tim.h
-.\de-170518\exe\display.o: ..\Drivers\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_tim_ex.h
-.\de-170518\exe\display.o: ..\Drivers\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_uart.h
-.\de-170518\exe\display.o: ..\Drivers\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_uart_ex.h
-.\de-170518\exe\display.o: ..\Drivers\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_usart.h
-.\de-170518\exe\display.o: ..\Drivers\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_usart_ex.h
-.\de-170518\exe\display.o: ..\Inc\display.h
-.\de-170518\exe\display.o: ..\Inc\Resource.h
-.\de-170518\exe\display.o: ..\Middlewares\ST\STemWin\inc\GUI.h
-.\de-170518\exe\display.o: ..\Middlewares\ST\STemWin\inc\GUI_ConfDefaults.h
-.\de-170518\exe\display.o: ..\Inc\GUIConf.h
-.\de-170518\exe\display.o: ..\Middlewares\ST\STemWin\inc\GUI_Type.h
-.\de-170518\exe\display.o: ..\Middlewares\ST\STemWin\inc\LCD.h
-.\de-170518\exe\display.o: ..\Middlewares\ST\STemWin\inc\Global.h
-.\de-170518\exe\display.o: ..\Middlewares\ST\STemWin\inc\GUI_Version.h
-.\de-170518\exe\display.o: ..\Inc\one_wire.h
-.\de-170518\exe\display.o: ..\Inc\common.h
-.\de-170518\exe\display.o: ..\Inc\thermostat.h
-.\de-170518\exe\display.o: ..\Inc\LCDConf.h
-.\de-170518\exe\display.o: ..\Middlewares\ST\STemWin\inc\DIALOG.h
-.\de-170518\exe\display.o: ..\Middlewares\ST\STemWin\inc\WM.h
-.\de-170518\exe\display.o: ..\Middlewares\ST\STemWin\inc\WM_GUI.h
-.\de-170518\exe\display.o: ..\Middlewares\ST\STemWin\inc\BUTTON.h
-.\de-170518\exe\display.o: ..\Middlewares\ST\STemWin\inc\DIALOG_Intern.h
-.\de-170518\exe\display.o: ..\Middlewares\ST\STemWin\inc\WIDGET.h
-.\de-170518\exe\display.o: ..\Middlewares\ST\STemWin\inc\WM_Intern.h
-.\de-170518\exe\display.o: ..\Middlewares\ST\STemWin\inc\GUI_Private.h
-.\de-170518\exe\display.o: ..\Middlewares\ST\STemWin\inc\LCD_Protected.h
-.\de-170518\exe\display.o: ..\Middlewares\ST\STemWin\inc\GUI_Debug.h
-.\de-170518\exe\display.o: C:\Keil\ARM\ARMCC\Bin\..\include\stddef.h
-.\de-170518\exe\display.o: ..\Middlewares\ST\STemWin\inc\SCROLLBAR.h
-.\de-170518\exe\display.o: ..\Middlewares\ST\STemWin\inc\WIDGET.h
-.\de-170518\exe\display.o: ..\Middlewares\ST\STemWin\inc\CALENDAR.h
-.\de-170518\exe\display.o: ..\Middlewares\ST\STemWin\inc\CHECKBOX.h
-.\de-170518\exe\display.o: ..\Middlewares\ST\STemWin\inc\CHOOSECOLOR.h
-.\de-170518\exe\display.o: ..\Middlewares\ST\STemWin\inc\CHOOSEFILE.h
-.\de-170518\exe\display.o: ..\Middlewares\ST\STemWin\inc\DROPDOWN.h
-.\de-170518\exe\display.o: ..\Middlewares\ST\STemWin\inc\LISTBOX.h
-.\de-170518\exe\display.o: ..\Middlewares\ST\STemWin\inc\EDIT.h
-.\de-170518\exe\display.o: ..\Middlewares\ST\STemWin\inc\FRAMEWIN.h
-.\de-170518\exe\display.o: ..\Middlewares\ST\STemWin\inc\GRAPH.h
-.\de-170518\exe\display.o: ..\Middlewares\ST\STemWin\inc\HEADER.h
-.\de-170518\exe\display.o: ..\Middlewares\ST\STemWin\inc\ICONVIEW.h
-.\de-170518\exe\display.o: ..\Middlewares\ST\STemWin\inc\IMAGE.h
-.\de-170518\exe\display.o: ..\Middlewares\ST\STemWin\inc\LISTVIEW.h
-.\de-170518\exe\display.o: ..\Middlewares\ST\STemWin\inc\LISTWHEEL.h
-.\de-170518\exe\display.o: ..\Middlewares\ST\STemWin\inc\MENU.h
-.\de-170518\exe\display.o: ..\Middlewares\ST\STemWin\inc\MULTIEDIT.h
-.\de-170518\exe\display.o: ..\Middlewares\ST\STemWin\inc\MULTIPAGE.h
-.\de-170518\exe\display.o: ..\Middlewares\ST\STemWin\inc\DIALOG.h
-.\de-170518\exe\display.o: ..\Middlewares\ST\STemWin\inc\PROGBAR.h
-.\de-170518\exe\display.o: ..\Middlewares\ST\STemWin\inc\RADIO.h
-.\de-170518\exe\display.o: ..\Middlewares\ST\STemWin\inc\SLIDER.h
-.\de-170518\exe\display.o: ..\Middlewares\ST\STemWin\inc\SPINBOX.h
-.\de-170518\exe\display.o: ..\Middlewares\ST\STemWin\inc\SWIPELIST.h
-.\de-170518\exe\display.o: ..\Middlewares\ST\STemWin\inc\TEXT.h
-.\de-170518\exe\display.o: ..\Middlewares\ST\STemWin\inc\TREEVIEW.h
-.\de-170518\exe\display.o: ..\Middlewares\ST\STemWin\inc\KNOB.h
-.\de-170518\exe\display.o: ..\Drivers\BSP\STM32F746\stm32746g.h
+./de-170518/exe/display.o: ../Src/display.c \
+  C:\Keil\ARM\ARMCLANG\Bin\..\include\math.h \
+  C:\Keil\ARM\ARMCLANG\Bin\..\include\stdlib.h \
+  C:\Keil\ARM\ARMCLANG\Bin\..\include\string.h ../Inc\main.h \
+  ../Drivers/CMSIS/Device/ST/STM32F7xx/Include\stm32f7xx.h \
+  ../Drivers/CMSIS/Device/ST/STM32F7xx/Include/stm32f746xx.h \
+  C:/Keil/ARM/PACK/ARM/CMSIS/5.3.0/CMSIS/Include\core_cm7.h \
+  C:\Keil\ARM\ARMCLANG\Bin\..\include\stdint.h \
+  C:/Keil/ARM/PACK/ARM/CMSIS/5.3.0/CMSIS/Include/cmsis_version.h \
+  C:/Keil/ARM/PACK/ARM/CMSIS/5.3.0/CMSIS/Include/cmsis_compiler.h \
+  C:/Keil/ARM/PACK/ARM/CMSIS/5.3.0/CMSIS/Include/cmsis_armclang.h \
+  C:\Keil\ARM\ARMCLANG\Bin\..\include\arm_compat.h \
+  C:\Keil\ARM\ARMCLANG\Bin\..\include\arm_acle.h \
+  C:/Keil/ARM/PACK/ARM/CMSIS/5.3.0/CMSIS/Include/mpu_armv7.h \
+  ../Drivers/CMSIS/Device/ST/STM32F7xx/Include/system_stm32f7xx.h \
+  ../Drivers/STM32F7xx_HAL_Driver/Inc\stm32f7xx_hal.h \
+  ../Inc\stm32f7xx_hal_conf.h \
+  ../Drivers/STM32F7xx_HAL_Driver/Inc\stm32f7xx_hal_rcc.h \
+  ../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_def.h \
+  ../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy/stm32_hal_legacy.h \
+  C:\Keil\ARM\ARMCLANG\Bin\..\include\stdio.h \
+  ../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_rcc_ex.h \
+  ../Drivers/STM32F7xx_HAL_Driver/Inc\stm32f7xx_hal_gpio.h \
+  ../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_gpio_ex.h \
+  ../Drivers/STM32F7xx_HAL_Driver/Inc\stm32f7xx_hal_dma.h \
+  ../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_dma_ex.h \
+  ../Drivers/STM32F7xx_HAL_Driver/Inc\stm32f7xx_hal_cortex.h \
+  ../Drivers/STM32F7xx_HAL_Driver/Inc\stm32f7xx_hal_adc.h \
+  ../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_adc_ex.h \
+  ../Drivers/STM32F7xx_HAL_Driver/Inc\stm32f7xx_hal_crc.h \
+  ../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_crc_ex.h \
+  ../Drivers/STM32F7xx_HAL_Driver/Inc\stm32f7xx_hal_dma2d.h \
+  ../Drivers/STM32F7xx_HAL_Driver/Inc\stm32f7xx_hal_flash.h \
+  ../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_flash_ex.h \
+  ../Drivers/STM32F7xx_HAL_Driver/Inc\stm32f7xx_hal_sdram.h \
+  ../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_ll_fmc.h \
+  ../Drivers/STM32F7xx_HAL_Driver/Inc\stm32f7xx_hal_i2c.h \
+  ../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_i2c_ex.h \
+  ../Drivers/STM32F7xx_HAL_Driver/Inc\stm32f7xx_hal_i2s.h \
+  ../Drivers/STM32F7xx_HAL_Driver/Inc\stm32f7xx_hal_iwdg.h \
+  ../Drivers/STM32F7xx_HAL_Driver/Inc\stm32f7xx_hal_ltdc.h \
+  ../Drivers/STM32F7xx_HAL_Driver/Inc\stm32f7xx_hal_pwr.h \
+  ../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_pwr_ex.h \
+  ../Drivers/STM32F7xx_HAL_Driver/Inc\stm32f7xx_hal_qspi.h \
+  ../Drivers/STM32F7xx_HAL_Driver/Inc\stm32f7xx_hal_rtc.h \
+  ../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_rtc_ex.h \
+  ../Drivers/STM32F7xx_HAL_Driver/Inc\stm32f7xx_hal_sai.h \
+  ../Drivers/STM32F7xx_HAL_Driver/Inc\stm32f7xx_hal_tim.h \
+  ../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_tim_ex.h \
+  ../Drivers/STM32F7xx_HAL_Driver/Inc\stm32f7xx_hal_uart.h \
+  ../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_uart_ex.h \
+  ../Drivers/STM32F7xx_HAL_Driver/Inc\stm32f7xx_hal_usart.h \
+  ../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_usart_ex.h \
+  ../Inc\display.h ../Inc\Resource.h ../Middlewares/ST/STemWin/inc\GUI.h \
+  ../Middlewares/ST/STemWin/inc/GUI_ConfDefaults.h ../Inc\GUIConf.h \
+  ../Middlewares/ST/STemWin/inc/GUI_Type.h \
+  ../Middlewares/ST/STemWin/inc/LCD.h \
+  ../Middlewares/ST/STemWin/inc/Global.h \
+  ../Middlewares/ST/STemWin/inc/GUI_Version.h ../Inc\one_wire.h \
+  ../Inc\common.h ../Inc\thermostat.h ../Inc\LCDConf.h \
+  ../Middlewares/ST/STemWin/inc\DIALOG.h \
+  ../Middlewares/ST/STemWin/inc/WM.h \
+  ../Middlewares/ST/STemWin/inc/WM_GUI.h \
+  ../Middlewares/ST/STemWin/inc/BUTTON.h \
+  ../Middlewares/ST/STemWin/inc/DIALOG_Intern.h \
+  ../Middlewares/ST/STemWin/inc/WIDGET.h \
+  ../Middlewares/ST/STemWin/inc/WM_Intern.h \
+  ../Middlewares/ST/STemWin/inc/GUI_Private.h \
+  ../Middlewares/ST/STemWin/inc/LCD_Protected.h \
+  ../Middlewares/ST/STemWin/inc/GUI_Debug.h \
+  C:\Keil\ARM\ARMCLANG\Bin\..\include\stddef.h \
+  ../Middlewares/ST/STemWin/inc/SCROLLBAR.h \
+  ../Middlewares/ST/STemWin/inc/CALENDAR.h \
+  ../Middlewares/ST/STemWin/inc/CHECKBOX.h \
+  ../Middlewares/ST/STemWin/inc/CHOOSECOLOR.h \
+  ../Middlewares/ST/STemWin/inc/CHOOSEFILE.h \
+  ../Middlewares/ST/STemWin/inc/DROPDOWN.h \
+  ../Middlewares/ST/STemWin/inc/LISTBOX.h \
+  ../Middlewares/ST/STemWin/inc/EDIT.h \
+  ../Middlewares/ST/STemWin/inc/FRAMEWIN.h \
+  ../Middlewares/ST/STemWin/inc/GRAPH.h \
+  ../Middlewares/ST/STemWin/inc/HEADER.h \
+  ../Middlewares/ST/STemWin/inc/ICONVIEW.h \
+  ../Middlewares/ST/STemWin/inc/IMAGE.h \
+  ../Middlewares/ST/STemWin/inc/LISTVIEW.h \
+  ../Middlewares/ST/STemWin/inc/LISTWHEEL.h \
+  ../Middlewares/ST/STemWin/inc/MENU.h \
+  ../Middlewares/ST/STemWin/inc/MULTIEDIT.h \
+  ../Middlewares/ST/STemWin/inc/MULTIPAGE.h \
+  ../Middlewares/ST/STemWin/inc/DIALOG.h \
+  ../Middlewares/ST/STemWin/inc/PROGBAR.h \
+  ../Middlewares/ST/STemWin/inc/RADIO.h \
+  ../Middlewares/ST/STemWin/inc/SLIDER.h \
+  ../Middlewares/ST/STemWin/inc/SPINBOX.h \
+  ../Middlewares/ST/STemWin/inc/SWIPELIST.h \
+  ../Middlewares/ST/STemWin/inc/TEXT.h \
+  ../Middlewares/ST/STemWin/inc/TREEVIEW.h \
+  ../Middlewares/ST/STemWin/inc/KNOB.h \
+  ../Drivers/BSP/STM32F746\stm32746g.h

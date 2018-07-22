@@ -66,7 +66,7 @@
 //
 // Buffers / VScreens
 //
-#define NUM_BUFFERS  1 // Number of multiple buffers to be used (at least 1 buffer)
+#define NUM_BUFFERS  3 // Number of multiple buffers to be used (at least 1 buffer)
 #define NUM_VSCREENS 1 // Number of virtual  screens to be used (at least 1 screen)
 
 //

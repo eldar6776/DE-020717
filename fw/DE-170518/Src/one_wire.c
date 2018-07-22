@@ -59,7 +59,9 @@ uint8_t onewire_last_discrepancy;
 uint8_t onewire_last_device_flag;
 uint8_t onewire_sensor_number;
 uint8_t onewire_crc;
-
+uint8_t temperature_setpoint;
+uint8_t temperature_difference;
+uint16_t temperature_measured;
 
 /* Private Macro -------------------------------------------------------------*/
 /* Private Function Prototype ------------------------------------------------*/
@@ -99,10 +101,9 @@ void ONEWIRE_Init(void)
 	else 
 	{ 
 		ONEWIRE_SensorNotConnected();
-		ONEWIRE_SetUsart(ONEWIRE_9600);
-		__HAL_UART_FLUSH_DRREGISTER(&huart2);
-		HAL_UART_Receive_IT(&huart2, onewire_buffer, ONEWIRE_PACKET_SIZE);
-		OnewireState = ONEWIRE_PACKET_PENDING;
+		OnewireState = ONEWIRE_RECEIVE;
+        ONEWIRE_StartTimer(ONEWIRE_UPDATE_TIME);
+        ONEWIRE_StartTimeoutTimer(ONEWIRE_PENDING_TIMEOUT);
 	}
 }
 
@@ -111,15 +112,12 @@ void ONEWIRE_Service(void)
 {
 	static uint8_t ow_pcnt = 0;
 	static uint8_t ds18b20_cnt = 0;
-    static uint8_t sens_flag;
+    static uint8_t sens_flag = 0;
 	uint16_t sensor_temp;
 	uint8_t e;
 	
-	if(!IsONEWIRE_TimerExpired())	// process timing
-	{
-		return;
-	}
-	else if(IsONEWIRE_SensorConnected()) // if ds18b20 digital temperature sensor used
+	if(!IsONEWIRE_TimerExpired()) return;
+	else if(IsONEWIRE_SensorConnected())    // if ds18b20 digital temperature sensor used
 	{
 		/** ============================================================================*/
 		/**			R E A D 	D S 1 8 B 2 0 	  S E N S O R 		V A L U E			*/
@@ -185,7 +183,16 @@ void ONEWIRE_Service(void)
 	}
 	else // use onewire bus as usart half duplex
 	{
-		if (OnewireState == ONEWIRE_PACKET_RECEIVED)
+        if (OnewireState == ONEWIRE_RECEIVE)
+        {
+            ClearBuffer(onewire_buffer,  ONEWIRE_BUF_SIZE);
+            ONEWIRE_SetUsart(ONEWIRE_9600);
+            __HAL_UART_FLUSH_DRREGISTER(&huart2);
+			HAL_UART_Receive_IT(&huart2, onewire_buffer, 25);
+			OnewireState = ONEWIRE_PACKET_PENDING;
+            ONEWIRE_StartTimeoutTimer(ONEWIRE_PENDING_TIMEOUT);
+        }
+		else if (OnewireState == ONEWIRE_PACKET_RECEIVED)
 		{
 			/** ==========================================================================*/
 			/**			S E T		N E W		B U T T O N 		S T A T E			  */
@@ -218,98 +225,40 @@ void ONEWIRE_Service(void)
 			/** ==========================================================================*/
 			if(onewire_buffer[14] == ACK)
 			{
-				Thermostat_1.valve = onewire_buffer[15];
-				Thermostat_1.fan_mode = onewire_buffer[16];
-				Thermostat_1.fan_speed = onewire_buffer[17];
-				Thermostat_1.ctrl_mode = onewire_buffer[18];
-				Thermostat_1.actual_temperature = ((onewire_buffer[19] << 8) + onewire_buffer[20]);
-				Thermostat_1.set_temperature = ((onewire_buffer[21] << 8) + onewire_buffer[22]);
-				Thermostat_1.set_temperature_diff = onewire_buffer[23];
-				Thermostat_1.fan_low_speed_band = onewire_buffer[24];
-				Thermostat_1.fan_middle_speed_band = onewire_buffer[25];
-				Thermostat_1.fan_speed_diff = onewire_buffer[26];
+				temperature_setpoint = onewire_buffer[15];
+                temperature_difference = onewire_buffer[16];
+                //temperature_measured = ((onewire_buffer[17] << 8) + onewire_buffer[18]);
+                if(!IsTemperatureRegulatorOn()) Thermostat_1.ctrl_mode = THERMOSTAT_CONTROL_MODE_OFF;
+                else if(IsTemperatureRegulatorOn())
+                {
+                    if(IsTemperatureRegulatorHeating()) Thermostat_1.ctrl_mode = THERMOSTAT_CONTROL_MODE_HEATING;
+                    else if(IsTemperatureRegulatorCooling()) Thermostat_1.ctrl_mode = THERMOSTAT_CONTROL_MODE_COOLING;
+                }
+                else if(TemperatureRegulatorOneCycleOn())
+                {
+                    if(IsTemperatureRegulatorHeating()) Thermostat_1.ctrl_mode = THERMOSTAT_CONTROL_MODE_HEAT_ONE_CYCLE;
+                    else if(IsTemperatureRegulatorCooling()) Thermostat_1.ctrl_mode = THERMOSTAT_CONTROL_MODE_COOL_ONE_CYCLE;
+                }
                 
-                HAL_I2C_Mem_Write(&hi2c4, EEPROM_I2C_ADDRESS_A01,EE_THERMOSTAT_SET_POINT, I2C_MEMADD_SIZE_16BIT,  &onewire_buffer[21], 2, 100);
-                HAL_I2C_IsDeviceReady(&hi2c4, EEPROM_I2C_ADDRESS_A01, 1000, 1);
-                HAL_I2C_Mem_Write(&hi2c4, EEPROM_I2C_ADDRESS_A01,EE_THERMOSTAT_SET_POINT_DIFF, I2C_MEMADD_SIZE_16BIT,  &onewire_buffer[23], 1, 100);
-                HAL_I2C_IsDeviceReady(&hi2c4, EEPROM_I2C_ADDRESS_A01, 1000, 1);
-                HAL_I2C_Mem_Write(&hi2c4, EEPROM_I2C_ADDRESS_A01,EE_THERMOSTAT_CTRL_MODE, I2C_MEMADD_SIZE_16BIT,  &onewire_buffer[18], 1, 100);
-                HAL_I2C_IsDeviceReady(&hi2c4, EEPROM_I2C_ADDRESS_A01, 1000, 1);
-                HAL_I2C_Mem_Write(&hi2c4, EEPROM_I2C_ADDRESS_A01,EE_THERMOSTAT_FAN_LOW_SPEED_BAND, I2C_MEMADD_SIZE_16BIT,  &onewire_buffer[24], 1, 100);
-                HAL_I2C_IsDeviceReady(&hi2c4, EEPROM_I2C_ADDRESS_A01, 1000, 1);
-                HAL_I2C_Mem_Write(&hi2c4, EEPROM_I2C_ADDRESS_A01,EE_THERMOSTAT_FAN_MIDDLE_SPEED_BAND, I2C_MEMADD_SIZE_16BIT,  &onewire_buffer[25], 1, 100);
-                HAL_I2C_IsDeviceReady(&hi2c4, EEPROM_I2C_ADDRESS_A01, 1000, 1);
-                HAL_I2C_Mem_Write(&hi2c4, EEPROM_I2C_ADDRESS_A01,EE_THERMOSTAT_FAN_SPEED_DIFF, I2C_MEMADD_SIZE_16BIT,  &onewire_buffer[26], 1, 100);
-                HAL_I2C_IsDeviceReady(&hi2c4, EEPROM_I2C_ADDRESS_A01, 1000, 1);
-                
+                Thermostat_1.set_temperature = ((temperature_setpoint & 0x3f) * 10);
+                Thermostat_1.set_temperature_diff = (temperature_difference & 0x7f);
+                temperature_measured = Thermostat_1.actual_temperature;
                 DISPLAY_SetpointUpdateSet();
 			}
-            /** ==========================================================================*/
-			/**			    S E T	    	N T C        C O N S T A N T S		          */
-			/** ==========================================================================*/
-            if(onewire_buffer[27] == ACK)                       //(ACK = SET; NAK = SKEEP)
-            {
-                ambient_ntc_b_value = ((onewire_buffer[28] << 8) + onewire_buffer[29]);
-                fancoil_ntc_b_value = ((onewire_buffer[30] << 8) + onewire_buffer[31]);
-                
-                HAL_I2C_Mem_Write(&hi2c4, EEPROM_I2C_ADDRESS_A01, EE_AMBIENT_TEMPERATURE_NTC_BETA, I2C_MEMADD_SIZE_16BIT,  &onewire_buffer[28], 2, 100);
-                HAL_I2C_IsDeviceReady(&hi2c4, EEPROM_I2C_ADDRESS_A01, 1000, 1);
-                HAL_I2C_Mem_Write(&hi2c4, EEPROM_I2C_ADDRESS_A01, EE_FANCOIL_TEMPERATURE_NTC_BETA, I2C_MEMADD_SIZE_16BIT,  &onewire_buffer[30], 2, 100);
-                HAL_I2C_IsDeviceReady(&hi2c4, EEPROM_I2C_ADDRESS_A01, 1000, 1);
-                
-                if (onewire_buffer[32] == 1) 
-                {
-                    FANCOIL_RelayTypeReset();
-                    FANCOIL_TriacTypeSet();
-                    
-                }
-                else if (onewire_buffer[32] == 2) 
-                {
-                    FANCOIL_TriacTypeReset();
-                    FANCOIL_RelayTypeSet();
-                }
-                
-                HAL_I2C_Mem_Write(&hi2c4, EEPROM_I2C_ADDRESS_A01, EE_FANCOIL_CONTROL_TYPE, I2C_MEMADD_SIZE_16BIT,  &onewire_buffer[32], 1, 100);
-                HAL_I2C_IsDeviceReady(&hi2c4, EEPROM_I2C_ADDRESS_A01, 1000, 1);
-            }
 			/** ==========================================================================*/
 			/**		    S E T		N E W		D I S P L A Y    M E S S A G E            */
 			/** ==========================================================================*/
-			if(onewire_buffer[33] == ACK)                       //(ACK = SET; NAK = SKEEP)
+			if(onewire_buffer[19] == ACK)                       //(ACK = SET; NAK = SKEEP)
 			{
-                display_message_id = onewire_buffer[34];        // DISPLAY IMAGE ID
-                display_message_time = onewire_buffer[35];      // DISPLAY_IMAGE TIME
-                buzzer_mode = onewire_buffer[36];               // BUZZER MODE
-                buzzer_repeat_time = onewire_buffer[37];        // BUZZER REPEAT TIME
+                display_message_id = onewire_buffer[20];        // DISPLAY IMAGE ID
+                display_message_time = onewire_buffer[21];      // DISPLAY_IMAGE TIME
+                buzzer_mode = onewire_buffer[22];               // BUZZER MODE
+                buzzer_repeat_time = onewire_buffer[23];        // BUZZER REPEAT TIME
                 DISPLAY_UpdateSet();
 			}
-            /** ==========================================================================*/
-			/**             S E T       S E N S O R         S T A T U S                   */
-			/** ==========================================================================*/
-            if(onewire_buffer[38] == ACK)                           //(ACK = SET; NAK = SKEEP)
-			{
-                if (onewire_buffer[39] == 0) FANCOIL_NTC_SensorNotConnected();
-                else if (onewire_buffer[39] == 1) FANCOIL_NTC_SensorConnected();
-                
-                if (onewire_buffer[40] == 0) AMBIENT_NTC_SensorNotConnected();
-                else if (onewire_buffer[40] == 1) AMBIENT_NTC_SensorConnected();
-                
-                if (onewire_buffer[41] == 0) AMBIENT_LIGHT_SensorNotConnected();
-                else if (onewire_buffer[41] == 1) AMBIENT_LIGHT_SensorConnected();
-                
-                if (onewire_buffer[42] == 0) ONEWIRE_SensorNotConnected();
-                else if (onewire_buffer[42] == 1) ONEWIRE_SensorConnected();
-                
-                if (onewire_buffer[43] == 0) FAN_RPM_SensorNotConnected();
-                else if (onewire_buffer[43] == 1) FAN_RPM_SensorConnected();
-            }
-            /** ==========================================================================*/
-			/**                     S E T		    C O M M A N  D		                  */
-			/** ==========================================================================*/
-            // onewire_buffer[44] == ACK)                           //(ACK = SET; NAK = SKEEP)
-            // onewire_buffer[45] = IsBUTTON_OpenDoorActiv()
-            //
+      
 			OnewireState = ONEWIRE_PACKET_SEND;
+            ONEWIRE_StartTimer(ONEWIRE_RX_TX_DELAY);
 		}
 		else if(OnewireState == ONEWIRE_PACKET_SEND)
 		{
@@ -317,93 +266,61 @@ void ONEWIRE_Service(void)
 			/** ==========================================================================*/
 			/**			   S E T			P A C K E T			H E A D E R			  	  */
 			/** ==========================================================================*/
-			onewire_buffer[0] = ONEWIRE_INTERFACE_ADDRESS;
+			onewire_buffer[0] = ONEWIRE_ROOM_CONTROLLER_ADDRESS;
 			onewire_buffer[1] = ONEWIRE_THERMOSTAT_ADDRESS;
 			/** ==========================================================================*/
 			/**			S E T		 B U T T O N 		S T A T E			              */
 			/** ==========================================================================*/
-			if (IsBUTTON_StateChangedActiv())  onewire_buffer[2] = ACK; // (ACK = SET; NAK = SKEEP)
-            else onewire_buffer[2] = NAK;	
-            BUTTON_StateChangedReset();                   
-			onewire_buffer[3] = BUTTON_GetState(GUI_ID_BUTTON_Dnd);	// DND BUTTON STATE 	(0 = RELEASED; 1 = PRESSED)
-			onewire_buffer[4] = BUTTON_GetState(GUI_ID_BUTTON_Sos);	// SOS BUTTON STATE		(0 = RELEASED; 1 = PRESSED)
-			onewire_buffer[5] = BUTTON_GetState(GUI_ID_BUTTON_Maid);// HM CALL BUTTON STATE	(0 = RELEASED; 1 = PRESSED)
-            
-			/** ==========================================================================*/
-			/**			S E T		D A T E 	& 		T I M E				              */
-			/** ==========================================================================*/
-			onewire_buffer[6] = NAK;			// (ACK = SET; NAK = SKEEP)
-			onewire_buffer[7] = date.Date;		// DATE DAY		(0x01 - 0x31)
-			onewire_buffer[8] = date.WeekDay;	// DATE WEEKDAY	(0x01 - 0x07)
-			onewire_buffer[9] = date.Month;		// DATE MONTH	(0x01 - 0x12)
-			onewire_buffer[10] = date.Year;		// DATE YEAR	(0x00 - 0x99)
-			onewire_buffer[11] = time.Hours;	// TIME HOURS	(0x00 - 0x23)
-			onewire_buffer[12] = time.Minutes;	// TIME MINUTE	(0x00 - 0x59)
-			onewire_buffer[13] = time.Seconds;	// TIME SECONDS	(0x00 - 0x59)
+            if(IsBUTTON_StateChangedActiv())                    // (ACK = SET; NAK = SKEEP)
+            {
+                onewire_buffer[2] = ACK;  
+                onewire_buffer[3] = BUTTON_GetState(GUI_ID_BUTTON_Dnd);	// DND BUTTON STATE 	(0 = RELEASED; 1 = PRESSED)
+                onewire_buffer[4] = BUTTON_GetState(GUI_ID_BUTTON_Sos);	// SOS BUTTON STATE		(0 = RELEASED; 1 = PRESSED)
+                onewire_buffer[5] = BUTTON_GetState(GUI_ID_BUTTON_Maid);// HM CALL BUTTON STATE	(0 = RELEASED; 1 = PRESSED)
+                BUTTON_StateChangedReset();
+            }
 			/** ==========================================================================*/
 			/**			S E T		T H E R M O S T A T 	P A R A M E T E R S			  */
 			/** ==========================================================================*/
-			onewire_buffer[14] = NAK;						//				(ACK = SET; NAK = SKEEP)
-			onewire_buffer[15] = Thermostat_1.valve;		// VALVE		(0 = OFF; 1 = COOLING VALVE ON)
-			onewire_buffer[16] = Thermostat_1.fan_mode;		// FAN_MODE		(0 = AUTO; 1 = LOW; 2 = MIDDLE; 3 = HIGH)
-			onewire_buffer[17] = Thermostat_1.fan_speed;	// FAN_SPEED	(0 = OFF; 1 = LOW; 2 = MIDDLE; 3 = HIGH)
-			onewire_buffer[18] = Thermostat_1.ctrl_mode;	// CONTROL MODE	(0 = OFF; 1 = COOLING; 2 = HEATING)
-			onewire_buffer[19] = (Thermostat_1.actual_temperature >> 8);	// ACTUAL TEMPERATURE MSB		
-			onewire_buffer[20] = (Thermostat_1.actual_temperature & 0xff);	// ACTUAL TEMPERATURE LSB		
-			onewire_buffer[21] = (Thermostat_1.set_temperature >> 8);		// SETPOINT TEMPERATURE MSB			
-			onewire_buffer[22] = (Thermostat_1.set_temperature & 0xff);		// SETPOINT TEMPERATURE LSB			
-			onewire_buffer[23] = Thermostat_1.set_temperature_diff;			// SETPOINT TEMPERATURE DIFFERENCE			
-			onewire_buffer[24] = Thermostat_1.fan_low_speed_band;			// FAN LOW SPEED BAND DIFFERENCE			
-			onewire_buffer[25] = Thermostat_1.fan_middle_speed_band;		// FAN MIDDLE SPEED BAND DIFFERENCE		
-			onewire_buffer[26] = Thermostat_1.fan_speed_diff;				// FAN SPEED TRESHOLD DIFFERENCE
-            /** ==========================================================================*/
-			/**			    S E T	    	N T C        C O N S T A N T S		          */
-			/** ==========================================================================*/
-            onewire_buffer[27] = NAK;                           // (ACK = SET; NAK = SKEEP)
-            onewire_buffer[28] = (ambient_ntc_b_value >> 8);
-            onewire_buffer[29] = (ambient_ntc_b_value & 0xff);
-            onewire_buffer[30] = (fancoil_ntc_b_value >> 8);
-            onewire_buffer[31] = (fancoil_ntc_b_value & 0xff);
-            if (IsFANCOIL_TriacTypeActiv())         onewire_buffer[32] = 1;
-            else if (IsFANCOIL_RelayTypeActiv())    onewire_buffer[32] = 2;
+			if(IsONEWIRE_UpdateThermostatParameterActiv())      // (ACK = SET; NAK = SKEEP)
+            {
+                onewire_buffer[6] = ACK;
+                temperature_setpoint &= 0xc0;
+                temperature_setpoint += ((Thermostat_1.set_temperature / 10) & 0x3f);
+                onewire_buffer[7] = temperature_setpoint;	    
+                onewire_buffer[8] = temperature_difference;	
+                onewire_buffer[9] = (temperature_measured >> 8);
+                onewire_buffer[10] = (temperature_measured & 0xff);
+                ONEWIRE_UpdateThermostatParameterReset();
+            }
 			/** ==========================================================================*/
 			/**		S E T		A C T I V		D I S P L A Y    M E S S A G E		      */
 			/** ==========================================================================*/
-			onewire_buffer[33] = NAK; 								//(ACK = SET; NAK = SKEEP)
-            onewire_buffer[34] = display_message_id;
-            onewire_buffer[35] = display_message_time;
-            onewire_buffer[36] = buzzer_mode;
-            onewire_buffer[37] = buzzer_repeat_time;
-            /** ==========================================================================*/
-			/**             S E T       S E N S O R         S T A T U S                   */
-			/** ==========================================================================*/
-            onewire_buffer[38] = NAK;
-            if (IsFANCOIL_NTC_SensorConnected())    onewire_buffer[39] = 1;
-            if (IsAMBIENT_NTC_SensorConnected())    onewire_buffer[40] = 1;
-            if (IsAMBIENT_LIGHT_SensorConnected())  onewire_buffer[41] = 1;
-            if (IsONEWIRE_SensorConnected())        onewire_buffer[42] = 1;
-            if (IsFAN_RPM_SensorConnected())        onewire_buffer[43] = 1;
+            if(IsONEWIRE_UpdateDisplayImageActiv())             // (ACK = SET; NAK = SKEEP)
+            {
+                onewire_buffer[11] = ACK; 								
+                onewire_buffer[12] = display_message_id;
+                onewire_buffer[13] = display_message_time;
+                onewire_buffer[14] = buzzer_mode;
+                onewire_buffer[15] = buzzer_repeat_time;
+                ONEWIRE_UpdateDisplayImageReset();
+            }
             /** ==========================================================================*/
 			/**                     S E T		    C O M M A N  D		                  */
 			/** ==========================================================================*/
-            onewire_buffer[44] = NAK; 								//(ACK = SET; NAK = SKEEP)
-            
             if(IsBUTTON_OpenDoorActiv())
             {
+                onewire_buffer[16] = ACK;
                 BUTTON_OpenDoorReset();
-                onewire_buffer[44] = ACK;
-                onewire_buffer[45] = 1;
             }
 			/** ==========================================================================*/
 			/**		G E T		P A C K E T		C R C		A N D		S E N D			  */
 			/** ==========================================================================*/
-			onewire_buffer[63] = CalcCRC(onewire_buffer, 63);
-			HAL_Delay(10);
-			HAL_UART_Transmit(&huart2, onewire_buffer, ONEWIRE_PACKET_SIZE, ONEWIRE_TRANSFER_TIMEOUT);
-			while (huart2.gState != HAL_UART_STATE_READY) continue;
-            __HAL_UART_FLUSH_DRREGISTER(&huart2);
-			HAL_UART_Receive_IT(&huart2, onewire_buffer, ONEWIRE_PACKET_SIZE);
-			OnewireState = ONEWIRE_PACKET_PENDING;
+			onewire_buffer[17] = CalcCRC(onewire_buffer, 17);
+			HAL_UART_Transmit_IT(&huart2, onewire_buffer, 18);
+            ONEWIRE_StartTimer(ONEWIRE_UPDATE_TIME);
+            ONEWIRE_StartTimeoutTimer(ONEWIRE_PENDING_TIMEOUT);
+            if(++sens_flag > 20) TOUCH_SCREEN_Enable();
 		}
 	}
 }
@@ -431,9 +348,11 @@ void ONEWIRE_SetUsart(uint32_t setup)
 	huart2.Init.HwFlowCtl  		= UART_HWCONTROL_NONE;
 	huart2.Init.Mode       		= UART_MODE_TX_RX;
 	huart2.Init.OverSampling	= UART_OVERSAMPLING_16;
-	huart2.AdvancedInit.AdvFeatureInit = UART_ADVFEATURE_NO_INIT;
+    huart2.Init.OneBitSampling = UART_ONE_BIT_SAMPLE_ENABLE;
+    huart2.AdvancedInit.OverrunDisable = UART_ADVFEATURE_OVERRUN_DISABLE;
+	huart2.AdvancedInit.AdvFeatureInit = UART_ADVFEATURE_RXOVERRUNDISABLE_INIT;
     
-	if (HAL_UART_DeInit(&huart2) != HAL_OK) Error_Handler();
+    if (HAL_UART_DeInit(&huart2) != HAL_OK) Error_Handler();
 	if (HAL_UART_Init(&huart2) != HAL_OK) Error_Handler();
 }
 

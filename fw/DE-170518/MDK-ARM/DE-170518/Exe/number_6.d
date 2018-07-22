@@ -1,9 +1,8 @@
-.\de-170518\exe\number_6.o: ..\Src\Display\number_6.c
-.\de-170518\exe\number_6.o: C:\Keil\ARM\ARMCC\Bin\..\include\stdlib.h
-.\de-170518\exe\number_6.o: ..\Middlewares\ST\STemWin\inc\GUI.h
-.\de-170518\exe\number_6.o: ..\Middlewares\ST\STemWin\inc\GUI_ConfDefaults.h
-.\de-170518\exe\number_6.o: ..\Inc\GUIConf.h
-.\de-170518\exe\number_6.o: ..\Middlewares\ST\STemWin\inc\GUI_Type.h
-.\de-170518\exe\number_6.o: ..\Middlewares\ST\STemWin\inc\LCD.h
-.\de-170518\exe\number_6.o: ..\Middlewares\ST\STemWin\inc\Global.h
-.\de-170518\exe\number_6.o: ..\Middlewares\ST\STemWin\inc\GUI_Version.h
+./de-170518/exe/number_6.o: ../Src/Display/number_6.c \
+  C:\Keil\ARM\ARMCLANG\Bin\..\include\stdlib.h \
+  ../Middlewares/ST/STemWin/inc\GUI.h \
+  ../Middlewares/ST/STemWin/inc/GUI_ConfDefaults.h ../Inc\GUIConf.h \
+  ../Middlewares/ST/STemWin/inc/GUI_Type.h \
+  ../Middlewares/ST/STemWin/inc/LCD.h \
+  ../Middlewares/ST/STemWin/inc/Global.h \
+  ../Middlewares/ST/STemWin/inc/GUI_Version.h

@@ -46,7 +46,7 @@ extern THERMOSTAT_TypeDef Thermostat_1;
 #define FANCOIL_PIPE_TEMPERATURE_HIGH_ERROR         7
 #define THERMOSTAT_MAX_TEMPERATURE			        320		// 32,0°C max. thermostat setup temperature
 #define THERMOSTAT_MIN_TEMPERATURE			        140		// 14,0°C min. thermostat setup temperature
-#define THERMOSTAT_STARTUP_DELAY                    5000    // 5 sec. power on startup time
+#define THERMOSTAT_POWER_ON_DELAY_TIME              2345    // 2,5 sec. power on startup time
 
 
 /* Exported Variable   -------------------------------------------------------*/
@@ -60,9 +60,11 @@ extern uint32_t thermostat_flags;
 #define THERMOSTAT_StartTimer(TIME)			(thermostat_timer = TIME)
 #define THERMOSTAT_StopTimer()				(thermostat_timer = 0)
 #define IsTHERMOSTAT_TimerExpired()			(thermostat_timer == 0)
+
 #define THERMOSTAT_StartFanTimer(TIME)		(thermostat_fan_timer = TIME)
 #define THERMOSTAT_StopFanTimer()			(thermostat_fan_timer = 0)
 #define IsTHERMOSTAT_FanTimerExpired()		(thermostat_fan_timer == 0)
+
 #define THERMOSTAT_StartValveTimer(TIME)	(thermostat_valve_timer = TIME)
 #define THERMOSTAT_StopValveTimer()			(thermostat_valve_timer = 0)
 #define IsTHERMOSTAT_ValveTimerExpired()	(thermostat_valve_timer == 0)
@@ -70,15 +72,19 @@ extern uint32_t thermostat_flags;
 #define THERMOSTAT_ActivSet()               (thermostat_flags |= (1 << 0))
 #define THERMOSTAT_ActivReset()             (thermostat_flags &= (~ (1 << 0)))
 #define IsTHERMOSTAT_Activ()                ((thermostat_flags & (1 << 0)) != 0)
+
 #define AMBIENT_NTC_SensorConnected()       (thermostat_flags |= (1 << 1))
 #define AMBIENT_NTC_SensorNotConnected()    (thermostat_flags &= (~ (1 << 1)))
 #define IsAMBIENT_NTC_SensorConnected()     ((thermostat_flags & (1 << 1)) != 0)
+
 #define FANCOIL_NTC_SensorConnected()       (thermostat_flags |= (1 << 2))
 #define FANCOIL_NTC_SensorNotConnected()    (thermostat_flags &= (~ (1 << 2)))
 #define IsFANCOIL_NTC_SensorConnected()     ((thermostat_flags & (1 << 2)) != 0)
+
 #define FANCOIL_TriacTypeSet()              (thermostat_flags |= (1 << 3))
 #define FANCOIL_TriacTypeReset()            (thermostat_flags &= (~ (1 << 3)))
 #define IsFANCOIL_TriacTypeActiv()          ((thermostat_flags & (1 << 3)) != 0)
+
 #define FANCOIL_RelayTypeSet()              (thermostat_flags |= (1 << 4))
 #define FANCOIL_RelayTypeReset()            (thermostat_flags &= (~ (1 << 4)))
 #define IsFANCOIL_RelayTypeActiv()          ((thermostat_flags & (1 << 4)) != 0)

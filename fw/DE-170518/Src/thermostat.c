@@ -91,13 +91,13 @@ void THERMOSTAT_Init(void)
 	Thermostat_1.fan_speed = 0;					                // fancoil fan at startup off
 	Thermostat_1.ctrl_mode = 0;                                 // thermostat cooling mode
 	Thermostat_1.actual_temperature = 220;		                // proces variable
-	Thermostat_1.set_temperature = 120;			                // thermostat set point 23,0°C
+	Thermostat_1.set_temperature = 10;			                // thermostat set point 23,0°C
 	Thermostat_1.set_temperature_diff = 15;		                // actual = set point => controller off, actual = set point +/- difference => controller on
 	Thermostat_1.fan_low_speed_band = 10;		                // set point +/- 1,0°C low speed fan zone
 	Thermostat_1.fan_middle_speed_band = 20;	                // set point +/- 2,0°C middle speed fan zone
 	Thermostat_1.fan_speed_diff = 3;			                // 0,3°C treshold for fan speed change
     
-    THERMOSTAT_StartTimer(THERMOSTAT_STARTUP_DELAY);
+    THERMOSTAT_StartTimer(THERMOSTAT_POWER_ON_DELAY_TIME);
 }
 
 
@@ -115,7 +115,16 @@ void THERMOSTAT_Service(void)
 	/**		U P D A T E 	M E A S U R E D    T E M P E R A T U R E 	V A L U E	*/
 	/** ============================================================================*/
     if(IsONEWIRE_SensorConnected())         Thermostat_1.actual_temperature = ds18b20_1.temperature;
-	else if(IsAMBIENT_NTC_SensorConnected())Thermostat_1.actual_temperature = ambient_ntc_temperature;
+	else if(IsAMBIENT_NTC_SensorConnected())
+    {
+        Thermostat_1.actual_temperature = ambient_ntc_temperature;
+        
+        if(temperature_measured != Thermostat_1.actual_temperature)
+        {
+            temperature_measured = Thermostat_1.actual_temperature;
+            ONEWIRE_UpdateThermostatParameterSet();
+        }
+    }
     else return;
     /** ============================================================================*/
 	/**		    R U N       O N C E     R P M       S E N S O R     C H E C K	    */
@@ -124,24 +133,38 @@ void THERMOSTAT_Service(void)
     {
         Thermostat_1.actual_temperature = 220;
         
-        if(Thermostat_1.set_temperature == 120)
+        if(Thermostat_1.set_temperature == 10)
         {
-            Thermostat_1.set_temperature = 130;
+            Thermostat_1.set_temperature = 20;
             Thermostat_1.ctrl_mode = THERMOSTAT_CONTROL_MODE_COOLING; 
             THERMOSTAT_StartTimer(FAN_RPM_MEASURE_TIME * 2);
             DISPLAY_SetpointUpdateSet();
         }
-        else if((Thermostat_1.set_temperature == 130) && IsTHERMOSTAT_TimerExpired()) 
+        else if((Thermostat_1.set_temperature == 20) && IsTHERMOSTAT_TimerExpired()) 
         {
-            Thermostat_1.set_temperature = 140;
+            Thermostat_1.set_temperature = 30;
             Thermostat_1.ctrl_mode = THERMOSTAT_CONTROL_MODE_OFF;
             DISPLAY_SetpointUpdateSet();
         }
     }
-    else if(!IsSYSTEM_StartupActiv() && (Thermostat_1.set_temperature == 140)) 
+    else if(!IsSYSTEM_StartupActiv() && (Thermostat_1.set_temperature == 30)) 
     {
-        Thermostat_1.set_temperature = Thermostat_1.actual_temperature;
-        Thermostat_1.ctrl_mode = THERMOSTAT_CONTROL_MODE_COOLING; 
+        if(!IsTemperatureRegulatorOn()) Thermostat_1.ctrl_mode = THERMOSTAT_CONTROL_MODE_OFF;
+        else if(IsTemperatureRegulatorOn())
+        {
+            if(IsTemperatureRegulatorHeating()) Thermostat_1.ctrl_mode = THERMOSTAT_CONTROL_MODE_HEATING;
+            else if(IsTemperatureRegulatorCooling()) Thermostat_1.ctrl_mode = THERMOSTAT_CONTROL_MODE_COOLING;
+        }
+        else if(TemperatureRegulatorOneCycleOn())
+        {
+            if(IsTemperatureRegulatorHeating()) Thermostat_1.ctrl_mode = THERMOSTAT_CONTROL_MODE_HEAT_ONE_CYCLE;
+            else if(IsTemperatureRegulatorCooling()) Thermostat_1.ctrl_mode = THERMOSTAT_CONTROL_MODE_COOL_ONE_CYCLE;
+        }
+        
+        Thermostat_1.set_temperature = ((temperature_setpoint & 0x3f) * 10);
+        Thermostat_1.set_temperature_diff = (temperature_difference & 0x7f);
+        temperature_measured = Thermostat_1.actual_temperature;
+        ONEWIRE_UpdateThermostatParameterSet();
         DISPLAY_SetpointUpdateSet();
     }
 	/** ============================================================================*/
@@ -186,7 +209,7 @@ void THERMOSTAT_Service(void)
 	{
 		if(IsTHERMOSTAT_ValveTimerExpired())
 		{
-			if(Thermostat_1.ctrl_mode == THERMOSTAT_CONTROL_MODE_COOLING) FANCOIL_CoolValveOn();
+			if((Thermostat_1.ctrl_mode > 0) && (Thermostat_1.ctrl_mode < 5)) FANCOIL_CoolValveOn();
 			else FANCOIL_CoolValveOff();
 			THERMOSTAT_StartValveTimer(FANCOIL_VALVE_MIN_ON_TIME);
 			Thermostat_1.valve = Thermostat_1.ctrl_mode;			
@@ -230,8 +253,8 @@ void THERMOSTAT_Service(void)
                     if(Thermostat_1.ctrl_mode == THERMOSTAT_CONTROL_MODE_COOL_ONE_CYCLE) 
                     {
                         Thermostat_1.ctrl_mode = THERMOSTAT_CONTROL_MODE_OFF;
-                        HAL_I2C_Mem_Write(&hi2c4, EEPROM_I2C_ADDRESS_A01,EE_THERMOSTAT_CTRL_MODE, I2C_MEMADD_SIZE_16BIT,  &Thermostat_1.ctrl_mode, 1, 100);
-                        HAL_I2C_IsDeviceReady(&hi2c4, EEPROM_I2C_ADDRESS_A01, 1000, 1);
+                        TemperatureRegulatorOneCycleOff();
+                        ONEWIRE_UpdateThermostatParameterSet();
                     }
 				}
 			}
@@ -302,8 +325,8 @@ void THERMOSTAT_Service(void)
                     if(Thermostat_1.ctrl_mode == THERMOSTAT_CONTROL_MODE_HEAT_ONE_CYCLE) 
                     {
                         Thermostat_1.ctrl_mode = THERMOSTAT_CONTROL_MODE_OFF;
-                        HAL_I2C_Mem_Write(&hi2c4, EEPROM_I2C_ADDRESS_A01,EE_THERMOSTAT_CTRL_MODE, I2C_MEMADD_SIZE_16BIT,  &Thermostat_1.ctrl_mode, 1, 100);
-                        HAL_I2C_IsDeviceReady(&hi2c4, EEPROM_I2C_ADDRESS_A01, 1000, 1);
+                        TemperatureRegulatorOneCycleOff();
+                        ONEWIRE_UpdateThermostatParameterSet();
                     }
 				}
 			}
