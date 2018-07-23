@@ -59,9 +59,7 @@ uint8_t onewire_last_discrepancy;
 uint8_t onewire_last_device_flag;
 uint8_t onewire_sensor_number;
 uint8_t onewire_crc;
-uint8_t temperature_setpoint;
-uint8_t temperature_difference;
-uint16_t temperature_measured;
+
 
 /* Private Macro -------------------------------------------------------------*/
 /* Private Function Prototype ------------------------------------------------*/
@@ -223,27 +221,21 @@ void ONEWIRE_Service(void)
 			/** ==========================================================================*/
 			/**			S E T		T H E R M O S T A T 	P A R A M E T E R S			  */
 			/** ==========================================================================*/
-			if(onewire_buffer[14] == ACK)
+			if(onewire_buffer[14] >= ACK)
 			{
-				temperature_setpoint = onewire_buffer[15];
-                temperature_difference = onewire_buffer[16];
-                //temperature_measured = ((onewire_buffer[17] << 8) + onewire_buffer[18]);
-                if(!IsTemperatureRegulatorOn()) Thermostat_1.ctrl_mode = THERMOSTAT_CONTROL_MODE_OFF;
-                else if(IsTemperatureRegulatorOn())
-                {
-                    if(IsTemperatureRegulatorHeating()) Thermostat_1.ctrl_mode = THERMOSTAT_CONTROL_MODE_HEATING;
-                    else if(IsTemperatureRegulatorCooling()) Thermostat_1.ctrl_mode = THERMOSTAT_CONTROL_MODE_COOLING;
-                }
-                else if(TemperatureRegulatorOneCycleOn())
-                {
-                    if(IsTemperatureRegulatorHeating()) Thermostat_1.ctrl_mode = THERMOSTAT_CONTROL_MODE_HEAT_ONE_CYCLE;
-                    else if(IsTemperatureRegulatorCooling()) Thermostat_1.ctrl_mode = THERMOSTAT_CONTROL_MODE_COOL_ONE_CYCLE;
-                }
+                if(onewire_buffer[14] == FANCOIL_RPM_SENSOR_ERROR)          FANCOIL_RPM_SensorErrorReset();
+                else if(onewire_buffer[14] == FANCOIL_NTC_SENSOR_ERROR)     FANCOIL_NTC_SensorErrorReset();
+                else if(onewire_buffer[14] == FANCOIL_LO_TEMP_ERROR)        FANCOIL_LoTempErrorReset();
+                else if(onewire_buffer[14] == FANCOIL_HI_TEMP_ERROR)        FANCOIL_HiTempErrorReset();
+                else if(onewire_buffer[14] == FANCOIL_FREEZING_PROTECTION)  FANCOIL_FreezingAlarmReset();
+                else if(onewire_buffer[14] == THERMOSTAT_NTC_SENSOR_ERROR)  THERMOSTAT_NTC_SensorErrorReset();
                 
-                Thermostat_1.set_temperature = ((temperature_setpoint & 0x3f) * 10);
-                Thermostat_1.set_temperature_diff = (temperature_difference & 0x7f);
-                temperature_measured = Thermostat_1.actual_temperature;
-                DISPLAY_SetpointUpdateSet();
+                if(!IsONEWIRE_UpdateThermostatParameterActiv())
+                {
+                   temperature_setpoint = onewire_buffer[15];
+                   temperature_difference = onewire_buffer[16];
+                   DISPLAY_SetpointUpdateSet();
+                }
 			}
 			/** ==========================================================================*/
 			/**		    S E T		N E W		D I S P L A Y    M E S S A G E            */
@@ -282,15 +274,44 @@ void ONEWIRE_Service(void)
 			/** ==========================================================================*/
 			/**			S E T		T H E R M O S T A T 	P A R A M E T E R S			  */
 			/** ==========================================================================*/
-			if(IsONEWIRE_UpdateThermostatParameterActiv())      // (ACK = SET; NAK = SKEEP)
+            if(IsONEWIRE_UpdateThermostatParameterActiv())      // (ACK = SET; NAK = SKEEP)
             {
-                onewire_buffer[6] = ACK;
-                temperature_setpoint &= 0xc0;
-                temperature_setpoint += ((Thermostat_1.set_temperature / 10) & 0x3f);
+                if(IsFANCOIL_RPM_SensorErrorActiv())        
+                {
+                    onewire_buffer[6] = FANCOIL_RPM_SENSOR_ERROR;
+                    FANCOIL_RPM_SensorErrorReset();
+                }
+                else if(IsFANCOIL_NTC_SensorErrorActiv())   
+                {
+                    onewire_buffer[6] = FANCOIL_NTC_SENSOR_ERROR;
+                    FANCOIL_NTC_SensorErrorReset();
+                }
+                else if(IsFANCOIL_LoTempErrorActiv())      
+                {
+                    onewire_buffer[6] = FANCOIL_LO_TEMP_ERROR;
+                    FANCOIL_LoTempErrorReset();
+                }
+                else if(IsFANCOIL_HiTempErrorActiv())       
+                {
+                    onewire_buffer[6] = FANCOIL_HI_TEMP_ERROR;
+                    FANCOIL_HiTempErrorReset();
+                }
+                else if(IsFANCOIL_FreezingAlarmActiv())    
+                {
+                    onewire_buffer[6] = FANCOIL_FREEZING_PROTECTION;
+                    FANCOIL_FreezingAlarmReset();
+                }
+                else if(IsTHERMOSTAT_NTC_SensorErrorActiv())
+                {
+                    onewire_buffer[6] = THERMOSTAT_NTC_SENSOR_ERROR;
+                    THERMOSTAT_NTC_SensorErrorReset();
+                }
+                else onewire_buffer[6] = ACK;
+                
                 onewire_buffer[7] = temperature_setpoint;	    
                 onewire_buffer[8] = temperature_difference;	
-                onewire_buffer[9] = (temperature_measured >> 8);
-                onewire_buffer[10] = (temperature_measured & 0xff);
+                onewire_buffer[9] = (room_temperature >> 8);
+                onewire_buffer[10] = (room_temperature & 0xff);
                 ONEWIRE_UpdateThermostatParameterReset();
             }
 			/** ==========================================================================*/

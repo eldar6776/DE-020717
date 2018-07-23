@@ -72,12 +72,12 @@ __IO uint32_t SystickCnt;
 __IO uint32_t sys_flags;
 __IO uint32_t sys_timer;
 __IO uint32_t anin_timer;
+__IO uint32_t fancoil_ntc_timer;
 
 uint32_t triac_timer;
 uint32_t triac_on_time;
 uint32_t fan_rpm_timer;
 uint32_t fan_rpm_pulse;
-uint32_t fan_rpm_actual;
 
 uint16_t ambient_ntc_b_value = AMBIENT_NTC_B_VALUE;
 uint16_t fancoil_ntc_b_value = FANCOIL_NTC_B_VALUE;
@@ -151,6 +151,7 @@ float AMBIENT_NTC_GetResistance(uint16_t adc_value);
 float AMBIENT_NTC_GetTemperature(float ntc_resistance);
 float FANCOIL_NTC_GetResistance(uint16_t adc_value);
 float FANCOIL_NTC_GetTemperature(float ntc_resistance);
+
 
 /* Program Code  -------------------------------------------------------------*/
 int main(void)
@@ -404,15 +405,8 @@ void HAL_SYSTICK_Callback(void)
         BUZZER_Off();
     }
     
-	if(++rtc_bckp_tmr > 999U)
-	{
-		rtc_bckp_tmr = 0;
-		HAL_RTC_GetDate(&hrtc, &date, RTC_FORMAT_BCD);
-		HAL_RTCEx_BKUPWrite(&hrtc, RTC_BKP_DR2, date.Date);
-		HAL_RTCEx_BKUPWrite(&hrtc, RTC_BKP_DR3, date.Month);
-		HAL_RTCEx_BKUPWrite(&hrtc, RTC_BKP_DR4, date.WeekDay);
-		HAL_RTCEx_BKUPWrite(&hrtc, RTC_BKP_DR5, date.Year);
-	}
+    if (IsFANCOIL_CoolingValveOn()) ++fancoil_ntc_timer;
+    else fancoil_ntc_timer = 0;
 	
 	if(hadc3.Instance == ADC3)
 	{
@@ -432,7 +426,7 @@ void HAL_SYSTICK_Callback(void)
 	if(onewire_timer) --onewire_timer;
 	if(thermostat_timer) --thermostat_timer;
 	if(thermostat_fan_timer) --thermostat_fan_timer;
-	if(thermostat_valve_timer) --thermostat_valve_timer;
+	if(valve_timer) --valve_timer;
 	if(display_timer) --display_timer;
 	if(display_date_time_timer) --display_date_time_timer;
     if(display_screensaver_timer) --display_screensaver_timer;
@@ -445,16 +439,20 @@ void HAL_SYSTICK_Callback(void)
         if(--onewire_timeout_timer == 0) OnewireState = ONEWIRE_RECEIVE;
     }
     
-    if(IsTHERMOSTAT_Activ() && triac_on_time) 
+    
+    if(fan_rpm_timer) 
     {
-        if(fan_rpm_timer) --fan_rpm_timer;
-        else
+        if(--fan_rpm_timer == 0)
         {
-            if(IsSYSTEM_StartupActiv() && (fan_rpm_pulse > 5)) FAN_RPM_SensorConnected();
-            else if(IsFAN_RPM_SensorConnected() && (fan_rpm_pulse < 10)) Thermostat_1.ctrl_mode = FANCOIL_FAN_RPM_ERROR;
-            FAN_RPM_StartTimer(FAN_RPM_MEASURE_TIME);
-            fan_rpm_pulse = 0;
-        }        
+            /*  run fancoil fan motor shortly with triac driver to sense hall rpm sensor if available, 
+            *   this will define functions used to controll hardware interface and type of temperature controller
+            *   rpm sensor will be also used for cleaning request when motor start to slow down due to dust collect
+            *   if sensor not available,than tree speed motor is used for fancoil fan, and controller is simpler without
+            *   precise timings for triac triggering releasing from runtime code two interrupt request services
+            */ 
+            if(IsSYSTEM_StartupActiv() && (fan_rpm_pulse > 10)) FANCOIL_RPM_SensorConnected();
+            else if(IsFANCOIL_RPM_SensorConnected() && (fan_rpm_pulse < 10)) FANCOIL_RPM_SensorErrorSet();            
+        }
     }
 }
 
@@ -760,34 +758,18 @@ static void MX_RTC_Init(void)
 	hrtc.Init.OutPutPolarity = RTC_OUTPUT_POLARITY_HIGH;
 	hrtc.Init.OutPutType = RTC_OUTPUT_TYPE_OPENDRAIN;
 
-	if (HAL_RTC_Init(&hrtc) != HAL_OK)
-	{
-		Error_Handler();
-	}
-	
-	if (HAL_RTCEx_BKUPRead(&hrtc, RTC_BKP_DR1) != 0xA3A5)
-	{
-		time.Hours = 0x08;
-		time.Minutes = 0x40;
-		time.Seconds = 0;
-		date.Date = 0x21;
-		date.Month = 0x05;
-		date.WeekDay = 0x01;
-		date.Year = 0x18;
-		HAL_RTC_SetTime(&hrtc, &time, RTC_FORMAT_BCD);
-		HAL_RTC_SetDate(&hrtc, &date, RTC_FORMAT_BCD);
-		HAL_RTC_WaitForSynchro(&hrtc);
-		HAL_RTCEx_BKUPWrite(&hrtc, RTC_BKP_DR1, 0xA3A5);
-	}
-	else 
-	{
-		date.Date = HAL_RTCEx_BKUPRead(&hrtc, RTC_BKP_DR2);
-		date.Month = HAL_RTCEx_BKUPRead(&hrtc, RTC_BKP_DR3);
-		date.WeekDay = HAL_RTCEx_BKUPRead(&hrtc, RTC_BKP_DR4);
-		date.Year = HAL_RTCEx_BKUPRead(&hrtc, RTC_BKP_DR5);
-		HAL_RTC_SetDate(&hrtc, &date, RTC_FORMAT_BCD);
-		HAL_RTC_WaitForSynchro(&hrtc);
-	}
+	if (HAL_RTC_Init(&hrtc) != HAL_OK) Error_Handler();
+
+    time.Hours = 0x12;
+    time.Minutes = 0x00;
+    time.Seconds = 0x00;
+    date.Date = 0x01;
+    date.Month = 0x01;
+    date.WeekDay = 0x01;
+    date.Year = 0x18;
+    HAL_RTC_SetTime(&hrtc, &time, RTC_FORMAT_BCD);
+    HAL_RTC_SetDate(&hrtc, &date, RTC_FORMAT_BCD);
+    HAL_RTC_WaitForSynchro(&hrtc);
 }
 
 
@@ -1005,10 +987,14 @@ static void ADC3_Read(void)
         for(uint8_t t = 0; t < 10; t++) ambient_ntc_temperature += ambient_ntc_temperature_sample_value[t];
         ambient_ntc_temperature = ambient_ntc_temperature / 10;
         
-        if((ambient_ntc_temperature > 4000) || (ambient_ntc_temperature < 100)) AMBIENT_NTC_SensorNotConnected();
+        if((ambient_ntc_temperature < 100) || (ambient_ntc_temperature > 4000)) 
+        {
+            if(IsTHERMOSTAT_NTC_SensorConnected()) THERMOSTAT_NTC_SensorErrorSet();
+            THERMOSTAT_NTC_SensorNotConnected();
+        }
         else 
         {
-            AMBIENT_NTC_SensorConnected();
+            THERMOSTAT_NTC_SensorConnected();
             adc_calc = AMBIENT_NTC_GetResistance(ambient_ntc_temperature);
             adc_calc = AMBIENT_NTC_GetTemperature(adc_calc);
             
@@ -1037,7 +1023,11 @@ static void ADC3_Read(void)
         for(uint8_t t = 0; t < 10; t++) fancoil_ntc_temperature += fancoil_ntc_temperature_sample_value[t];
         fancoil_ntc_temperature = fancoil_ntc_temperature / 10;
         
-        if((fancoil_ntc_temperature > 4000) || (fancoil_ntc_temperature < 100)) FANCOIL_NTC_SensorNotConnected();
+        if((fancoil_ntc_temperature < 100) || (fancoil_ntc_temperature > 4000)) 
+        {
+            if(IsFANCOIL_NTC_SensorConnected()) FANCOIL_NTC_SensorErrorSet();
+            FANCOIL_NTC_SensorNotConnected();
+        }
         else 
         {
             FANCOIL_NTC_SensorConnected();
@@ -1053,53 +1043,26 @@ static void ADC3_Read(void)
             else fancoil_ntc_temperature = (uint16_t) (adc_calc * 10);
         }
         
-        ++adc_cnt;
-    }
-    else if(adc_cnt == 2)
-    {
-        sConfig.Channel = ADC_CHANNEL_13;
-        sConfig.Rank = ADC_REGULAR_RANK_1;
-        sConfig.SamplingTime = ADC_SAMPLETIME_15CYCLES;
-        HAL_ADC_ConfigChannel(&hadc3, &sConfig);
-        HAL_ADC_Start(&hadc3);
-        HAL_ADC_PollForConversion(&hadc3, 10);
-        ambient_light_sample_value[ambient_light_sample_cnt] = HAL_ADC_GetValue(&hadc3);
-        if(++ambient_light_sample_cnt >  5) ambient_light_sample_cnt = 0;
-        ambient_light = 0;
-        for(uint8_t t = 0; t < 5; t++) ambient_light += ambient_light_sample_value[t];
-        ambient_light = ambient_light / 5;
-        
-        if(!IsTHERMOSTAT_Activ())
-        {
-            FANCOIL_TriacTypeReset();
-            FANCOIL_RelayTypeReset();
-        } 
-        else if(ambient_light >= 4000)  
-        {
-            AMBIENT_LIGHT_SensorNotConnected();
-            FANCOIL_RelayTypeReset();
-            FANCOIL_TriacTypeSet();
-        }
-        else if(ambient_light <= 100)  
-        {
-            AMBIENT_LIGHT_SensorNotConnected();
-            FANCOIL_TriacTypeReset();
-            FANCOIL_RelayTypeSet();
-        }
-        else if((ambient_light > 100) && (ambient_light < 4000)) 
-        {
-            AMBIENT_LIGHT_SensorConnected();
-            
-            if (adc_cnt == 0)
-            {
-                HAL_I2C_Mem_Read(&hi2c4, EEPROM_I2C_ADDRESS_A01, EE_FANCOIL_CONTROL_TYPE, I2C_MEMADD_SIZE_16BIT,  &adc_cnt, 1, 100);
-                if (adc_cnt == 1) FANCOIL_TriacTypeSet();
-                else if (adc_cnt == 2) FANCOIL_RelayTypeSet();
-            }
-        }
-        
         adc_cnt = 0;
     }
+//    else if(adc_cnt == 2)
+//    {
+//        sConfig.Channel = ADC_CHANNEL_13;
+//        sConfig.Rank = ADC_REGULAR_RANK_1;
+//        sConfig.SamplingTime = ADC_SAMPLETIME_15CYCLES;
+//        HAL_ADC_ConfigChannel(&hadc3, &sConfig);
+//        HAL_ADC_Start(&hadc3);
+//        HAL_ADC_PollForConversion(&hadc3, 10);
+//        ambient_light_sample_value[ambient_light_sample_cnt] = HAL_ADC_GetValue(&hadc3);
+//        if(++ambient_light_sample_cnt >  5) ambient_light_sample_cnt = 0;
+//        ambient_light = 0;
+//        for(uint8_t t = 0; t < 5; t++) ambient_light += ambient_light_sample_value[t];
+//        ambient_light = ambient_light / 5;
+//        
+//        if((ambient_light > 100) && (ambient_light < 4000))  AMBIENT_LIGHT_SensorConnected();
+//        else AMBIENT_LIGHT_SensorNotConnected();
+//        adc_cnt = 0;
+//    }
 }
 
 
@@ -1126,7 +1089,7 @@ static void MX_ADC3_Init(void)
 	hadc3.Init.NbrOfDiscConversion = 0;
 	hadc3.Init.ExternalTrigConvEdge = ADC_EXTERNALTRIGCONVEDGE_NONE;
 	hadc3.Init.DataAlign = ADC_DATAALIGN_RIGHT;
-	hadc3.Init.NbrOfConversion = 3;
+	hadc3.Init.NbrOfConversion = 2;
 	hadc3.Init.DMAContinuousRequests = DISABLE;
 	hadc3.Init.EOCSelection = ADC_EOC_SINGLE_CONV;
 
@@ -1286,7 +1249,7 @@ void FAN_SetSpeed(uint8_t fan_speed)
     __HAL_GPIO_EXTI_CLEAR_IT(GPIO_PIN_13);
 	__HAL_TIM_CLEAR_FLAG(&htim3, TIM_FLAG_UPDATE);
     HAL_GPIO_WritePin(GPIOC, GPIO_PIN_8, GPIO_PIN_RESET);
-    FAN_RPM_StartTimer(FAN_RPM_MEASURE_TIME);
+    
     fan_rpm_pulse = 0;
 	triac_on_time = 0;
 	triac_timer = 0;

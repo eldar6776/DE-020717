@@ -26,8 +26,8 @@
 #define EE_THERMOSTAT_SET_POINT                 0x0010
 #define EE_THERMOSTAT_SET_POINT_DIFF            0x0012
 #define EE_THERMOSTAT_CTRL_MODE                 0x0013
-#define EE_THERMOSTAT_FAN_LOW_SPEED_BAND        0x0014
-#define EE_THERMOSTAT_FAN_MIDDLE_SPEED_BAND     0x0015
+#define EE_THERMOSTAT_FAN_LOW_SPEED_DIFF        0x0014
+#define EE_THERMOSTAT_FAN_MIDDLE_SPEED_DIFF     0x0015
 #define EE_THERMOSTAT_FAN_SPEED_DIFF            0x0016
 #define EE_FANCOIL_CONTROL_TYPE                 0x0017
 #define EE_AMBIENT_TEMPERATURE_NTC_BETA         0x0020
@@ -74,13 +74,7 @@ typedef struct
 #define RTC_SECONDS_PER_HOUR            3600
 #define RTC_SECONDS_PER_MINUTE          60
 
-#define FAN_OFF							0
-#define FAN_CONST_SPEED_LOW				75
-#define FAN_CONST_SPEED_MIDDLE			70
-#define FAN_CONST_SPEED_HIGH			60
-#define FAN_PID_SPEED_MIN               78
-#define FAN_PID_SPEED_MAX               20
-#define FAN_RPM_MEASURE_TIME            1234
+
 
 #define BUZZER_MODE_OFF                 0
 #define BUZZER_MODE_SHORT               1
@@ -96,6 +90,7 @@ extern __IO uint32_t sys_flags;
 extern __IO uint32_t sys_timer;
 extern __IO uint32_t SystickCnt;
 extern __IO uint32_t anin_timer;
+extern __IO uint32_t fancoil_ntc_timer;
 
 extern uint16_t ambient_ntc_b_value;
 extern uint16_t fancoil_ntc_b_value;
@@ -111,16 +106,16 @@ extern uint8_t buzzer_mode;
 extern uint8_t buzzer_pcnt;
 extern uint32_t fan_rpm_timer;
 extern uint32_t fan_rpm_pulse;
-extern uint32_t fan_rpm_actual;
+
 
 
 #define SYSTEM_StartTimer(TIME)             (sys_timer = TIME)
 #define SYSTEM_StopTimer()                  (sys_timer = 0)
 #define IsSYSTEM_TimerExpired()             (sys_timer == 0)
 
-#define FAN_RPM_StartTimer(TIME)            (fan_rpm_timer = TIME)
-#define FAN_RPM_StopTimer()                 (fan_rpm_timer = 0)
-#define IsFAN_RPM_TimerExpired()            (fan_rpm_timer == 0)
+#define FANCOIL_RPM_StartTimer(TIME)        (fan_rpm_timer = TIME)
+#define FANCOIL_RPM_StopTimer()             (fan_rpm_timer = 0)
+#define IsFANCOIL_RPM_TimerExpired()        (fan_rpm_timer == 0)
 
 #define BUZZER_StartRepeatTimer(TIME)       (buzzer_repeat_timer = TIME)
 #define BUZZER_StopRepeatTimer()            (buzzer_repeat_timer = 0)
@@ -134,7 +129,6 @@ extern uint32_t fan_rpm_actual;
 #define ADC_StopTimer()                     (anin_timer = 0)
 #define IsADC_TimerExpired()                (anin_timer == 0)
 
-
 #define BUZZER_SignalOn()                   (sys_flags |= (1 << 0))
 #define BUZZER_SignalOff()                  (sys_flags &= (~ (1 << 0)))
 #define IsBUZZER_SignalActiv()              ((sys_flags & (1 << 0)) != 0)
@@ -143,21 +137,25 @@ extern uint32_t fan_rpm_actual;
 #define BUZZER_RepeatTimerReset()           (sys_flags &= (~ (1 << 1)))
 #define IsBUZZER_RepeatTimerActiv()         ((sys_flags & (1 << 1)) != 0)
 
-#define FAN_RPM_SensorConnected()           (sys_flags |= (1 << 2)) 
-#define FAN_RPM_SensorNotConnected()        (sys_flags &= (~ (1 << 2)))
-#define IsFAN_RPM_SensorConnected()         ((sys_flags & (1 << 2)) != 0)
+#define FANCOIL_RPM_SensorConnected()       (sys_flags |= (1 << 2)) 
+#define FANCOIL_RPM_SensorNotConnected()    (sys_flags &= (~ (1 << 2)))
+#define IsFANCOIL_RPM_SensorConnected()     ((sys_flags & (1 << 2)) != 0)
 
-#define AMBIENT_LIGHT_SensorConnected()     (sys_flags |= (1 << 3)) 
-#define AMBIENT_LIGHT_SensorNotConnected()  (sys_flags &= (~ (1 << 3)))
-#define IsAMBIENT_LIGHT_SensorConnected()   ((sys_flags & (1 << 3)) != 0)
+#define FANCOIL_RPM_SensorErrorSet()        (sys_flags |= (1 << 3)) 
+#define FANCOIL_RPM_SensorErrorReset()      (sys_flags &= (~ (1 << 3)))
+#define IsFANCOIL_RPM_SensorErrorActiv()    ((sys_flags & (1 << 3)) != 0)
 
-#define SYSTEM_StartupReset()               (sys_flags |= (1 << 4)) 
-#define SYSTEM_StartupSet()                 (sys_flags &= (~ (1 << 4)))
-#define IsSYSTEM_StartupActiv()             ((sys_flags & (1 << 4)) == 0)
+#define AMBIENT_LIGHT_SensorConnected()     (sys_flags |= (1 << 4)) 
+#define AMBIENT_LIGHT_SensorNotConnected()  (sys_flags &= (~ (1 << 4)))
+#define IsAMBIENT_LIGHT_SensorConnected()   ((sys_flags & (1 << 4)) != 0)
 
-#define TOUCH_SCREEN_Enable()               (sys_flags |= (1 << 5)) 
-#define TOUCH_SCREEN_Disable()              (sys_flags &= (~ (1 << 5)))
-#define IsTOUCH_SCREEN_Enabled()            ((sys_flags & (1 << 5)) != 0)
+#define SYSTEM_StartupReset()               (sys_flags |= (1 << 5)) 
+#define SYSTEM_StartupSet()                 (sys_flags &= (~ (1 << 5)))
+#define IsSYSTEM_StartupActiv()             ((sys_flags & (1 << 5)) == 0)
+
+#define TOUCH_SCREEN_Enable()               (sys_flags |= (1 << 6)) 
+#define TOUCH_SCREEN_Disable()              (sys_flags &= (~ (1 << 6)))
+#define IsTOUCH_SCREEN_Enabled()            ((sys_flags & (1 << 6)) != 0)
 
 #define BUZZER_On()                         (HAL_GPIO_WritePin(GPIOD, GPIO_PIN_4, GPIO_PIN_SET))
 #define BUZZER_Off()				        (HAL_GPIO_WritePin(GPIOD, GPIO_PIN_4, GPIO_PIN_RESET))

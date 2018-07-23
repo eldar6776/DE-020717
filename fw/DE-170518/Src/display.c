@@ -278,13 +278,14 @@ void DISPLAY_Service(void)
 		{
 			btn_increase_old_state = 1;
             
-            if(Thermostat_1.set_temperature <= (THERMOSTAT_MAX_TEMPERATURE - 10)) 
+            if((temperature_setpoint & 0x3f) < THERMOSTAT_MAX_TEMPERATURE) ++temperature_setpoint; 
+            else 
             {
-                Thermostat_1.set_temperature += 10;
-                DISPLAY_TemperatureSetPoint();
+                temperature_setpoint &= 0xc0;
+                temperature_setpoint += THERMOSTAT_MAX_TEMPERATURE;
             }
-            else Thermostat_1.set_temperature = THERMOSTAT_MAX_TEMPERATURE;
             
+            DISPLAY_TemperatureSetPoint();
             ONEWIRE_UpdateThermostatParameterSet();
             buzzer_mode = BUZZER_BUTTON_PRESSED;
             BUZZER_SignalOn();
@@ -295,13 +296,14 @@ void DISPLAY_Service(void)
 		{
 			btn_decrease_old_state = 1;
             
-            if(Thermostat_1.set_temperature >= (THERMOSTAT_MIN_TEMPERATURE + 10)) 
+            if((temperature_setpoint & 0x3f) > THERMOSTAT_MIN_TEMPERATURE) --temperature_setpoint;
+            else 
             {
-                Thermostat_1.set_temperature -= 10;
-                DISPLAY_TemperatureSetPoint();
+                temperature_setpoint &= 0xc0;
+                temperature_setpoint += THERMOSTAT_MIN_TEMPERATURE;
             }
-            else Thermostat_1.set_temperature = THERMOSTAT_MIN_TEMPERATURE;
             
+            DISPLAY_TemperatureSetPoint();
             ONEWIRE_UpdateThermostatParameterSet();
             buzzer_mode = BUZZER_BUTTON_PRESSED;
             BUZZER_SignalOn();
@@ -442,7 +444,7 @@ static void DISPLAY_DateTime(void)
         HAL_RTC_GetDate(&hrtc, &date, RTC_FORMAT_BCD);
         ClearBuffer(display_buffer,  sizeof(display_buffer));
         GUI_MULTIBUF_BeginEx(1);
-		GUI_ClearRect(240, 250, 480, 270);   
+		GUI_ClearRect(240, 220, 480, 270);   
 		buff_bcnt = 0;
 		display_buffer[buff_bcnt++] = (date.Date >> 4) + 48;
 		display_buffer[buff_bcnt++] = (date.Date & 0x0f) + 48;
@@ -479,8 +481,8 @@ static void DISPLAY_TemperatureSetPoint(void)
     
     if(ActivDisplay == DISPLAY_THERMOSTAT)
 	{
-        dec = (Thermostat_1.set_temperature / 100);
-        unit = ((Thermostat_1.set_temperature - (dec * 100)) / 10);
+        dec = ((temperature_setpoint & 0x3f) / 10);
+        unit = ((temperature_setpoint & 0x3f) - (dec * 10));
         
         GUI_MULTIBUF_BeginEx(1);
         GUI_ClearRect(120, 140, 250, 220);
